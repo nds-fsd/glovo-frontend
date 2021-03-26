@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <p>FirstPage</p>
     </div>
-  );
+  )
 }
 
 export default App;
