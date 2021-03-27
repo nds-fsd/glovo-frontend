@@ -33,7 +33,6 @@
         "jsx-a11y/no-noninteractive-element-interactions": "off",
         "no-underscore-dangle": "off",
         "react/self-closing-comp": "off",
-        "arrow-body-style": "off",
-        "endOfLine": "auto"
+        "arrow-body-style": "off"
     }
 }
