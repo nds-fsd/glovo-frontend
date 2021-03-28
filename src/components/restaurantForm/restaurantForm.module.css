@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    height: 580px;
+    border: 1px solid red;
+    padding: 20px;
+}
+.subContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 5em;
+    border: 1px solid blue;
+}
+.address{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.buttons{
+    justify-content: flex-end;
+}
+.textarea{
+    max-width: 500px;
+    max-height: 115px;
+    min-width: 362px;
+    min-height: 51px;
+}
