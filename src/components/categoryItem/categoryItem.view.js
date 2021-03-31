@@ -4,7 +4,7 @@
 // add the id of the categoryin the mapas key
 /* eslint-disable no-console */
 import styles from './categoryItem.module.css';
-import { testCategoryList } from '../../TestCategoryList';
+import { testCategoryList } from '../../assets/hardcoded/TestCategoryList';
 
 export const CategoryItem = () => {
   return (
