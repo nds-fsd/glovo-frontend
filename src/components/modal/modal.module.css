@@ -1,0 +1,28 @@
+._container {
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    margin-left: -300px;
+    margin-top: -210px;
+  }
+  
+  ._modal {
+      width: 600px;
+      height: 420px;
+      background: #333333;
+      border: 5px solid #BDBDBD;
+      box-sizing: border-box;
+      border-radius: 15px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: 10px 20px;    
+  }
+
+  ._btnClose {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }

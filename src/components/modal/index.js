@@ -1,3 +1,3 @@
-import { Modal } from './modal.view';
+import Modal  from './modal.view';
 
 export default Modal;

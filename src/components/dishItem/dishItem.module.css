@@ -1,0 +1,7 @@
+._container {
+    width: 140px;
+    height: 138px;
+    min-width: 140px;
+    border: 1px solid black;
+    margin: 0 15px;
+}
