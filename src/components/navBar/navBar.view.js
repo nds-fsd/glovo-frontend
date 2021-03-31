@@ -1,4 +1,4 @@
-import styles from './navbar.module.css';
+import styles from './navBar.module.css';
 
 export const Navbar = ({ children }) => (
   <div className={styles.container}>
