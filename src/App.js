@@ -1,7 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RestaurantCreationPage from './pages/restaurantCreationPage';
-import { RESTAURANT_CREATION_PAGE } from './router/router';
+import RestaurantViewPage from './pages/restaurantViewPage';
+import { RESTAURANT_CREATION_PAGE, RESTAURANT_VIEW_PAGE } from './router/router';
 
 function App() {
   return (
@@ -9,6 +10,9 @@ function App() {
       <Switch>
         <Route path={RESTAURANT_CREATION_PAGE}>
           <RestaurantCreationPage />
+        </Route>
+        <Route path={RESTAURANT_VIEW_PAGE}>
+          <RestaurantViewPage />
         </Route>
       </Switch>
     </Router>
