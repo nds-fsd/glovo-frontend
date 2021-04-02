@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styles from './restaurantItem.module.css';
 
-export const RestaurantItem = () => {};
+export const RestaurantItem = ({ children }) => {
+  return <div className={styles.restoItem}>{children}</div>;
+};

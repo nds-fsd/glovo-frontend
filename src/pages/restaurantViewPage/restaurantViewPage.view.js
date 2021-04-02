@@ -4,10 +4,10 @@ import NavBar from '../../components/navBar';
 import DishList from '../../components/dishList';
 
 export const RestaurantViewPage = () => {
-    return (
-        <div>
-            <NavBar />
-            <DishList />
-        </div>
-    )
+  return (
+    <div className={styles.container}>
+      <NavBar />
+      <DishList />
+    </div>
+  );
 };

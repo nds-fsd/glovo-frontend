@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 // splice the array before mapping
 /* eslint-disable react/no-array-index-key */
