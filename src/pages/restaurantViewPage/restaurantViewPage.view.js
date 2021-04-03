@@ -7,6 +7,7 @@ import Modal from '../../components/modal';
 import RestaurantForm from '../../components/restaurantForm';
 
 export const RestaurantViewPage = () => {
+<<<<<<< HEAD
   const { path, url } = useRouteMatch();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -30,6 +31,12 @@ export const RestaurantViewPage = () => {
           <DishList />
         </Route>
       </Switch>
+=======
+  return (
+    <div className={styles.container}>
+      <NavBar />
+      <DishList />
+>>>>>>> Development
     </div>
   );
 };
