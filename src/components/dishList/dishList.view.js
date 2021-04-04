@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import React from 'react';
 import { DISHEXAMPLES } from '../../assets/hardcoded/dishexamples';
 import styles from './dishList.module.css';
@@ -9,16 +10,15 @@ import DishItem from '../dishItem';
 export const DishList = () => {
   return (
     <div className={styles.container}>
-      {DISHEXAMPLES.map((category) => {
-        const name = Object.keys(category);
+      {DISHEXAMPLES.map((cat) => {
         return (
           <>
-            <p>{name}</p>
+            <p>{cat.name}</p>
             <div className={styles.category_container}>
-              {category[name].map((dish) => {
+              {cat.dishList.map((dish) => {
                 return (
                   <DishItem
-                    name={dish.dishName}
+                    name={dish.name}
                     description={dish.dishDescription}
                     price={dish.price}
                   />
