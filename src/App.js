@@ -19,7 +19,7 @@ function App() {
         <Route path={RESTAURANT_CREATION_PAGE}>
           <RestaurantCreationPage />
         </Route>
-        <Route path={RESTAURANT_VIEW_PAGE}>
+        <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
           <RestaurantViewPage />
         </Route>
       </Switch>
