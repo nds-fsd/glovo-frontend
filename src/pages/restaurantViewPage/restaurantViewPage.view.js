@@ -6,7 +6,6 @@ import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import DishList from '../../components/dishList';
 import Modal from '../../components/modal';
 import RestaurantForm from '../../components/restaurantForm';
-import RestaurantItem from '../../components/restaurantItem';
 
 export const RestaurantViewPage = () => {
   const { path, url } = useRouteMatch();
@@ -14,7 +13,6 @@ export const RestaurantViewPage = () => {
 
   return (
     <div>
-      <RestaurantItem />
       <button onClick={() => setIsOpenModal(true)}>Edit</button>
       {isOpenModal && (
         <Modal onClose={() => setIsOpenModal(false)}>
