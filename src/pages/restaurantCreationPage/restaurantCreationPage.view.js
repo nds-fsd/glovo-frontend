@@ -10,6 +10,7 @@ export const RestaurantCreationPage = () => {
   //   const history = useHistory();
   const { path, url } = useRouteMatch();
   const [enableButtons, setEnableButtons] = useState(false);
+  const [createdRestaurant, setCreatedRestaurant] = useState('');
 
   return (
     <div className={styles.container}>
@@ -21,10 +22,10 @@ export const RestaurantCreationPage = () => {
           {enableButtons && (
             <>
               <button>
-                <Link to={`${path}/newDish`}>Add a Dish</Link>
+                <Link to={`${path}/newDish/${createdRestaurant._id}`}>Add a Dish</Link>
               </button>
               <button>
-                <Link to={`${path}/fullMenu`}>Full Menu</Link>
+                <Link to={`${path}/fullMenu/${createdRestaurant._id}`}>Full Menu</Link>
               </button>
             </>
           )}
@@ -37,12 +38,15 @@ export const RestaurantCreationPage = () => {
       </div>
       <Switch>
         <Route path={`${url}/restaurantInfo`}>
-          <RestaurantForm enableButtons={() => setEnableButtons(true)} />
+          <RestaurantForm
+            enableButtons={() => setEnableButtons(true)}
+            storeCreated={(restaurantId) => setCreatedRestaurant(restaurantId)}
+          />
         </Route>
-        <Route path={`${url}/newDish`}>
+        <Route path={`${url}/newDish/:id`}>
           <DishForm />
         </Route>
-        <Route path={`${url}/fullMenu`}>
+        <Route path={`${url}/fullMenu/:id`}>
           <DishList />
         </Route>
         <Route path={`${url}/`}>
