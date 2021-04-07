@@ -1,18 +1,17 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { Link, Route, Switch, useRouteMatch, useParams } from 'react-router-dom';
-// import styles from './restaurantViewPage.module.css';
+import styles from './restaurantViewPage.module.css';
 // import NavBar from '../../components/navBar';
-import DishList from '../../components/dishList';
 import Modal from '../../components/modal';
 import RestaurantForm from '../../components/restaurantForm';
 import { BACKEND } from '../../router/router';
 
 export const RestaurantViewPage = () => {
-  const { path, url } = useRouteMatch();
+  // const { path, url } = useRouteMatch();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { id } = useParams();
-  // eslint-disable-next-line no-unused-vars
   const [selectedResto, setSelectedResto] = useState();
 
   useEffect(() => {
@@ -34,22 +33,29 @@ export const RestaurantViewPage = () => {
 
   return (
     <div>
-      {selectedResto && <p>{selectedResto.name}</p>}
-      <button onClick={() => setIsOpenModal(true)}>Edit</button>
+      {selectedResto && (
+        <div className={styles._restoInfo}>
+          <p>{selectedResto.name}</p>
+          <p>{selectedResto.RestaurantCategory.name}</p>
+          <p>{selectedResto.restaurantDescription}</p>
+          <button onClick={() => setIsOpenModal(true)}>Edit</button>
+        </div>
+      )}
       {isOpenModal && (
         <Modal onClose={() => setIsOpenModal(false)}>
           <p>Restaurant update</p>
           <RestaurantForm />
         </Modal>
       )}
-      <button>
-        <Link to={`${path}/menuEdit`}>Menu Edit</Link>
-      </button>
-      <Switch>
-        <Route path={`${url}/menuEdit`}>
-          <DishList />
-        </Route>
-      </Switch>
+      <div className={styles._restoCourse}>
+        {selectedResto &&
+          selectedResto.courseList.map((course) => {
+            return <p>{course.name}</p>;
+          })}
+        <Link to={`/menuEditPage/${id}`}>
+          <button>Edit Menu</button>
+        </Link>
+      </div>
     </div>
   );
 };
