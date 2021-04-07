@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import RestaurantCreationPage from './pages/restaurantCreationPage';
 import RestaurantViewPage from './pages/restaurantViewPage';
 import RestaurantListPage from './pages/restaurantListPage';
@@ -15,7 +15,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path={RESTAURANT_LIST_PAGE}>
+        <Route path={RESTAURANT_LIST_PAGE} exact>
           <RestaurantListPage />
         </Route>
         <Route path={RESTAURANT_CREATION_PAGE}>
@@ -26,6 +26,9 @@ function App() {
         </Route>
         <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
           <MenuEditPage />
+        </Route>
+        <Route path="/">
+          <Redirect to={RESTAURANT_LIST_PAGE}/>
         </Route>
       </Switch>
     </Router>

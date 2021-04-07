@@ -5,10 +5,10 @@ import styles from './navBar.module.css';
 export const Navbar = ({ children }) => (
   <div className={styles.container}>
     <ul className={styles.listContainer}>
-      {children.map((item, index) => {
+      {children.map((item) => {
         return (
-          <li key={index} className={styles.restaurantItem}>
-            {item}
+          <li key={item._id} className={styles.restaurantItem}>
+            {item.name}
           </li>
         );
       })}

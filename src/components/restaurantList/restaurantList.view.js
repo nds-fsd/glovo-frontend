@@ -12,7 +12,7 @@ export const RestaurantList = () => {
       {restoList.map((resto) => {
         return (
           <Link to={`/restaurantViewPage/${resto._id}`}>
-            <RestaurantItem key={resto._id}>{resto.name}</RestaurantItem>;
+            <RestaurantItem key={resto._id}>{resto.name}</RestaurantItem>
           </Link>
         );
       })}
