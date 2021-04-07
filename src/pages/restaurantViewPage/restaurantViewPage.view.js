@@ -22,15 +22,14 @@ export const RestaurantViewPage = () => {
         }
         return response.json();
       })
-      .then((response) => {
-        console.log(response);
-        setSelectedResto(response);
+      .then((restaurant) => {
+        console.log(restaurant);
       })
       .catch((err) => {
         return console.log(err);
       });
   }, [id]);
-
+console.log(selectedResto)
   return (
     <div>
       {selectedResto && (
