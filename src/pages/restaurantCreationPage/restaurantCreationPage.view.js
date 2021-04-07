@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import RestaurantForm from '../../components/restaurantForm';
@@ -12,7 +13,7 @@ export const RestaurantCreationPage = () => {
   const { path, url } = useRouteMatch();
   const [enableButtons, setEnableButtons] = useState(false);
   const [createdRestaurant, setCreatedRestaurant] = useState('');
-
+  console.debug('estees', createdRestaurant);
   return (
     <div className={styles.container}>
       <div className={styles.navBar}>
@@ -44,7 +45,7 @@ export const RestaurantCreationPage = () => {
         <Route path={`${url}/restaurantInfo`}>
           <RestaurantForm
             enableButtons={() => setEnableButtons(true)}
-            storeCreated={(restaurantId) => setCreatedRestaurant(restaurantId)}
+            storeCreated={(restaurant) => setCreatedRestaurant(restaurant)}
           />
         </Route>
         <Route path={`${url}/newDish/:id`}>
