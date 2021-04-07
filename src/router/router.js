@@ -5,3 +5,4 @@ export const RESTAURANT_LIST_PAGE = '/restaurantListPage';
 export const RESTAURANT_MENU_EDIT = '/menuEditPage';
 export const RESTAURANT_CATEGORY = '/restaurantCategory';
 export const RESTAURANT = '/restaurant';
+export const COURSE = '/course';
