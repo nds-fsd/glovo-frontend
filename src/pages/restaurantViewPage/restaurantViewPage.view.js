@@ -12,7 +12,6 @@ export const RestaurantViewPage = () => {
   const { path, url } = useRouteMatch();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { id } = useParams();
-  // eslint-disable-next-line no-unused-vars
   const [selectedResto, setSelectedResto] = useState();
 
   useEffect(() => {
