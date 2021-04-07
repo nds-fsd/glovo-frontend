@@ -1,13 +1,16 @@
+/* eslint-disable no-debugger */
+/* eslint-disable no-else-return */
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { shortFetch } from '../../assets/utils/fetch.utils';
-import { RESTAURANT_CATEGORY } from '../../router/router';
+import { RESTAURANT, RESTAURANT_CATEGORY } from '../../router/router';
 import { InputText } from '../inputText/inputText.view';
 import styles from './restaurantForm.module.css';
 
-export const RestaurantForm = ({ enableButtons }) => {
+export const RestaurantForm = ({ enableButtons, storeCreated }) => {
   const [categoryList, setCategoryList] = useState([]);
   const [name, setName] = useState();
   const [category, setCategory] = useState();
@@ -15,26 +18,56 @@ export const RestaurantForm = ({ enableButtons }) => {
   const [zipcode, setZipcode] = useState();
   const [street, setStreet] = useState();
   const [number, setNumber] = useState();
+  const [numberError, setNumberError] = useState(false);
   const [zipcodeError, setZipcodeError] = useState(false);
   const [nameError, setNameError] = useState(false);
+  const [newRest, setNewRest] = useState();
 
   useEffect(() => {
     shortFetch({ url: `${RESTAURANT_CATEGORY}`, onSuccess: setCategoryList, method: 'GET' });
   }, []);
+
+  const hasErrors = () => {
+    return numberError || zipcodeError || nameError;
+  };
   const validateAndFetch = () => {
     if (!name) {
       setNameError(true);
     } else {
       setNameError(false);
     }
-    if (!zipcode || isNaN(zipcode) || zipcode < 10000) {
+    if (!zipcode || isNaN(zipcode) || zipcode.toString().length < 5) {
       setZipcodeError(true);
     } else {
       setZipcodeError(false);
     }
-    enableButtons();
+    if (number <= 0 || isNaN(number)) {
+      setNumberError(true);
+    } else {
+      setNumberError(false);
+    }
+    if (hasErrors()) {
+      return console.debug('failed to fetch');
+    } else {
+      enableButtons();
+      shortFetch({
+        url: RESTAURANT,
+        method: 'POST',
+        body: {
+          name,
+          restaurantDescription: description,
+          open: true,
+          address: {
+            number,
+            street,
+            zipcode,
+          },
+          RestaurantCategory: category,
+        },
+        onSuccess: storeCreated,
+      });
+    }
   };
-
   return (
     <div className={styles.container}>
       <div className={`${styles.subContainer} ${styles.title}`}>
@@ -49,7 +82,7 @@ export const RestaurantForm = ({ enableButtons }) => {
         />
       </div>
       <div className={`${styles.subContainer} ${styles.category}`}>
-        <select>
+        <select onChange={(e) => setCategory(e.target.value)}>
           <option value="" selected disabled hidden>
             Select a Category
           </option>
@@ -74,11 +107,14 @@ export const RestaurantForm = ({ enableButtons }) => {
           placeholder="street"
           onChange={(e) => setStreet(e.target.value)}
         />
-        <input
-          type="text"
-          value={number}
+        <InputText
           placeholder="number"
-          onChange={(e) => setNumber(e.target.value)}
+          label="number"
+          value={number}
+          handleChange={setNumber}
+          inputId="resNumber"
+          error={numberError}
+          errorMessage="Please add a Number"
         />
         <InputText
           placeholder="Zipcode"
