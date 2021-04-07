@@ -24,12 +24,12 @@ export const RestaurantViewPage = () => {
       })
       .then((restaurant) => {
         console.log(restaurant);
+        setSelectedResto(restaurant);
       })
       .catch((err) => {
         return console.log(err);
       });
   }, [id]);
-console.log(selectedResto)
   return (
     <div>
       {selectedResto && (
