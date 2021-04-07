@@ -28,7 +28,7 @@ function App() {
           <MenuEditPage />
         </Route>
         <Route path="/">
-          <Redirect to={RESTAURANT_LIST_PAGE}/>
+          <Redirect to={RESTAURANT_LIST_PAGE} />
         </Route>
       </Switch>
     </Router>
