@@ -7,11 +7,11 @@
 import React, { useEffect, useState } from 'react';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import { RESTAURANT, RESTAURANT_CATEGORY } from '../../router/router';
+import CategorySelect from '../categorySelect';
 import { InputText } from '../inputText/inputText.view';
 import styles from './restaurantForm.module.css';
 
 export const RestaurantForm = ({ enableButtons, storeCreated }) => {
-  const [categoryList, setCategoryList] = useState([]);
   const [name, setName] = useState();
   const [category, setCategory] = useState();
   const [description, setDescription] = useState();
@@ -22,10 +22,6 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
   const [zipcodeError, setZipcodeError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [newRest, setNewRest] = useState();
-
-  useEffect(() => {
-    shortFetch({ url: `${RESTAURANT_CATEGORY}`, onSuccess: setCategoryList, method: 'GET' });
-  }, []);
 
   const hasErrors = () => {
     return numberError || zipcodeError || nameError;
@@ -82,14 +78,7 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
         />
       </div>
       <div className={`${styles.subContainer} ${styles.category}`}>
-        <select onChange={(e) => setCategory(e.target.value)}>
-          <option value="" selected disabled hidden>
-            Select a Category
-          </option>
-          {categoryList.map((cat) => (
-            <option value={cat._id}>{cat.name}</option>
-          ))}
-        </select>
+        <CategorySelect categoryValue={(value) => setCategory(value)} />
       </div>
       <div className={`${styles.subContainer} ${styles.description}`}>
         <textarea
