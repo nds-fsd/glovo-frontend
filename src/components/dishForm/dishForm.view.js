@@ -18,9 +18,9 @@ export const DishForm = ({ courseList }) => {
   const { id } = useParams();
 
   const clearAll = () => {
-    setDishName();
-    setSelectedCourse();
-    setPrice();
+    setDishName('');
+    setSelectedCourse('');
+    setPrice('');
   };
 
   const validateAndFetch = () => {

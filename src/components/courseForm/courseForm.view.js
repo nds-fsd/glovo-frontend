@@ -38,7 +38,6 @@ export const CourseForm = ({ toggle, courseList }) => {
   return (
     <>
       <div className={styles.container}>
-        <p>{id}</p>
         <div className={`${styles.subContainer} ${styles.title}`}>
           <InputText
             placeholder="Name"

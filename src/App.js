@@ -15,19 +15,19 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path={RESTAURANT_LIST_PAGE} exact>
+        <Route path={RESTAURANT_LIST_PAGE}>
           <RestaurantListPage />
         </Route>
-        <Route path={RESTAURANT_CREATION_PAGE}>
+        <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
           <RestaurantCreationPage />
         </Route>
         <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
           <RestaurantViewPage />
         </Route>
-        <Route path={RESTAURANT_MENU_EDIT}>
+        <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
           <MenuEditPage />
         </Route>
-        <Route path="/">
+        <Route path="/" exact>
           <Redirect to={RESTAURANT_LIST_PAGE} />
         </Route>
       </Switch>
