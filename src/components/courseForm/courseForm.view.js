@@ -7,21 +7,11 @@ import { COURSE } from '../../router/router';
 import { InputText } from '../inputText/inputText.view';
 import styles from './courseForm.module.css';
 
-export const CourseForm = () => {
+export const CourseForm = ({ toggle, courseList }) => {
   const [newCourse, setNewCourse] = useState();
   const [courseError, setCourseError] = useState(false);
-  const [courseList, setCourseList] = useState([]);
-  const [toggle, setToggle] = useState(false);
-  const { id } = useParams();
 
-  useEffect(() => {
-    shortFetch({
-      url: `${COURSE}/search`,
-      method: 'POST',
-      body: { Restaurant: '606e17198db5b35d084630e0' },
-      onSuccess: setCourseList,
-    });
-  }, [toggle]);
+  const { id } = useParams();
 
   const handleClick = () => {
     let error = false;
@@ -39,7 +29,7 @@ export const CourseForm = () => {
       method: 'POST',
       body: { Restaurant: '606e17198db5b35d084630e0', name: newCourse },
       onSuccess: () => {
-        setToggle(!toggle);
+        toggle();
         setNewCourse('');
       },
     });
@@ -47,29 +37,27 @@ export const CourseForm = () => {
 
   return (
     <>
-    <div className={styles.container}>
-      <p>{id}</p>
-      <div className={`${styles.subContainer} ${styles.title}`}>
-        <InputText
-          placeholder="Name"
-          label="Name"
-          value={newCourse}
-          handleChange={setNewCourse}
-          inputId="resName"
-          error={courseError}
-          errorMessage="Please add a Name"
-        />
-        <button onClick={handleClick}>create</button>
-      </div>
-      <div className={`${styles.subContainer} ${styles.title}`}>
-        <p>COURSES</p>
-        <ul>
+      <div className={styles.container}>
+        <p>{id}</p>
+        <div className={`${styles.subContainer} ${styles.title}`}>
+          <InputText
+            placeholder="Name"
+            label="Name"
+            value={newCourse}
+            handleChange={setNewCourse}
+            inputId="resName"
+            error={courseError}
+            errorMessage="Please add a Name"
+          />
+          <button onClick={handleClick}>create</button>
+        </div>
+        <div className={`${styles.subContainer} ${styles.courses}`}>
+          <p>COURSES</p>
           {courseList.map((course) => (
-            <li>{course.name}</li>
+            <p>{course.name}</p>
           ))}
-        </ul>
+        </div>
       </div>
-    </div>
     </>
   );
 };
