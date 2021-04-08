@@ -35,7 +35,7 @@ export const RestaurantViewPage = () => {
       {selectedResto && (
         <div className={styles._restoInfo}>
           <p>{selectedResto.name}</p>
-          <p>{selectedResto.RestaurantCategory.name}</p>
+          <p>{selectedResto.restaurantCategory.name}</p>
           <p>{selectedResto.restaurantDescription}</p>
           <button onClick={() => setIsOpenModal(true)}>Edit</button>
         </div>
