@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import styles from './restaurantUpdateForm.module.css';
-import InputText from '../inputText';
-import CategorySelect from '../categorySelect';
-import Button from '../button';
+import InputText from '../../inputText';
+import CategorySelect from '../../categorySelect';
+import Button from '../../button';
 
 export const RestaurantUpdateForm = ({ onClose }) => {
   const [updateName, setUpdateName] = useState();

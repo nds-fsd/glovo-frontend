@@ -6,10 +6,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { shortFetch } from '../../assets/utils/fetch.utils';
-import { RESTAURANT, RESTAURANT_CATEGORY } from '../../router/router';
-import CategorySelect from '../categorySelect';
-import { InputText } from '../inputText/inputText.view';
+import { shortFetch } from '../../../assets/utils/fetch.utils';
+import { RESTAURANT, RESTAURANT_CATEGORY } from '../../../router/router';
+import CategorySelect from '../../categorySelect';
+import { InputText } from '../../inputText/inputText.view';
 import styles from './restaurantForm.module.css';
 
 export const RestaurantForm = ({ enableButtons, storeCreated }) => {

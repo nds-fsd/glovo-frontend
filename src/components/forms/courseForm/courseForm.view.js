@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { shortFetch } from '../../assets/utils/fetch.utils';
-import { COURSE } from '../../router/router';
-import { InputText } from '../inputText/inputText.view';
+import { shortFetch } from '../../../assets/utils/fetch.utils';
+import { COURSE } from '../../../router/router';
+import { InputText } from '../../inputText/inputText.view';
 import styles from './courseForm.module.css';
 
 export const CourseForm = ({ toggle, courseList }) => {
