@@ -11,9 +11,13 @@ export const RestaurantUpdateForm = ({ onClose }) => {
   const [updateCategory, setUpdateCategory] = useState();
   const [updateDescription, setUpdateDescription] = useState();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className={styles._container}>
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <InputText
           placeholder="Enter a new name"
           label="name"
@@ -31,8 +35,8 @@ export const RestaurantUpdateForm = ({ onClose }) => {
           inputId="resNewDescription"
           errorMessage="Please add a valid name"
         />
-        <Button onClick={onClose}>CANCEL</Button>
-        <Button>CREATE</Button>
+        <Button onClose={onClose}>CANCEL</Button>
+        <input type="submit" value="Create" />
       </form>
     </div>
   );
