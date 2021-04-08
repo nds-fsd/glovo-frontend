@@ -43,7 +43,7 @@ export const RestaurantViewPage = () => {
       {isOpenModal && (
         <Modal onClose={() => setIsOpenModal(false)}>
           <p>Restaurant update</p>
-          <RestaurantUpdateForm />
+          <RestaurantUpdateForm onClose={() => setIsOpenModal(false)} />
         </Modal>
       )}
       <div className={styles._restoCourse}>
