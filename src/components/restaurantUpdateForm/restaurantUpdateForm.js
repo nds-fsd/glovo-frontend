@@ -10,9 +10,30 @@ export const RestaurantUpdateForm = ({ onClose }) => {
   // eslint-disable-next-line no-unused-vars
   const [updateCategory, setUpdateCategory] = useState();
   const [updateDescription, setUpdateDescription] = useState();
+  const [nameError, setNameError] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!updateName || updateName.toString().length < 2) {
+      setNameError(true);
+    } else {
+      setNameError(false);
+    }
+
+    if (updateCategory === undefined) {
+      setCategoryError(true);
+    } else {
+      setCategoryError(false);
+    }
+
+    if (!updateDescription || updateDescription.toString().length < 25) {
+      setDescriptionError(true);
+    } else {
+      setDescriptionError(false);
+    }
   };
 
   return (
@@ -24,16 +45,22 @@ export const RestaurantUpdateForm = ({ onClose }) => {
           value={updateName}
           handleChange={setUpdateName}
           inputId="resNewName"
+          error={nameError}
           errorMessage="Please add a valid name"
         />
-        <CategorySelect categoryValue={(value) => setUpdateCategory(value)} />
+        <CategorySelect
+          categoryValue={(value) => setUpdateCategory(value)}
+          error={categoryError}
+          errorMessage="Please select a category"
+        />
         <InputText
           placeholder="Enter a new description"
           label="Description"
           value={updateDescription}
           handleChange={setUpdateDescription}
           inputId="resNewDescription"
-          errorMessage="Please add a valid name"
+          error={descriptionError}
+          errorMessage="Please add a valid description"
         />
         <Button onClose={onClose}>CANCEL</Button>
         <input type="submit" value="Create" />
