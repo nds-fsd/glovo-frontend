@@ -5,6 +5,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import { RESTAURANT, RESTAURANT_CATEGORY } from '../../router/router';
 import CategorySelect from '../categorySelect';
@@ -23,27 +24,31 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
   const [nameError, setNameError] = useState(false);
   const [newRest, setNewRest] = useState();
 
-  const hasErrors = () => {
-    return numberError || zipcodeError || nameError;
-  };
+  const history = useHistory();
+
   const validateAndFetch = () => {
+    let error = false;
     if (!name) {
       setNameError(true);
+      error = true;
     } else {
       setNameError(false);
     }
     if (!zipcode || isNaN(zipcode) || zipcode.toString().length < 5) {
       setZipcodeError(true);
+      error = true;
     } else {
       setZipcodeError(false);
     }
     if (number <= 0 || isNaN(number)) {
       setNumberError(true);
+      error = true;
     } else {
       setNumberError(false);
     }
-    if (hasErrors()) {
-      return console.debug('failed to fetch');
+    if (error) {
+      console.debug('failed to fetch');
+      return null;
     } else {
       enableButtons();
       shortFetch({
@@ -58,7 +63,7 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
             street,
             zipcode,
           },
-          RestaurantCategory: category,
+          restaurantCategory: category,
         },
         onSuccess: storeCreated,
       });
@@ -98,7 +103,6 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
         />
         <InputText
           placeholder="number"
-          label="number"
           value={number}
           handleChange={setNumber}
           inputId="resNumber"
@@ -107,7 +111,6 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
         />
         <InputText
           placeholder="Zipcode"
-          label="zipcode"
           value={zipcode}
           handleChange={setZipcode}
           inputId="resZipcode"

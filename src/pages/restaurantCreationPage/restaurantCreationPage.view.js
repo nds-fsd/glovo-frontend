@@ -1,35 +1,62 @@
-import React, { useState } from 'react';
-import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+/* eslint-disable consistent-return */
+/* eslint-disable no-console */
+import React, { useEffect, useState } from 'react';
+import { Link, Redirect, Route, useParams } from 'react-router-dom';
 import RestaurantForm from '../../components/restaurantForm';
 import DishForm from '../../components/dishForm';
 import styles from './restaurantCreationPage.module.css';
 import DishList from '../../components/dishList';
-import CategoryForm from '../../components/categoryForm';
+import CourseForm from '../../components/courseForm';
+import { shortFetch } from '../../assets/utils/fetch.utils';
+import { COURSE, RESTAURANT_CREATION_PAGE } from '../../router/router';
 // import { RESTAURANT_CREATION_PAGE } from '../../router/router';
 
 export const RestaurantCreationPage = () => {
   //   const history = useHistory();
-  const { path, url } = useRouteMatch();
-  const [enableButtons, setEnableButtons] = useState(false);
+  const { id, section } = useParams();
+  const [enableButtons, setEnableButtons] = useState(id && section);
   const [createdRestaurant, setCreatedRestaurant] = useState('');
+  const [courseList, setCourseList] = useState([]);
+  const [toggle, setToggle] = useState(false);
+
+  console.debug(id, section);
+  useEffect(() => {
+    if (!id) {
+      return null;
+    }
+    shortFetch({
+      url: `${COURSE}/search`,
+      method: 'POST',
+      body: { Restaurant: id },
+      onSuccess: setCourseList,
+    });
+  }, [toggle]);
 
   return (
     <div className={styles.container}>
       <div className={styles.navBar}>
         <span>
-          <button>
-            <Link to={`${path}/restaurantInfo`}>Restaurant Info</Link>
-          </button>
+          {!enableButtons && (
+            <button>
+              <Link to={`${RESTAURANT_CREATION_PAGE}/restaurantInfo/`}>Restaurant Info</Link>
+            </button>
+          )}
           {enableButtons && (
             <>
               <button>
-                <Link to={`${path}/newDish/${createdRestaurant._id}`}>Add a Dish</Link>
+                <Link to={`${RESTAURANT_CREATION_PAGE}/courses/${createdRestaurant._id}`}>
+                  categories
+                </Link>
               </button>
               <button>
-                <Link to={`${path}/Categories/${createdRestaurant._id}`}>categories</Link>
+                <Link to={`${RESTAURANT_CREATION_PAGE}/newDish/${createdRestaurant._id}`}>
+                  Add a Dish
+                </Link>
               </button>
               <button>
-                <Link to={`${path}/fullMenu/${createdRestaurant._id}`}>Full Menu</Link>
+                <Link to={`${RESTAURANT_CREATION_PAGE}/fullMenu/${createdRestaurant._id}`}>
+                  Full Menu
+                </Link>
               </button>
             </>
           )}
@@ -40,26 +67,20 @@ export const RestaurantCreationPage = () => {
           </button>
         </span>
       </div>
-      <Switch>
-        <Route path={`${url}/restaurantInfo`}>
-          <RestaurantForm
-            enableButtons={() => setEnableButtons(true)}
-            storeCreated={(restaurantId) => setCreatedRestaurant(restaurantId)}
-          />
-        </Route>
-        <Route path={`${url}/newDish/:id`}>
-          <DishForm />
-        </Route>
-        <Route path={`${url}/fullMenu/:id`}>
-          <DishList />
-        </Route>
-        <Route path={`${url}/Categories/:id`}>
-          <CategoryForm />
-        </Route>
-        <Route path={`${url}/`}>
-          <Redirect to={`${url}/restaurantInfo`} />
-        </Route>
-      </Switch>
+      <Route path={RESTAURANT_CREATION_PAGE} exact>
+        <Redirect to={`${RESTAURANT_CREATION_PAGE}/restaurantInfo`} />
+      </Route>
+      {section === 'restaurantInfo' && (
+        <RestaurantForm
+          enableButtons={() => setEnableButtons(true)}
+          storeCreated={(restaurant) => setCreatedRestaurant(restaurant)}
+        />
+      )}
+      {section === 'fullMenu' && <DishList />}
+      {section === 'newDish' && <DishForm courseList={courseList} />}
+      {section === 'courses' && (
+        <CourseForm toggle={() => setToggle(!toggle)} courseList={courseList} />
+      )}
     </div>
   );
 };

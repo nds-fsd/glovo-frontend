@@ -18,9 +18,11 @@
 .address{
     flex-direction: column;
     align-items: flex-start;
+    height: 7em;
 }
 .buttons{
     justify-content: flex-end;
+    height: 1em;
 }
 .textarea{
     max-width: 500px;
