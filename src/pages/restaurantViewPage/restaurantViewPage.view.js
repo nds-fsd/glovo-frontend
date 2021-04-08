@@ -5,7 +5,7 @@ import { Link, Route, Switch, useRouteMatch, useParams } from 'react-router-dom'
 import styles from './restaurantViewPage.module.css';
 // import NavBar from '../../components/navBar';
 import Modal from '../../components/modal';
-import RestaurantForm from '../../components/restaurantForm';
+import RestaurantUpdateForm from '../../components/restaurantUpdateForm';
 import { BACKEND } from '../../router/router';
 
 export const RestaurantViewPage = () => {
@@ -43,7 +43,7 @@ export const RestaurantViewPage = () => {
       {isOpenModal && (
         <Modal onClose={() => setIsOpenModal(false)}>
           <p>Restaurant update</p>
-          <RestaurantForm />
+          <RestaurantUpdateForm onClose={() => setIsOpenModal(false)} />
         </Modal>
       )}
       <div className={styles._restoCourse}>
