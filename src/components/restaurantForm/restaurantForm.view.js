@@ -26,9 +26,6 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
 
   const history = useHistory();
 
-  const hasErrors = () => {
-    return numberError || zipcodeError || nameError;
-  };
   const validateAndFetch = () => {
     let error = false;
     if (!name) {

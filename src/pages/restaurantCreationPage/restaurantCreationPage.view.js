@@ -13,7 +13,7 @@ import { COURSE } from '../../router/router';
 export const RestaurantCreationPage = () => {
   //   const history = useHistory();
   const { path, url } = useRouteMatch();
-  const [enableButtons, setEnableButtons] = useState(true);
+  const [enableButtons, setEnableButtons] = useState(false);
   const [createdRestaurant, setCreatedRestaurant] = useState('');
   const [courseList, setCourseList] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -22,7 +22,7 @@ export const RestaurantCreationPage = () => {
     shortFetch({
       url: `${COURSE}/search`,
       method: 'POST',
-      body: { Restaurant: '606e17198db5b35d084630e0' },
+      body: { Restaurant: createdRestaurant._id },
       onSuccess: setCourseList,
     });
   }, [toggle]);
@@ -37,13 +37,13 @@ export const RestaurantCreationPage = () => {
           {enableButtons && (
             <>
               <button>
-                <Link to={`${path}/Categories/606e17198db5b35d084630e0`}>categories</Link>
+                <Link to={`${path}/Categories/${createdRestaurant._id}`}>categories</Link>
               </button>
               <button>
-                <Link to={`${path}/newDish/606e17198db5b35d084630e0`}>Add a Dish</Link>
+                <Link to={`${path}/newDish/${createdRestaurant._id}`}>Add a Dish</Link>
               </button>
               <button>
-                <Link to={`${path}/fullMenu/606e17198db5b35d084630e0`}>Full Menu</Link>
+                <Link to={`${path}/fullMenu/${createdRestaurant._id}`}>Full Menu</Link>
               </button>
             </>
           )}

@@ -27,7 +27,7 @@ export const CourseForm = ({ toggle, courseList }) => {
     shortFetch({
       url: COURSE,
       method: 'POST',
-      body: { Restaurant: '606e17198db5b35d084630e0', name: newCourse },
+      body: { Restaurant: id, name: newCourse },
       onSuccess: () => {
         toggle();
         setNewCourse('');
