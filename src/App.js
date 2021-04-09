@@ -10,31 +10,31 @@ import {
   RESTAURANT_LIST_PAGE,
   RESTAURANT_MENU_EDIT,
 } from './router/router';
-import RestoDataContextProvider from './context';
+import { RestoListContextProvider } from './components/context/restoListPageContext';
 
 function App() {
   return (
-    <RestoDataContextProvider>
-      <Router>
-        <Switch>
-          <Route path={RESTAURANT_LIST_PAGE} exact>
-            <RestaurantListPage />
-          </Route>
-          <Route path={RESTAURANT_CREATION_PAGE}>
-            <RestaurantCreationPage />
-          </Route>
-          <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
-            <RestaurantViewPage />
-          </Route>
-          <Route path={RESTAURANT_MENU_EDIT}>
-            <MenuEditPage />
-          </Route>
-          <Route path="/">
+    <Router>
+      <Switch>
+        <Route path={RESTAURANT_LIST_PAGE}>
+          <RestaurantListPage />
+        </Route>
+        <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
+          <RestaurantCreationPage />
+        </Route>
+        <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
+          <RestaurantViewPage />
+        </Route>
+        <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
+          <MenuEditPage />
+        </Route>
+        <RestoListContextProvider>
+          <Route path="/" exact>
             <Redirect to={RESTAURANT_LIST_PAGE} />
           </Route>
-        </Switch>
-      </Router>
-    </RestoDataContextProvider>
+        </RestoListContextProvider>
+      </Switch>
+    </Router>
   );
 }
 
