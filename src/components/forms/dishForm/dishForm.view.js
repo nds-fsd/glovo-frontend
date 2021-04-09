@@ -4,10 +4,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { shortFetch } from '../../assets/utils/fetch.utils';
-import { InputText } from '../inputText/inputText.view';
+import { shortFetch } from '../../../assets/utils/fetch.utils';
+import { InputText } from '../../inputText/inputText.view';
 import styles from './dishForm.module.css';
-import { DISH } from '../../router/router';
+import { DISH } from '../../../router/router';
 
 export const DishForm = ({ courseList }) => {
   const [dishName, setDishName] = useState();
