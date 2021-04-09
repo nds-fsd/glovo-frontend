@@ -4,7 +4,7 @@
     height: 35em;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     overflow-y: scroll;
 }

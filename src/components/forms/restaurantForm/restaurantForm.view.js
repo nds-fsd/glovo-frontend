@@ -11,6 +11,7 @@ import { RESTAURANT, RESTAURANT_CATEGORY } from '../../../router/router';
 import CategorySelect from '../../categorySelect';
 import { InputText } from '../../inputText/inputText.view';
 import styles from './restaurantForm.module.css';
+import { isRequired, minLength } from '../../../assets/utils/validations.utils';
 
 export const RestaurantForm = ({ enableButtons, storeCreated }) => {
   const [name, setName] = useState();
@@ -22,9 +23,18 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
   const [numberError, setNumberError] = useState(false);
   const [zipcodeError, setZipcodeError] = useState(false);
   const [nameError, setNameError] = useState(false);
-  const [newRest, setNewRest] = useState();
+  const [anyError, setAnyError] = useState({ name: true });
 
   const history = useHistory();
+
+  const handleDisable = () => {
+    const hasError = Object.keys(anyError).find((key) => {
+      console.debug(key);
+      return anyError[key];
+    });
+    console.debug('.......', hasError, anyError);
+    return hasError && hasError.length > 0;
+  };
 
   const validateAndFetch = () => {
     let error = false;
@@ -78,8 +88,12 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
           value={name}
           handleChange={setName}
           inputId="resName"
-          error={nameError}
+          onError={(isError) => setAnyError({ ...anyError, name: isError })}
           errorMessage="Please add a Name"
+          validations={[
+            { func: isRequired, message: 'this field is required' },
+            { func: minLength, message: 'minLength is 5' },
+          ]}
         />
       </div>
       <div className={`${styles.subContainer} ${styles.category}`}>
@@ -120,7 +134,9 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
       </div>
       <div className={`${styles.subContainer} ${styles.buttons}`}>
         <button onClick={() => location.reload()}>cancel</button>
-        <button onClick={validateAndFetch}>create</button>
+        <button disabled={handleDisable()} onClick={validateAndFetch}>
+          create
+        </button>
       </div>
     </div>
   );

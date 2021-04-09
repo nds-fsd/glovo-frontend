@@ -24,7 +24,7 @@ export const DishList = ({ openModal }) => {
         restaurant.courseList.map((cat) => {
           return (
             <>
-              <p>{cat.name}</p>
+              <p style={{ color: '#E0E0E0', paddingLeft: '10px', fontSize: '20px' }}>{cat.name}</p>
               <div className={styles.category_container}>
                 {cat.dishList.map((dish) => {
                   return (

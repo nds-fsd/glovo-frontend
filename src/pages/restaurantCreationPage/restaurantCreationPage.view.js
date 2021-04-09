@@ -21,7 +21,6 @@ export const RestaurantCreationPage = () => {
   const [toggle, setToggle] = useState(false);
   const [handleModal, setHandleModal] = useState(false);
 
-  console.debug(id, section);
   useEffect(() => {
     if (!id) {
       return null;
