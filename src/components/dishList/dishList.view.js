@@ -10,7 +10,7 @@ import { shortFetch } from '../../assets/utils/fetch.utils';
 // This component makes a double .map(), first to get the category name and render the container,
 // for each category, the second is to render all the dishes in that category.
 
-export const DishList = () => {
+export const DishList = ({ openModal }) => {
   const [restaurant, setRestaurant] = useState();
 
   const { id } = useParams();
@@ -32,6 +32,7 @@ export const DishList = () => {
                       name={dish.name}
                       description={dish.dishDescription}
                       price={dish.price}
+                      onClick={openModal}
                     />
                   );
                 })}
