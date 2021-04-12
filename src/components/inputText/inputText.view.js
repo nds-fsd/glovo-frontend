@@ -15,6 +15,7 @@ export const InputText = ({
   onError,
 }) => {
   const [errorList, setErrorList] = useState([]);
+
   const validationFunc = (inputValue) => {
     if (validations) {
       return validations.map((validation) => {
@@ -27,7 +28,6 @@ export const InputText = ({
     <div className={styles.container}>
       <label htmlFor={inputId}>{label}</label>
       <br />
-      {}
       {errorList &&
         errorList.map((errorInfo) => (
           <legend className={styles.error_legend}>{errorInfo.message}</legend>
@@ -37,22 +37,23 @@ export const InputText = ({
         placeholder={placeholder}
         value={value}
         className={`${styles.input} ${errorList && styles.error}`}
+        id={inputId}
         onChange={(e) => {
           handleChange(e.target.value);
         }}
         onBlur={(e) => {
           const validationResult = validationFunc(e.target.value);
-          const errors = validationResult.filter((result) => result.isError);
-          console.debug(errors);
-          if (errors.length > 0) {
-            setErrorList(errors);
-            if (onError) onError(true);
-          } else {
-            setErrorList([]);
-            onError(false);
+          if (validationResult) {
+            const errors = validationResult.filter((result) => result.isError);
+            if (errors.length > 0) {
+              setErrorList(errors);
+              if (onError) onError(true);
+            } else {
+              setErrorList([]);
+              onError(false);
+            }
           }
         }}
-        id={inputId}
       />
     </div>
   );

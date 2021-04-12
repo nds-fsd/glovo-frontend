@@ -9,7 +9,7 @@ import DishList from '../../components/dishList';
 import CourseForm from '../../components/forms/courseForm';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import { COURSE, RESTAURANT_CREATION_PAGE } from '../../router/router';
-import Modal from '../../components/modal';
+import DishModal from '../../components/dishModal';
 // import { RESTAURANT_CREATION_PAGE } from '../../router/router';
 
 export const RestaurantCreationPage = () => {
@@ -20,6 +20,7 @@ export const RestaurantCreationPage = () => {
   const [courseList, setCourseList] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [handleModal, setHandleModal] = useState(false);
+  const [selectedDish, setSelectedDish] = useState();
 
   useEffect(() => {
     if (!id) {
@@ -78,13 +79,20 @@ export const RestaurantCreationPage = () => {
             storeCreated={(restaurant) => setCreatedRestaurant(restaurant)}
           />
         )}
-        {section === 'fullMenu' && <DishList openModal={() => setHandleModal(true)} />}
+        {section === 'fullMenu' && (
+          <DishList
+            onDishClick={(dish) => setSelectedDish(dish)}
+            openModal={() => setHandleModal(true)}
+          />
+        )}
         {section === 'newDish' && <DishForm courseList={courseList} />}
         {section === 'courses' && (
           <CourseForm toggle={() => setToggle(!toggle)} courseList={courseList} />
         )}
       </div>
-      {handleModal && <Modal onClose={() => setHandleModal(false)} />}
+      {handleModal && (
+        <DishModal onClose={() => setHandleModal(false)} selectedDish={selectedDish} />
+      )}
     </>
   );
 };
