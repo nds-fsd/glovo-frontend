@@ -1,15 +1,12 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { Link, Route, Switch, useRouteMatch, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styles from './restaurantViewPage.module.css';
-// import NavBar from '../../components/navBar';
 import Modal from '../../components/modal';
 import RestaurantUpdateForm from '../../components/restaurantUpdateForm';
 import { BACKEND } from '../../router/router';
 
 export const RestaurantViewPage = () => {
-  // const { path, url } = useRouteMatch();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { id } = useParams();
   const [selectedResto, setSelectedResto] = useState();

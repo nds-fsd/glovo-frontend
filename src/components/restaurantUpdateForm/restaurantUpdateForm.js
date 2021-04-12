@@ -1,18 +1,21 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { BACKEND } from '../../router/router';
 import styles from './restaurantUpdateForm.module.css';
 import InputText from '../inputText';
 import CategorySelect from '../categorySelect';
 import Button from '../button';
 
 export const RestaurantUpdateForm = ({ onClose }) => {
-  const [updateName, setUpdateName] = useState();
-  // eslint-disable-next-line no-unused-vars
+  const [updateName, setUpdateName] = useState('');
   const [updateCategory, setUpdateCategory] = useState();
   const [updateDescription, setUpdateDescription] = useState();
   const [nameError, setNameError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
+  const { id } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,11 +32,30 @@ export const RestaurantUpdateForm = ({ onClose }) => {
       setCategoryError(false);
     }
 
-    if (!updateDescription || updateDescription.toString().length < 25) {
+    if (!updateDescription || updateDescription.toString().length < 5) {
       setDescriptionError(true);
     } else {
       setDescriptionError(false);
     }
+    const body = {
+      name: updateName,
+      restaurantCategory: updateCategory,
+      restaurantDescription: updateDescription,
+    };
+    const options = {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    };
+    fetch(`${BACKEND}/restaurant/${id}`, options)
+      .then((response) => response.json())
+      .then((resto) => console.log(resto))
+      .catch((err) => console.log(err));
+
+    onClose();
   };
 
   return (
@@ -63,7 +85,7 @@ export const RestaurantUpdateForm = ({ onClose }) => {
           errorMessage="Please add a valid description"
         />
         <Button onClose={onClose}>CANCEL</Button>
-        <input type="submit" value="Create" />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );
