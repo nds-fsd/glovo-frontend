@@ -1,20 +1,17 @@
-/* eslint-disable consistent-return */
 /* eslint-disable no-console */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { shortFetch } from '../../assets/utils/fetch.utils';
-import { InputText } from '../inputText/inputText.view';
+import { shortFetch } from '../../../assets/utils/fetch.utils';
+import { InputText } from '../../inputText/inputText.view';
 import styles from './dishForm.module.css';
-import { DISH } from '../../router/router';
+import { DISH } from '../../../router/router';
+import { isNumber, isRequired } from '../../../assets/utils/validations.utils';
 
 export const DishForm = ({ courseList }) => {
   const [dishName, setDishName] = useState();
   const [selectedCourse, setSelectedCourse] = useState();
   const [price, setPrice] = useState();
-  const [priceError, setPriceError] = useState(false);
-  const [dishError, setDishError] = useState(false);
+  const [anyError, setAnyError] = useState(false);
   const { id } = useParams();
 
   const clearAll = () => {
@@ -22,22 +19,15 @@ export const DishForm = ({ courseList }) => {
     setSelectedCourse('');
     setPrice('');
   };
+  const validate = () => {
+    const hasError = Object.keys(anyError).find((key) => {
+      return anyError[key];
+    });
+    return hasError && hasError.length > 0;
+  };
 
   const validateAndFetch = () => {
-    let error = false;
-    if (!dishName) {
-      setDishError(true);
-      error = true;
-    } else {
-      setDishError(false);
-    }
-    if (!price || isNaN(price)) {
-      setPriceError(true);
-      error = true;
-    } else {
-      setPriceError(false);
-    }
-    if (error) {
+    if (validate()) {
       console.debug('failed to fetch');
       return null;
     }
@@ -46,7 +36,7 @@ export const DishForm = ({ courseList }) => {
       method: 'POST',
       body: { name: dishName, price, Course: selectedCourse, Restaurant: { id } },
     });
-    clearAll();
+    return clearAll();
   };
 
   return (
@@ -57,8 +47,8 @@ export const DishForm = ({ courseList }) => {
           value={dishName}
           handleChange={setDishName}
           inputId="resDishName"
-          error={dishError}
-          errorMessage="Please add a Name "
+          onError={(isError) => setAnyError({ ...anyError, name: isError })}
+          validations={[{ func: isRequired, message: 'this field is required' }]}
         />
       </div>
       <div className={`${styles.subContainer} ${styles.category}`}>
@@ -80,8 +70,11 @@ export const DishForm = ({ courseList }) => {
           value={price}
           handleChange={setPrice}
           inputId="resPrice"
-          error={priceError}
-          errorMessage="Please use numbers and '.' "
+          onError={(isError) => setAnyError({ ...anyError, name: isError })}
+          validations={[
+            { func: isRequired, message: 'this field is required' },
+            { func: isNumber, message: "Please use numbers and '.'" },
+          ]}
         />
       </div>
       <div className={`${styles.subContainer} ${styles.buttons}`}>

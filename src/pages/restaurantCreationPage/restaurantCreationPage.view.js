@@ -2,13 +2,14 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { Link, Redirect, Route, useParams } from 'react-router-dom';
-import RestaurantForm from '../../components/restaurantForm';
-import DishForm from '../../components/dishForm';
+import RestaurantForm from '../../components/forms/restaurantForm';
+import DishForm from '../../components/forms/dishForm';
 import styles from './restaurantCreationPage.module.css';
 import DishList from '../../components/dishList';
-import CourseForm from '../../components/courseForm';
+import CourseForm from '../../components/forms/courseForm';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import { COURSE, RESTAURANT_CREATION_PAGE } from '../../router/router';
+import DishModal from '../../components/dishModal';
 // import { RESTAURANT_CREATION_PAGE } from '../../router/router';
 
 export const RestaurantCreationPage = () => {
@@ -18,8 +19,9 @@ export const RestaurantCreationPage = () => {
   const [createdRestaurant, setCreatedRestaurant] = useState('');
   const [courseList, setCourseList] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [handleModal, setHandleModal] = useState(false);
+  const [selectedDish, setSelectedDish] = useState();
 
-  console.debug(id, section);
   useEffect(() => {
     if (!id) {
       return null;
@@ -33,54 +35,64 @@ export const RestaurantCreationPage = () => {
   }, [toggle]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.navBar}>
-        <span>
-          {!enableButtons && (
+    <>
+      <div className={styles.container}>
+        <div className={styles.navBar}>
+          <span>
+            {!enableButtons && (
+              <button>
+                <Link to={`${RESTAURANT_CREATION_PAGE}/restaurantInfo/`}>Restaurant Info</Link>
+              </button>
+            )}
+            {enableButtons && (
+              <>
+                <button>
+                  <Link to={`${RESTAURANT_CREATION_PAGE}/courses/${createdRestaurant._id}`}>
+                    categories
+                  </Link>
+                </button>
+                <button>
+                  <Link to={`${RESTAURANT_CREATION_PAGE}/newDish/${createdRestaurant._id}`}>
+                    Add a Dish
+                  </Link>
+                </button>
+                <button>
+                  <Link to={`${RESTAURANT_CREATION_PAGE}/fullMenu/${createdRestaurant._id}`}>
+                    Full Menu
+                  </Link>
+                </button>
+              </>
+            )}
+          </span>
+          <span>
             <button>
-              <Link to={`${RESTAURANT_CREATION_PAGE}/restaurantInfo/`}>Restaurant Info</Link>
+              <Link to="/">Exit</Link>
             </button>
-          )}
-          {enableButtons && (
-            <>
-              <button>
-                <Link to={`${RESTAURANT_CREATION_PAGE}/courses/${createdRestaurant._id}`}>
-                  categories
-                </Link>
-              </button>
-              <button>
-                <Link to={`${RESTAURANT_CREATION_PAGE}/newDish/${createdRestaurant._id}`}>
-                  Add a Dish
-                </Link>
-              </button>
-              <button>
-                <Link to={`${RESTAURANT_CREATION_PAGE}/fullMenu/${createdRestaurant._id}`}>
-                  Full Menu
-                </Link>
-              </button>
-            </>
-          )}
-        </span>
-        <span>
-          <button>
-            <Link to="/">Exit</Link>
-          </button>
-        </span>
+          </span>
+        </div>
+        <Route path={RESTAURANT_CREATION_PAGE} exact>
+          <Redirect to={`${RESTAURANT_CREATION_PAGE}/restaurantInfo`} />
+        </Route>
+        {section === 'restaurantInfo' && (
+          <RestaurantForm
+            enableButtons={() => setEnableButtons(true)}
+            storeCreated={(restaurant) => setCreatedRestaurant(restaurant)}
+          />
+        )}
+        {section === 'fullMenu' && (
+          <DishList
+            onDishClick={(dish) => setSelectedDish(dish)}
+            openModal={() => setHandleModal(true)}
+          />
+        )}
+        {section === 'newDish' && <DishForm courseList={courseList} />}
+        {section === 'courses' && (
+          <CourseForm toggle={() => setToggle(!toggle)} courseList={courseList} />
+        )}
       </div>
-      <Route path={RESTAURANT_CREATION_PAGE} exact>
-        <Redirect to={`${RESTAURANT_CREATION_PAGE}/restaurantInfo`} />
-      </Route>
-      {section === 'restaurantInfo' && (
-        <RestaurantForm
-          enableButtons={() => setEnableButtons(true)}
-          storeCreated={(restaurant) => setCreatedRestaurant(restaurant)}
-        />
+      {handleModal && (
+        <DishModal onClose={() => setHandleModal(false)} selectedDish={selectedDish} />
       )}
-      {section === 'fullMenu' && <DishList />}
-      {section === 'newDish' && <DishForm courseList={courseList} />}
-      {section === 'courses' && (
-        <CourseForm toggle={() => setToggle(!toggle)} courseList={courseList} />
-      )}
-    </div>
+    </>
   );
 };

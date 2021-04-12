@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './restaurantViewPage.module.css';
 import Modal from '../../components/modal';
-import RestaurantUpdateForm from '../../components/restaurantUpdateForm';
+import RestaurantUpdateForm from '../../components/forms/restaurantUpdateForm';
 import { BACKEND } from '../../router/router';
 
 export const RestaurantViewPage = () => {

@@ -2,11 +2,11 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { BACKEND } from '../../router/router';
+import { BACKEND } from '../../../router/router';
 import styles from './restaurantUpdateForm.module.css';
-import InputText from '../inputText';
-import CategorySelect from '../categorySelect';
-import Button from '../button';
+import InputText from '../../inputText';
+import CategorySelect from '../../categorySelect';
+import Button from '../../button';
 
 export const RestaurantUpdateForm = ({ onClose }) => {
   const [updateName, setUpdateName] = useState('');

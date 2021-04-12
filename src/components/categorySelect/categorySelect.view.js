@@ -3,7 +3,7 @@ import { shortFetch } from '../../assets/utils/fetch.utils';
 import { RESTAURANT_CATEGORY } from '../../router/router';
 import styles from './categorySelect.module.css';
 
-export const CategorySelect = ({ categoryValue, error, errorMessage }) => {
+export const CategorySelect = ({ categoryValue, handleChange }) => {
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
     shortFetch({ url: `${RESTAURANT_CATEGORY}`, onSuccess: setCategoryList, method: 'GET' });
@@ -11,8 +11,8 @@ export const CategorySelect = ({ categoryValue, error, errorMessage }) => {
 
   return (
     <div className={`${styles.subContainer} ${styles.category}`}>
-      {error && <legend>{errorMessage}</legend>}
-      <select onChange={(e) => categoryValue(e.target.value)}>
+      {!categoryValue && <p>* required</p>}
+      <select onChange={(e) => handleChange(e.target.value)}>
         <option value="" selected disabled hidden>
           Select a Category
         </option>

@@ -5,15 +5,18 @@
     align-items: center;
     width: 50%;
     height: 580px;
-    border: 1px solid red;
     padding: 20px;
+    background-color: rgb(130, 130, 130, 0.8);
+    border-radius: 20px;
 }
 .subContainer{
     display: flex;
     align-items: center;
     width: 100%;
     height: 5em;
-    border: 1px solid blue;
+    background-color: rgb(196 196 196 / 55%);
+    border-radius: 23px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .courses{
     display: flex;
@@ -22,4 +25,10 @@
     justify-content: flex-start;
     height: 20em;
     overflow-y: scroll;
+}
+.title{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1em;
 }
