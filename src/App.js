@@ -10,13 +10,16 @@ import {
   RESTAURANT_LIST_PAGE,
   RESTAURANT_MENU_EDIT,
 } from './router/router';
+import { RestoListContextProvider } from './components/context/restoListPageContext';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path={RESTAURANT_LIST_PAGE}>
-          <RestaurantListPage />
+          <RestoListContextProvider>
+            <RestaurantListPage />
+          </RestoListContextProvider>
         </Route>
         <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
           <RestaurantCreationPage />
