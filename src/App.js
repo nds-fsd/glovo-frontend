@@ -17,7 +17,9 @@ function App() {
     <Router>
       <Switch>
         <Route path={RESTAURANT_LIST_PAGE}>
-          <RestaurantListPage />
+          <RestoListContextProvider>
+            <RestaurantListPage />
+          </RestoListContextProvider>
         </Route>
         <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
           <RestaurantCreationPage />
@@ -28,11 +30,9 @@ function App() {
         <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
           <MenuEditPage />
         </Route>
-        <RestoListContextProvider>
-          <Route path="/" exact>
-            <Redirect to={RESTAURANT_LIST_PAGE} />
-          </Route>
-        </RestoListContextProvider>
+        <Route path="/" exact>
+          <Redirect to={RESTAURANT_LIST_PAGE} />
+        </Route>
       </Switch>
     </Router>
   );

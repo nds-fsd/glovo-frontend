@@ -9,6 +9,7 @@ export const RestoListContextProvider = ({ children }) => {
   const clearCategories = () => {
     setCategorySelected(undefined);
   };
+  const [toggleSelectedCategory, setToggleSelectedCategory] = useState(false);
 
   const value = {
     categorySelected,
@@ -16,6 +17,8 @@ export const RestoListContextProvider = ({ children }) => {
     clearCategories,
     categoryArr,
     setCategoryArr,
+    toggleSelectedCategory,
+    setToggleSelectedCategory,
   };
 
   return <RestoListContext.Provider value={value}>{children}</RestoListContext.Provider>;
