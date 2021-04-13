@@ -1,4 +1,58 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import styles from './restaurantViewPage.module.css';
+import Modal from '../../components/modal';
+import RestaurantUpdateForm from '../../components/forms/restaurantUpdateForm';
+import { BACKEND } from '../../router/router';
 
-export const RestaurantViewPage = () => {};
+export const RestaurantViewPage = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const { id } = useParams();
+  const [selectedResto, setSelectedResto] = useState();
+
+  useEffect(() => {
+    fetch(`${BACKEND}/restaurant/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          return Promise.reject();
+        }
+        return response.json();
+      })
+      .then((restaurant) => {
+        console.log(restaurant);
+        setSelectedResto(restaurant);
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
+  }, [isOpenModal]);
+
+  return (
+    <div>
+      {selectedResto && (
+        <div className={styles._restoInfo}>
+          <p>{selectedResto.name}</p>
+          <p>{selectedResto.restaurantCategory.name}</p>
+          <p>{selectedResto.restaurantDescription}</p>
+          <button onClick={() => setIsOpenModal(true)}>Edit</button>
+        </div>
+      )}
+      {isOpenModal && (
+        <Modal onClose={() => setIsOpenModal(false)}>
+          <p>Restaurant update</p>
+          <RestaurantUpdateForm onClose={() => setIsOpenModal(false)} />
+        </Modal>
+      )}
+      <div className={styles._restoCourse}>
+        {selectedResto &&
+          selectedResto.courseList.map((course) => {
+            return <p>{course.name}</p>;
+          })}
+        <Link to={`/menuEditPage/${id}`}>
+          <button>Edit Menu</button>
+        </Link>
+      </div>
+    </div>
+  );
+};
