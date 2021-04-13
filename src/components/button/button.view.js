@@ -1,8 +1,8 @@
 import styles from './button.module.css';
 
-export const Button = ({ children, onClick }) => {
+export const Button = ({ children, onClose, style }) => {
   return (
-    <div className={styles._container} onClick={onClick}>
+    <div className={`${styles._container} ${style}`} onClick={onClose}>
       <p className={styles._buttonText}>{children}</p>
     </div>
   );
