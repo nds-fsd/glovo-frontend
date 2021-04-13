@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -6,37 +5,30 @@ import { BACKEND } from '../../../router/router';
 import styles from './restaurantUpdateForm.module.css';
 import InputText from '../../inputText';
 import CategorySelect from '../../categorySelect';
-import Button from '../../button';
+// import Button from '../../button';
+import { isRequired, minLength } from '../../../assets/utils/validations.utils';
 
-export const RestaurantUpdateForm = ({ onClose }) => {
-  const [updateName, setUpdateName] = useState('');
+export const RestaurantUpdateForm = ({ onClose, toggle }) => {
+  const { id } = useParams();
+  const [updateName, setUpdateName] = useState();
   const [updateCategory, setUpdateCategory] = useState();
   const [updateDescription, setUpdateDescription] = useState();
-  const [nameError, setNameError] = useState(false);
-  const [categoryError, setCategoryError] = useState(false);
-  const [descriptionError, setDescriptionError] = useState(false);
-  const { id } = useParams();
+  const [anyError, setAnyError] = useState({ name: true });
+
+  const handleDisable = () => {
+    const hasError = Object.keys(anyError).find((key) => {
+      return anyError[key];
+    });
+    return hasError && hasError.length > 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!updateName || updateName.toString().length < 2) {
-      setNameError(true);
-    } else {
-      setNameError(false);
+    if (handleDisable()) {
+      console.log('failed');
     }
 
-    if (updateCategory === undefined) {
-      setCategoryError(true);
-    } else {
-      setCategoryError(false);
-    }
-
-    if (!updateDescription || updateDescription.toString().length < 5) {
-      setDescriptionError(true);
-    } else {
-      setDescriptionError(false);
-    }
     const body = {
       name: updateName,
       restaurantCategory: updateCategory,
@@ -52,7 +44,10 @@ export const RestaurantUpdateForm = ({ onClose }) => {
     };
     fetch(`${BACKEND}/restaurant/${id}`, options)
       .then((response) => response.json())
-      .then((resto) => console.log(resto))
+      .then((resto) => {
+        console.log(resto);
+        toggle();
+      })
       .catch((err) => console.log(err));
 
     onClose();
@@ -67,13 +62,16 @@ export const RestaurantUpdateForm = ({ onClose }) => {
           value={updateName}
           handleChange={setUpdateName}
           inputId="resNewName"
-          error={nameError}
-          errorMessage="Please add a valid name"
+          onError={(isError) => setAnyError({ ...anyError, name: isError })}
+          validations={[
+            { func: isRequired, message: 'this field is required' },
+            { func: minLength, message: 'minLength is 5' },
+          ]}
         />
         <CategorySelect
-          categoryValue={(value) => setUpdateCategory(value)}
-          error={categoryError}
-          errorMessage="Please select a category"
+          handleChange={(value) => setUpdateCategory(value)}
+          categoryValue={updateCategory}
+          label="Categoria"
         />
         <InputText
           placeholder="Enter a new description"
@@ -81,11 +79,16 @@ export const RestaurantUpdateForm = ({ onClose }) => {
           value={updateDescription}
           handleChange={setUpdateDescription}
           inputId="resNewDescription"
-          error={descriptionError}
-          errorMessage="Please add a valid description"
+          onError={(isError) => setAnyError({ ...anyError, name: isError })}
+          validations={[
+            { func: isRequired, message: 'this field is required' },
+            { func: minLength, message: 'minLength is 5' },
+          ]}
         />
-        <Button onClose={onClose}>CANCEL</Button>
-        <input type="submit" value="Submit" />
+        <div className={styles._btnContainer}>
+          <input type="button" value="Cancel" onClick={onClose} className={styles._btn} />
+          <input type="submit" value="Submit" className={styles._btn} />
+        </div>
       </form>
     </div>
   );

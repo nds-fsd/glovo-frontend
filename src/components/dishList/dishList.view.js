@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './dishList.module.css';
 import DishItem from '../dishItem';
 import { RESTAURANT } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
+import Modal from '../modal';
 
 // This component makes a double .map(), first to get the category name and render the container,
 // for each category, the second is to render all the dishes in that category.

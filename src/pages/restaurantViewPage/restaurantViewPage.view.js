@@ -26,7 +26,8 @@ export const RestaurantViewPage = () => {
       .catch((err) => {
         return console.log(err);
       });
-  }, [id]);
+  }, [isOpenModal]);
+
   return (
     <div>
       {selectedResto && (
