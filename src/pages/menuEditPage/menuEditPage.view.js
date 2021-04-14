@@ -1,4 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './menuEditPage.module.css';
+import DishList from '../../components/dishList';
+import DishModal from '../../components/dishModal';
 
-export const MenuEditPage = () => {};
+export const MenuEditPage = () => {
+  const [handleModal, setHandleModal] = useState(false);
+  const [selectedDish, setSelectedDish] = useState();
+
+  return (
+    <div className={styles.container}>
+      <DishList
+        onDishClick={(value) => setSelectedDish(value)}
+        openModal={() => setHandleModal(true)}
+      />
+      {handleModal && (
+        <DishModal onClose={() => setHandleModal(false)} selectedDish={selectedDish} />
+      )}
+    </div>
+  );
+};

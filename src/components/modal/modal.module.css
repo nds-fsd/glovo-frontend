@@ -1,0 +1,39 @@
+._closeContainer {
+    width: 100%;
+    height: 100vh;
+    background-color: #0000007c;
+    position: absolute;
+    top: 0;
+}
+._container {
+    position: absolute;
+    left: 50%;
+    top: 50%; 
+    margin-left: -300px;
+    margin-top: -210px;
+  }
+  
+  ._modal {
+      width: 600px;
+      height: 420px;
+      background: #333333;
+      border: 5px solid white;
+      box-sizing: border-box;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 10px 20px;    
+  }
+
+  ._btnClose {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 25px;
+      right: 25px;
+  }

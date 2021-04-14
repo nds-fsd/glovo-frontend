@@ -1,0 +1,9 @@
+.restoItem{
+    width: 12rem;
+    height: 10rem;
+    border: black 1px solid;
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

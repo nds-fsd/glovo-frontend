@@ -1,0 +1,7 @@
+.container{
+    display: flex;
+}
+
+.categoryItem{
+    padding: 20px;
+}
