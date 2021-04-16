@@ -1,6 +1,7 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 /* eslint-disable no-restricted-globals */
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { RESTAURANT } from '../../../router/router';
 import CategorySelect from '../../categorySelect';
@@ -21,6 +22,8 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
   const [street, setStreet] = useState();
   const [number, setNumber] = useState();
   const [anyError, setAnyError] = useState({ name: true });
+
+  const { register, handleSubmit, errors } = useForm();
 
   const handleDisable = () => {
     const hasError = Object.keys(anyError).find((key) => {
@@ -53,72 +56,74 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
     });
     return storeCreated;
   };
+
+  const onSubmit = (data) => {
+    console.debug(data);
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={`${styles.subContainer} ${styles.title}`}>
-        <InputText
-          placeholder="Name"
-          label="Name"
-          value={name}
-          handleChange={setName}
-          inputId="resName"
-          onError={(isError) => setAnyError({ ...anyError, name: isError })}
-          validations={[
-            { func: isRequired, message: 'this field is required' },
-            { func: minLength, message: 'minLength is 5' },
-          ]}
-        />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.container}>
+        <div className={`${styles.subContainer} ${styles.title}`}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Restaurant Name"
+            ref={register('name', { required: 'This field is required' })}
+          />
+
+        </div>
+        <div className={`${styles.subContainer} ${styles.category}`}>
+          <CategorySelect handleChange={(value) => setCategory(value)} categoryValue={category} />
+        </div>
+        <div className={`${styles.subContainer} ${styles.description}`}>
+          <textarea
+            id="resDesc"
+            className={styles.textarea}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Please add your description"
+          ></textarea>
+        </div>
+        <div className={`${styles.subContainer} ${styles.address}`}>
+          <InputText
+            placeholder="street"
+            value={street}
+            handleChange={setStreet}
+            inputId="resStreet"
+            onError={(isError) => setAnyError({ ...anyError, name: isError })}
+            validations={[{ func: isRequired, message: 'this field is required' }]}
+          />
+          <InputText
+            placeholder="number"
+            value={number}
+            handleChange={setNumber}
+            inputId="resNumber"
+            onError={(isError) => setAnyError({ ...anyError, name: isError })}
+            validations={[
+              { func: isRequired, message: 'this field is required' },
+              { func: isNumber, message: 'it has to be a numba' },
+            ]}
+          />
+          <InputText
+            placeholder="Zipcode"
+            value={zipcode}
+            handleChange={setZipcode}
+            inputId="resZipcode"
+            onError={(isError) => setAnyError({ ...anyError, name: isError })}
+            validations={[
+              { func: isRequired, message: 'this field is required' },
+              { func: numLength, message: 'please add a valid zipcode' },
+            ]}
+          />
+        </div>
+        <div className={`${styles.subContainer} ${styles.buttons}`}>
+          <button onClick={() => location.reload()}>cancel</button>
+          <button disabled={handleDisable()} onClick={validateAndFetch}>
+            create
+          </button>
+        </div>
       </div>
-      <div className={`${styles.subContainer} ${styles.category}`}>
-        <CategorySelect handleChange={(value) => setCategory(value)} categoryValue={category} />
-      </div>
-      <div className={`${styles.subContainer} ${styles.description}`}>
-        <textarea
-          id="resDesc"
-          className={styles.textarea}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Please add your description"
-        ></textarea>
-      </div>
-      <div className={`${styles.subContainer} ${styles.address}`}>
-        <InputText
-          placeholder="street"
-          value={street}
-          handleChange={setStreet}
-          inputId="resStreet"
-          onError={(isError) => setAnyError({ ...anyError, name: isError })}
-          validations={[{ func: isRequired, message: 'this field is required' }]}
-        />
-        <InputText
-          placeholder="number"
-          value={number}
-          handleChange={setNumber}
-          inputId="resNumber"
-          onError={(isError) => setAnyError({ ...anyError, name: isError })}
-          validations={[
-            { func: isRequired, message: 'this field is required' },
-            { func: isNumber, message: 'it has to be a numba' },
-          ]}
-        />
-        <InputText
-          placeholder="Zipcode"
-          value={zipcode}
-          handleChange={setZipcode}
-          inputId="resZipcode"
-          onError={(isError) => setAnyError({ ...anyError, name: isError })}
-          validations={[
-            { func: isRequired, message: 'this field is required' },
-            { func: numLength, message: 'please add a valid zipcode' },
-          ]}
-        />
-      </div>
-      <div className={`${styles.subContainer} ${styles.buttons}`}>
-        <button onClick={() => location.reload()}>cancel</button>
-        <button disabled={handleDisable()} onClick={validateAndFetch}>
-          create
-        </button>
-      </div>
-    </div>
+    </form>
   );
 };
