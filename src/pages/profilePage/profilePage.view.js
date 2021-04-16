@@ -20,7 +20,7 @@ export const ProfilePage = () => {
   const onSubmit = (data) => {
     console.debug(data.street);
   };
-  
+
   console.debug(errors);
   return (
     <>
