@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -10,6 +12,10 @@ export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { id } = useParams();
   const [selectedResto, setSelectedResto] = useState();
+  const [courseSelected, setCourseSelected] = useState();
+  const [dishByCourse, setDishByCourse] = useState();
+  const [oneDish, setOneDish] = useState();
+  const [renderDishList, setRenderDishList] = useState();
 
   useEffect(() => {
     fetch(`${BACKEND}/restaurant/${id}`)
@@ -20,13 +26,42 @@ export const RestaurantViewPage = () => {
         return response.json();
       })
       .then((restaurant) => {
-        console.log(restaurant);
         setSelectedResto(restaurant);
       })
       .catch((err) => {
         return console.log(err);
       });
   }, [isOpenModal]);
+
+  const handleClick = (selectedCourse) => {
+    setCourseSelected(selectedCourse);
+
+    dishByCourse && setOneDish(dishByCourse.filter((dish) => dish.id === courseSelected));
+    oneDish &&
+      oneDish.map((dish) => {
+        return dish.dishList.map((list) => {
+          return console.log(list.name);
+        });
+      });
+  };
+
+  useEffect(() => {
+    if (courseSelected) {
+      fetch(`${BACKEND}/course/all/${id}`)
+        .then((response) => {
+          if (!response.ok) {
+            return Promise.reject();
+          }
+          return response.json();
+        })
+        .then((dishes) => {
+          setDishByCourse(dishes);
+        })
+        .catch((err) => {
+          return console.log(err);
+        });
+    }
+  }, [courseSelected]);
 
   return (
     <div>
@@ -47,7 +82,13 @@ export const RestaurantViewPage = () => {
       <div className={styles._restoCourse}>
         {selectedResto &&
           selectedResto.courseList.map((course) => {
-            return <p>{course.name}</p>;
+            return (
+              <div>
+                <div className={styles._courses}>
+                  <p onClick={() => handleClick(course._id)}>{course.name}</p>
+                </div>
+              </div>
+            );
           })}
         <Link to={`/menuEditPage/${id}`}>
           <button>Edit Menu</button>
