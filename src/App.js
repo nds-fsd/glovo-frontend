@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import RestaurantCreationPage from './pages/restaurantCreationPage';
 import RestaurantViewPage from './pages/restaurantViewPage';
 import RestaurantListPage from './pages/restaurantListPage';
+import LogInPage from './pages/logInPage/index';
 import MenuEditPage from './pages/menuEditPage';
 import {
   RESTAURANT_CREATION_PAGE,
@@ -35,27 +36,24 @@ function App() {
           <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
             <MenuEditPage />
           </Route>
-          <Route path={`${PROFILE_PAGE}`}>
-            <ProfilePage />
-          </Route>
           <Route path="/" exact>
             <Redirect to={RESTAURANT_LIST_PAGE} />
           </Route>
           <Route path="/loginPage">
-            <ProfilePage />
+            <LogInPage />
           </Route>
-          <PrivateRoute path={RESTAURANT_LIST_PAGE}>
+          {/* <PrivateRoute path={RESTAURANT_LIST_PAGE}>
             <RestaurantListPage />
-          </PrivateRoute>
+          </PrivateRoute> */}
           <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
             <RestaurantViewPage />
           </PrivateRoute>
           {/* <PrivateRoute path={`/${BACKOFFICE_PAGE}/:id`}>
             <BackOfficePage />
         </PrivateRoute> */}
-          <Route path="/">
+          {/* <Route path="/">
             <Redirect to="loginPage" />
-          </Route>
+          </Route> */}
         </Switch>
       </RoleContextProvider>
     </Router>
