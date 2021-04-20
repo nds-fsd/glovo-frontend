@@ -1,5 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { BACKEND, DISH } from '../../router/router';
 import styles from './dishItem.module.css';
 
 // This component recieves the name, description and price from EACH dish in the rendered category
