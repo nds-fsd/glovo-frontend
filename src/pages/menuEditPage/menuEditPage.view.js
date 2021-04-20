@@ -13,9 +13,12 @@ export const MenuEditPage = () => {
         onDishClick={(value) => setSelectedDish(value)}
         openModal={() => setHandleModal(true)}
       />
-      {handleModal && (
-        <DishModal onClose={() => setHandleModal(false)} selectedDish={selectedDish} />
-      )}
+
+      <DishModal
+        open={handleModal}
+        onClose={() => setHandleModal(false)}
+        selectedDish={selectedDish}
+      />
     </div>
   );
 };

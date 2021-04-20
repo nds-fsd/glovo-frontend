@@ -27,9 +27,6 @@ function App() {
         <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
           <RestaurantViewPage />
         </Route>
-        {/* <Route path={`${RESTAURANT_VIEW_PAGE}/course/:id`}>
-          <RestaurantViewPage />
-        </Route> */}
         <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
           <MenuEditPage />
         </Route>

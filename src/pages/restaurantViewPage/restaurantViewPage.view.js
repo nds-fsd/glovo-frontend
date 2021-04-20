@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styles from './restaurantViewPage.module.css';
 import Modal from '../../components/modal';
+import DishItem from '../../components/dishItem';
 import RestaurantUpdateForm from '../../components/forms/restaurantUpdateForm';
 import { BACKEND } from '../../router/router';
 
@@ -15,7 +16,6 @@ export const RestaurantViewPage = () => {
   const [courseSelected, setCourseSelected] = useState();
   const [dishByCourse, setDishByCourse] = useState();
   const [oneDish, setOneDish] = useState();
-  const [renderDishList, setRenderDishList] = useState();
 
   useEffect(() => {
     fetch(`${BACKEND}/restaurant/${id}`)
@@ -32,18 +32,6 @@ export const RestaurantViewPage = () => {
         return console.log(err);
       });
   }, [isOpenModal]);
-
-  const handleClick = (selectedCourse) => {
-    setCourseSelected(selectedCourse);
-
-    dishByCourse && setOneDish(dishByCourse.filter((dish) => dish.id === courseSelected));
-    oneDish &&
-      oneDish.map((dish) => {
-        return dish.dishList.map((list) => {
-          return console.log(list.name);
-        });
-      });
-  };
 
   useEffect(() => {
     if (courseSelected) {
@@ -63,6 +51,11 @@ export const RestaurantViewPage = () => {
     }
   }, [courseSelected]);
 
+  const handleClick = (courseId) => {
+    setCourseSelected(courseId);
+    dishByCourse && setOneDish(dishByCourse.filter((course) => course._id === courseSelected));
+  };
+
   return (
     <div>
       {selectedResto && (
@@ -74,8 +67,7 @@ export const RestaurantViewPage = () => {
         </div>
       )}
       {isOpenModal && (
-        <Modal onClose={() => setIsOpenModal(false)}>
-          <p>Restaurant update</p>
+        <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal} title="Modify your data">
           <RestaurantUpdateForm onClose={() => setIsOpenModal(false)} />
         </Modal>
       )}
@@ -93,6 +85,14 @@ export const RestaurantViewPage = () => {
         <Link to={`/menuEditPage/${id}`}>
           <button>Edit Menu</button>
         </Link>
+      </div>
+      <div>
+        {oneDish &&
+          oneDish[0].dishList.map((dish) => (
+            <div>
+              <DishItem selectedDish={dish} />
+            </div>
+          ))}
       </div>
     </div>
   );
