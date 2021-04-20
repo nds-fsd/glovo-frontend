@@ -11,14 +11,14 @@ import Modal from '../modal';
 // This component makes a double .map(), first to get the category name and render the container,
 // for each category, the second is to render all the dishes in that category.
 
-export const DishList = ({ openModal, onDishClick }) => {
+export const DishList = ({ openModal, onDishClick, toggle }) => {
   const [restaurant, setRestaurant] = useState();
 
   const { id } = useParams();
 
   useEffect(() => {
     shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
-  }, [id]);
+  }, [id, toggle]);
 
   return (
     <div className={styles.container}>

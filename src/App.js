@@ -10,10 +10,8 @@ import {
   RESTAURANT_VIEW_PAGE,
   RESTAURANT_LIST_PAGE,
   RESTAURANT_MENU_EDIT,
-  PROFILE_PAGE,
 } from './router/router';
 import { RestoListContextProvider } from './components/context/restoListPageContext';
-import ProfilePage from './pages/profilePage';
 import { RoleContextProvider } from './components/context/roleContext';
 import { PrivateRoute } from './components/privateRoute/privateRoute.view';
 
