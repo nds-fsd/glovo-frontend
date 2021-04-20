@@ -8,7 +8,7 @@ import CategorySelect from '../../categorySelect';
 // import Button from '../../button';
 import { isRequired, minLength } from '../../../assets/utils/validations.utils';
 
-export const RestaurantUpdateForm = ({ onClose, toggle }) => {
+export const RestaurantUpdateForm = ({ onClose }) => {
   const { id } = useParams();
   const [updateName, setUpdateName] = useState();
   const [updateCategory, setUpdateCategory] = useState();
@@ -46,7 +46,6 @@ export const RestaurantUpdateForm = ({ onClose, toggle }) => {
       .then((response) => response.json())
       .then((resto) => {
         console.log(resto);
-        toggle();
       })
       .catch((err) => console.log(err));
 

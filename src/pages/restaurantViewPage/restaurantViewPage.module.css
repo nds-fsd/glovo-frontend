@@ -8,7 +8,6 @@
 }
 
 ._restoCourse {
-    height: 50px;
     border: 1px solid black;
     display: flex;
     align-items: center;
@@ -17,4 +16,8 @@
 
 ._restoCourse p{
     margin: 10px;
+}
+
+._courses {
+    color: red;
 }

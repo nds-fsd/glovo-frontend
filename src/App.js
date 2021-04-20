@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import RestaurantCreationPage from './pages/restaurantCreationPage';
 import RestaurantViewPage from './pages/restaurantViewPage';
 import RestaurantListPage from './pages/restaurantListPage';
+import LogInPage from './pages/logInPage/index';
 import MenuEditPage from './pages/menuEditPage';
 import SignUpPage from './pages/signUpPage';
 import {
@@ -13,32 +14,48 @@ import {
   SIGNUP_PAGE,
 } from './router/router';
 import { RestoListContextProvider } from './components/context/restoListPageContext';
+import { RoleContextProvider } from './components/context/roleContext';
+import { PrivateRoute } from './components/privateRoute/privateRoute.view';
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path={RESTAURANT_LIST_PAGE}>
-          <RestoListContextProvider>
+      <RoleContextProvider>
+        <Switch>
+          <Route path={RESTAURANT_LIST_PAGE}>
+            <RestoListContextProvider>
+              <RestaurantListPage />
+            </RestoListContextProvider>
+          </Route>
+          <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
+            <RestaurantCreationPage />
+          </Route>
+          <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
+            <RestaurantViewPage />
+          </Route>
+          <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
+            <MenuEditPage />
+          </Route>
+          <Route path="/" exact>
+            <Redirect to={RESTAURANT_LIST_PAGE} />
+          </Route>
+          <Route path="/loginPage">
+            <LogInPage />
+          </Route>
+          {/* <PrivateRoute path={RESTAURANT_LIST_PAGE}>
             <RestaurantListPage />
-          </RestoListContextProvider>
-        </Route>
-        <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
-          <RestaurantCreationPage />
-        </Route>
-        <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
-          <RestaurantViewPage />
-        </Route>
-        <Route path={SIGNUP_PAGE}>
-          <SignUpPage />
-        </Route>
-        <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
-          <MenuEditPage />
-        </Route>
-        <Route path="/" exact>
-          <Redirect to={RESTAURANT_LIST_PAGE} />
-        </Route>
-      </Switch>
+          </PrivateRoute> */}
+          <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
+            <RestaurantViewPage />
+          </PrivateRoute>
+          {/* <PrivateRoute path={`/${BACKOFFICE_PAGE}/:id`}>
+            <BackOfficePage />
+        </PrivateRoute> */}
+          {/* <Route path="/">
+            <Redirect to="loginPage" />
+          </Route> */}
+        </Switch>
+      </RoleContextProvider>
     </Router>
   );
 }
