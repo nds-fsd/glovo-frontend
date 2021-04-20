@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import styles from './menuEditPage.module.css';
 import DishList from '../../components/dishList';
@@ -13,9 +14,12 @@ export const MenuEditPage = () => {
         onDishClick={(value) => setSelectedDish(value)}
         openModal={() => setHandleModal(true)}
       />
-      {handleModal && (
-        <DishModal onClose={() => setHandleModal(false)} selectedDish={selectedDish} />
-      )}
+
+      <DishModal
+        open={handleModal}
+        onClose={() => setHandleModal(false)}
+        selectedDish={selectedDish}
+      />
     </div>
   );
 };
