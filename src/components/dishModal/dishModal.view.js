@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-console */
@@ -8,8 +9,7 @@ import styles from './dishModal.module.css';
 import Modal from '../modal';
 import { BACKEND } from '../../router/router';
 
-export const DishModal = ({ onClose, open }) => {
-  const { id } = useParams();
+export const DishModal = ({ onClose, open, selectedDish }) => {
   const [newName, setNewName] = useState();
   const [newPrice, setNewPrice] = useState();
 
@@ -35,7 +35,7 @@ export const DishModal = ({ onClose, open }) => {
       },
       body: JSON.stringify(body),
     };
-    fetch(`${BACKEND}/dish/${id}`, options)
+    fetch(`${BACKEND}/dish/${selectedDish.id}`, options)
       .then((response) => {
         if (!response.ok) {
           return Promise.reject();
@@ -53,7 +53,7 @@ export const DishModal = ({ onClose, open }) => {
   };
 
   return (
-    <Modal onClose={onClose} open={open} title="Restaurant Update Form">
+    <Modal onClose={onClose} open={open} title="Restaurant Update Form" selectedDish={selectedDish}>
       <div className={styles._container}>
         <form onSubmit={handleSubmit(submit)} className={styles._formContainer}>
           <label htmlFor="name">Name</label>

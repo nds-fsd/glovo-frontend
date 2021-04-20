@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import styles from './menuEditPage.module.css';
 import DishList from '../../components/dishList';
