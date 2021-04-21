@@ -20,38 +20,29 @@ function App() {
     <Router>
       <RoleContextProvider>
         <Switch>
-          <Route path={RESTAURANT_LIST_PAGE}>
-            <RestoListContextProvider>
-              <RestaurantListPage />
-            </RestoListContextProvider>
-          </Route>
-          <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
-            <RestaurantCreationPage />
-          </Route>
-          <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
-            <RestaurantViewPage />
-          </Route>
-          <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
-            <MenuEditPage />
-          </Route>
-          <Route path="/" exact>
-            <Redirect to={RESTAURANT_LIST_PAGE} />
-          </Route>
           <Route path="/loginPage">
             <LogInPage />
           </Route>
-          {/* <PrivateRoute path={RESTAURANT_LIST_PAGE}>
-            <RestaurantListPage />
-          </PrivateRoute> */}
+          <PrivateRoute path={RESTAURANT_LIST_PAGE}>
+            <RestoListContextProvider>
+              <RestaurantListPage />
+            </RestoListContextProvider>
+          </PrivateRoute>
           <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
             <RestaurantViewPage />
           </PrivateRoute>
           {/* <PrivateRoute path={`/${BACKOFFICE_PAGE}/:id`}>
             <BackOfficePage />
-        </PrivateRoute> */}
-          {/* <Route path="/">
+          </PrivateRoute> */}
+          <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
+            <RestaurantCreationPage />
+          </Route>
+          <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
+            <MenuEditPage />
+          </Route>
+          <Route path="/">
             <Redirect to="loginPage" />
-          </Route> */}
+          </Route>
         </Switch>
       </RoleContextProvider>
     </Router>
