@@ -8,7 +8,7 @@ import styles from './dishItem.module.css';
 // This component recieves the name, description and price from EACH dish in the rendered category
 // used in DishList component.
 
-export const DishItem = ({ onClick, onDishClick, selectedDish }) => {
+export const DishItem = ({ onClick, onDishClick, selectedDish, deleteDish }) => {
   return (
     <div
       className={styles._container}
@@ -25,6 +25,7 @@ export const DishItem = ({ onClick, onDishClick, selectedDish }) => {
       <p>{selectedDish.name}</p>
       <p>{selectedDish.description}</p>
       <p>{selectedDish.price}</p>
+      <button onClick={() => deleteDish(selectedDish._id)}>X</button>
     </div>
   );
 };
