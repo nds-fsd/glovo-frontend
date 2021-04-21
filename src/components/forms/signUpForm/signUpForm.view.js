@@ -1,9 +1,15 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-console */
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './signUpForm.module.css';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
+import { setSessionUser } from '../../../assets/utils/localStorage.utils';
+import { RESTAURANT_LIST_PAGE } from '../../../router/router';
+import { roleContext } from '../../context/roleContext';
 
 export const SignUpForm = () => {
   const {
@@ -11,6 +17,10 @@ export const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const history = useHistory();
+
+  const {saveRole} = useContext(roleContext);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -28,7 +38,12 @@ export const SignUpForm = () => {
           zipcode: data.addressZipcode,
         },
       },
-      onSuccess: (response) => console.log(response),
+      onSuccess: (response) => {
+          console.log(response)
+        setSessionUser({ token: response.token, user: response.user });
+        saveRole(response.role);
+        history.push(RESTAURANT_LIST_PAGE);
+      },
     });
   };
 
@@ -108,7 +123,7 @@ export const SignUpForm = () => {
           },
         })}
       />
-      {errors && errors.password && <span>{errors.addressZipcode.message}</span>}
+      {errors && errors.password && <span>{errors.password.message}</span>}
       <input
         type="password"
         id="password"

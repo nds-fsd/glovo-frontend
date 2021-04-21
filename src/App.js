@@ -5,13 +5,11 @@ import RestaurantViewPage from './pages/restaurantViewPage';
 import RestaurantListPage from './pages/restaurantListPage';
 import LogInPage from './pages/logInPage/index';
 import MenuEditPage from './pages/menuEditPage';
-import SignUpPage from './pages/signUpPage';
 import {
   RESTAURANT_CREATION_PAGE,
   RESTAURANT_VIEW_PAGE,
   RESTAURANT_LIST_PAGE,
   RESTAURANT_MENU_EDIT,
-  SIGNUP_PAGE,
 } from './router/router';
 import { RestoListContextProvider } from './components/context/restoListPageContext';
 import { RoleContextProvider } from './components/context/roleContext';
