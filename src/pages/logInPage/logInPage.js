@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 import styles from './logInPage.module.css';
 import LogIn from '../../components/logIn';
+import SignUpForm from '../../components/forms/signUpForm';
 
 const LogInPage = () => {
   return (
@@ -11,7 +12,7 @@ const LogInPage = () => {
         <LogIn />
       </div>
       <div className={styles._register}>
-        <p>Register</p>
+        <SignUpForm />
       </div>
     </div>
   );
