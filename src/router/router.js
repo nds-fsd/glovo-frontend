@@ -5,6 +5,7 @@ export const RESTAURANT_LIST_PAGE = '/restaurantListPage';
 export const PROFILE_PAGE = '/profilePage';
 export const RESTAURANT_MENU_EDIT = '/menuEditPage';
 export const RESTAURANT_CATEGORY = '/restaurantCategory';
+export const SIGNUP_PAGE = '/signup';
 export const RESTAURANT = '/restaurant';
 export const COURSE = '/course';
 export const DISH = '/dish';

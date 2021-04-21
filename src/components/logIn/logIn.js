@@ -4,8 +4,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useForm } from 'react-hook-form';
+import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { styles } from './logIn.module.css';
-import { BACKEND } from '../../router/router';
+import { BACKEND, RESTAURANT_LIST_PAGE } from '../../router/router';
+import { setSessionUser } from '../../assets/utils/localStorage.utils';
+import { roleContext } from '../context/roleContext';
 
 const LogIn = () => {
   const {
@@ -13,6 +17,8 @@ const LogIn = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { saveRole } = useContext(roleContext);
+  const history = useHistory();
 
   const onSubmit = (data) => {
     if (data.email && data.password) {
@@ -36,7 +42,9 @@ const LogIn = () => {
           return response.json();
         })
         .then((user) => {
-          console.log(user);
+          setSessionUser({ token: user.token, user: user.user });
+          saveRole(user.role);
+          history.push(RESTAURANT_LIST_PAGE);
         })
         .catch((err) => {
           return console.log(err);
@@ -45,7 +53,8 @@ const LogIn = () => {
   };
 
   return (
-    <div className={styles._container}>
+    <div>
+      <h1>LOG IN</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email">Email</label>
         {errors.email && <span>This field is required</span>}
@@ -59,7 +68,7 @@ const LogIn = () => {
         {errors.password && <span>This field is required</span>}
         <input
           id="password"
-          {...register('email', {
+          {...register('password', {
             required: true,
           })}
         />

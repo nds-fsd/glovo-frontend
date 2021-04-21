@@ -1,31 +1,24 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-console */
-import React, { useState } from 'react';
+
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import styles from './dishModal.module.css';
 import Modal from '../modal';
 import { BACKEND } from '../../router/router';
 
-export const DishModal = ({ onClose, open, selectedDish }) => {
-  const [newName, setNewName] = useState();
-  const [newPrice, setNewPrice] = useState();
-
+export const DishModal = ({ onClose, open, selectedDish, onToggle }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const submit = (data) => {
-    setNewName(data.name);
-    setNewPrice(data.price);
-
     const body = {
-      name: newName,
-      price: newPrice,
+      name: data.name,
+      price: data.price,
     };
     const options = {
       method: 'PATCH',
@@ -42,13 +35,16 @@ export const DishModal = ({ onClose, open, selectedDish }) => {
         }
         return response.json();
       })
-      .then((dishes) => {
-        console.log(dishes);
+      .then(() => {
+        onToggle();
       })
-      .catch((err) => {
-        return console.log(err);
+      .catch(() => {
+        return null;
       });
-
+    reset({
+      name: '',
+      price: '',
+    });
     onClose();
   };
 
