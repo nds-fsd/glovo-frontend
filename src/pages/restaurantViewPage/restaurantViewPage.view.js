@@ -53,7 +53,7 @@ export const RestaurantViewPage = () => {
 
   const handleClick = (courseId) => {
     setCourseSelected(courseId);
-    dishByCourse && setOneDish(dishByCourse.filter((course) => course._id === courseSelected));
+    dishByCourse && setOneDish(dishByCourse.filter((course) => course._id === courseId));
   };
 
   return (
