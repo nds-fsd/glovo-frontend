@@ -12,6 +12,7 @@ import { shortFetch } from '../../assets/utils/fetch.utils';
 
 export const DishList = ({ openModal, onDishClick, toggle }) => {
   const [restaurant, setRestaurant] = useState();
+  const [isDishList, setIsDishList] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export const DishList = ({ openModal, onDishClick, toggle }) => {
                       onClick={openModal}
                       onDishClick={onDishClick}
                       deleteDish={deleteDish}
+                      isDishList={isDishList}
                     />
                   );
                 })}
