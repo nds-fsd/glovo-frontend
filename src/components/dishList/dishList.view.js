@@ -10,7 +10,14 @@ import { shortFetch } from '../../assets/utils/fetch.utils';
 // This component makes a double .map(), first to get the category name and render the container,
 // for each category, the second is to render all the dishes in that category.
 
-export const DishList = ({ openModal, onDishClick, toggle, openModalNewCourse }) => {
+export const DishList = ({
+  openModal,
+  onDishClick,
+  toggle,
+  openModalNewCourse,
+  openModalNewdish,
+  onCourseClick,
+}) => {
   const [restaurant, setRestaurant] = useState();
   const [isDishList, setIsDishList] = useState(true);
   const { id } = useParams();
@@ -49,7 +56,16 @@ export const DishList = ({ openModal, onDishClick, toggle, openModalNewCourse })
                     <button onClick={() => deleteCourse(cat._id)}>X</button>
                   </span>
                 </p>
-                <button>create dish</button>
+                <button
+                  onClick={() => {
+                    openModalNewdish();
+                    onCourseClick({
+                      id: cat._id,
+                    });
+                  }}
+                >
+                  create dish
+                </button>
               </div>
               <div className={styles.category_container}>
                 {cat.dishList.map((dish) => {
