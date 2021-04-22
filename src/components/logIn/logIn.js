@@ -59,6 +59,7 @@ const LogIn = () => {
         <label htmlFor="email">Email</label>
         {errors.email && <span>This field is required</span>}
         <input
+          type="text"
           id="email"
           {...register('email', {
             required: true,
@@ -67,6 +68,7 @@ const LogIn = () => {
         <label htmlFor="password">Password</label>
         {errors.password && <span>This field is required</span>}
         <input
+          type="password"
           id="password"
           {...register('password', {
             required: true,
