@@ -36,7 +36,7 @@ export const DishList = ({
 
   const deleteCourse = (courseId) => {
     shortFetch({
-      url: `${COURSE}/${courseId}`,
+      url: `${COURSE}/deleteAll/${courseId}`,
       method: 'DELETE',
       onSuccess: console.log('delete'),
     });
