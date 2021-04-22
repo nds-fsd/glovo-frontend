@@ -16,6 +16,7 @@ export const RestaurantListPage = () => {
 
   return (
     <div className={styles.pageContainer}>
+      <Button onClick={localStorage.clear('token')}>Logout</Button>
       <NavBar>{categoryArr}</NavBar>
       <Link to={`${RESTAURANT_CREATION_PAGE}`}>
         <Button>Create</Button>
