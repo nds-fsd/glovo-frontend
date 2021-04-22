@@ -49,7 +49,7 @@ export const RestaurantViewPage = () => {
           return console.log(err);
         });
     }
-  }, [courseSelected]);
+  }, [courseSelected, dishByCourse]);
 
   const handleClick = (courseId) => {
     setCourseSelected(courseId);
