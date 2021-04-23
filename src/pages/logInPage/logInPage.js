@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-console */
 import styles from './logInPage.module.css';
 import LogIn from '../../components/logIn';
 import SignUpForm from '../../components/forms/signUpForm';
