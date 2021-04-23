@@ -1,14 +1,9 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './dishList.module.css';
 import DishItem from '../dishItem';
 import { RESTAURANT, DISH, COURSE } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
-
-// This component makes a double .map(), first to get the category name and render the container,
-// for each category, the second is to render all the dishes in that category.
 
 export const DishList = ({
   openModal,
@@ -19,7 +14,7 @@ export const DishList = ({
   onCourseClick,
 }) => {
   const [restaurant, setRestaurant] = useState();
-  const [isDishList, setIsDishList] = useState(true);
+  const [isDishList] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
@@ -38,7 +33,6 @@ export const DishList = ({
     shortFetch({
       url: `${COURSE}/deleteAll/${courseId}`,
       method: 'DELETE',
-      onSuccess: console.log('delete'),
     });
   };
 

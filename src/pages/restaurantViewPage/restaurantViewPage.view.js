@@ -7,7 +7,7 @@ import styles from './restaurantViewPage.module.css';
 import Modal from '../../components/modal';
 import DishItem from '../../components/dishItem';
 import RestaurantUpdateForm from '../../components/forms/restaurantUpdateForm';
-import { BACKEND } from '../../router/router';
+import { BACKEND, RESTAURANT } from '../../router/router';
 
 export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -49,7 +49,7 @@ export const RestaurantViewPage = () => {
           return console.log(err);
         });
     }
-  }, [courseSelected]);
+  }, []);
 
   const handleClick = (courseId) => {
     setCourseSelected(courseId);
