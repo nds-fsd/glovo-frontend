@@ -17,17 +17,12 @@ export const DishList = ({
   const [isDishList] = useState(true);
   const { id } = useParams();
 
-  useEffect(() => {
-    shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
-  }, [id, toggle]);
-
   const deleteDish = (dishId) => {
     shortFetch({ url: `${DISH}/${dishId}`, method: 'DELETE' });
   };
-
   useEffect(() => {
     shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
-  }, [deleteDish]);
+  }, [id, toggle, deleteDish]);
 
   const deleteCourse = (courseId) => {
     shortFetch({
