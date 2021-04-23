@@ -1,7 +1,5 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-console */
 import { useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,10 +18,9 @@ export const SignUpForm = () => {
 
   const history = useHistory();
 
-  const {saveRole} = useContext(roleContext);
+  const { saveRole } = useContext(roleContext);
 
   const onSubmit = (data) => {
-    console.log(data);
     shortFetch({
       url: '/register',
       method: 'POST',
@@ -39,7 +36,6 @@ export const SignUpForm = () => {
         },
       },
       onSuccess: (response) => {
-          console.log(response)
         setSessionUser({ token: response.token, user: response.user });
         saveRole(response.role);
         history.push(RESTAURANT_LIST_PAGE);
