@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './dishList.module.css';
@@ -7,31 +5,29 @@ import DishItem from '../dishItem';
 import { RESTAURANT, DISH, COURSE } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 
-// This component makes a double .map(), first to get the category name and render the container,
-// for each category, the second is to render all the dishes in that category.
-
-export const DishList = ({ openModal, onDishClick, toggle, openModalNewCourse }) => {
+export const DishList = ({
+  openModal,
+  onDishClick,
+  toggle,
+  openModalNewCourse,
+  openModalNewdish,
+  onCourseClick,
+}) => {
   const [restaurant, setRestaurant] = useState();
-  const [isDishList, setIsDishList] = useState(true);
+  const [isDishList] = useState(true);
   const { id } = useParams();
-
-  useEffect(() => {
-    shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
-  }, [id, toggle]);
 
   const deleteDish = (dishId) => {
     shortFetch({ url: `${DISH}/${dishId}`, method: 'DELETE' });
   };
-
   useEffect(() => {
     shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
-  }, [deleteDish]);
+  }, [id, toggle, deleteDish]);
 
   const deleteCourse = (courseId) => {
     shortFetch({
-      url: `${COURSE}/${courseId}`,
+      url: `${COURSE}/deleteAll/${courseId}`,
       method: 'DELETE',
-      onSuccess: console.log('delete'),
     });
   };
 
@@ -49,7 +45,16 @@ export const DishList = ({ openModal, onDishClick, toggle, openModalNewCourse })
                     <button onClick={() => deleteCourse(cat._id)}>X</button>
                   </span>
                 </p>
-                <button>create dish</button>
+                <button
+                  onClick={() => {
+                    openModalNewdish();
+                    onCourseClick({
+                      id: cat._id,
+                    });
+                  }}
+                >
+                  create dish
+                </button>
               </div>
               <div className={styles.category_container}>
                 {cat.dishList.map((dish) => {

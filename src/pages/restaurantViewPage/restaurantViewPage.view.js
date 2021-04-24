@@ -3,58 +3,42 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { shortFetch } from '../../assets/utils/fetch.utils';
 import styles from './restaurantViewPage.module.css';
 import Modal from '../../components/modal';
 import DishItem from '../../components/dishItem';
 import RestaurantUpdateForm from '../../components/forms/restaurantUpdateForm';
-import { BACKEND } from '../../router/router';
+import { BACKEND, RESTAURANT } from '../../router/router';
 
 export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { id } = useParams();
   const [selectedResto, setSelectedResto] = useState();
-  const [courseSelected, setCourseSelected] = useState();
   const [dishByCourse, setDishByCourse] = useState();
   const [oneDish, setOneDish] = useState();
 
   useEffect(() => {
-    fetch(`${BACKEND}/restaurant/${id}`)
+    shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setSelectedResto });
+  }, [isOpenModal]);
+
+  const handleClick = (courseId) => {
+    dishByCourse && setOneDish(dishByCourse.filter((course) => course._id === courseId));
+  };
+  useEffect(() => {
+    fetch(`${BACKEND}/course/all/${id}`)
       .then((response) => {
         if (!response.ok) {
           return Promise.reject();
         }
         return response.json();
       })
-      .then((restaurant) => {
-        setSelectedResto(restaurant);
+      .then((dishes) => {
+        setDishByCourse(dishes);
       })
       .catch((err) => {
         return console.log(err);
       });
-  }, [isOpenModal]);
-
-  useEffect(() => {
-    if (courseSelected) {
-      fetch(`${BACKEND}/course/all/${id}`)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject();
-          }
-          return response.json();
-        })
-        .then((dishes) => {
-          setDishByCourse(dishes);
-        })
-        .catch((err) => {
-          return console.log(err);
-        });
-    }
-  }, [courseSelected]);
-
-  const handleClick = (courseId) => {
-    setCourseSelected(courseId);
-    dishByCourse && setOneDish(dishByCourse.filter((course) => course._id === courseId));
-  };
+  }, []);
 
   return (
     <div>
