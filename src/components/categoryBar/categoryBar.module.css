@@ -2,8 +2,6 @@
     display: flex;
     justify-content: flex-start;
     align-self: center;
-    border: 1px solid black;
-    
 }
 .listContainer{
     display: flex;

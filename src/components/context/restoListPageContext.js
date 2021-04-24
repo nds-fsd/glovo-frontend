@@ -6,6 +6,9 @@ export const RestoListContext = createContext();
 export const RestoListContextProvider = ({ children }) => {
   const [categorySelected, setCategorySelected] = useState('');
   const [categoryArr, setCategoryArr] = useState([]);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openSignupModal, setOpenSignupModal] = useState(false);
+
   const clearCategories = () => {
     setCategorySelected(undefined);
   };
@@ -19,6 +22,10 @@ export const RestoListContextProvider = ({ children }) => {
     setCategoryArr,
     toggleSelectedCategory,
     setToggleSelectedCategory,
+    openLoginModal,
+    setOpenLoginModal,
+    openSignupModal,
+    setOpenSignupModal,
   };
 
   return <RestoListContext.Provider value={value}>{children}</RestoListContext.Provider>;

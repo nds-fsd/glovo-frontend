@@ -1,6 +1,5 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './restaurantList.module.css';
 import RestaurantItem from '../restaurantItem';
 import { shortFetch } from '../../assets/utils/fetch.utils';
@@ -28,11 +27,7 @@ export const RestaurantList = () => {
     <div className={styles.container}>
       {allRest &&
         allRest.map((resto) => {
-          return (
-            <Link to={`/restaurantViewPage/${resto._id}`}>
-              <RestaurantItem key={resto._id}>{resto.name}</RestaurantItem>
-            </Link>
-          );
+          return <RestaurantItem key={resto._id} restaurant={resto} />;
         })}
     </div>
   );

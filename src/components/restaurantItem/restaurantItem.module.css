@@ -1,9 +1,63 @@
-.restoItem{
-    width: 12rem;
-    height: 10rem;
-    border: black 1px solid;
-    margin: 1rem;
+.flip_card {
+    background-color: transparent;
+    width: 400px;
+    height: 300px;
+    perspective: 1000px;
+    margin: 10px;
+  }
+  .restaurantImage{
+    border-radius: 25px 25px 0 0;
+    height: 80%;
+    width: 100%;
+  }
+  .name{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 100%;
+      color: var(--salyBlue);
+      font-size: 26px;
+      font-weight: 800;
+  }
+  
+  .flip_card_inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.9s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 25px;
+  }
+  
+  .flip_card:hover .flip_card_inner {
+    transform: rotateY(180deg);
+    
+  }
+  
+  .flip_card_front, .flip_card_back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 25px;
+  }
+  
+  .flip_card_front {
+    background-color: #FFFFFF;
+    color: black;
+    border-radius: 25px;
+  }
+  .flip_card_back {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-}
+    background: linear-gradient(110.34deg, #0470DC -2.02%, #13F1FC 129.72%);
+    color: white;
+    transform: rotateY(180deg);
+    border-radius: 25px;
+  } 

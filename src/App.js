@@ -1,5 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import * as Icons from '@fortawesome/free-solid-svg-icons';
 import RestaurantCreationPage from './pages/restaurantCreationPage';
 import RestaurantViewPage from './pages/restaurantViewPage';
 import RestaurantListPage from './pages/restaurantListPage';
@@ -14,6 +16,12 @@ import {
 import { RestoListContextProvider } from './components/context/restoListPageContext';
 import { RoleContextProvider } from './components/context/roleContext';
 import { PrivateRoute } from './components/privateRoute/privateRoute.view';
+
+const iconList = Object.keys(Icons)
+  .filter((key) => key !== 'fas' && key !== 'prefix')
+  .map((icon) => Icons[icon]);
+
+library.add(...iconList);
 
 function App() {
   return (
