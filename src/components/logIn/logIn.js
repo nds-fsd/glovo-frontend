@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { styles } from './logIn.module.css';
 import { BACKEND, RESTAURANT_LIST_PAGE } from '../../router/router';
@@ -19,6 +19,7 @@ const LogIn = () => {
   } = useForm();
   const { saveRole } = useContext(roleContext);
   const history = useHistory();
+  const [error, setError] = useState();
 
   const onSubmit = (data) => {
     if (data.email && data.password) {
@@ -35,11 +36,20 @@ const LogIn = () => {
         body: JSON.stringify(body),
       };
       fetch(`${BACKEND}/login`, options)
-        .then((response) => {
-          if (!response.ok) {
-            return Promise.reject();
+        .then(async (response) => {
+          const parsedResponse = await response.json();
+
+          if (response.ok) {
+            return parsedResponse;
           }
-          return response.json();
+
+          const errorInfo = {
+            message: parsedResponse.error || 'Oopss!',
+          };
+
+          let newError = new Error();
+          newError = { ...newError, ...errorInfo };
+          return Promise.reject(newError);
         })
         .then((user) => {
           setSessionUser({ token: user.token, user: user.user });
@@ -47,7 +57,8 @@ const LogIn = () => {
           history.push(RESTAURANT_LIST_PAGE);
         })
         .catch((err) => {
-          return console.log(err);
+          const parsedError = err;
+          setError(parsedError);
         });
     }
   };

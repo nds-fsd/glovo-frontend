@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
 import NavBar from '../../components/navBar';
 import Button from '../../components/button';
@@ -7,6 +8,7 @@ import RestaurantList from '../../components/restaurantList';
 import { RestoListContext } from '../../components/context/restoListPageContext';
 import { RESTAURANT_CREATION_PAGE, RESTAURANT_CATEGORY } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
+import { removeSesion } from '../../assets/utils/localStorage.utils';
 
 export const RestaurantListPage = () => {
   const { categoryArr, setCategoryArr } = useContext(RestoListContext);
@@ -14,11 +16,17 @@ export const RestaurantListPage = () => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
   }, []);
 
+  const history = useHistory();
+  const removeSessionRedirect = () => {
+    removeSesion();
+    history.push('/loginPage');
+  };
   return (
     <div className={styles.pageContainer}>
+      <Button onClick={removeSessionRedirect} buttonText="Logout" />
       <NavBar>{categoryArr}</NavBar>
       <Link to={`${RESTAURANT_CREATION_PAGE}`}>
-        <Button>Create</Button>
+        <Button buttonText="Create" />
       </Link>
       <RestaurantList />
     </div>

@@ -70,7 +70,6 @@ export const SignUpForm = () => {
       {errors.email && errors.email.type === 'pattern' && <span>A valid email is required</span>}
       <input
         type="text"
-        id="email"
         placeholder="Email"
         {...register('email', {
           required: true,
@@ -126,7 +125,6 @@ export const SignUpForm = () => {
       {errors && errors.password && <span>{errors.password.message}</span>}
       <input
         type="password"
-        id="password"
         placeholder="Password"
         name="password"
         {...register('password', {
