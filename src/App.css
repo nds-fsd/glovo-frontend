@@ -10,3 +10,13 @@ body{
 a{
   text-decoration: none;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 8000s;
+}
+input{
+    background-color: rgba(242, 242, 242,0.0);
+    font-family: var(--mainFont);
+}

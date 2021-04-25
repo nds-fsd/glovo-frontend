@@ -16,10 +16,10 @@ const LogIn = () => {
     register,
     formState: { errors },
     handleSubmit,
+    setError,
   } = useForm();
   const { saveRole } = useContext(roleContext);
   const history = useHistory();
-  const [error, setError] = useState();
 
   const onSubmit = (data) => {
     if (data.email && data.password) {
@@ -57,8 +57,14 @@ const LogIn = () => {
           history.push(RESTAURANT_LIST_PAGE);
         })
         .catch((err) => {
-          const parsedError = err;
-          setError(parsedError);
+          Object.keys(err.message).forEach((key) => {
+            console.debug(err);
+            console.debug(key);
+            setError(key, {
+              type: 'manual',
+              message: err.message[key],
+            });
+          });
         });
     }
   };
@@ -77,7 +83,7 @@ const LogIn = () => {
           })}
         />
         <label htmlFor="password">Password</label>
-        {errors.password && <span>This field is required</span>}
+        {errors.password && <span>{errors.password.message}</span>}
         <input
           type="password"
           id="password"

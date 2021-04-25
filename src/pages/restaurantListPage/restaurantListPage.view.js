@@ -10,7 +10,8 @@ import { RESTAURANT_CREATION_PAGE, RESTAURANT_CATEGORY } from '../../router/rout
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import Header from '../../components/header';
 import NavbarG from '../../components/navbarG';
-import Modal from '../../components/modal';
+import LoginModal from '../../components/modal/loginModal';
+import SignupModal from '../../components/modal/signupModal';
 
 export const RestaurantListPage = () => {
   const {
@@ -20,6 +21,8 @@ export const RestaurantListPage = () => {
     categorySelected,
     openLoginModal,
     setOpenLoginModal,
+    openSignupModal,
+    setOpenSignupModal,
   } = useContext(RestoListContext);
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
@@ -48,10 +51,16 @@ export const RestaurantListPage = () => {
           <RestaurantList />
         </div>
       </div>
-      <Modal
+      <LoginModal
         open={openLoginModal}
         onClose={() => {
           setOpenLoginModal(false);
+        }}
+      />
+      <SignupModal
+        open={openSignupModal}
+        onClose={() => {
+          setOpenSignupModal(false);
         }}
       />
     </>

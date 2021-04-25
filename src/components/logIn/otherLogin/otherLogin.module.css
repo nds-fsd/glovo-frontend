@@ -1,0 +1,85 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    min-width: 210px;
+    max-width: 300px;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.loginImage{
+    width: 100%;
+    height: 125px;
+}
+.welcome{
+    margin: 0;
+    margin-top: 1em;
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--salyGray);
+}
+.accountLogin{
+    margin: 0;
+    align-self: flex-start;
+    font-size: 28px;
+    margin-bottom: 1em;
+}
+.form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.inputContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 3em;
+    border: 1px solid var(--salyBlue);
+    border-radius: 15px;
+    margin-bottom: 1em;
+    padding-right: 10px;
+}
+.input{
+    align-self: flex-start;
+    font-size: 14px;
+    width: 90%;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: none;
+}
+.submit{
+    align-self: center;
+    height: 3.5em;
+    width: 60%;
+    background-color: var(--darkSalyBlue);
+    color: var(--salyWhite);
+    font-weight: 800;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.onError{
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.4)
+}
+.errorMessage{
+    font-size: 0.7em;
+    color:rgba(255, 0, 0, 0.6);
+}
+
+.footer{
+    font-size: 0.7em;
+    color: var(--salyGray);
+}
+.registerLink{
+    color: var(--salyBlue);
+    font-weight: 600;
+    cursor: pointer;
+}

@@ -24,11 +24,8 @@ const Modal = ({ children, onClose, open, title }) => {
       {open && (
         <div className={styles._backdrop}>
           <div className={styles._modal} ref={ref}>
-            <div className={styles._modalHeader}>
-              <h2>{title}</h2>
-              <button onClick={onClose}>X</button>
-            </div>
-            <div className={styles._modalContent}>{children}</div>
+            <div className={styles._modalHeader}>{title && <h2>{title}</h2>}</div>
+            {children}
           </div>
         </div>
       )}

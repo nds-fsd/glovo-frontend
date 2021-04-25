@@ -3,7 +3,11 @@
     align-items: center;
     align-self: stretch;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
     height: 100px;
+    transition: top 0.6s;
+    width: 100%;
 }
 .buttons {
     display: flex;
@@ -12,4 +16,12 @@
     height: 100%;
     width: 300px;
     margin-right: 7%;
+}
+.onScroll{
+    top: -102px
+}
+.moving{
+    background-color: var(--darkSalyBlue);
+    border-radius: 20px;
+    height: 80px;
 }

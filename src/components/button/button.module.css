@@ -14,11 +14,18 @@
     height: 35px;
     border: 2px solid var(--salyBlue);
     border-radius: 50px;
-    color:#0470DC;
+    color:var(--salyBlue);
 }
 .login{
     width: 150px;
     height: 45px;
     border-radius: 50px;
-    color: #FFFFFF;
+    color: var(--salyWhite);
+}
+.signupAlt{
+    width: 120px;
+    height: 35px;
+    border: 2px solid var(--salyWhite);
+    border-radius: 50px;
+    color: var(--salyWhite);
 }

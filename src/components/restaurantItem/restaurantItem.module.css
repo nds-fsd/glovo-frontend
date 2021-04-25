@@ -47,7 +47,7 @@
   }
   
   .flip_card_front {
-    background-color: #FFFFFF;
+    background-color: var(--salyWhite);
     color: black;
     border-radius: 25px;
   }

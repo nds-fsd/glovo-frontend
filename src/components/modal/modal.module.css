@@ -11,17 +11,16 @@
 }
   
   ._modal {
-      width: 485px;
-      height: 535px;
-      background: #333333;
-      border: 5px solid white;
-      box-sizing: border-box;
-      border-radius: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 10px 20px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-width: 270px;
+    max-width: 433px;
+    height: 70%;
+    background: var(--salyWhite);
+    border-radius: 5px;
+    padding: 10px 20px;   
   }
 
   ._modalHeader {
