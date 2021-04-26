@@ -1,3 +1,31 @@
-._container {
-    border: 1px solid white;
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 5px;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+}
+.signup{
+    width: 120px;
+    height: 35px;
+    border: 2px solid var(--salyBlue);
+    border-radius: 50px;
+    color:var(--salyBlue);
+}
+.login{
+    width: 150px;
+    height: 45px;
+    border-radius: 50px;
+    color: var(--salyWhite);
+}
+.signupAlt{
+    width: 120px;
+    height: 35px;
+    border: 2px solid var(--salyWhite);
+    border-radius: 50px;
+    color: var(--salyWhite);
 }

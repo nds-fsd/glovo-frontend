@@ -1,0 +1,38 @@
+.container{
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+}
+.listContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 40px;
+}
+
+.restaurantItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid var(--salyBlue);
+    border-radius: 25px;
+    margin: 0 7px 10px 7px;
+    background-color: var(--lightSalyBlue);
+    color: var(--salyWhite);
+    list-style-type: none;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.restaurantItem:hover{
+    background-color: var(--salyBlue);
+    border: 1px solid var(--lightSalyBlue);
+}
+.selected{
+    background-color: var(--salyBlue);
+    border: 1px solid var(--lightSalyBlue);
+}

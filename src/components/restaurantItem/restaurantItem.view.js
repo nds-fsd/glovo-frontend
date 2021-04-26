@@ -1,6 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './restaurantItem.module.css';
+import restExample from '../../assets/images/restExample.jpg';
+import Rating from '../rating';
 
-export const RestaurantItem = ({ children }) => {
-  return <div className={styles.restoItem}>{children}</div>;
+export const RestaurantItem = ({ restaurant }) => {
+  return (
+    <div className={styles.flip_card}>
+      <div className={styles.flip_card_inner}>
+        <div className={styles.flip_card_front}>
+          <Link to={`/restaurantViewPage/${restaurant._id}`}>
+            <img src={restExample} alt="a Restaurant" className={styles.restaurantImage} />
+          </Link>
+          <div className={styles.name}>
+            <p>{restaurant.name}</p>
+          </div>
+        </div>
+        <Link to={`/restaurantViewPage/${restaurant._id}`}>
+          <div className={styles.flip_card_back}>
+            <h1>{restaurant.name}</h1>
+            <Rating rating={2.5} />
+            <p>{restaurant.description}</p>
+          </div>
+        </Link>
+      </div>
+    </div>
+  );
 };
