@@ -9,7 +9,7 @@ import DishList from '../../components/dishList';
 import CourseForm from '../../components/forms/courseForm';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import { COURSE, RESTAURANT_CREATION_PAGE } from '../../router/router';
-import DishModal from '../../components/dishModal';
+import { DishModal } from '../../components/dishModal/dishModal.view';
 // import { RESTAURANT_CREATION_PAGE } from '../../router/router';
 
 export const RestaurantCreationPage = () => {
