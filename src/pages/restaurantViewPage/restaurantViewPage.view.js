@@ -8,7 +8,7 @@ import styles from './restaurantViewPage.module.css';
 import Modal from '../../components/modal';
 import DishItem from '../../components/dishItem';
 import RestaurantUpdateForm from '../../components/forms/restaurantUpdateForm';
-import { BACKEND, RESTAURANT } from '../../router/router';
+import { ALL_COURSES, BACKEND, RESTAURANT } from '../../router/router';
 
 export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -25,6 +25,7 @@ export const RestaurantViewPage = () => {
     dishByCourse && setOneDish(dishByCourse.filter((course) => course._id === courseId));
   };
   useEffect(() => {
+    // shortFetch({ url: `${ALL_COURSES}/all/${id}`, method: 'GET', onSuccess: setDishByCourse });
     fetch(`${BACKEND}/course/all/${id}`)
       .then((response) => {
         if (!response.ok) {
