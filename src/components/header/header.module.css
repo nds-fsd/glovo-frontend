@@ -1,0 +1,14 @@
+.header{
+    height: 600px;
+    background-size: 51% 80%, cover, cover, 100%;
+    background-image: url('../../assets/images/Saly-1reduced.svg'),
+                      url('../../assets/images/Rectanglereduced-1.svg'),
+                      url('../../assets/images/Rectanglereduced-2.svg'),
+                      url('../../assets/images/Vectorreduced.svg');
+    background-repeat: no-repeat;
+    background-position: center right 40px,bottom center,bottom center, bottom center;
+    width: 100%;
+    flex-shrink: 1;
+    align-self: stretch;
+    
+}

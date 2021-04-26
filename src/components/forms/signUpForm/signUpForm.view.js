@@ -1,144 +1,159 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-console */
-import { useHistory } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './signUpForm.module.css';
-import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { setSessionUser } from '../../../assets/utils/localStorage.utils';
-import { RESTAURANT_LIST_PAGE } from '../../../router/router';
 import { roleContext } from '../../context/roleContext';
+import { RestoListContext } from '../../context/restoListPageContext';
+import registerImage from '../../../assets/images/registerImage.jpg';
+import { BACKEND } from '../../../router/router';
 
 export const SignUpForm = () => {
+  const [viewPassword, setViewPassword] = useState(false);
+  const { setOpenSignupModal, setOpenLoginModal } = useContext(RestoListContext);
+
   const {
     register,
-    handleSubmit,
     formState: { errors },
+    handleSubmit,
+    setError,
   } = useForm();
 
-  const history = useHistory();
-
-  const {saveRole} = useContext(roleContext);
+  const { saveRole } = useContext(roleContext);
 
   const onSubmit = (data) => {
-    console.log(data);
-    shortFetch({
-      url: '/register',
-      method: 'POST',
-      body: {
+    if (data.email && data.password) {
+      const body = {
         email: data.email,
         password: data.password,
         firstName: data.firstName,
-        lastName: data.lastName,
-        address: {
-          number: data.addressNumber,
-          street: data.addressStreet,
-          zipcode: data.addressZipcode,
+      };
+      const options = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      },
-      onSuccess: (response) => {
-          console.log(response)
-        setSessionUser({ token: response.token, user: response.user });
-        saveRole(response.role);
-        history.push(RESTAURANT_LIST_PAGE);
-      },
-    });
+        body: JSON.stringify(body),
+      };
+      fetch(`${BACKEND}/register`, options)
+        .then(async (response) => {
+          const parsedResponse = await response.json();
+
+          if (response.ok) {
+            return parsedResponse;
+          }
+          const errorInfo = {
+            message: parsedResponse.error || 'Oopss!',
+          };
+
+          let newError = new Error();
+          newError = { ...newError, ...errorInfo };
+          return Promise.reject(newError);
+        })
+        .then((user) => {
+          setSessionUser({ token: user.token, user: user.user });
+          saveRole(user.role);
+          setOpenSignupModal(false);
+        })
+        .catch((err) => {
+          Object.keys(err.message).forEach((key) => {
+            setError(key, {
+              type: 'manual',
+              message: err.message[key],
+            });
+          });
+        });
+    }
   };
 
   return (
-    <form className={styles.mainContainer} onSubmit={handleSubmit(onSubmit)}>
-      {errors.firstName && errors.firstName.type === 'required' && <span>Field is required</span>}
-      <input
-        type="text"
-        id="firstName"
-        placeholder="First Name"
-        {...register('firstName', { required: true })}
-      />
-      {errors.lastName && errors.lastName.type === 'required' && <span>Field is required</span>}
-      <input
-        type="text"
-        placeholder="Last Name"
-        id="LastName"
-        ref={register}
-        {...register('lastName', {
-          required: true,
-        })}
-      />
-      {errors.email && errors.email.type === 'required' && <span>An email is required</span>}
-      {errors.email && errors.email.type === 'pattern' && <span>A valid email is required</span>}
-      <input
-        type="text"
-        placeholder="Email"
-        {...register('email', {
-          required: true,
-          pattern: /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+)*)|(“.+“))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        })}
-      />
-      {errors.addressNumber && errors.addressNumber.type === 'maxLength' && (
-        <span>Street number must be 5 numbers or less</span>
-      )}
-      {errors.addressNumber && errors.addressNumber.type === 'required' && (
-        <span>Street number is required</span>
-      )}
-      <input
-        type="text"
-        id="addressNumber"
-        placeholder="Street Number"
-        {...register('addressNumber', {
-          maxLength: 5,
-          required: true,
-        })}
-      />
-      {errors.addressStreet && errors.addressStreet.type === 'required' && (
-        <span>Street name is required</span>
-      )}
-      <input
-        type="text"
-        placeholder="Street"
-        id="addressStreet"
-        {...register('addressStreet', {
-          required: true,
-        })}
-      />
-      {errors && errors.addressZipcode && <span>{errors.addressZipcode.message}</span>}
-      <input
-        type="text"
-        id="addressZipcode"
-        placeholder="Zipcode"
-        {...register('addressZipcode', {
-          maxLength: {
-            value: 5,
-            message: 'Zipcode is too long',
-          },
-          minLength: {
-            value: 5,
-            message: 'Zipcode is too short',
-          },
-          required: {
-            value: true,
-            message: 'Zipcode is required',
-          },
-        })}
-      />
-      {errors && errors.password && <span>{errors.password.message}</span>}
-      <input
-        type="password"
-        placeholder="Password"
-        name="password"
-        {...register('password', {
-          minLength: {
-            value: 5,
-            message: 'Password must be at least 5 character long',
-          },
-          required: {
-            value: true,
-            message: 'Password is required',
-          },
-        })}
-      />
-      <input type="submit" />
-    </form>
+    <div className={styles.mainContainer}>
+      <img className={styles.registerImage} src={registerImage} alt="Two people in a meeting" />
+      <h2 className={styles.accountLogin}>Create Account</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        {errors.firstName && (
+          <span className={styles.errorMessage}>{errors.firstName.message}</span>
+        )}
+        <div
+          className={classNames([styles.inputContainer], { [styles.onError]: errors.firstName })}
+        >
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Your Name"
+            {...register('firstName', { required: true })}
+          />
+          <FontAwesomeIcon icon="user" style={{ color: 'var(--salyGray)' }} />
+        </div>
+        {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
+        <div
+          className={classNames(
+            [styles.inputContainer],
+            { [styles.onError]: errors.email },
+            { [styles.passwordError]: errors.password && errors.password.message }
+          )}
+        >
+          <input
+            className={styles.input}
+            type="text"
+            id="email"
+            placeholder="your@email.com"
+            {...register('email', {
+              required: 'Password is required',
+              pattern: {
+                value: /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+)*)|(“.+“))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: 'Invalid email format',
+              },
+            })}
+          />
+          <FontAwesomeIcon
+            icon="envelope"
+            style={{ color: `${!errors.email ? 'var(--darkSalyBlue)' : 'var(--salyGray)'}` }}
+          />
+        </div>
+        {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
+        <div className={classNames([styles.inputContainer], { [styles.onError]: errors.password })}>
+          <input
+            className={styles.input}
+            type={`${!viewPassword ? 'password' : 'text'}`}
+            id="password"
+            placeholder="Password"
+            {...register('password', {
+              pattern: {
+                value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/,
+                message:
+                  'Password must contain at least 1 num, 1 lowercase, 1 uppercase and min 8 characters',
+              },
+              required: 'Password is required',
+            })}
+          />
+          <FontAwesomeIcon
+            onClick={() => {
+              setViewPassword(!viewPassword);
+            }}
+            icon={`${!viewPassword ? 'eye' : 'eye-slash'}`}
+            style={{ color: 'var(--salyGray)' }}
+          />
+        </div>
+        <input className={styles.submit} type="submit" value="Continue" />
+      </form>
+      <p className={styles.footer}>
+        Already a Team Member?
+        <span
+          className={styles.registerLink}
+          onClick={() => {
+            setOpenLoginModal(true);
+            setOpenSignupModal(false);
+          }}
+        >
+          LOG IN
+        </span>
+      </p>
+    </div>
   );
 };

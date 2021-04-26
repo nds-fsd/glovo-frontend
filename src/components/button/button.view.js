@@ -1,9 +1,16 @@
+import classnames from 'classnames';
+import React from 'react';
 import styles from './button.module.css';
 
-export const Button = ({ buttonText, onClick, style }) => {
+export const Button = ({ onClick, buttonStyle, children }) => {
+  const selectedStyle = classnames({
+    [styles.signup]: buttonStyle === 'signup',
+    [styles.login]: buttonStyle === 'login',
+    [styles.signupAlt]: buttonStyle === 'signupAlt',
+  });
   return (
-    <div className={`${styles._container} ${style}`} onClick={() => onClick()}>
-      <p className={styles._buttonText}>{buttonText}</p>
+    <div className={`${styles.container} ${selectedStyle}`} onClick={() => onClick()}>
+      <p className={styles._buttonText}>{children}</p>
     </div>
   );
 };

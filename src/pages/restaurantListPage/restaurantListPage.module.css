@@ -1,0 +1,14 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.title{
+    font-weight: 800;
+    color: var(--salyBlue);
+}
+.restaurantContainer{
+    align-self: center;
+    width: 90%;
+
+}
