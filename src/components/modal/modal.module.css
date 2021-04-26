@@ -1,25 +1,26 @@
 ._backdrop {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: #0000007c;
-    position: absolute;
+    position: fixed;
     top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
   
   ._modal {
-      width: 600px;
-      background: #333333;
-      border: 5px solid white;
-      box-sizing: border-box;
-      border-radius: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 10px 20px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-width: 270px;
+    max-width: 433px;
+    height: 70%;
+    background: var(--salyWhite);
+    border-radius: 5px;
+    padding: 10px 20px;   
   }
 
   ._modalHeader {

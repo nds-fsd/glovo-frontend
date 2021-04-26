@@ -1,0 +1,10 @@
+.container{
+    display: flex;
+}
+.enough{
+    color: #2673D1;
+}
+.notEnough{
+    color: var(--salyBlue);
+    opacity: 0.2;
+}
