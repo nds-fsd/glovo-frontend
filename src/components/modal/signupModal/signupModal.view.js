@@ -1,11 +1,11 @@
 import React from 'react';
 import Modal from '..';
-import { OtherLogin } from '../../logIn/otherLogin/otherLogin';
+import OtherSignUpForm from '../../forms/signUpForm';
 
 export const SignupModal = ({ onClose, open }) => {
   return (
     <Modal open={open} onClose={onClose}>
-      <OtherLogin />
+      <OtherSignUpForm />
     </Modal>
   );
 };

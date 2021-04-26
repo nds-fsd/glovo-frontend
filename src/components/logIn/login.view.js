@@ -2,17 +2,16 @@
 
 import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import styles from './otherLogin.module.css';
-import { BACKEND, RESTAURANT_LIST_PAGE } from '../../../router/router';
-import { setSessionUser } from '../../../assets/utils/localStorage.utils';
-import { roleContext } from '../../context/roleContext';
-import loginImage from '../../../assets/images/loginImage.jpg';
-import { RestoListContext } from '../../context/restoListPageContext';
+import styles from './login.module.css';
+import { BACKEND } from '../../router/router';
+import { setSessionUser } from '../../assets/utils/localStorage.utils';
+import { roleContext } from '../context/roleContext';
+import loginImage from '../../assets/images/loginImage.jpg';
+import { RestoListContext } from '../context/restoListPageContext';
 
-export const OtherLogin = () => {
+export const Login = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const { setOpenSignupModal, setOpenLoginModal } = useContext(RestoListContext);
   const {
@@ -23,7 +22,6 @@ export const OtherLogin = () => {
   } = useForm();
 
   const { saveRole } = useContext(roleContext);
-  const history = useHistory();
 
   const onSubmit = (data) => {
     if (data.email && data.password) {
@@ -57,7 +55,7 @@ export const OtherLogin = () => {
         .then((user) => {
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
-          history.push(RESTAURANT_LIST_PAGE);
+          setOpenLoginModal(false);
         })
         .catch((err) => {
           Object.keys(err.message).forEach((key) => {
@@ -82,6 +80,7 @@ export const OtherLogin = () => {
             className={styles.input}
             type="text"
             id="email"
+            placeholder="your@email.com"
             {...register('email', {
               required: 'Please add an email',
             })}
@@ -96,6 +95,7 @@ export const OtherLogin = () => {
           <input
             className={styles.input}
             type={`${!viewPassword ? 'password' : 'text'}`}
+            placeholder="Password"
             id="password"
             {...register('password', {
               required: 'Please add a password',

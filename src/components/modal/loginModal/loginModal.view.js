@@ -1,11 +1,11 @@
 import React from 'react';
 import Modal from '..';
-import { OtherLogin } from '../../logIn/otherLogin/otherLogin';
+import Login from '../../logIn';
 
 export const LoginModal = ({ onClose, open }) => {
   return (
     <Modal open={open} onClose={onClose}>
-      <OtherLogin />
+      <Login />
     </Modal>
   );
 };
