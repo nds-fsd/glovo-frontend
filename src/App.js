@@ -2,19 +2,13 @@ import './App.css';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
-import RestaurantCreationPage from './pages/restaurantCreationPage';
 import RestaurantViewPage from './pages/restaurantViewPage';
 import RestaurantListPage from './pages/restaurantListPage';
-import MenuEditPage from './pages/menuEditPage';
-import {
-  RESTAURANT_CREATION_PAGE,
-  RESTAURANT_VIEW_PAGE,
-  RESTAURANT_LIST_PAGE,
-  RESTAURANT_MENU_EDIT,
-} from './router/router';
+import { RESTAURANT_VIEW_PAGE, RESTAURANT_LIST_PAGE, BACKOFFICE } from './router/router';
 import { RestoListContextProvider } from './components/context/restoListPageContext';
 import { RoleContextProvider } from './components/context/roleContext';
 import { PrivateRoute } from './components/privateRoute/privateRoute.view';
+import BackOfficePage from './pages/backOfficePage';
 
 const iconList = Object.keys(Icons)
   .filter((key) => key !== 'fas' && key !== 'prefix')
@@ -35,16 +29,16 @@ function App() {
           <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
             <RestaurantViewPage />
           </PrivateRoute>
-          {/* <PrivateRoute path={`/${BACKOFFICE_PAGE}/:id`}>
+          <PrivateRoute path={`${BACKOFFICE}/:id?`}>
             <BackOfficePage />
-          </PrivateRoute> */}
-          <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
+          </PrivateRoute>
+          {/* <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
             <RestaurantCreationPage />
           </Route>
           <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
             <MenuEditPage />
-          </Route>
-          <Route path="/">
+          </Route> */}
+          <Route path="/" exact>
             <Redirect to={RESTAURANT_LIST_PAGE} />
           </Route>
         </Switch>
