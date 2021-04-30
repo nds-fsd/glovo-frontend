@@ -1,39 +1,43 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
 import classnames from 'classnames';
-// import { useLocation } from 'react-router-dom';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { RestoListContext } from '../context/restoListPageContext';
+import { RESTAURANT_LIST_PAGE } from '../../router/router';
 import styles from './categoryBar.module.css';
 
 export const CategoryBar = ({ children }) => {
-  // function useQuery() {
-  //   return new URLSearchParams(useLocation().search);
-  // }
-  // let query = useQuery();
-  // let name = {query.get("name")}
-  const { setCategorySelected, categorySelected } = useContext(RestoListContext);
+  const { categorySelected } = useContext(RestoListContext);
+  const history = useHistory();
   return (
     <div className={styles.container}>
       <ul className={styles.listContainer}>
         {children.map((item) => {
           return (
-            <Link to={`/restaurantListPage/category?name=${item.name}`}>
-              <li
-                key={item._id}
-                className={classnames(styles.restaurantItem, {
-                  [styles.selected]: categorySelected === item._id,
-                })}
-                onClick={(e) => setCategorySelected(e.target.id)}
-                id={item._id}
-              >
-                {item.name}
-              </li>
-            </Link>
+            <li
+              key={item._id}
+              className={classnames(styles.restaurantItem, {
+                [styles.selected]: categorySelected === item._id,
+              })}
+              onClick={(e) =>
+                history.push(`${RESTAURANT_LIST_PAGE}/category?name=${e.target.textContent}`)
+              }
+              id={item._id}
+            >
+              {item.name}
+            </li>
           );
         })}
       </ul>
     </div>
   );
 };
+
+// history.push(`/restaurantListPage/category?name=${e.target.name}`)
+// function for the onclick (e) => setCategorySelected(e.target.id)
+// function useQuery() {
+//   return new URLSearchParams(useLocation().search);
+// }
+// let query = useQuery();
+// let name = {query.get("name")}
