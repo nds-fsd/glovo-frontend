@@ -33,11 +33,3 @@ export const CategoryBar = ({ children }) => {
     </div>
   );
 };
-
-// history.push(`/restaurantListPage/category?name=${e.target.name}`)
-// function for the onclick (e) => setCategorySelected(e.target.id)
-// function useQuery() {
-//   return new URLSearchParams(useLocation().search);
-// }
-// let query = useQuery();
-// let name = {query.get("name")}
