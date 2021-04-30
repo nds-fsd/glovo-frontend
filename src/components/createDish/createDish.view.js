@@ -4,13 +4,13 @@ import Modal from '../modal';
 import CreateDishForm from '../forms/createDishForm';
 
 const CreateDish = ({ open, onClose, courseId }) => {
-  return (
-    <div>
-      <Modal open={open} onClose={onClose} title="Create a dish">
-        <CreateDishForm onClose={onClose} courseId={courseId} />
-      </Modal>
-    </div>
-  );
+	return (
+		<div>
+			<Modal open={open} onClose={onClose} title="Create a dish">
+				<CreateDishForm onClose={onClose} courseId={courseId} />
+			</Modal>
+		</div>
+	);
 };
 
 export default CreateDish;

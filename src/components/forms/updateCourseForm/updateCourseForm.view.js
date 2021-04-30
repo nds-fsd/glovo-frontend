@@ -1,11 +1,13 @@
+/* eslint-disable no-console */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { COURSE } from '../../../router/router';
 
-const CreateCourseForm = ({ onClose, onToggle }) => {
+const UpdateCourseForm = ({ onClose, onToggle, courseId }) => {
 	const { id } = useParams();
 	const {
 		register,
@@ -13,11 +15,10 @@ const CreateCourseForm = ({ onClose, onToggle }) => {
 		handleSubmit,
 		reset,
 	} = useForm();
-
 	const onSubmit = (data) => {
 		shortFetch({
-			url: COURSE,
-			method: 'POST',
+			url: `${COURSE}/${courseId.id}`,
+			method: 'PATCH',
 			body: { Restaurant: id, name: data.name },
 			onSuccess: () => {
 				onToggle();
@@ -31,8 +32,8 @@ const CreateCourseForm = ({ onClose, onToggle }) => {
 	return (
 		<div>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				{errors && errors.name && <span>This field is required</span>}
 				<label htmlFor="name">Name</label>
+				{errors && errors.name && <span>This field is required</span>}
 				<input
 					{...register('name', {
 						required: true,
@@ -45,4 +46,4 @@ const CreateCourseForm = ({ onClose, onToggle }) => {
 	);
 };
 
-export default CreateCourseForm;
+export default UpdateCourseForm;

@@ -9,29 +9,29 @@ import styles from './dishItem.module.css';
 // used in DishList component.
 
 export const DishItem = ({ onClick, onDishClick, selectedDish, deleteDish, isDishList }) => {
-  return (
-    <div className={styles._container}>
-      <p>{selectedDish.name}</p>
-      <p>{selectedDish.description}</p>
-      <p>{selectedDish.price}</p>
-      {isDishList && (
-        <div>
-          <button onClick={() => deleteDish(selectedDish._id)}>X</button>
-          <button
-            onClick={() => {
-              onClick();
-              onDishClick({
-                name: selectedDish.name,
-                description: selectedDish.description,
-                price: selectedDish.price,
-                id: selectedDish._id,
-              });
-            }}
-          >
-            Update
-          </button>
-        </div>
-      )}
-    </div>
-  );
+	return (
+		<div className={styles._container}>
+			<p>{selectedDish.name}</p>
+			<p>{selectedDish.description}</p>
+			<p>{selectedDish.price}</p>
+			{isDishList && (
+				<div>
+					<button onClick={() => deleteDish(selectedDish._id)}>X</button>
+					<button
+						onClick={() => {
+							onClick();
+							onDishClick({
+								name: selectedDish.name,
+								description: selectedDish.description,
+								price: selectedDish.price,
+								id: selectedDish._id,
+							});
+						}}
+					>
+						Update
+					</button>
+				</div>
+			)}
+		</div>
+	);
 };
