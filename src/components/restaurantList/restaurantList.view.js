@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
@@ -34,7 +33,6 @@ export const RestaurantList = () => {
         allRest.map((resto) => {
           return <RestaurantItem key={resto._id} restaurant={resto} />;
         })}
-      {console.log(history.location.search)}
     </div>
   );
 };
