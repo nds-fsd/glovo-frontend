@@ -9,6 +9,8 @@ import { RestoListContextProvider } from './components/context/restoListPageCont
 import { RoleContextProvider } from './components/context/roleContext';
 import { PrivateRoute } from './components/privateRoute/privateRoute.view';
 import BackOfficePage from './pages/backOfficePage';
+import { BackOfficeContextProvider } from './components/context/backOfficeContext';
+import { RoleController } from './components/roleController/roleController';
 
 const iconList = Object.keys(Icons)
   .filter((key) => key !== 'fas' && key !== 'prefix')
@@ -30,7 +32,11 @@ function App() {
             <RestaurantViewPage />
           </PrivateRoute>
           <PrivateRoute path={`${BACKOFFICE}/:id?`}>
-            <BackOfficePage />
+            <BackOfficeContextProvider>
+              <RoleController roleConfirm="RESTAURANT">
+                <BackOfficePage />
+              </RoleController>
+            </BackOfficeContextProvider>
           </PrivateRoute>
           {/* <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
             <RestaurantCreationPage />
