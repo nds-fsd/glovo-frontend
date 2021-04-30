@@ -15,9 +15,7 @@ import SignupModal from '../../components/modal/signupModal';
 export const RestaurantListPage = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
-  const { categoryArr, setCategoryArr} = useContext(
-    RestoListContext
-  );
+  const { categoryArr, setCategoryArr } = useContext(RestoListContext);
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
   }, []);
