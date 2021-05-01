@@ -12,7 +12,7 @@ export const CategorySelect = React.forwardRef(({ onChange, onBlur, name, label 
   return (
     <div className={`${styles.subContainer} ${styles.category}`}>
       <label htmlFor="select">{label}</label>
-      <select name={name} ref={ref} onBlur={onBlur} onChange={onChange}>
+      <select className={styles.select} name={name} ref={ref} onBlur={onBlur} onChange={onChange}>
         <option value="" selected disabled hidden>
           Select a Category
         </option>

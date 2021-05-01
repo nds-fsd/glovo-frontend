@@ -62,68 +62,69 @@ export const RestaurantForm = ({ enableButtons, storeCreated }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.container}>
-        <div className={`${styles.subContainer} ${styles.title}`}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Restaurant Name"
-            ref={register('name', { required: 'This field is required' })}
-          />
+    // <form onSubmit={handleSubmit(onSubmit)}>
+    //   <div className={styles.container}>
+    //     <div className={`${styles.subContainer} ${styles.title}`}>
+    //       <input
+    //         type="text"
+    //         name="name"
+    //         placeholder="Restaurant Name"
+    //         ref={register('name', { required: 'This field is required' })}
+    //       />
 
-        </div>
-        <div className={`${styles.subContainer} ${styles.category}`}>
-          <CategorySelect handleChange={(value) => setCategory(value)} categoryValue={category} />
-        </div>
-        <div className={`${styles.subContainer} ${styles.description}`}>
-          <textarea
-            id="resDesc"
-            className={styles.textarea}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Please add your description"
-          ></textarea>
-        </div>
-        <div className={`${styles.subContainer} ${styles.address}`}>
-          <InputText
-            placeholder="street"
-            value={street}
-            handleChange={setStreet}
-            inputId="resStreet"
-            onError={(isError) => setAnyError({ ...anyError, name: isError })}
-            validations={[{ func: isRequired, message: 'this field is required' }]}
-          />
-          <InputText
-            placeholder="number"
-            value={number}
-            handleChange={setNumber}
-            inputId="resNumber"
-            onError={(isError) => setAnyError({ ...anyError, name: isError })}
-            validations={[
-              { func: isRequired, message: 'this field is required' },
-              { func: isNumber, message: 'it has to be a numba' },
-            ]}
-          />
-          <InputText
-            placeholder="Zipcode"
-            value={zipcode}
-            handleChange={setZipcode}
-            inputId="resZipcode"
-            onError={(isError) => setAnyError({ ...anyError, name: isError })}
-            validations={[
-              { func: isRequired, message: 'this field is required' },
-              { func: numLength, message: 'please add a valid zipcode' },
-            ]}
-          />
-        </div>
-        <div className={`${styles.subContainer} ${styles.buttons}`}>
-          <button onClick={() => location.reload()}>cancel</button>
-          <button disabled={handleDisable()} onClick={validateAndFetch}>
-            create
-          </button>
-        </div>
-      </div>
-    </form>
+    //     </div>
+    //     <div className={`${styles.subContainer} ${styles.category}`}>
+    //       <CategorySelect handleChange={(value) => setCategory(value)} categoryValue={category} />
+    //     </div>
+    //     <div className={`${styles.subContainer} ${styles.description}`}>
+    //       <textarea
+    //         id="resDesc"
+    //         className={styles.textarea}
+    //         value={description}
+    //         onChange={(e) => setDescription(e.target.value)}
+    //         placeholder="Please add your description"
+    //       ></textarea>
+    //     </div>
+    //     <div className={`${styles.subContainer} ${styles.address}`}>
+    //       <InputText
+    //         placeholder="street"
+    //         value={street}
+    //         handleChange={setStreet}
+    //         inputId="resStreet"
+    //         onError={(isError) => setAnyError({ ...anyError, name: isError })}
+    //         validations={[{ func: isRequired, message: 'this field is required' }]}
+    //       />
+    //       <InputText
+    //         placeholder="number"
+    //         value={number}
+    //         handleChange={setNumber}
+    //         inputId="resNumber"
+    //         onError={(isError) => setAnyError({ ...anyError, name: isError })}
+    //         validations={[
+    //           { func: isRequired, message: 'this field is required' },
+    //           { func: isNumber, message: 'it has to be a numba' },
+    //         ]}
+    //       />
+    //       <InputText
+    //         placeholder="Zipcode"
+    //         value={zipcode}
+    //         handleChange={setZipcode}
+    //         inputId="resZipcode"
+    //         onError={(isError) => setAnyError({ ...anyError, name: isError })}
+    //         validations={[
+    //           { func: isRequired, message: 'this field is required' },
+    //           { func: numLength, message: 'please add a valid zipcode' },
+    //         ]}
+    //       />
+    //     </div>
+    //     <div className={`${styles.subContainer} ${styles.buttons}`}>
+    //       <button onClick={() => location.reload()}>cancel</button>
+    //       <button disabled={handleDisable()} onClick={validateAndFetch}>
+    //         create
+    //       </button>
+    //     </div>
+    //   </div>
+    // </form>
+    
   );
 };
