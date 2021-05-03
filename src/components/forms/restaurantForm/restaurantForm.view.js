@@ -1,130 +1,125 @@
-/* eslint-disable */
-/* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+/* eslint-disable no-debugger */
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { RESTAURANT } from '../../../router/router';
 import CategorySelect from '../../categorySelect';
 import { InputText } from '../../inputText/inputText.view';
 import styles from './restaurantForm.module.css';
-import {
-  isRequired,
-  minLength,
-  isNumber,
-  numLength,
-} from '../../../assets/utils/validations.utils';
 
-export const RestaurantForm = ({ enableButtons, storeCreated }) => {
-  const [name, setName] = useState();
-  const [category, setCategory] = useState();
+export const RestaurantForm = ({ handleCategories, categories }) => {
   const [description, setDescription] = useState();
-  const [zipcode, setZipcode] = useState();
-  const [street, setStreet] = useState();
-  const [number, setNumber] = useState();
-  const [anyError, setAnyError] = useState({ name: true });
-
-  const { register, handleSubmit, errors } = useForm();
-
-  const handleDisable = () => {
-    const hasError = Object.keys(anyError).find((key) => {
-      return anyError[key];
-    });
-    return hasError && hasError.length > 0;
-  };
-
-  const validateAndFetch = () => {
-    if (handleDisable()) {
-      console.debug('failed to fetch');
-      return null;
-    }
-    enableButtons();
-    shortFetch({
-      url: RESTAURANT,
-      method: 'POST',
-      body: {
-        name,
-        restaurantDescription: description,
-        open: true,
-        address: {
-          number,
-          street,
-          zipcode,
-        },
-        restaurantCategory: category,
-      },
-      onSuccess: storeCreated,
-    });
-    return storeCreated;
-  };
+  const [categoryError, setCategoryError] = useState(false);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    setError,
+    clearErrors,
+  } = useForm();
 
   const onSubmit = (data) => {
-    console.debug(data);
+    if (data && categories.length > 0) {
+      //   shortFetch({url: RESTAURANT,
+      //     method: 'POST',
+      //     body: {
+      //       name,
+      //       restaurantDescription: description,
+      //       open: true,
+      //       address: {
+      //         number,
+      //         street,
+      //         zipcode,
+      //       },
+      //       restaurantCategory: category,
+      //     },})
+    }
+    console.debug(data, description, categories);
   };
 
-  return (
-    // <form onSubmit={handleSubmit(onSubmit)}>
-    //   <div className={styles.container}>
-    //     <div className={`${styles.subContainer} ${styles.title}`}>
-    //       <input
-    //         type="text"
-    //         name="name"
-    //         placeholder="Restaurant Name"
-    //         ref={register('name', { required: 'This field is required' })}
-    //       />
+  useEffect(() => {
+    if (categories.length === 0) {
+      setCategoryError(true);
+      return;
+    }
+    setCategoryError(false);
+  }, [categories]);
 
-    //     </div>
-    //     <div className={`${styles.subContainer} ${styles.category}`}>
-    //       <CategorySelect handleChange={(value) => setCategory(value)} categoryValue={category} />
-    //     </div>
-    //     <div className={`${styles.subContainer} ${styles.description}`}>
-    //       <textarea
-    //         id="resDesc"
-    //         className={styles.textarea}
-    //         value={description}
-    //         onChange={(e) => setDescription(e.target.value)}
-    //         placeholder="Please add your description"
-    //       ></textarea>
-    //     </div>
-    //     <div className={`${styles.subContainer} ${styles.address}`}>
-    //       <InputText
-    //         placeholder="street"
-    //         value={street}
-    //         handleChange={setStreet}
-    //         inputId="resStreet"
-    //         onError={(isError) => setAnyError({ ...anyError, name: isError })}
-    //         validations={[{ func: isRequired, message: 'this field is required' }]}
-    //       />
-    //       <InputText
-    //         placeholder="number"
-    //         value={number}
-    //         handleChange={setNumber}
-    //         inputId="resNumber"
-    //         onError={(isError) => setAnyError({ ...anyError, name: isError })}
-    //         validations={[
-    //           { func: isRequired, message: 'this field is required' },
-    //           { func: isNumber, message: 'it has to be a numba' },
-    //         ]}
-    //       />
-    //       <InputText
-    //         placeholder="Zipcode"
-    //         value={zipcode}
-    //         handleChange={setZipcode}
-    //         inputId="resZipcode"
-    //         onError={(isError) => setAnyError({ ...anyError, name: isError })}
-    //         validations={[
-    //           { func: isRequired, message: 'this field is required' },
-    //           { func: numLength, message: 'please add a valid zipcode' },
-    //         ]}
-    //       />
-    //     </div>
-    //     <div className={`${styles.subContainer} ${styles.buttons}`}>
-    //       <button onClick={() => location.reload()}>cancel</button>
-    //       <button disabled={handleDisable()} onClick={validateAndFetch}>
-    //         create
-    //       </button>
-    //     </div>
-    //   </div>
-    // </form>
-    
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.inputs}>
+        <div className={styles.category_and_name}>
+          <div className={styles.inputContainerA}>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Name"
+              {...register('name', { required: 'Restaurant name is required' })}
+            />
+            {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
+          </div>
+          {categoryError && <p className={styles.errorMessage}>Please choose at least one</p>}
+          <CategorySelect
+            onChange={(e) => {
+              handleCategories(e);
+            }}
+          />
+        </div>
+        <div className={styles.address}>
+          <div className={styles.inputContainer}>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Street"
+              {...register('street', { required: 'Street name is required' })}
+            />
+            {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
+          </div>
+          <div className={styles.inputContainer}>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Number"
+              {...register('number', {
+                required: 'Street number is required',
+                pattern: {
+                  value: /^-?\d+\.?\d*$/,
+                  message: 'please enter a valid number',
+                },
+              })}
+            />
+            {errors.number && <p className={styles.errorMessage}>{errors.number.message}</p>}
+          </div>
+          <div className={styles.inputContainer}>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Zipcode"
+              {...register('zipcode', {
+                required: 'zipcode number is required',
+                pattern: {
+                  value: /^\d{5}$/,
+                  message: 'zipcode must be 5 digits',
+                },
+              })}
+            />
+            {errors.zipcode && <p className={styles.errorMessage}>{errors.zipcode.message}</p>}
+          </div>
+        </div>
+      </div>
+      <div className={styles.text_and_submit}>
+        <div className={styles.textAreaContainer}>
+          <textarea
+            className={styles.textArea}
+            placeholder="  Restaurant Description"
+            onBlur={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <input className={styles.submit} type="submit" />
+      </div>
+    </form>
   );
 };
