@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { classNames } from 'classnames';
+import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './signUpForm.module.css';
 import { setSessionUser } from '../../../assets/utils/localStorage.utils';
