@@ -3,18 +3,16 @@
 /* eslint-disable no-console */
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import classNames from 'classnames';
+import { classNames } from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './signUpForm.module.css';
 import { setSessionUser } from '../../../assets/utils/localStorage.utils';
 import { roleContext } from '../../context/roleContext';
-import { RestoListContext } from '../../context/restoListPageContext';
 import registerImage from '../../../assets/images/registerImage.jpg';
 import { BACKEND } from '../../../router/router';
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ openLogin, onClose }) => {
   const [viewPassword, setViewPassword] = useState(false);
-  const { setOpenSignupModal, setOpenLoginModal } = useContext(RestoListContext);
 
   const {
     register,
@@ -58,7 +56,7 @@ export const SignUpForm = () => {
         .then((user) => {
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
-          setOpenSignupModal(false);
+          onClose();
         })
         .catch((err) => {
           Object.keys(err.message).forEach((key) => {
@@ -80,7 +78,9 @@ export const SignUpForm = () => {
           <span className={styles.errorMessage}>{errors.firstName.message}</span>
         )}
         <div
-          className={classNames([styles.inputContainer], { [styles.onError]: errors.firstName })}
+          className={classNames([styles.inputContainer], {
+            [styles.onError]: errors.firstName,
+          })}
         >
           <input
             className={styles.input}
@@ -113,11 +113,17 @@ export const SignUpForm = () => {
           />
           <FontAwesomeIcon
             icon="envelope"
-            style={{ color: `${!errors.email ? 'var(--darkSalyBlue)' : 'var(--salyGray)'}` }}
+            style={{
+              color: `${!errors.email ? 'var(--darkSalyBlue)' : 'var(--salyGray)'}`,
+            }}
           />
         </div>
         {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
-        <div className={classNames([styles.inputContainer], { [styles.onError]: errors.password })}>
+        <div
+          className={classNames([styles.inputContainer], {
+            [styles.onError]: errors.password,
+          })}
+        >
           <input
             className={styles.input}
             type={`${!viewPassword ? 'password' : 'text'}`}
@@ -144,13 +150,7 @@ export const SignUpForm = () => {
       </form>
       <p className={styles.footer}>
         Already a Team Member?
-        <span
-          className={styles.registerLink}
-          onClick={() => {
-            setOpenLoginModal(true);
-            setOpenSignupModal(false);
-          }}
-        >
+        <span className={styles.registerLink} onClick={openLogin}>
           LOG IN
         </span>
       </p>

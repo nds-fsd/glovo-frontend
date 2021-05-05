@@ -1,0 +1,60 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 85%;
+    background-color: var(--salyWhite);
+    border: 2px solid var(--salyGrayBorder);
+    border-radius: 10px;
+}
+.restaurantImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    background-color: var(--lightSalyGray);
+}
+.categoryDisplay{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: 60px;
+    background-color: salmon;
+}
+.form{
+    width: 100%;
+    height: 50%;
+    background-color: rosybrown;
+}
+.name_and_address{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100;
+    height: 100px;
+    background-color: burlywood;
+}
+.address{
+    display: flex;
+    flex-direction: column;
+}
+.categoryTags{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background-color: aqua;
+}
+.tag{
+    height: 30px;
+    width: 80px;
+    background-color: var(--salyGrayBorder);
+    font-size: 0.8em;
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

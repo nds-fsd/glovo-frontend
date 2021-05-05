@@ -11,6 +11,7 @@ export const DishList = ({
   toggle,
   openModalNewCourse,
   openModalNewdish,
+  openModalUpdateCourse,
   onCourseClick,
 }) => {
   const [restaurant, setRestaurant] = useState();
@@ -39,10 +40,26 @@ export const DishList = ({
           return (
             <>
               <div>
-                <p style={{ color: '#E0E0E0', paddingLeft: '10px', fontSize: '20px' }}>
+                <p
+                  style={{
+                    color: '#E0E0E0',
+                    paddingLeft: '10px',
+                    fontSize: '20px',
+                  }}
+                >
                   {cat.name}
                   <span>
                     <button onClick={() => deleteCourse(cat._id)}>X</button>
+                    <button
+                      onClick={() => {
+                        openModalUpdateCourse();
+                        onCourseClick({
+                          id: cat._id,
+                        });
+                      }}
+                    >
+                      Update Course
+                    </button>
                   </span>
                 </p>
                 <button

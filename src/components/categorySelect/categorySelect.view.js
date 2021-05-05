@@ -12,12 +12,14 @@ export const CategorySelect = React.forwardRef(({ onChange, onBlur, name, label 
   return (
     <div className={`${styles.subContainer} ${styles.category}`}>
       <label htmlFor="select">{label}</label>
-      <select name={name} ref={ref} onChange={onChange} onBlur={onBlur}>
+      <select name={name} ref={ref} onBlur={onBlur} onChange={onChange}>
         <option value="" selected disabled hidden>
           Select a Category
         </option>
         {categoryList.map((cat) => (
-          <option value={cat._id}>{cat.name}</option>
+          <option value={cat._id} name={cat.name}>
+            {cat.name}
+          </option>
         ))}
       </select>
     </div>
