@@ -1,14 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
 import Button from '../button';
-import { RestoListContext } from '../context/restoListPageContext';
-import styles from './navbarG.module.css';
+import styles from './navbar.module.css';
 
-export const NavbarG = () => {
-  const { setOpenLoginModal, setOpenSignupModal } = useContext(RestoListContext);
+export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
 
@@ -30,9 +28,15 @@ export const NavbarG = () => {
   }, [prevScrollPos, visible, handleScroll]);
 
   return (
-    <div className={classNames([styles.container], { [styles.onScroll]: !visible })}>
+    <div
+      className={classNames(
+        [styles.container],
+        { [styles.onScroll]: !visible },
+        { [styles.moving]: prevScrollPos > 350 }
+      )}
+    >
       <div>LOGO</div>
-      <div className={classNames([styles.buttons], { [styles.moving]: prevScrollPos > 350 })}>
+      <div className={classNames([styles.buttons])}>
         {getUserToken() ? (
           <>
             <FontAwesomeIcon
@@ -46,13 +50,10 @@ export const NavbarG = () => {
           </>
         ) : (
           <>
-            <Button buttonStyle="login" onClick={() => setOpenLoginModal(true)}>
+            <Button buttonStyle="login" onClick={openLoginModal}>
               Sign in
             </Button>
-            <Button
-              buttonStyle={`${!(prevScrollPos > 350) ? 'signup' : 'signupAlt'}`}
-              onClick={() => setOpenSignupModal(true)}
-            >
+            <Button buttonStyle="signup" onClick={openRegisterModal}>
               Sign up
             </Button>
           </>

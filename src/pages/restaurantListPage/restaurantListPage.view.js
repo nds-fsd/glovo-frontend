@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
 import CategoryBar from '../../components/categoryBar';
@@ -8,19 +8,14 @@ import { RestoListContext } from '../../components/context/restoListPageContext'
 import { RESTAURANT_CATEGORY, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import Header from '../../components/header';
-import NavbarG from '../../components/navbarG';
+import NavbarG from '../../components/navbar';
 import LoginModal from '../../components/modal/loginModal';
 import SignupModal from '../../components/modal/signupModal';
 
 export const RestaurantListPage = () => {
-  const {
-    categoryArr,
-    setCategoryArr,
-    openLoginModal,
-    setOpenLoginModal,
-    openSignupModal,
-    setOpenSignupModal,
-  } = useContext(RestoListContext);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openSignupModal, setOpenSignupModal] = useState(false);
+  const { categoryArr, setCategoryArr } = useContext(RestoListContext);
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
   }, []);
@@ -30,7 +25,10 @@ export const RestaurantListPage = () => {
     <>
       <div className={styles.pageContainer}>
         <Header>
-          <NavbarG />
+          <NavbarG
+            openLoginModal={() => setOpenLoginModal(true)}
+            openRegisterModal={() => setOpenSignupModal(true)}
+          />
         </Header>
         <div className={styles.restaurantContainer}>
           <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
@@ -48,12 +46,20 @@ export const RestaurantListPage = () => {
       </div>
       <LoginModal
         open={openLoginModal}
+        openRegister={() => {
+          setOpenSignupModal(true);
+          setOpenLoginModal(false);
+        }}
         onClose={() => {
           setOpenLoginModal(false);
         }}
       />
       <SignupModal
         open={openSignupModal}
+        openLogin={() => {
+          setOpenSignupModal(false);
+          setOpenLoginModal(true);
+        }}
         onClose={() => {
           setOpenSignupModal(false);
         }}

@@ -18,7 +18,7 @@ export const RoleContextProvider = ({ children }) => {
           const rol = user.role;
           setRole(rol);
           if (rol !== `${decision}`) {
-            history.push('/dasOnlyForClients');
+            history.push('/');
           }
           return true;
         },
