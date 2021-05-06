@@ -7,23 +7,26 @@ import { BACKOFFICE, RESTAURANT } from '../../router/router';
 export const backOfficeContext = createContext();
 
 export const BackOfficeContextProvider = ({ children }) => {
-  const [haveARestaurant, setHaveARestaurant] = useState(false);
+  const [hasARestaurant, setHasARestaurant] = useState(false);
   const [selectedTab, setSelectedTab] = useState('Restaurant');
   const history = useHistory();
 
   useEffect(() => {
+    const userId = getUserSession().id;
     shortFetch({
       url: `${RESTAURANT}/search`,
       method: 'POST',
       body: {
-        user: getUserSession().id,
+        user: userId,
       },
+      token: true,
       onSuccess: (restaurant) => {
         if (restaurant[0]._id) {
           history.push(`${BACKOFFICE}/${restaurant[0]._id}`);
-          setHaveARestaurant(true);
+          setHasARestaurant(true);
+          return;
         }
-        setHaveARestaurant(false);
+        setHasARestaurant(false);
       },
     });
   }, []);
@@ -33,7 +36,8 @@ export const BackOfficeContextProvider = ({ children }) => {
   };
 
   const value = {
-    haveARestaurant,
+    hasARestaurant,
+    setHasARestaurant,
     selectedTab,
     changeTab,
   };

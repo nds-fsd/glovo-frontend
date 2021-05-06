@@ -1,3 +1,3 @@
-import { RestaurantTab } from './restaurantTab.view';
+import { RestaurantTabContainer as RestaurantTab } from './restaurantTab.container';
 
 export default RestaurantTab;

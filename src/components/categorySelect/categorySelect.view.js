@@ -6,7 +6,12 @@ import styles from './categorySelect.module.css';
 export const CategorySelect = React.forwardRef(({ onChange, onBlur, name, label }, ref) => {
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
-    shortFetch({ url: `${RESTAURANT_CATEGORY}`, onSuccess: setCategoryList, method: 'GET' });
+    shortFetch({
+      url: `${RESTAURANT_CATEGORY}`,
+      onSuccess: setCategoryList,
+      method: 'GET',
+      token: true,
+    });
   }, []);
 
   return (
@@ -17,7 +22,7 @@ export const CategorySelect = React.forwardRef(({ onChange, onBlur, name, label 
           Select a Category
         </option>
         {categoryList.map((cat) => (
-          <option value={cat._id} name={cat.name}>
+          <option key={cat._id} value={cat._id} name={cat.name}>
             {cat.name}
           </option>
         ))}

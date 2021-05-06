@@ -1,14 +1,7 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import styles from './restaurantTab.module.css';
-import ImageSkeleton from '../../../assets/images/camera.svg';
-import { RestaurantForm } from '../../forms/restaurantForm/restaurantForm.view';
-import CategoryTags from '../categoryTags';
+import React, { useState } from 'react';
+import { RestaurantTab } from './restaurantTab.view';
 
-// * const options = ['opcion 1', 'opcion 2', 'opcion 3', 'opcion 4', 'opcion 5', 'opcion 6'];
-
-export const RestaurantTab = () => {
+export const RestaurantTabContainer = () => {
   const [categoryNames, setCategoryNames] = useState([]);
 
   const handleName = (catName) => {
@@ -33,26 +26,12 @@ export const RestaurantTab = () => {
     });
     setCategoryNames(newArray);
   };
-  useEffect(() => {
-    console.debug('useEffect', categoryNames);
-  }, [categoryNames]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.restaurantImage}>
-        <img src={ImageSkeleton} alt="camera" />
-      </div>
-      <div className={styles.form}>
-        <div className={styles.categoryDisplay}>
-          <CategoryTags categoryNames={categoryNames} onClick={deleteCategory} />
-        </div>
-        <RestaurantForm
-          handleCategories={(e) => {
-            handleName({ name: e.target.selectedOptions[0].innerText, id: e.target.value });
-          }}
-          categories={categoryNames}
-        />
-      </div>
-    </div>
+    <RestaurantTab
+      categoryNames={categoryNames}
+      handleName={handleName}
+      deleteCategory={deleteCategory}
+    />
   );
 };

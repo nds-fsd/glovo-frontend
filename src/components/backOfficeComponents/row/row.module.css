@@ -1,0 +1,30 @@
+.row{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+.column{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+}
+.popUp{
+    position: absolute;
+    top: -30;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 120px;
+    background-color: var(--lightSalyGray);
+}
+.category{
+    margin: 0;
+}

@@ -1,0 +1,48 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    border: 1px solid green;
+}
+.searchBar{
+    position: relative;
+    width: 40%;
+    height: 50px;
+    border: 1px solid red;
+    margin-left: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.searchIcon{
+    position: absolute;
+    left: 7px;
+    top: 13px;
+    font-size: 25px;
+}
+.searchInput{
+    outline: none;
+    width: 80%;
+}
+.tableHeader{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--salyGrayBorder);
+}
+.column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 50px;
+    border: 1px solid purple;
+}
+.restaurants{
+    width: 100%;
+}
+.footer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

@@ -1,16 +1,24 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-debugger */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
+import { getUserSession } from '../../../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../../../router/router';
 import CategorySelect from '../../categorySelect';
+import { backOfficeContext } from '../../context/backOfficeContext';
 import { InputText } from '../../inputText/inputText.view';
 import styles from './restaurantForm.module.css';
 
+/**
+ * @param handleCategories  to save, edit or delete the array of categories
+ * @param  categories array of objects {name, _id } of the categories
+ */
 export const RestaurantForm = ({ handleCategories, categories }) => {
+  const { setHaveARestaurant } = useContext(backOfficeContext);
   const [description, setDescription] = useState();
   const [categoryError, setCategoryError] = useState(false);
   const {
@@ -23,21 +31,33 @@ export const RestaurantForm = ({ handleCategories, categories }) => {
 
   const onSubmit = (data) => {
     if (data && categories.length > 0) {
-      //   shortFetch({url: RESTAURANT,
-      //     method: 'POST',
-      //     body: {
-      //       name,
-      //       restaurantDescription: description,
-      //       open: true,
-      //       address: {
-      //         number,
-      //         street,
-      //         zipcode,
-      //       },
-      //       restaurantCategory: category,
-      //     },})
+      const categoryIds = categories.map((category) => {
+        return category.id;
+      });
+      const userId = getUserSession().id;
+
+      shortFetch({
+        url: RESTAURANT,
+        method: 'POST',
+        body: {
+          name: data.name,
+          restaurantDescription: description,
+          open: true,
+          address: {
+            number: data.number,
+            street: data.street,
+            zipcode: data.zipcode,
+          },
+          restaurantCategory: categoryIds,
+          user: userId,
+        },
+        token: true,
+        onSuccess: () => {
+          setHaveARestaurant(true);
+        },
+      });
+      console.debug(data, description, categories);
     }
-    console.debug(data, description, categories);
   };
 
   useEffect(() => {
