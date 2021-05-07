@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useState } from 'react';
+import SearchBox from '../searchBox';
 import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
 import Button from '../button';
@@ -32,6 +33,7 @@ export const NavbarG = () => {
   return (
     <div className={classNames([styles.container], { [styles.onScroll]: !visible })}>
       <div>LOGO</div>
+      <SearchBox />
       <div className={classNames([styles.buttons], { [styles.moving]: prevScrollPos > 350 })}>
         {getUserToken() ? (
           <>

@@ -34,14 +34,14 @@ export const RestaurantListPage = () => {
         </Header>
         <div className={styles.restaurantContainer}>
           <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
-          <p className={styles.title}>
+          <div className={styles.title}>
             Choose a Category
             {location.search && (
               <Button buttonStyle="signup" onClick={() => history.push(RESTAURANT_LIST_PAGE)}>
                 View All
               </Button>
             )}
-          </p>
+          </div>
           <CategoryBar>{categoryArr}</CategoryBar>
           <RestaurantList />
         </div>
