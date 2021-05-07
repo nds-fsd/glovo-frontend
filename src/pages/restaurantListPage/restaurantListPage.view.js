@@ -20,6 +20,7 @@ export const RestaurantListPage = () => {
     setOpenLoginModal,
     openSignupModal,
     setOpenSignupModal,
+    isSearching,
   } = useContext(RestoListContext);
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
@@ -32,19 +33,21 @@ export const RestaurantListPage = () => {
         <Header>
           <NavbarG />
         </Header>
-        <div className={styles.restaurantContainer}>
-          <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
-          <div className={styles.title}>
-            Choose a Category
-            {location.search && (
-              <Button buttonStyle="signup" onClick={() => history.push(RESTAURANT_LIST_PAGE)}>
-                View All
-              </Button>
-            )}
+        {!isSearching && (
+          <div className={styles.restaurantContainer}>
+            <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
+            <div className={styles.title}>
+              Choose a Category
+              {location.search && (
+                <Button buttonStyle="signup" onClick={() => history.push(RESTAURANT_LIST_PAGE)}>
+                  View All
+                </Button>
+              )}
+            </div>
+            <CategoryBar>{categoryArr}</CategoryBar>
+            <RestaurantList />
           </div>
-          <CategoryBar>{categoryArr}</CategoryBar>
-          <RestaurantList />
-        </div>
+        )}
       </div>
       <LoginModal
         open={openLoginModal}
