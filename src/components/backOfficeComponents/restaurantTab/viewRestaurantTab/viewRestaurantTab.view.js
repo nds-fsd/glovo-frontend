@@ -21,7 +21,7 @@ export const ViewRestaurantTab = () => {
       onSuccess: setSavedRestaurant,
       token: true,
     });
-  }, [id]);
+  }, [id, isEdit]);
 
   const handleCategory = (catName) => {
     if (savedRestaurant.name) {

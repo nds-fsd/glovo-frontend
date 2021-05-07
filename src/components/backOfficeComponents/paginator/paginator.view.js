@@ -29,13 +29,21 @@ export const Paginator = ({ currentPage, totalPages, setCurrentPage }) => {
   };
   return (
     <div className={styles.container}>
-      <FontAwesomeIcon icon="angle-double-left" onClick={() => handleDoubleLeft()} />
-      <FontAwesomeIcon icon="angle-left" onClick={() => handleLeft()} />
+      {currentPage !== 1 && (
+        <>
+          <FontAwesomeIcon icon="angle-double-left" onClick={() => handleDoubleLeft()} />
+          <FontAwesomeIcon icon="angle-left" onClick={() => handleLeft()} />
+        </>
+      )}
       <p>
         Page {currentPage} of {totalPages} pages{' '}
       </p>
-      <FontAwesomeIcon icon="angle-right" onClick={() => handleRight()} />
-      <FontAwesomeIcon icon="angle-double-right" onClick={() => handleDoubleRight()} />
+      {currentPage !== totalPages && (
+        <>
+          <FontAwesomeIcon icon="angle-right" onClick={() => handleRight()} />
+          <FontAwesomeIcon icon="angle-double-right" onClick={() => handleDoubleRight()} />
+        </>
+      )}
     </div>
   );
 };

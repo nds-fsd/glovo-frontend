@@ -1,19 +1,11 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-debugger */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { shortFetch } from '../../../assets/utils/fetch.utils';
-import { getUserSession } from '../../../assets/utils/localStorage.utils';
 import { useRestaurants } from '../../../hooks/useRestaurants';
-import { RESTAURANT } from '../../../router/router';
 import Button from '../../button';
 import CategorySelect from '../../categorySelect';
 import { backOfficeContext } from '../../context/backOfficeContext';
-import { InputText } from '../../inputText/inputText.view';
 import styles from './restaurantForm.module.css';
 
 /**
@@ -30,8 +22,6 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
     register,
     formState: { errors },
     handleSubmit,
-    setError,
-    clearErrors,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -130,9 +120,11 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
             onBlur={(e) => setDescription(e.target.value)}
           />
         </div>
-        <Button buttonStyle="signup" onClick={() => setCreateRestaurant(false)}>
-          Cancel
-        </Button>
+        {!restaurant && (
+          <Button buttonStyle="signup" onClick={() => setCreateRestaurant(false)}>
+            Cancel
+          </Button>
+        )}
         <input
           className={styles.submit}
           type="submit"
