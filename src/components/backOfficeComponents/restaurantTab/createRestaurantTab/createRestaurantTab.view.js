@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './createRestaurantTab.module.css';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
 import { RestaurantForm } from '../../../forms/restaurantForm/restaurantForm.view';
@@ -30,9 +30,7 @@ export const CreateRestaurantTab = () => {
     });
     setCategoryNames(newArray);
   };
-  useEffect(() => {
-    console.debug(categoryNames);
-  }, [categoryNames]);
+
   return (
     <>
       <div className={styles.restaurantImage}>

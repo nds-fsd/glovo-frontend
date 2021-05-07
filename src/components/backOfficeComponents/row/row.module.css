@@ -13,6 +13,17 @@
     height: 100%;
     text-align: center;
 }
+.description{
+    width: 200px;
+    height: 100%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
 .popUp{
     position: absolute;
     top: -30;

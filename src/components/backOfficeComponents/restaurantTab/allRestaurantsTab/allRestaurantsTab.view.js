@@ -1,26 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
-import { shortFetch } from '../../../../assets/utils/fetch.utils';
-import { getUserSession } from '../../../../assets/utils/localStorage.utils';
-import { RESTAURANT } from '../../../../router/router';
+import React, { useContext, useEffect, useState } from 'react';
+import { useRestaurants } from '../../../../hooks/useRestaurants';
 import Button from '../../../button';
+import { backOfficeContext } from '../../../context/backOfficeContext';
+import Paginator from '../../paginator';
 import Row from '../../row';
 import styles from './allRestaurantsTab.module.css';
 
 export const AllRestaurantsTab = () => {
-  const [userRestaurants, setUserRestaurants] = useState([]);
+  const [limit, setLimit] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { setCreateRestaurant } = useContext(backOfficeContext);
+  const { userRestaurants, totalPages } = useRestaurants(currentPage - 1, limit);
   useEffect(() => {
-    const userId = getUserSession().id;
-    shortFetch({
-      url: `${RESTAURANT}/search`,
-      method: 'POST',
-      body: {
-        user: userId,
-      },
-      token: true,
-      onSuccess: setUserRestaurants,
-    });
-  }, []);
+    setCurrentPage(1);
+  }, [limit]);
+
   return (
     <>
       <header className={styles.header}>
@@ -28,7 +23,9 @@ export const AllRestaurantsTab = () => {
           <FontAwesomeIcon icon="search" className={styles.searchIcon} />
           <input type="search" className={styles.searchInput} />
         </div>
-        <Button buttonStyle="signup">Create</Button>
+        <Button buttonStyle="signup" onClick={() => setCreateRestaurant(true)}>
+          Create
+        </Button>
       </header>
       <div className={styles.tableHeader}>
         <div className={styles.column} style={{ width: '32%' }}>
@@ -45,17 +42,29 @@ export const AllRestaurantsTab = () => {
         </div>
       </div>
       <div className={styles.restaurants}>
-        {userRestaurants.map((restaurant) => (
-          <Row restaurant={restaurant} />
-        ))}
+        {userRestaurants &&
+          userRestaurants.list.map((restaurant) => <Row restaurant={restaurant} />)}
       </div>
       <footer className={styles.footer}>
         <p>Rows per Page</p>
-        <select name="pagination" id="pagination">
+        <select
+          name="pagination"
+          id="pagination"
+          onChange={(e) => {
+            setLimit(e.target.value);
+          }}
+        >
           <option value="1">1</option>
-          <option value="5">5</option>
+          <option value="5" selected>
+            5
+          </option>
           <option value="10">10</option>
         </select>
+        <Paginator
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={(page) => setCurrentPage(page)}
+        />
       </footer>
     </>
   );

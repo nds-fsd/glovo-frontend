@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 import styles from './viewRestaurantTab.module.css';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
 import CategoryTags from '../../categoryTags';
-import CategorySelect from '../../../categorySelect';
 import Button from '../../../button';
 import { shortFetch } from '../../../../assets/utils/fetch.utils';
 import { RESTAURANT } from '../../../../router/router';
+import { RestaurantForm } from '../../../forms/restaurantForm/restaurantForm.view';
 
-export const ViewRestaurantTab = ({ handleName, deleteCategory }) => {
+export const ViewRestaurantTab = () => {
   const [savedRestaurant, setSavedRestaurant] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
@@ -23,9 +23,41 @@ export const ViewRestaurantTab = ({ handleName, deleteCategory }) => {
     });
   }, [id]);
 
+  const handleCategory = (catName) => {
+    if (savedRestaurant.name) {
+      const upRes = { ...savedRestaurant };
+      const check = savedRestaurant.restaurantCategory.filter((catego) => {
+        return catego.name === catName.name;
+      });
+      if (check.length === 0) {
+        upRes.restaurantCategory.push(catName);
+        setSavedRestaurant(upRes);
+        return;
+      }
+      if (check.length > 0) {
+        const newArray = savedRestaurant.restaurantCategory.filter((catego) => {
+          return catego.name !== catName.name;
+        });
+        upRes.restaurantCategory = newArray;
+        setSavedRestaurant(upRes);
+      }
+    }
+  };
+
   useEffect(() => {
     console.debug(savedRestaurant);
   }, [savedRestaurant]);
+
+  const deleteCategory = (cate) => {
+    if (savedRestaurant.name) {
+      const updatedRestaurant = { ...savedRestaurant };
+      const newArray = savedRestaurant.restaurantCategory.filter((catego) => {
+        return catego.name !== cate.name;
+      });
+      updatedRestaurant.restaurantCategory = newArray;
+      setSavedRestaurant(updatedRestaurant);
+    }
+  };
 
   return (
     <>
@@ -52,10 +84,13 @@ export const ViewRestaurantTab = ({ handleName, deleteCategory }) => {
           />
         </div>
         {isEdit && (
-          <CategorySelect
-            onChange={(e) => {
-              handleName({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });
+          <RestaurantForm
+            handleCategories={(e) => {
+              handleCategory({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });
             }}
+            categories={savedRestaurant.restaurantCategory}
+            restaurant={savedRestaurant}
+            onUpdate={() => setIsEdit(false)}
           />
         )}
         <p>{savedRestaurant && savedRestaurant.name}</p>

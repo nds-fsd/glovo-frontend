@@ -5,9 +5,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { getUserSession } from '../../../assets/utils/localStorage.utils';
+import { useRestaurants } from '../../../hooks/useRestaurants';
 import { RESTAURANT } from '../../../router/router';
+import Button from '../../button';
 import CategorySelect from '../../categorySelect';
 import { backOfficeContext } from '../../context/backOfficeContext';
 import { InputText } from '../../inputText/inputText.view';
@@ -17,10 +20,12 @@ import styles from './restaurantForm.module.css';
  * @param handleCategories  to save, edit or delete the array of categories
  * @param  categories array of objects {name, _id } of the categories
  */
-export const RestaurantForm = ({ handleCategories, categories }) => {
-  const { setHaveARestaurant } = useContext(backOfficeContext);
-  const [description, setDescription] = useState();
+export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpdate }) => {
+  const { setCreateRestaurant } = useContext(backOfficeContext);
+  const { createRestaurant, updateRestaurant } = useRestaurants();
+  const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
   const [categoryError, setCategoryError] = useState(false);
+  const { id } = useParams();
   const {
     register,
     formState: { errors },
@@ -30,33 +35,15 @@ export const RestaurantForm = ({ handleCategories, categories }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    if (data && categories.length > 0) {
-      const categoryIds = categories.map((category) => {
-        return category.id;
-      });
-      const userId = getUserSession().id;
-
-      shortFetch({
-        url: RESTAURANT,
-        method: 'POST',
-        body: {
-          name: data.name,
-          restaurantDescription: description,
-          open: true,
-          address: {
-            number: data.number,
-            street: data.street,
-            zipcode: data.zipcode,
-          },
-          restaurantCategory: categoryIds,
-          user: userId,
-        },
-        token: true,
-        onSuccess: () => {
-          setHaveARestaurant(true);
-        },
-      });
-      console.debug(data, description, categories);
+    if (!restaurant) {
+      createRestaurant({ categories, data, description, setCreateRestaurant });
+      return;
+    }
+    if (restaurant) {
+      if (data && categories.length > 0) {
+        updateRestaurant({ data, categories, id, description, setCreateRestaurant });
+        onUpdate();
+      }
     }
   };
 
@@ -77,6 +64,7 @@ export const RestaurantForm = ({ handleCategories, categories }) => {
               className={styles.input}
               type="text"
               placeholder="Name"
+              defaultValue={restaurant && restaurant.name}
               {...register('name', { required: 'Restaurant name is required' })}
             />
             {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
@@ -94,6 +82,7 @@ export const RestaurantForm = ({ handleCategories, categories }) => {
               className={styles.input}
               type="text"
               placeholder="Street"
+              defaultValue={restaurant && restaurant.address.street}
               {...register('street', { required: 'Street name is required' })}
             />
             {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
@@ -103,6 +92,7 @@ export const RestaurantForm = ({ handleCategories, categories }) => {
               className={styles.input}
               type="text"
               placeholder="Number"
+              defaultValue={restaurant && restaurant.address.number}
               {...register('number', {
                 required: 'Street number is required',
                 pattern: {
@@ -118,6 +108,7 @@ export const RestaurantForm = ({ handleCategories, categories }) => {
               className={styles.input}
               type="text"
               placeholder="Zipcode"
+              defaultValue={restaurant && restaurant.address.zipcode}
               {...register('zipcode', {
                 required: 'zipcode number is required',
                 pattern: {
@@ -135,10 +126,18 @@ export const RestaurantForm = ({ handleCategories, categories }) => {
           <textarea
             className={styles.textArea}
             placeholder="  Restaurant Description"
+            defaultValue={restaurant && restaurant.restaurantDescription}
             onBlur={(e) => setDescription(e.target.value)}
           />
         </div>
-        <input className={styles.submit} type="submit" />
+        <Button buttonStyle="signup" onClick={() => setCreateRestaurant(false)}>
+          Cancel
+        </Button>
+        <input
+          className={styles.submit}
+          type="submit"
+          value={`${!restaurant ? 'submit' : 'Update'}`}
+        />
       </div>
     </form>
   );
