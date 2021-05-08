@@ -9,11 +9,9 @@ import { BACKEND } from '../../router/router';
 import { setSessionUser } from '../../assets/utils/localStorage.utils';
 import { roleContext } from '../context/roleContext';
 import loginImage from '../../assets/images/loginImage.jpg';
-import { RestoListContext } from '../context/restoListPageContext';
 
-export const Login = () => {
+export const Login = ({ openRegister, onClose }) => {
   const [viewPassword, setViewPassword] = useState(false);
-  const { setOpenSignupModal, setOpenLoginModal } = useContext(RestoListContext);
   const {
     register,
     formState: { errors },
@@ -55,7 +53,7 @@ export const Login = () => {
         .then((user) => {
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
-          setOpenLoginModal(false);
+          onClose();
         })
         .catch((err) => {
           Object.keys(err.message).forEach((key) => {
@@ -75,11 +73,7 @@ export const Login = () => {
       <h2 className={styles.accountLogin}>Account Log In</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
-        <div
-          className={classNames([styles.inputContainer], {
-            [styles.onError]: errors.email,
-          })}
-        >
+        <div className={classNames([styles.inputContainer], { [styles.onError]: errors.email })}>
           <input
             className={styles.input}
             type="text"
@@ -91,17 +85,11 @@ export const Login = () => {
           />
           <FontAwesomeIcon
             icon="envelope"
-            style={{
-              color: `${!errors.email ? 'var(--darkSalyBlue)' : 'var(--salyGray)'}`,
-            }}
+            style={{ color: `${!errors.email ? 'var(--darkSalyBlue)' : 'var(--salyGray)'}` }}
           />
         </div>
         {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
-        <div
-          className={classNames([styles.inputContainer], {
-            [styles.onError]: errors.password,
-          })}
-        >
+        <div className={classNames([styles.inputContainer], { [styles.onError]: errors.password })}>
           <input
             className={styles.input}
             type={`${!viewPassword ? 'password' : 'text'}`}
@@ -123,13 +111,7 @@ export const Login = () => {
       </form>
       <p className={styles.footer}>
         Don&apos;t you have an account?{' '}
-        <span
-          className={styles.registerLink}
-          onClick={() => {
-            setOpenLoginModal(false);
-            setOpenSignupModal(true);
-          }}
-        >
+        <span className={styles.registerLink} onClick={openRegister}>
           REGISTER
         </span>
       </p>

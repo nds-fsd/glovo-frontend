@@ -14,11 +14,12 @@ export const RoleContextProvider = ({ children }) => {
       shortFetch({
         url: `/user/${getUserSession().id}`,
         method: 'GET',
+        token: true,
         onSuccess: (user) => {
           const rol = user.role;
           setRole(rol);
           if (rol !== `${decision}`) {
-            history.push('/dasOnlyForClients');
+            history.push('/');
           }
           return true;
         },
