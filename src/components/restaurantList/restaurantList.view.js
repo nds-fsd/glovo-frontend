@@ -1,12 +1,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import styles from './restaurantList.module.css';
 import RestaurantItem from '../restaurantItem';
 import { shortFetch } from '../../assets/utils/fetch.utils';
-import { RESTAURANT, RESTAURANT_LIST_PAGE } from '../../router/router';
+import { RESTAURANT, RESTAURANT_LIST_PAGE, RESTAURANT_CATEGORY } from '../../router/router';
 
 export const RestaurantList = () => {
   const [allRest, setAllRest] = useState();
@@ -18,7 +18,7 @@ export const RestaurantList = () => {
   useEffect(() => {
     if (history.location.pathname.includes('category')) {
       return shortFetch({
-        url: `/restaurantCategory/nameSearch`,
+        url: `${RESTAURANT_CATEGORY}/nameSearch`,
         method: 'post',
         body: {
           name: `${query.get('name')}`,
