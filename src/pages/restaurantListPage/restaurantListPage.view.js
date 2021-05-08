@@ -48,6 +48,11 @@ export const RestaurantListPage = () => {
             <RestaurantList />
           </div>
         )}
+        {isSearching && (
+          <div className={styles.restaurantContainer}>
+            <RestaurantList />
+          </div>
+        )}
       </div>
       <LoginModal
         open={openLoginModal}
