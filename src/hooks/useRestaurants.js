@@ -3,19 +3,21 @@ import { shortFetch } from '../assets/utils/fetch.utils';
 import { getUserSession } from '../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../router/router';
 
-export const useRestaurants = (page = 1, limit = 10) => {
+export const useRestaurants = (page = 1, limit = 10, restName) => {
   const [hasRestaurants, setHasRestaurants] = useState(false);
   const [userRestaurants, setUserRestaurants] = useState();
   const [totalPages, setTotalPages] = useState();
   const userId = getUserSession().id;
 
   useEffect(() => {
+    const body = { user: userId };
+    if (restName) {
+      body.name = restName;
+    }
     shortFetch({
       url: `${RESTAURANT}/search?page=${page}&limit=${limit}`,
       method: 'POST',
-      body: {
-        user: userId,
-      },
+      body,
       token: true,
       onSuccess: (payload) => {
         if (payload.count === 0) {
@@ -27,7 +29,7 @@ export const useRestaurants = (page = 1, limit = 10) => {
         setTotalPages(Math.ceil(payload.count / limit));
       },
     });
-  }, [page, limit]);
+  }, [page, limit, restName]);
 
   const createRestaurant = ({ categories, data, description, setCreateRestaurant }) => {
     if (data && categories.length > 0) {

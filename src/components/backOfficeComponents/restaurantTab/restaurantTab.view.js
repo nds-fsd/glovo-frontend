@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import classNames from 'classnames';
 import styles from './restaurantTab.module.css';
 import CreateRestaurantTab from './createRestaurantTab';
 import ViewRestaurantTab from './viewRestaurantTab';
@@ -12,7 +13,11 @@ export const RestaurantTab = () => {
   const { id } = useParams();
   const { hasRestaurants } = useRestaurants();
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames(styles.container, {
+        [styles.biggerTab]: !id && hasRestaurants && !createRestaurant,
+      })}
+    >
       {!id && hasRestaurants && !createRestaurant && <AllRestaurantsTab />}
       {(!hasRestaurants || createRestaurant) && <CreateRestaurantTab />}
       {hasRestaurants && id && !createRestaurant && <ViewRestaurantTab />}

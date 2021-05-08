@@ -25,7 +25,7 @@ export const Row = ({ restaurant }) => {
             onMouseLeave={() => setPopUp(false)}
             style={{ width: '15%' }}
           >
-            <p> Categories </p>
+            <p style={{ color: 'var(--salyBlue)' }}> Categories </p>
             {popUp && (
               <div className={styles.popUp}>
                 {restaurant.restaurantCategory.map((category) => (
