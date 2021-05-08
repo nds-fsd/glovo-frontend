@@ -5,10 +5,12 @@ export const RestoListContext = createContext();
 
 export const RestoListContextProvider = ({ children }) => {
   const [categoryArr, setCategoryArr] = useState([]);
-
+  const [isSearching, setIsSearching] = useState(false);
   const value = {
     categoryArr,
     setCategoryArr,
+    isSearching,
+    setIsSearching,
   };
 
   return <RestoListContext.Provider value={value}>{children}</RestoListContext.Provider>;
