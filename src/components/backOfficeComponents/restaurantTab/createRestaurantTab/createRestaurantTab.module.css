@@ -16,8 +16,3 @@
     width: 100%;
     background-color: var(--lightSalyGray);
 }
-.biggerTab{
-    width: 90%;
-    height: auto;
-    min-width: 575px;
-}
