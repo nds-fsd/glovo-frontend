@@ -12,6 +12,7 @@
     opacity: 0;
   transition: visibility 0s linear 300ms, opacity 300ms;
   border-radius: 4px;
+  z-index: 1;
 }
   .container::after {
     content: "";

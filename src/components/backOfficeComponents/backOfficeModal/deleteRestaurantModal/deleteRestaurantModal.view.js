@@ -6,8 +6,10 @@ import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
-    const { deletableRestaurant } = useContext(backOfficeContext);
-    const { deleteRestaurant } = useRestaurants();
+  const { deletableRestaurant } = useContext(backOfficeContext);
+  const { deleteRestaurant } = useRestaurants();
+
+  console.debug(deletableRestaurant, deleteRestaurant);
 
   return (
     <BackOfficeModal onClose={onClose} open={open}>

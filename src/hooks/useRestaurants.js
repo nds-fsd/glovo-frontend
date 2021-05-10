@@ -114,14 +114,14 @@ export const useRestaurants = (page = 1, limit = 10) => {
     }
   };
 
-  const deleteRestaurant = (restId, onSucces, onError) => {
-      shortFetch({
-          url:`${RESTAURANT}/${restId}`,
-          token: true,
-          onSuccess,
-          onError
-      })
-  }
+  const deleteRestaurant = (restId, onSuccess, onError) => {
+    shortFetch({
+      url: `${RESTAURANT}/${restId}`,
+      token: true,
+      onSuccess,
+      onError,
+    });
+  };
 
   return {
     deleteRestaurant,
