@@ -19,10 +19,15 @@ export const DishList = ({
   const { id } = useParams();
 
   const deleteDish = (dishId) => {
-    shortFetch({ url: `${DISH}/${dishId}`, method: 'DELETE' });
+    shortFetch({ url: `${DISH}/${dishId}`, token: true, method: 'DELETE' });
   };
   useEffect(() => {
-    shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
+    shortFetch({
+      url: `${RESTAURANT}/${id}`,
+      token: true,
+      method: 'GET',
+      onSuccess: setRestaurant,
+    });
   }, [id, toggle, deleteDish]);
 
   const deleteCourse = (courseId) => {
