@@ -8,10 +8,13 @@ export const Button = ({ onClick, buttonStyle, children }) => {
     [styles.login]: buttonStyle === 'login',
     [styles.signupAlt]: buttonStyle === 'signupAlt',
     [styles._payOrder]: buttonStyle === 'payOrder',
+    [styles.edit]: buttonStyle === 'edit',
+    [styles.cancel]: children === 'Cancel' && buttonStyle === 'edit',
+    [styles.delete]: buttonStyle === 'delete',
   });
   return (
     <div className={`${styles.container} ${selectedStyle}`} onClick={() => onClick()}>
-      <p className={styles._buttonText}>{children}</p>
+      <p style={{ background: 'none' }}>{children}</p>
     </div>
   );
 };

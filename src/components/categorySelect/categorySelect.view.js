@@ -6,18 +6,23 @@ import styles from './categorySelect.module.css';
 export const CategorySelect = React.forwardRef(({ onChange, onBlur, name, label }, ref) => {
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
-    shortFetch({ url: `${RESTAURANT_CATEGORY}`, onSuccess: setCategoryList, method: 'GET' });
+    shortFetch({
+      url: `${RESTAURANT_CATEGORY}`,
+      onSuccess: setCategoryList,
+      method: 'GET',
+      token: true,
+    });
   }, []);
 
   return (
     <div className={`${styles.subContainer} ${styles.category}`}>
       <label htmlFor="select">{label}</label>
-      <select name={name} ref={ref} onBlur={onBlur} onChange={onChange}>
+      <select className={styles.select} name={name} ref={ref} onBlur={onBlur} onChange={onChange}>
         <option value="" selected disabled hidden>
           Select a Category
         </option>
         {categoryList.map((cat) => (
-          <option value={cat._id} name={cat.name}>
+          <option key={cat._id} value={cat._id} name={cat.name}>
             {cat.name}
           </option>
         ))}

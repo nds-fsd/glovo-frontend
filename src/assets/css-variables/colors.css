@@ -7,4 +7,6 @@
     --salyGrayBorder: #E6EFFB;
     --lightSalyGray: #F7F7F7;
     --salyDoubleGray: rgb(125, 124, 129);
+    --salyGrayText: #979797;
+    --lightSalyRed: rgba(255,153,153,0.8);
 }

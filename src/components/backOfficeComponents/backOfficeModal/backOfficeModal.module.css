@@ -1,0 +1,38 @@
+._backdrop {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #0000007c;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    visibility: hidden;
+     opacity: 0;
+    transition: visibility 0s linear 500ms, opacity 500ms;
+    z-index: 1000;
+}
+  
+  ._modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    min-width: 380px;
+    height: 30%;
+    min-height: 230px;
+    background: var(--salyWhite);
+    border-radius: 5px;
+    padding: 10px 20px;
+    visibility: hidden;
+     opacity: 0;
+    transition: visibility 0s linear 500ms, opacity 500ms;   
+  }
+
+  .open{
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 500ms;
+  }
