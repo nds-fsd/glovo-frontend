@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { capitalize } from '../../assets/utils/capitalLetter';
+import { formatNumber } from '../../assets/utils/convertToCurrency';
 import styles from './dishItem.module.css';
 import dishImg from '../../assets/images/restExample.jpg';
 
@@ -11,27 +13,70 @@ export const DishItem = ({
   selectedDish,
   deleteDish,
   isDishList,
-  capitalLetter,
+  addToCart,
+  openModal,
+  viewDishInModal,
 }) => {
-  const formatNumber = (num) => {
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(num);
-  };
+  const [quantityDishes, setQuantityDishes] = useState(1);
 
   return (
     <div className={styles._itemContainer}>
-      <div className={styles._imgContainer}>
-        <img src={dishImg} alt="ice-cream" className={styles._imgDishItem}></img>
+      <div
+        className={styles._imgContainer}
+        onClick={() => {
+          openModal();
+          viewDishInModal({
+            quantity: quantityDishes,
+            dish: selectedDish.name,
+            price: selectedDish.price,
+            id: selectedDish._id,
+          });
+        }}
+      >
+        <img src={dishImg} alt="dish" className={styles._imgDishItem}></img>
       </div>
-      <div className={styles._itemBody}>
-        <h3>{capitalLetter(selectedDish.name)}</h3>
+      <div
+        className={styles._itemBody}
+        onClick={() => {
+          openModal();
+          viewDishInModal({
+            quantity: quantityDishes,
+            dish: selectedDish.name,
+            price: selectedDish.price,
+            id: selectedDish._id,
+          });
+        }}
+      >
+        <h3>{capitalize(selectedDish.name)}</h3>
         <p>{selectedDish.description}</p>
       </div>
       <div className={styles._itemFooter}>
-        <p>{formatNumber(selectedDish.price)}</p>
-        <FontAwesomeIcon icon="plus-circle" className={styles._iconAdd} />
+        <p
+          onClick={() => {
+            openModal();
+            viewDishInModal({
+              quantity: quantityDishes,
+              dish: selectedDish.name,
+              price: selectedDish.price,
+              id: selectedDish._id,
+            });
+          }}
+        >
+          {formatNumber(selectedDish.price)}
+        </p>
+        <FontAwesomeIcon
+          icon="plus-circle"
+          className={styles._iconAdd}
+          onClick={() => {
+            setQuantityDishes((prev) => prev + 1);
+            addToCart({
+              quantity: quantityDishes,
+              dish: selectedDish.name,
+              price: selectedDish.price,
+              id: selectedDish._id,
+            });
+          }}
+        />
       </div>
 
       {isDishList && (

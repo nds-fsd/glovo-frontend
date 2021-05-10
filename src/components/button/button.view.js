@@ -7,6 +7,7 @@ export const Button = ({ onClick, buttonStyle, children }) => {
     [styles.signup]: buttonStyle === 'signup',
     [styles.login]: buttonStyle === 'login',
     [styles.signupAlt]: buttonStyle === 'signupAlt',
+    [styles._payOrder]: buttonStyle === 'payOrder',
   });
   return (
     <div className={`${styles.container} ${selectedStyle}`} onClick={() => onClick()}>

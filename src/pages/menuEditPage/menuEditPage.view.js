@@ -9,51 +9,51 @@ import CreateDish from '../../components/createDish';
 import UpdateCourse from '../../components/updateCourse';
 
 export const MenuEditPage = () => {
-	const [handleModal, setHandleModal] = useState(false);
-	const [selectedDish, setSelectedDish] = useState();
-	const [toggle, setToggle] = useState(false);
-	const [modalNewCourse, setModalNewCourse] = useState(false);
-	const [modalNewDish, setModalNewDish] = useState(false);
-	const [modalUpdateCourse, setModalUpdateCourse] = useState(false);
-	const [getCourseId, setGetCourseId] = useState();
+  const [handleModal, setHandleModal] = useState(false);
+  const [selectedDish, setSelectedDish] = useState();
+  const [toggle, setToggle] = useState(false);
+  const [modalNewCourse, setModalNewCourse] = useState(false);
+  const [modalNewDish, setModalNewDish] = useState(false);
+  const [modalUpdateCourse, setModalUpdateCourse] = useState(false);
+  const [getCourseId, setGetCourseId] = useState();
 
-	return (
-		<div className={styles.container}>
-			<DishList
-				onDishClick={(value) => setSelectedDish(value)}
-				openModal={() => setHandleModal(true)}
-				toggle={toggle}
-				openModalNewCourse={() => setModalNewCourse(true)}
-				openModalNewdish={() => setModalNewDish(true)}
-				openModalUpdateCourse={() => setModalUpdateCourse(true)}
-				onCourseClick={(value) => setGetCourseId(value)}
-			/>
+  return (
+    <div className={styles.container}>
+      <DishList
+        onDishClick={(value) => setSelectedDish(value)}
+        openModal={() => setHandleModal(true)}
+        toggle={toggle}
+        openModalNewCourse={() => setModalNewCourse(true)}
+        openModalNewdish={() => setModalNewDish(true)}
+        openModalUpdateCourse={() => setModalUpdateCourse(true)}
+        onCourseClick={(value) => setGetCourseId(value)}
+      />
 
-			<DishModal
-				open={handleModal}
-				onClose={() => setHandleModal(false)}
-				selectedDish={selectedDish}
-				onToggle={() => setToggle(!toggle)}
-			/>
+      <DishModal
+        open={handleModal}
+        onClose={() => setHandleModal(false)}
+        selectedDish={selectedDish}
+        onToggle={() => setToggle(!toggle)}
+      />
 
-			<CreateCourse
-				open={modalNewCourse}
-				onClose={() => setModalNewCourse(false)}
-				onToggle={() => setToggle(!toggle)}
-			/>
+      <CreateCourse
+        open={modalNewCourse}
+        onClose={() => setModalNewCourse(false)}
+        onToggle={() => setToggle(!toggle)}
+      />
 
-			<CreateDish
-				open={modalNewDish}
-				onClose={() => setModalNewDish(false)}
-				courseId={getCourseId}
-			/>
+      <CreateDish
+        open={modalNewDish}
+        onClose={() => setModalNewDish(false)}
+        courseId={getCourseId}
+      />
 
-			<UpdateCourse
-				open={modalUpdateCourse}
-				onClose={() => setModalUpdateCourse(false)}
-				onToggle={() => setToggle(!toggle)}
-				courseId={getCourseId}
-			/>
-		</div>
-	);
+      <UpdateCourse
+        open={modalUpdateCourse}
+        onClose={() => setModalUpdateCourse(false)}
+        onToggle={() => setToggle(!toggle)}
+        courseId={getCourseId}
+      />
+    </div>
+  );
 };

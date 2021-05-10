@@ -1,27 +1,34 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { shortFetch } from '../../assets/utils/fetch.utils';
+import { capitalize } from '../../assets/utils/capitalLetter';
+import { formatNumber } from '../../assets/utils/convertToCurrency';
 import styles from './restaurantViewPage.module.css';
-import Modal from '../../components/modal';
 import DishItem from '../../components/dishItem';
-import RestaurantUpdateForm from '../../components/forms/restaurantUpdateForm';
 import { ALL_COURSES, RESTAURANT } from '../../router/router';
 import DeliveryInformation from '../../components/deliveryInformation/deliveryInformation.view';
+import Modal from '../../components/modal';
+import Button from '../../components/button';
 
 export const RestaurantViewPage = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [completedCart, setCompletedCart] = useState([]);
   const { id } = useParams();
   const [selectedResto, setSelectedResto] = useState();
   const [dishByCourse, setDishByCourse] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [modalDishView, setModalDishView] = useState({});
+  const [seeMoreCategories, setSeeMoreCategories] = useState(false);
 
   useEffect(() => {
     shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setSelectedResto });
-  }, [isOpenModal]);
+  }, []);
 
   const handleClick = (courseId) => {
     document.getElementById(courseId).scrollIntoView({ behavior: 'smooth' });
@@ -31,11 +38,27 @@ export const RestaurantViewPage = () => {
     shortFetch({ url: `${ALL_COURSES}/${id}`, method: 'GET', onSuccess: setDishByCourse });
   }, []);
 
-  const capitalize = (name) => {
-    if (typeof name !== 'string') return '';
-    return name.charAt(0).toUpperCase() + name.slice(1);
+  const addToCart = (dish) => {
+    const check = completedCart.filter((dishCart) => {
+      return dishCart.id === dish.id;
+    });
+    if (check.length === 0) {
+      setCompletedCart([...completedCart, dish]);
+      return;
+    }
+    if (check.length > 0) {
+      const newCheck = completedCart.filter((cartDish) => {
+        return cartDish.id !== dish.id;
+      });
+      setCompletedCart([...newCheck, dish]);
+    }
   };
 
+  const viewDishInModal = (dish) => {
+    if (dish) {
+      setModalDishView({ ...dish, modalDishView });
+    }
+  };
   return (
     <div>
       <header className={styles._header}></header>
@@ -49,21 +72,20 @@ export const RestaurantViewPage = () => {
                 </p>
                 <h1>{selectedResto.name}</h1>
                 <p style={{ fontStyle: 'italic' }}>{selectedResto.restaurantDescription}</p>
-                <button onClick={() => setIsOpenModal(true)}>Edit</button>
               </div>
             )}
             {isOpenModal && (
-              <Modal
-                onClose={() => setIsOpenModal(false)}
-                open={isOpenModal}
-                title="Modify your data"
-              >
-                <RestaurantUpdateForm onClose={() => setIsOpenModal(false)} />
+              <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal}>
+                <h2 style={{ fontWeight: 'bold' }}>
+                  {modalDishView && capitalize(modalDishView.dish)}
+                </h2>
+                <p>{modalDishView && formatNumber(modalDishView.price)}</p>
+                <button>Add to Order</button>
               </Modal>
             )}
             <div className={styles._courseContainer}>
               {selectedResto &&
-                selectedResto.courseList.map((course, i) => {
+                selectedResto.courseList.slice(0, 1).map((course, i) => {
                   return (
                     <div>
                       <div className={styles._coursesBar}>
@@ -80,9 +102,27 @@ export const RestaurantViewPage = () => {
                     </div>
                   );
                 })}
-              <Link to={`/menuEditPage/${id}`}>
-                <button>Edit Menu</button>
-              </Link>
+              <FontAwesomeIcon
+                icon="ellipsis-h"
+                className={styles._iconEllipsis}
+                onClick={() => {
+                  setSeeMoreCategories(!seeMoreCategories);
+                }}
+              />
+
+              <div className={styles._coursesBarContainer}>
+                {seeMoreCategories &&
+                  selectedResto &&
+                  selectedResto.courseList.map((course, i) => {
+                    return (
+                      <div>
+                        <p key={course._id} onClick={() => handleClick(course._id)}>
+                          {capitalize(course.name)}
+                        </p>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           </div>
           <div className={styles._allDishes}>
@@ -95,7 +135,14 @@ export const RestaurantViewPage = () => {
                       {course.dishList.map((dish) => {
                         return (
                           <div className={styles._dishSectionContainer}>
-                            <DishItem selectedDish={dish} capitalLetter={capitalize} />
+                            <DishItem
+                              selectedDish={dish}
+                              addToCart={(plate) => addToCart(plate)}
+                              viewDishInModal={(modalDish) => viewDishInModal(modalDish)}
+                              openModal={() => {
+                                setIsOpenModal(true);
+                              }}
+                            />
                           </div>
                         );
                       })}
@@ -106,7 +153,7 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation />
+          <DeliveryInformation completedCart={completedCart} modalDishView={modalDishView} />
         </div>
       </div>
     </div>

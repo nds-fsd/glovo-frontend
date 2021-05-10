@@ -6,6 +6,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 ._imgContainer{
     width: 90%;
@@ -25,4 +26,5 @@
 ._iconAdd{
     color: var(--darkSalyBlue);
     font-size: 22px;
+    cursor: pointer;
 }
