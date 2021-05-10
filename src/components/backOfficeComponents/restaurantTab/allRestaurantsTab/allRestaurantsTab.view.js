@@ -12,10 +12,26 @@ export const AllRestaurantsTab = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { setCreateRestaurant } = useContext(backOfficeContext);
   const [search, setSearch] = useState();
-  const { userRestaurants, totalPages } = useRestaurants(currentPage - 1, limit, search);
+  const {
+    userRestaurants,
+    totalPages,
+    filteredRestaurants,
+    filterRestaurants,
+    clearFilter,
+    filteredPages,
+  } = useRestaurants(currentPage - 1, limit, search);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [limit]);
+
+  useEffect(() => {
+    if (search) {
+      filterRestaurants(currentPage - 1, limit, search);
+      return;
+    }
+    clearFilter();
+  }, [search, limit, currentPage]);
 
   return (
     <>
@@ -24,7 +40,7 @@ export const AllRestaurantsTab = () => {
           <FontAwesomeIcon icon="search" className={styles.searchIcon} />
           <input
             type="search"
-            onChange={(e) => setSearch(e.target.value)}
+            onBlur={(e) => setSearch(e.target.value)}
             className={styles.searchInput}
           />
         </div>
@@ -48,25 +64,30 @@ export const AllRestaurantsTab = () => {
       </div>
       <div className={styles.restaurants}>
         {userRestaurants &&
+          !filteredRestaurants &&
           userRestaurants.list.map((restaurant) => <Row restaurant={restaurant} />)}
+        {filteredRestaurants &&
+          filteredRestaurants.list.map((restaurant) => <Row restaurant={restaurant} />)}
       </div>
       <footer className={styles.footer}>
-        <p>Rows per Page</p>
-        <select
-          name="pagination"
-          id="pagination"
-          onChange={(e) => {
-            setLimit(e.target.value);
-          }}
-        >
-          <option value="1">1</option>
-          <option value="5" selected>
-            5
-          </option>
-          <option value="10">10</option>
-        </select>
+        <div className={styles.limit}>
+          <p>Rows per Page</p>
+          <select
+            name="pagination"
+            id="pagination"
+            onChange={(e) => {
+              setLimit(e.target.value);
+            }}
+          >
+            <option value="1">1</option>
+            <option value="5" selected>
+              5
+            </option>
+            <option value="10">10</option>
+          </select>
+        </div>
         <Paginator
-          totalPages={totalPages}
+          totalPages={filteredPages || totalPages}
           currentPage={currentPage}
           setCurrentPage={(page) => setCurrentPage(page)}
         />

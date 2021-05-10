@@ -70,8 +70,9 @@ export const ViewRestaurantTab = () => {
         )}
         {isEdit && (
           <>
-            <Button onClick={() => setIsEdit(false)}>Cancel</Button>
-            <Button>Save</Button>
+            <Button onClick={() => setIsEdit(false)} buttonStyle="edit">
+              Cancel
+            </Button>
           </>
         )}
       </div>

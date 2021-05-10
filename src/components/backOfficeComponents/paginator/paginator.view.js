@@ -31,8 +31,12 @@ export const Paginator = ({ currentPage, totalPages, setCurrentPage }) => {
     <div className={styles.container}>
       {currentPage !== 1 && (
         <>
-          <FontAwesomeIcon icon="angle-double-left" onClick={() => handleDoubleLeft()} />
-          <FontAwesomeIcon icon="angle-left" onClick={() => handleLeft()} />
+          <FontAwesomeIcon
+            icon="angle-double-left"
+            onClick={() => handleDoubleLeft()}
+            className={styles.icon}
+          />
+          <FontAwesomeIcon icon="angle-left" onClick={() => handleLeft()} className={styles.icon} />
         </>
       )}
       <p>
@@ -40,8 +44,16 @@ export const Paginator = ({ currentPage, totalPages, setCurrentPage }) => {
       </p>
       {currentPage !== totalPages && (
         <>
-          <FontAwesomeIcon icon="angle-right" onClick={() => handleRight()} />
-          <FontAwesomeIcon icon="angle-double-right" onClick={() => handleDoubleRight()} />
+          <FontAwesomeIcon
+            icon="angle-right"
+            onClick={() => handleRight()}
+            className={styles.icon}
+          />
+          <FontAwesomeIcon
+            icon="angle-double-right"
+            onClick={() => handleDoubleRight()}
+            className={styles.icon}
+          />
         </>
       )}
     </div>

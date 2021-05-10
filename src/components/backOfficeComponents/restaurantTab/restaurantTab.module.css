@@ -8,14 +8,6 @@
     border: 2px solid var(--salyGrayBorder);
     border-radius: 10px;
 }
-.restaurantImage{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 45%;
-    width: 100%;
-    background-color: var(--lightSalyGray);
-}
 .biggerTab{
     width: 90%;
     height: auto;
