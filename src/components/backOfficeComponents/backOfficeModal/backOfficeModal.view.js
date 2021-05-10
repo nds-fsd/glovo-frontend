@@ -20,15 +20,11 @@ export const BackOfficeModal = ({ children, onClose, open, title }) => {
   }, [ref, open]);
 
   return (
-    <>
-      {open && (
-        <div className={classNames([styles._backdrop], { [styles.open]: open })}>
-          <div className={classNames([styles._modal], { [styles.open]: open })} ref={ref}>
-            <div className={styles._modalHeader}>{title && <h2>{title}</h2>}</div>
-            {children}
-          </div>
-        </div>
-      )}
-    </>
+    <div className={classNames([styles._backdrop], { [styles.open]: open })}>
+      <div className={classNames([styles._modal], { [styles.open]: open })} ref={ref}>
+        <div className={styles._modalHeader}>{title && <h2>{title}</h2>}</div>
+        {children}
+      </div>
+    </div>
   );
 };
