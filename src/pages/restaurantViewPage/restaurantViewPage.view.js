@@ -47,7 +47,7 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
-
+ 
   const addToCart = (dish) => {
     const check = completedCart.filter((dishCart) => {
       return dishCart.id === dish.id;
