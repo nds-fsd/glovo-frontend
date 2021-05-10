@@ -43,3 +43,11 @@
     width: 61px;
     color: var(--salyGrayBorder);
 }
+.delete{
+    width: 120px;
+    height: 35px;
+    border: 2px solid red;
+    border-radius: 50px;
+    color:var(--salyWhite);
+    background-color: var(--lightSalyRed);
+}
