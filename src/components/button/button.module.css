@@ -29,7 +29,10 @@
     color: var(--salyWhite);
 }
 ._payOrder {
-    border: 1px solid red;
+    width: 80%;
+    border-radius: 30px;
+    background-color: var(--lightSalyBlue);
+    color: var(--salyWhite)
 }
 .edit{
     position: absolute;

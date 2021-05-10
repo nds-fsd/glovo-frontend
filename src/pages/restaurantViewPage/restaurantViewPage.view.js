@@ -70,6 +70,10 @@ export const RestaurantViewPage = () => {
     }
   };
 
+  const onClick = () => {
+    console.log('hola');
+  };
+
   return (
     <div>
       <header className={styles._header}></header>
@@ -78,11 +82,11 @@ export const RestaurantViewPage = () => {
           <div className={styles._restoCardContainer}>
             {selectedResto && (
               <div className={styles._restoInfo}>
-                <p>
-                  Category {'>'}{' '}
-                  {selectedResto &&
-                    selectedResto.restaurantCategory.map((cat) => <span>{cat.name}</span>)}
-                </p>
+                Category {'>'}{' '}
+                {selectedResto &&
+                  selectedResto.restaurantCategory.map((cat) => {
+                    return <span>{cat.name}</span>;
+                  })}
                 <h1>{selectedResto.name}</h1>
                 <p style={{ fontStyle: 'italic' }}>{selectedResto.restaurantDescription}</p>
               </div>
@@ -93,7 +97,9 @@ export const RestaurantViewPage = () => {
                   {modalDishView && capitalize(modalDishView.dish)}
                 </h2>
                 <p>{modalDishView && formatNumber(modalDishView.price)}</p>
-                <button>Add to Order</button>
+                <Button onClick={() => onClick()} buttonStyle="payOrder">
+                  Add to Order
+                </Button>
               </Modal>
             )}
             <div className={styles._courseContainer}>
@@ -124,7 +130,8 @@ export const RestaurantViewPage = () => {
               />
 
               <div className={styles._coursesBarContainer}>
-                {dishByCourse &&
+                {seeMoreCategories &&
+                  dishByCourse &&
                   dishByCourse.map((course, i) => {
                     return (
                       <div>
@@ -165,7 +172,7 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation completedCart={completedCart} modalDishView={modalDishView} />
+          <DeliveryInformation completedCart={completedCart} />
         </div>
       </div>
     </div>
