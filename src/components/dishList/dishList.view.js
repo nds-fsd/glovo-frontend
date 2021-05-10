@@ -22,7 +22,12 @@ export const DishList = ({
     shortFetch({ url: `${DISH}/${dishId}`, method: 'DELETE' });
   };
   useEffect(() => {
-    shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
+    shortFetch({
+      url: `${RESTAURANT}/${id}`,
+      token: true,
+      method: 'GET',
+      onSuccess: setRestaurant,
+    });
   }, [id, toggle, deleteDish]);
 
   const deleteCourse = (courseId) => {

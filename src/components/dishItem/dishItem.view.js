@@ -65,7 +65,7 @@ export const DishItem = ({
           {formatNumber(selectedDish.price)}
         </p>
         <FontAwesomeIcon
-          icon="plus-circle"
+          icon="cart-plus"
           className={styles._iconAdd}
           onClick={() => {
             setQuantityDishes((prev) => prev + 1);

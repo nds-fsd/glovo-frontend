@@ -1,12 +1,12 @@
 :root{
     --salyBlue: #0470DC;
     --lightSalyBlue: #00b5fd;
+    --superLightSalyBlue: #4db5dfc0;
     --darkSalyBlue: #2673D1;
     --salyWhite: #FFFFFF;
     --salyGray: rgba(15, 45, 82, 0.45);
     --salyGrayBorder: #E6EFFB;
     --lightSalyGray: #F7F7F7;
-    --salyDoubleGray: rgb(125, 124, 129);
     --salyGrayText: #979797;
     --lightSalyRed: rgba(255,153,153,0.8);
 }

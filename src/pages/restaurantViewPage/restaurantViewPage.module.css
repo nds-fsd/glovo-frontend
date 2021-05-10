@@ -35,7 +35,7 @@
 
 ._iconEllipsis {
   font-size: 25px;
-  color: var(--salyDoubleGray);
+  color: var(--salyGrayText);
 }
 ._iconEllipsis:hover {
   color: var(--lightSalyBlue);
@@ -47,7 +47,7 @@
 }
 ._coursesBarContainer {
   position: absolute;
-  top: 220px;
+  top: 210px;
   right: -30px;
   background-color: var(--salyWhite);
   border-radius: 10px;
