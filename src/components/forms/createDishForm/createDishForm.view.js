@@ -36,6 +36,14 @@ const CreateDishForm = ({ onClose, courseId }) => {
           })}
           id="name"
         />
+        <label htmlFor="description">Description</label>
+        {errors && errors.description && <span>This field is required</span>}
+        <input
+          {...register('description', {
+            required: true,
+          })}
+          id="description"
+        />
         <label htmlFor="price">Price</label>
         {errors && errors.price && <span>{errors.price.message}</span>}
         <input

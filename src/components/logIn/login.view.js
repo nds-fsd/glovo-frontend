@@ -4,16 +4,14 @@ import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import styles from './login.module.css';
+import styles from './logIn.module.css';
 import { BACKEND } from '../../router/router';
 import { setSessionUser } from '../../assets/utils/localStorage.utils';
 import { roleContext } from '../context/roleContext';
 import loginImage from '../../assets/images/loginImage.jpg';
-import { RestoListContext } from '../context/restoListPageContext';
 
-export const Login = () => {
+export const Login = ({ openRegister, onClose }) => {
   const [viewPassword, setViewPassword] = useState(false);
-  const { setOpenSignupModal, setOpenLoginModal } = useContext(RestoListContext);
   const {
     register,
     formState: { errors },
@@ -55,7 +53,7 @@ export const Login = () => {
         .then((user) => {
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
-          setOpenLoginModal(false);
+          onClose();
         })
         .catch((err) => {
           Object.keys(err.message).forEach((key) => {
@@ -113,13 +111,7 @@ export const Login = () => {
       </form>
       <p className={styles.footer}>
         Don&apos;t you have an account?{' '}
-        <span
-          className={styles.registerLink}
-          onClick={() => {
-            setOpenLoginModal(false);
-            setOpenSignupModal(true);
-          }}
-        >
+        <span className={styles.registerLink} onClick={openRegister}>
           REGISTER
         </span>
       </p>

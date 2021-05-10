@@ -4,7 +4,6 @@
     align-items: center;
     cursor: pointer;
     margin: 5px;
-    font-family: Rubik;
     font-style: normal;
     font-weight: 800;
     font-size: 16px;
@@ -28,4 +27,33 @@
     border: 2px solid var(--salyWhite);
     border-radius: 50px;
     color: var(--salyWhite);
+}
+._payOrder {
+    width: 80%;
+    border-radius: 30px;
+    background-color: var(--lightSalyBlue);
+    color: var(--salyWhite)
+}
+.edit{
+    position: absolute;
+    top: 13px;
+    right: 16px;
+    background-color: rgba(173,216,230,0.6);
+    width: 52px;
+    height: 31px;
+    border-radius: 9px;
+    color: var(--salyBlue);
+}
+.cancel{
+    background-color: var(--lightSalyRed);
+    width: 61px;
+    color: var(--salyGrayBorder);
+}
+.delete{
+    width: 120px;
+    height: 35px;
+    border: 2px solid red;
+    border-radius: 50px;
+    color:var(--salyWhite);
+    background-color: var(--lightSalyRed);
 }

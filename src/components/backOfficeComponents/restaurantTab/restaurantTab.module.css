@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    min-width: 575px;
+    height: 85%;
+    background-color: var(--salyWhite);
+    border: 2px solid var(--salyGrayBorder);
+    border-radius: 10px;
+}
+.biggerTab{
+    width: 90%;
+    height: auto;
+    min-width: 575px;
+}

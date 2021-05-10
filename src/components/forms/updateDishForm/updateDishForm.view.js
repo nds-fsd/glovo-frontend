@@ -39,15 +39,15 @@ const UpdateDishForm = ({ selectedDish, onToggle, onClose }) => {
             })}
             id="name"
           />
-          {/* <label htmlFor="description">Description</label>
+          <label htmlFor="description">Description</label>
           {errors && errors.description && <span>The description is too short</span>}
           <input
             {...register('description', {
               required: true,
-              minLength: 10,
+              minLength: 3,
             })}
             id="description"
-          /> */}
+          />
           <label htmlFor="price">Price</label>
           {errors && errors.price && <span>{errors.price.message}</span>}
           {errors && errors.price && <span>This field is required</span>}

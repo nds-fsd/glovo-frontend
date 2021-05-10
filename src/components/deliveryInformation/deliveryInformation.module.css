@@ -1,0 +1,54 @@
+._cardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+._restoFeatures {
+  width: 75%;
+  height: 10vh;
+  border: 1px solid black;
+}
+
+._cart {
+    width: 75%; 
+    height: 20vh;
+    margin-top: 20px;
+    overflow-y: scroll;
+}
+
+._newOrder{
+  display: flex;
+  flex-direction: column;
+}
+
+._newOrderInfo{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+._newOrderIcons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--superLightSalyBlue);
+  font-size: 20px;
+  cursor: pointer;
+}
+._cartFooter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+._totalPrice {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: bolder;
+}

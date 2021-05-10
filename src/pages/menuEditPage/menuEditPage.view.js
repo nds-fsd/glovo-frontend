@@ -6,6 +6,7 @@ import DishList from '../../components/dishList';
 import CreateCourse from '../../components/createCourse';
 import { DishModal } from '../../components/dishModal/dishModal.view';
 import CreateDish from '../../components/createDish';
+import UpdateCourse from '../../components/updateCourse';
 
 export const MenuEditPage = () => {
   const [handleModal, setHandleModal] = useState(false);
@@ -13,6 +14,7 @@ export const MenuEditPage = () => {
   const [toggle, setToggle] = useState(false);
   const [modalNewCourse, setModalNewCourse] = useState(false);
   const [modalNewDish, setModalNewDish] = useState(false);
+  const [modalUpdateCourse, setModalUpdateCourse] = useState(false);
   const [getCourseId, setGetCourseId] = useState();
 
   return (
@@ -23,6 +25,7 @@ export const MenuEditPage = () => {
         toggle={toggle}
         openModalNewCourse={() => setModalNewCourse(true)}
         openModalNewdish={() => setModalNewDish(true)}
+        openModalUpdateCourse={() => setModalUpdateCourse(true)}
         onCourseClick={(value) => setGetCourseId(value)}
       />
 
@@ -42,6 +45,13 @@ export const MenuEditPage = () => {
       <CreateDish
         open={modalNewDish}
         onClose={() => setModalNewDish(false)}
+        courseId={getCourseId}
+      />
+
+      <UpdateCourse
+        open={modalUpdateCourse}
+        onClose={() => setModalUpdateCourse(false)}
+        onToggle={() => setToggle(!toggle)}
         courseId={getCourseId}
       />
     </div>

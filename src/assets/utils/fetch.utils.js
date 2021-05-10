@@ -1,10 +1,12 @@
 import { BACKEND } from '../../router/router';
+import { getUserToken } from './localStorage.utils';
 
 export const shortFetch = ({
   url,
   body,
   method,
   params,
+  token,
   onSuccess = () => {},
   onError = () => {},
 }) => {
@@ -17,6 +19,7 @@ export const shortFetch = ({
     headers: new Headers({
       Accept: 'application/json',
       'Content-type': 'application/json',
+      Authorization: `Bearer ${token && getUserToken()}`,
     }),
     mode: 'cors',
     body: JSON.stringify(body),

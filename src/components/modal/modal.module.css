@@ -1,39 +1,42 @@
 ._backdrop {
-    width: 100%;
-    height: 100%;
-    background-color: #0000007c;
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
+  width: 100%;
+  height: 100vh;
+  background-color: #0000007c;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  z-index: 999999;
 }
-  
-  ._modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    min-width: 270px;
-    max-width: 433px;
-    height: 70%;
-    background: var(--salyWhite);
-    border-radius: 5px;
-    padding: 10px 20px;   
-  }
 
-  ._modalHeader {
-      display: flex;
-      justify-content: right;
-      align-items: center;
-      height: 60px;
-  }
+._modal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  min-width: 270px;
+  max-width: 433px;
+  height: 70%;
+  background: var(--salyWhite);
+  border-radius: 5px;
+  padding: 10px 20px;
+  z-index: 999999;
+}
 
-  ._btnClose {
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
+._modalHeader {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 60px;
+}
+
+._iconClose {
+  width: 20px;
+  height: 20px;
+  color: var(--darkSalyBlue);
+  align-self: flex-end;
+}

@@ -1,9 +1,30 @@
-._container {
-    width: 140px;
-    height: 138px;
+._itemContainer {
     min-width: 140px;
-    margin: 0 15px;
-    background-color: rgb(196 196 196 / 55%);
-    border-radius: 23px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 3px 3px 16px -3px #00000050;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+._imgContainer{
+    width: 90%;
+    align-self: center;
+}
+._imgDishItem {
+    width: 100%;
+    border-radius: 5px;
+}
+
+._itemFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+._iconAdd{
+    color: var(--darkSalyBlue);
+    font-size: 22px;
+    cursor: pointer;
 }

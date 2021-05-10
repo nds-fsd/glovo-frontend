@@ -1,30 +1,50 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import styles from './restaurantList.module.css';
 import RestaurantItem from '../restaurantItem';
 import { shortFetch } from '../../assets/utils/fetch.utils';
-import { RESTAURANT } from '../../router/router';
-import { RestoListContext } from '../context/restoListPageContext';
+import { RESTAURANT, RESTAURANT_LIST_PAGE, RESTAURANT_CATEGORY } from '../../router/router';
 
 export const RestaurantList = () => {
   const [allRest, setAllRest] = useState();
-  const { categorySelected } = useContext(RestoListContext);
+  const history = useHistory();
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  const query = useQuery();
   useEffect(() => {
-    if (!categorySelected) {
-      shortFetch({ url: RESTAURANT, method: 'get', onSuccess: setAllRest });
-    } else {
-      shortFetch({
-        url: '/restaurant/search/',
+    if (history.location.pathname.includes('category')) {
+      return shortFetch({
+        url: `${RESTAURANT_CATEGORY}/nameSearch`,
         method: 'post',
         body: {
-          restaurantCategory: `${categorySelected}`,
+          name: `${query.get('name')}`,
         },
         onSuccess: setAllRest,
       });
     }
-  }, [categorySelected]);
+    if (history.location.pathname.includes('search')) {
+      if (query.get('search').length > 0) {
+        return shortFetch({
+          url: `${RESTAURANT}/researchA`,
+          method: 'post',
+          body: {
+            search: query.get('search'),
+          },
+          onSuccess: setAllRest,
+        });
+      }
+      history.push(RESTAURANT_LIST_PAGE);
+    } else {
+      shortFetch({ url: RESTAURANT, method: 'get', onSuccess: setAllRest });
+    }
+  }, [history.location.search]);
   return (
     <div className={styles.container}>
+      {console.log(query.get('search'))}
       {allRest &&
         allRest.map((resto) => {
           return <RestaurantItem key={resto._id} restaurant={resto} />;

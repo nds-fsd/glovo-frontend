@@ -11,6 +11,7 @@ export const DishList = ({
   toggle,
   openModalNewCourse,
   openModalNewdish,
+  openModalUpdateCourse,
   onCourseClick,
 }) => {
   const [restaurant, setRestaurant] = useState();
@@ -18,10 +19,15 @@ export const DishList = ({
   const { id } = useParams();
 
   const deleteDish = (dishId) => {
-    shortFetch({ url: `${DISH}/${dishId}`, method: 'DELETE' });
+    shortFetch({ url: `${DISH}/${dishId}`, token: true, method: 'DELETE' });
   };
   useEffect(() => {
-    shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setRestaurant });
+    shortFetch({
+      url: `${RESTAURANT}/${id}`,
+      token: true,
+      method: 'GET',
+      onSuccess: setRestaurant,
+    });
   }, [id, toggle, deleteDish]);
 
   const deleteCourse = (courseId) => {
@@ -39,10 +45,26 @@ export const DishList = ({
           return (
             <>
               <div>
-                <p style={{ color: '#E0E0E0', paddingLeft: '10px', fontSize: '20px' }}>
+                <p
+                  style={{
+                    color: '#E0E0E0',
+                    paddingLeft: '10px',
+                    fontSize: '20px',
+                  }}
+                >
                   {cat.name}
                   <span>
                     <button onClick={() => deleteCourse(cat._id)}>X</button>
+                    <button
+                      onClick={() => {
+                        openModalUpdateCourse();
+                        onCourseClick({
+                          id: cat._id,
+                        });
+                      }}
+                    >
+                      Update Course
+                    </button>
                   </span>
                 </p>
                 <button

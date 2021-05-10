@@ -21,10 +21,9 @@
     top: -102px
 }
 .moving{
-    background-color: var(--darkSalyBlue);
+    background: linear-gradient(110.34deg, #0470DC -2.02%, #13F1FC 129.72%);
     border-radius: 20px;
     height: 80px;
-    
 }
 .icons{
     font-size: 2em;
