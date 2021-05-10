@@ -1,19 +1,20 @@
+/* eslint-disable no-debugger */
 import { useEffect, useState } from 'react';
 import { shortFetch } from '../assets/utils/fetch.utils';
 import { getUserSession } from '../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../router/router';
 
-export const useRestaurants = (page = 1, limit = 10, restName) => {
+export const useRestaurants = (page = 1, limit = 10) => {
   const [hasRestaurants, setHasRestaurants] = useState(false);
   const [userRestaurants, setUserRestaurants] = useState();
   const [totalPages, setTotalPages] = useState();
+  const [filteredRestaurants, setFilteredRestaurants] = useState();
+  const [filteredPages, setFilteredPages] = useState();
+
   const userId = getUserSession().id;
 
   useEffect(() => {
     const body = { user: userId };
-    if (restName) {
-      body.name = restName;
-    }
     shortFetch({
       url: `${RESTAURANT}/search?page=${page}&limit=${limit}`,
       method: 'POST',
@@ -29,7 +30,33 @@ export const useRestaurants = (page = 1, limit = 10, restName) => {
         setTotalPages(Math.ceil(payload.count / limit));
       },
     });
-  }, [page, limit, restName]);
+  }, [page, limit]);
+
+  const filterRestaurants = (pag, lim, search) => {
+    const body = { user: userId };
+    if (search) {
+      body.name = search;
+    }
+    shortFetch({
+      url: `${RESTAURANT}/search?page=${pag}&limit=${lim}`,
+      method: 'POST',
+      body,
+      token: true,
+      onSuccess: (payload) => {
+        if (payload.count === 0) {
+          setHasRestaurants(false);
+          return;
+        }
+        setFilteredRestaurants(payload);
+        setHasRestaurants(true);
+        setFilteredPages(Math.ceil(payload.count / lim));
+      },
+    });
+  };
+  const clearFilter = () => {
+    setFilteredRestaurants(undefined);
+    setFilteredPages(undefined);
+  };
 
   const createRestaurant = ({ categories, data, description, setCreateRestaurant }) => {
     if (data && categories.length > 0) {
@@ -93,5 +120,9 @@ export const useRestaurants = (page = 1, limit = 10, restName) => {
     totalPages,
     createRestaurant,
     updateRestaurant,
+    filteredRestaurants,
+    filterRestaurants,
+    clearFilter,
+    filteredPages,
   };
 };

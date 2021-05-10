@@ -33,6 +33,6 @@ export const setSessionUser = (sessionData) => {
   setStorageObject('user-session', sessionData);
 };
 
-export const removeSesion = () => {
+export const removeSession = () => {
   deleteStorageObject('user-session');
 };

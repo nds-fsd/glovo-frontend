@@ -9,6 +9,7 @@
     border-radius: 10px;
 }
 .restaurantImage{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
