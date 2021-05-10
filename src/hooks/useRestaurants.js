@@ -81,6 +81,7 @@ export const useRestaurants = (page = 1, limit = 10) => {
         },
         token: true,
         onSuccess: () => {
+          setHasRestaurants(true);
           setCreateRestaurant(false);
         },
       });
@@ -118,6 +119,7 @@ export const useRestaurants = (page = 1, limit = 10) => {
     shortFetch({
       url: `${RESTAURANT}/${restId}`,
       token: true,
+      method: 'DELETE',
       onSuccess,
       onError,
     });
