@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useEffect } from 'react/cjs/react.development';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './modal.module.css';
 
 const Modal = ({ children, onClose, open, title }) => {
@@ -24,6 +25,11 @@ const Modal = ({ children, onClose, open, title }) => {
       {open && (
         <div className={styles._backdrop}>
           <div className={styles._modal} ref={ref}>
+            <FontAwesomeIcon
+              icon="times-circle"
+              className={styles._iconClose}
+              onClick={() => onClose()}
+            />
             <div className={styles._modalHeader}>{title && <h2>{title}</h2>}</div>
             {children}
           </div>
