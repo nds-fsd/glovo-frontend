@@ -7,6 +7,7 @@ export const Button = ({ onClick, buttonStyle, children }) => {
     [styles.signup]: buttonStyle === 'signup',
     [styles.login]: buttonStyle === 'login',
     [styles.signupAlt]: buttonStyle === 'signupAlt',
+    [styles._payOrder]: buttonStyle === 'payOrder',
     [styles.edit]: buttonStyle === 'edit',
     [styles.cancel]: children === 'Cancel' && buttonStyle === 'edit',
     [styles.delete]: buttonStyle === 'delete',

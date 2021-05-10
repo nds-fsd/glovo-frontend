@@ -29,21 +29,37 @@
 
 ._courseContainer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
 }
-._coursesBar {
-  margin: 10px;
+
+._iconEllipsis {
+  font-size: 25px;
+  color: var(--salyDoubleGray);
+}
+._iconEllipsis:hover {
+  color: var(--lightSalyBlue);
 }
 
 ._coursesBar:hover {
   font-weight: bolder;
   color: var(--darkSalyBlue);
 }
+._coursesBarContainer {
+  position: absolute;
+  top: 220px;
+  right: -30px;
+  background-color: var(--salyWhite);
+  border-radius: 10px;
+  box-shadow: 3px 3px 16px -3px #00000050;
+  padding: 0 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
 
 ._underline {
   text-decoration: underline;
-  text-decoration-color: darkcyan;
+  text-decoration-color: var(--lightSalyBlue);
   text-decoration-style: wavy;
 }
 
@@ -70,6 +86,7 @@
   background-color: var(--salyWhite);
   box-shadow: 3px 3px 16px -3px #00000050;
   border-radius: 15px;
-  position: relative;
-  bottom: 80px;
+  position: sticky;
+  top: -10px;
+  margin-top: -80px;
 }
