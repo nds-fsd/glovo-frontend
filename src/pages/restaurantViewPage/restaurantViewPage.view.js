@@ -27,7 +27,12 @@ export const RestaurantViewPage = () => {
   const [seeMoreCategories, setSeeMoreCategories] = useState(false);
 
   useEffect(() => {
-    shortFetch({ url: `${RESTAURANT}/${id}`, method: 'GET', onSuccess: setSelectedResto });
+    shortFetch({
+      url: `${RESTAURANT}/${id}`,
+      token: true,
+      method: 'GET',
+      onSuccess: setSelectedResto,
+    });
   }, []);
 
   const handleClick = (courseId) => {
@@ -35,7 +40,12 @@ export const RestaurantViewPage = () => {
     setSelectedCategory(courseId);
   };
   useEffect(() => {
-    shortFetch({ url: `${ALL_COURSES}/${id}`, method: 'GET', onSuccess: setDishByCourse });
+    shortFetch({
+      url: `${ALL_COURSES}/${id}`,
+      token: true,
+      method: 'GET',
+      onSuccess: setDishByCourse,
+    });
   }, []);
 
   const addToCart = (dish) => {
@@ -59,6 +69,11 @@ export const RestaurantViewPage = () => {
       setModalDishView({ ...dish, modalDishView });
     }
   };
+
+  const onClick = () => {
+    console.log('hola');
+  };
+
   return (
     <div>
       <header className={styles._header}></header>
@@ -67,9 +82,11 @@ export const RestaurantViewPage = () => {
           <div className={styles._restoCardContainer}>
             {selectedResto && (
               <div className={styles._restoInfo}>
-                <p>
-                  Category {'>'} {selectedResto.restaurantCategory.name}
-                </p>
+                Category {'>'}{' '}
+                {selectedResto &&
+                  selectedResto.restaurantCategory.map((cat) => {
+                    return <span>{cat.name}</span>;
+                  })}
                 <h1>{selectedResto.name}</h1>
                 <p style={{ fontStyle: 'italic' }}>{selectedResto.restaurantDescription}</p>
               </div>
@@ -80,12 +97,14 @@ export const RestaurantViewPage = () => {
                   {modalDishView && capitalize(modalDishView.dish)}
                 </h2>
                 <p>{modalDishView && formatNumber(modalDishView.price)}</p>
-                <button>Add to Order</button>
+                <Button onClick={() => onClick()} buttonStyle="payOrder">
+                  Add to Order
+                </Button>
               </Modal>
             )}
             <div className={styles._courseContainer}>
-              {selectedResto &&
-                selectedResto.courseList.slice(0, 1).map((course, i) => {
+              {dishByCourse &&
+                dishByCourse.slice(0, 1).map((course, i) => {
                   return (
                     <div>
                       <div className={styles._coursesBar}>
@@ -112,8 +131,8 @@ export const RestaurantViewPage = () => {
 
               <div className={styles._coursesBarContainer}>
                 {seeMoreCategories &&
-                  selectedResto &&
-                  selectedResto.courseList.map((course, i) => {
+                  dishByCourse &&
+                  dishByCourse.map((course, i) => {
                     return (
                       <div>
                         <p key={course._id} onClick={() => handleClick(course._id)}>
@@ -153,7 +172,7 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation completedCart={completedCart} modalDishView={modalDishView} />
+          <DeliveryInformation completedCart={completedCart} />
         </div>
       </div>
     </div>
