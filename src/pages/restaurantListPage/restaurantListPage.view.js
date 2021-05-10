@@ -13,9 +13,11 @@ import LoginModal from '../../components/modal/loginModal';
 import SignupModal from '../../components/modal/signupModal';
 
 export const RestaurantListPage = () => {
+  const { categoryArr, setCategoryArr, isSearching } = useContext(RestoListContext);
+
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
-  const { categoryArr, setCategoryArr } = useContext(RestoListContext);
+
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
   }, []);
@@ -30,19 +32,26 @@ export const RestaurantListPage = () => {
             openRegisterModal={() => setOpenSignupModal(true)}
           />
         </Header>
-        <div className={styles.restaurantContainer}>
-          <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
-          <p className={styles.title}>
-            Choose a Category
-            {location.search && (
-              <Button buttonStyle="signup" onClick={() => history.push(RESTAURANT_LIST_PAGE)}>
-                View All
-              </Button>
-            )}
-          </p>
-          <CategoryBar>{categoryArr}</CategoryBar>
-          <RestaurantList />
-        </div>
+        {!isSearching && (
+          <div className={styles.restaurantContainer}>
+            <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
+            <div className={styles.title}>
+              Choose a Category
+              {location.search && (
+                <Button buttonStyle="signup" onClick={() => history.push(RESTAURANT_LIST_PAGE)}>
+                  View All
+                </Button>
+              )}
+            </div>
+            <CategoryBar>{categoryArr}</CategoryBar>
+            <RestaurantList />
+          </div>
+        )}
+        {isSearching && (
+          <div className={styles.restaurantContainer}>
+            <RestaurantList />
+          </div>
+        )}
       </div>
       <LoginModal
         open={openLoginModal}

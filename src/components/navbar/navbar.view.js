@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
+import SearchBox from '../searchBox';
 import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
 import Button from '../button';
@@ -36,6 +37,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
       )}
     >
       <div>LOGO</div>
+      <SearchBox />
       <div className={classNames([styles.buttons])}>
         {getUserToken() ? (
           <>

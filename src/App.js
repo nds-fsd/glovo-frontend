@@ -33,7 +33,7 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path={`${BACKOFFICE}/:id?`}>
             <BackOfficeContextProvider>
-              <RoleController roleConfirm="RESTAURANT">
+              <RoleController roleConfirm="PROVIDER">
                 <BackOfficePage />
               </RoleController>
             </BackOfficeContextProvider>

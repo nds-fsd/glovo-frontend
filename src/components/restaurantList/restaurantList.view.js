@@ -1,10 +1,12 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import styles from './restaurantList.module.css';
 import RestaurantItem from '../restaurantItem';
 import { shortFetch } from '../../assets/utils/fetch.utils';
-import { RESTAURANT } from '../../router/router';
+import { RESTAURANT, RESTAURANT_LIST_PAGE, RESTAURANT_CATEGORY } from '../../router/router';
 
 export const RestaurantList = () => {
   const [allRest, setAllRest] = useState();
@@ -14,11 +16,9 @@ export const RestaurantList = () => {
   }
   const query = useQuery();
   useEffect(() => {
-    if (!history.location.search) {
-      shortFetch({ url: RESTAURANT, method: 'get', onSuccess: setAllRest });
-    } else {
-      shortFetch({
-        url: `/restaurantCategory/nameSearch`,
+    if (history.location.pathname.includes('category')) {
+      return shortFetch({
+        url: `${RESTAURANT_CATEGORY}/nameSearch`,
         method: 'post',
         body: {
           name: `${query.get('name')}`,
@@ -26,9 +26,25 @@ export const RestaurantList = () => {
         onSuccess: setAllRest,
       });
     }
+    if (history.location.pathname.includes('search')) {
+      if (query.get('search').length > 0) {
+        return shortFetch({
+          url: `${RESTAURANT}/researchA`,
+          method: 'post',
+          body: {
+            search: query.get('search'),
+          },
+          onSuccess: setAllRest,
+        });
+      }
+      history.push(RESTAURANT_LIST_PAGE);
+    } else {
+      shortFetch({ url: RESTAURANT, method: 'get', onSuccess: setAllRest });
+    }
   }, [history.location.search]);
   return (
     <div className={styles.container}>
+      {console.log(query.get('search'))}
       {allRest &&
         allRest.map((resto) => {
           return <RestaurantItem key={resto._id} restaurant={resto} />;

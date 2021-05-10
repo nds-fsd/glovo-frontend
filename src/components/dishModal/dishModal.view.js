@@ -5,14 +5,9 @@ import Modal from '../modal';
 import UpdateDishForm from '../forms/updateDishForm';
 
 export const DishModal = ({ onClose, open, selectedDish, onToggle }) => {
-	return (
-		<Modal
-			onClose={onClose}
-			open={open}
-			title="Restaurant Update Form"
-			selectedDish={selectedDish}
-		>
-			<UpdateDishForm selectedDish={selectedDish} onToggle={onToggle} onClose={onClose} />
-		</Modal>
-	);
+  return (
+    <Modal onClose={onClose} open={open} title="Restaurant Update Form" selectedDish={selectedDish}>
+      <UpdateDishForm selectedDish={selectedDish} onToggle={onToggle} onClose={onClose} />
+    </Modal>
+  );
 };

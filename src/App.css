@@ -20,3 +20,11 @@ input{
     background-color: rgba(242, 242, 242,0.0);
     font-family: var(--mainFont);
 }
+select,
+select:-webkit-autofill,
+select:-webkit-autofill:hover, 
+select:-webkit-autofill:focus, 
+select:-webkit-autofill:active {
+    text-decoration: none;
+    outline: none;
+}
