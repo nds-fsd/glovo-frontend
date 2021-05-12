@@ -1,17 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { backOfficeContext } from '../../components/context/backOfficeContext';
+import { useBackOfficeContext } from './backOfficeContext/backOfficeContext';
 import SideBar from '../../components/backOfficeComponents/sideBar';
 import styles from './backOfficePage.module.css';
 import RestaurantTab from '../../components/backOfficeComponents/restaurantTab';
 import { BACKOFFICE } from '../../router/router';
 import MenuTab from '../../components/backOfficeComponents/menuTab';
 import DeleteRestaurantModal from '../../components/backOfficeComponents/backOfficeModal/deleteRestaurantModal';
+import { CANCEL_DELETE } from './backOfficeContext/types';
 
 export const BackOfficePage = () => {
-  const { selectedTab, deleteRestaurantModal, setDeleteRestaurantModal } = useContext(
-    backOfficeContext
-  );
+  const {
+    dispatch,
+    state: { deleteRestaurantModal, selectedTab },
+  } = useBackOfficeContext();
   const history = useHistory();
   return (
     <div className={styles.container}>
@@ -31,7 +33,7 @@ export const BackOfficePage = () => {
       </div>
       <DeleteRestaurantModal
         open={deleteRestaurantModal}
-        onClose={() => setDeleteRestaurantModal(false)}
+        onClose={() => dispatch({ type: CANCEL_DELETE })}
       />
     </div>
   );

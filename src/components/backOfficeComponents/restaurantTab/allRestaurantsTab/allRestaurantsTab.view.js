@@ -1,16 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRestaurants } from '../../../../hooks/useRestaurants';
 import Button from '../../../button';
-import { backOfficeContext } from '../../../context/backOfficeContext';
+import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import Paginator from '../../paginator';
 import Row from '../../row';
 import styles from './allRestaurantsTab.module.css';
+import { CREATE_RESTAURANT } from '../../../../pages/backOfficePage/backOfficeContext/types';
+import SearchBar from '../../../searchBar';
 
 export const AllRestaurantsTab = () => {
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-  const { setCreateRestaurant } = useContext(backOfficeContext);
+  const { dispatch } = useBackOfficeContext();
   const [search, setSearch] = useState();
   const {
     userRestaurants,
@@ -37,14 +38,9 @@ export const AllRestaurantsTab = () => {
     <>
       <header className={styles.header}>
         <div className={styles.searchBar}>
-          <FontAwesomeIcon icon="search" className={styles.searchIcon} />
-          <input
-            type="search"
-            onBlur={(e) => setSearch(e.target.value)}
-            className={styles.searchInput}
-          />
+          <SearchBar handleSearch={(query) => setSearch(query)} />
         </div>
-        <Button buttonStyle="signup" onClick={() => setCreateRestaurant(true)}>
+        <Button buttonStyle="signup" onClick={() => dispatch({ type: CREATE_RESTAURANT })}>
           Create
         </Button>
       </header>

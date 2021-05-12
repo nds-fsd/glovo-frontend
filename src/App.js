@@ -9,7 +9,7 @@ import { RestoListContextProvider } from './components/context/restoListPageCont
 import { RoleContextProvider } from './components/context/roleContext';
 import { PrivateRoute } from './components/privateRoute/privateRoute.view';
 import BackOfficePage from './pages/backOfficePage';
-import { BackOfficeContextProvider } from './components/context/backOfficeContext';
+import { BackOfficeContextProvider } from './pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { RoleController } from './components/roleController/roleController';
 
 const iconList = Object.keys(Icons)

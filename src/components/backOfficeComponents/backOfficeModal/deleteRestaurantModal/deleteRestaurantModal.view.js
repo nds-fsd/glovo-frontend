@@ -1,13 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useRestaurants } from '../../../../hooks/useRestaurants';
 import Button from '../../../button';
-import { backOfficeContext } from '../../../context/backOfficeContext';
+import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
   const [isDeleted, setIsDeleted] = useState(false);
-  const { deletableRestaurant } = useContext(backOfficeContext);
+  const {
+    state: { deletableRestaurant },
+  } = useBackOfficeContext();
   const { deleteRestaurant } = useRestaurants();
 
   const handleSucces = () => {
