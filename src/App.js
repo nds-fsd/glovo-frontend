@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './App.css';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -11,6 +12,7 @@ import { PrivateRoute } from './components/privateRoute/privateRoute.view';
 import BackOfficePage from './pages/backOfficePage';
 import { BackOfficeContextProvider } from './pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { RoleController } from './components/roleController/roleController';
+import { CartContextProvider } from './context/cartContext';
 
 const iconList = Object.keys(Icons)
   .filter((key) => key !== 'fas' && key !== 'prefix')
@@ -23,14 +25,16 @@ function App() {
     <Router>
       <RoleContextProvider>
         <Switch>
-          <Route path={RESTAURANT_LIST_PAGE}>
-            <RestoListContextProvider>
-              <RestaurantListPage />
-            </RestoListContextProvider>
-          </Route>
-          <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
-            <RestaurantViewPage />
-          </PrivateRoute>
+          <CartContextProvider>
+            <Route path={RESTAURANT_LIST_PAGE}>
+              <RestoListContextProvider>
+                <RestaurantListPage />
+              </RestoListContextProvider>
+            </Route>
+            <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
+              <RestaurantViewPage />
+            </PrivateRoute>
+          </CartContextProvider>
           <PrivateRoute path={`${BACKOFFICE}/:id?`}>
             <BackOfficeContextProvider>
               <RoleController roleConfirm="PROVIDER">
