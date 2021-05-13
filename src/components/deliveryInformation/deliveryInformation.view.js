@@ -5,8 +5,10 @@ import styles from './deliveryInformation.module.css';
 import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
 import Button from '../button';
+import { useCartContext } from '../../context/cartContext';
 
-const DeliveryInformation = ({ completedCart }) => {
+const DeliveryInformation = () => {
+  const { completedCart } = useCartContext();
   let totalPrice = 0;
 
   const onClick = () => {
