@@ -13,9 +13,14 @@ const initialState = {
     restId: '',
   },
   viewMenu: false,
+  viewDishes: false,
   deleteRestaurantModal: false,
   deletableRestaurant: '',
   selectedRestaurant: '',
+  selectedCourse: {
+    name: '',
+    id: '',
+  },
 };
 
 const backOfficeContext = createContext();

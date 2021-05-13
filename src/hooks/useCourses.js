@@ -9,7 +9,7 @@ export const useCourses = () => {
   const [filteredPages, setFilteredPages] = useState();
   const [filteredCourses, setFilteredCourses] = useState();
 
-  const getCourses = ({ id, page, limit = 10 }) => {
+  const getCourses = ({ id, page, limit = 5 }) => {
     shortFetch({
       url: `${COURSE}/search?page=${page}&limit=${limit}`,
       method: 'POST',
@@ -56,6 +56,33 @@ export const useCourses = () => {
     setFilteredPages(undefined);
   };
 
+  const deleteCourses = ({ courseId, onSuccess }) => {
+    shortFetch({
+      url: `${COURSE}/deleteAll/${courseId}`,
+      token: true,
+      method: 'DELETE',
+      onSuccess,
+    });
+  };
+
+  const createCourse = ({ restaurantId, courseName, onSuccess }) => {
+    const body = {
+      Restaurant: restaurantId,
+      name: courseName,
+    };
+    shortFetch({ url: `${COURSE}`, method: 'POST', token: true, body, onSuccess });
+  };
+
+  const editCourse = ({ courseName, courseId, onSuccess }) => {
+    shortFetch({
+      url: `${COURSE}/${courseId}`,
+      method: 'PUT',
+      token: true,
+      body: { name: courseName },
+      onSuccess,
+    });
+  };
+
   return {
     hasCourses,
     totalPages,
@@ -65,5 +92,8 @@ export const useCourses = () => {
     clearFilter,
     filteredCourses,
     filteredPages,
+    deleteCourses,
+    createCourse,
+    editCourse,
   };
 };

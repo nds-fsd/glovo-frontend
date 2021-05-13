@@ -4,13 +4,15 @@ import Button from '../../../button';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
+import { useCourses } from '../../../../hooks/useCourses';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const {
-    state: { deletableRestaurant },
+    state: { deletableRestaurant, selectedCourse },
   } = useBackOfficeContext();
   const { deleteRestaurant } = useRestaurants();
+  const { deleteCourse } = useCourses();
 
   const handleSucces = () => {
     setIsDeleted(true);
@@ -19,8 +21,26 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
     setIsDeleted(false);
   };
 
+  const handleClick = () => {
+    if (selectedCourse.id) {
+      deleteCourse({
+        courseId: selectedCourse.id,
+        onSuccess: () => {
+          setIsDeleted(true);
+        },
+      });
+    }
+    deleteRestaurant(deletableRestaurant, handleSucces, handleError);
+  };
+
   return (
-    <BackOfficeModal onClose={onClose} open={open}>
+    <BackOfficeModal
+      onClose={() => {
+        onClose();
+        setIsDeleted(false);
+      }}
+      open={open}
+    >
       <div className={styles.container}>
         {!isDeleted && (
           <>
@@ -29,10 +49,7 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
               <Button buttonStyle="signup" onClick={onClose}>
                 Cancel
               </Button>
-              <Button
-                buttonStyle="delete"
-                onClick={() => deleteRestaurant(deletableRestaurant, handleSucces, handleError)}
-              >
+              <Button buttonStyle="delete" onClick={() => handleClick()}>
                 Delete
               </Button>
             </div>

@@ -1,0 +1,57 @@
+.row{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 55px;
+    border-bottom: 1px solid var(--salyGrayBorder);
+    color: var(--salyGrayText);
+}
+.row:hover{
+    background-color: var(--lightSalyGray);
+}
+.column{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+}
+.name:hover{
+    font-weight: 800;
+}
+.description{
+    width: 200px;
+    height: 100%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.popUp{
+    position: absolute;
+    top: -30;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    width: 120px;
+    background-color: var(--lightSalyGray);
+    border-radius: 10px;
+    border: 1px solid var(--salyBlue);
+}
+.category{
+    margin: 0;
+    color: var(--salyBlue);
+}
+.icon:hover{
+    color: black;
+}

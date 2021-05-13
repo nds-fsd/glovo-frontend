@@ -3,18 +3,20 @@ import { useParams } from 'react-router-dom';
 import { useCourses } from '../../../hooks/useCourses';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import {
+  BACK_TO_COURSES,
   CREATE_COURSE,
   VIEW_RESTAURANT,
 } from '../../../pages/backOfficePage/backOfficeContext/types';
 import Button from '../../button';
 import SearchBar from '../../searchBar';
+import CourseRow from '../courseRow';
 import Paginator from '../paginator';
 import styles from './menuTab.module.css';
 
 export const MenuTab = () => {
   const {
     dispatch,
-    state: { selectedRestaurant, viewMenu },
+    state: { selectedRestaurant, viewMenu, selectedCourse, createCourse },
   } = useBackOfficeContext();
   const [limit, setLimit] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +38,7 @@ export const MenuTab = () => {
 
   useEffect(() => {
     getCourses({ id, page: currentPage - 1, limit });
-  }, [currentPage, limit, id]);
+  }, [currentPage, limit, id, createCourse]);
 
   useEffect(() => {
     if (search) {
@@ -47,6 +49,10 @@ export const MenuTab = () => {
   }, [search, limit, currentPage]);
 
   const handleRedirectClick = () => {
+    if (selectedCourse.name) {
+      dispatch({ type: BACK_TO_COURSES });
+      return;
+    }
     if (viewMenu) {
       dispatch({ type: VIEW_RESTAURANT });
     }
@@ -75,23 +81,20 @@ export const MenuTab = () => {
           <div className={styles.column} style={{ width: '30%' }}>
             Name
           </div>
-          <div className={styles.column} style={{ width: '15%' }}>
-            Categories
-          </div>
-          <div className={styles.column} style={{ width: '200px' }}>
-            Description
-          </div>
           <div className={styles.column} style={{ width: '20%' }}>
             Creation Date
+          </div>
+          <div className={styles.column} style={{ width: '15%' }}>
+            Buttons
           </div>
         </div>
         <div className={styles.restaurants}>
           {courses &&
             !filteredCourses &&
             courses.list.map((course) => {
-              return <p>{course.name}</p>;
+              return <CourseRow course={course} />;
             })}
-          {filteredCourses && filteredCourses.list.map((course) => <p>{course.name}</p>)}
+          {filteredCourses && filteredCourses.list.map((course) => <CourseRow course={course} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

@@ -10,6 +10,9 @@ import {
   VIEW_RESTAURANT,
   CREATE_COURSE,
   STOP_CREATE_COURSE,
+  VIEW_DISHES,
+  BACK_TO_COURSES,
+  EDIT_COURSE,
 } from './types';
 
 export const backOfficeReducer = (state, action) => {
@@ -49,6 +52,19 @@ export const backOfficeReducer = (state, action) => {
       return newState;
     case STOP_CREATE_COURSE:
       newState.createCourse = false;
+      newState.selectedCourse = { name: '', id: '' };
+      return newState;
+    case VIEW_DISHES:
+      newState.selectedCourse = action.payload;
+      newState.viewDishes = true;
+      return newState;
+    case BACK_TO_COURSES:
+      newState.selectedCourse = { name: '', id: '' };
+      newState.viewDishes = false;
+      return newState;
+    case EDIT_COURSE:
+      newState.selectedCourse = action.payload;
+      newState.createCourse = true;
       return newState;
     default:
       return newState;
