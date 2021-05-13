@@ -3,9 +3,14 @@ import { backOfficeReducer } from './backOfficeReducer';
 
 const initialState = {
   createRestaurant: false,
-  selectedTab: 'Restaurants',
+  selectedTab: {
+    name: 'Restaurants',
+    restId: '',
+  },
+  viewMenu: false,
   deleteRestaurantModal: false,
   deletableRestaurant: '',
+  selectedRestaurant: 'Restaurants',
 };
 
 const backOfficeContext = createContext();

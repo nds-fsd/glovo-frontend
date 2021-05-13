@@ -1,16 +1,33 @@
 /* eslint-disable no-debugger */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import {
+  CREATE_RESTAURANT,
+  VIEW_RESTAURANT,
+} from '../../../pages/backOfficePage/backOfficeContext/types';
 import Button from '../../button';
 import Paginator from '../paginator';
 import styles from './menuTab.module.css';
 
 export const MenuTab = () => {
+  const {
+    dispatch,
+    state: { selectedRestaurant, viewMenu },
+  } = useBackOfficeContext();
   const [limit, setLimit] = useState();
   const [search, setSearch] = useState();
   console.log(limit, search);
+  const handleRedirectClick = () => {
+    if (viewMenu) {
+      dispatch({ type: VIEW_RESTAURANT });
+    }
+  };
   return (
     <div className={styles.container}>
+      <h1 onClick={() => handleRedirectClick()} style={{ cursor: 'pointer' }}>
+        {selectedRestaurant}
+      </h1>
       <header className={styles.header}>
         <div className={styles.searchBar}>
           <FontAwesomeIcon icon="search" className={styles.searchIcon} />
@@ -20,7 +37,9 @@ export const MenuTab = () => {
             className={styles.searchInput}
           />
         </div>
-        <Button buttonStyle="signup">Create</Button>
+        <Button buttonStyle="signup" onClick={() => dispatch({ type: CREATE_RESTAURANT })}>
+          Create
+        </Button>
       </header>
       <div className={styles.tableHeader}>
         <div className={styles.column} style={{ width: '30%' }}>

@@ -11,6 +11,7 @@ export const Button = ({ onClick, buttonStyle, children }) => {
     [styles.edit]: buttonStyle === 'edit',
     [styles.cancel]: children === 'Cancel' && buttonStyle === 'edit',
     [styles.delete]: buttonStyle === 'delete',
+    [styles.menu]: buttonStyle === 'menu',
   });
   return (
     <div className={`${styles.container} ${selectedStyle}`} onClick={() => onClick()}>

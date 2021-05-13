@@ -1,12 +1,23 @@
+.title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+}
+.selectedRestaurant{
+    margin: 0.2em 0px;
+}
 .container{
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 70%;
     min-width: 575px;
     height: 85%;
     background-color: var(--salyWhite);
     border: 2px solid var(--salyGrayBorder);
     border-radius: 10px;
+    padding-top: 15px;
 }
 .restaurantImage{
     position: relative;

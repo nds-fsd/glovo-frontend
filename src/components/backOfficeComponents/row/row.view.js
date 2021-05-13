@@ -5,8 +5,14 @@ import EditToolTip from './toolTip';
 import styles from './row.module.css';
 
 import { BACKOFFICE } from '../../../router/router';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import {
+  SELECT_RESTAURANT,
+  VIEW_RESTAURANT,
+} from '../../../pages/backOfficePage/backOfficeContext/types';
 
 export const Row = ({ restaurant }) => {
+  const { dispatch } = useBackOfficeContext();
   const [popUp, setPopUp] = useState(false);
   const [openToolTip, setOpenToolTip] = useState(false);
   const history = useHistory();
@@ -17,7 +23,11 @@ export const Row = ({ restaurant }) => {
           <div
             className={`${styles.column} ${styles.name}`}
             style={{ width: '32%', color: 'black' }}
-            onClick={() => history.push(`${BACKOFFICE}/${restaurant._id}`)}
+            onClick={() => {
+              dispatch({ type: SELECT_RESTAURANT, payload: restaurant.name });
+              dispatch({ type: VIEW_RESTAURANT });
+              history.push(`${BACKOFFICE}/${restaurant._id}`);
+            }}
           >
             {restaurant.name}
           </div>

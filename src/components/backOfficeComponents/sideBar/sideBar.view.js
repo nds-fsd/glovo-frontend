@@ -7,7 +7,8 @@ import { ReactComponent as Shutdown } from '../../../assets/icons/Shutdown.svg';
 import styles from './sideBar.module.css';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { removeSession } from '../../../assets/utils/localStorage.utils';
-import { CHANGE_TAB } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { CHANGE_TAB, VIEW_RESTAURANT } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { BACKOFFICE } from '../../../router/router';
 
 export const SideBar = () => {
   const { dispatch } = useBackOfficeContext();
@@ -25,13 +26,20 @@ export const SideBar = () => {
       <h4 className={styles.title}>MY RESTAURANT</h4>
       <div
         className={styles.tab}
-        onClick={() => dispatch({ type: CHANGE_TAB, payload: 'Restaurants' })}
+        onClick={() => {
+          history.push(BACKOFFICE);
+          dispatch({ type: CHANGE_TAB, payload: { name: 'Restaurants' } });
+          dispatch({ type: VIEW_RESTAURANT });
+        }}
       >
         <Cutlery className={styles.icon} /> Restaurant
       </div>
 
       <h4 className={styles.title}>MY ACCOUNT</h4>
-      <div className={styles.tab} onClick={() => dispatch({ type: CHANGE_TAB, payload: 'User' })}>
+      <div
+        className={styles.tab}
+        onClick={() => dispatch({ type: CHANGE_TAB, payload: { name: 'User' } })}
+      >
         <User className={styles.icon} /> User
       </div>
       <div

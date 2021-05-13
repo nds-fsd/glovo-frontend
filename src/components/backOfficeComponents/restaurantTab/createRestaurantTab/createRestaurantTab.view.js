@@ -32,7 +32,7 @@ export const CreateRestaurantTab = () => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.restaurantImage}>
         <img src={ImageSkeleton} alt="camera" />
         <div className={styles.categoryDisplay}>
@@ -47,6 +47,6 @@ export const CreateRestaurantTab = () => {
           categories={categoryNames}
         />
       </div>
-    </>
+    </div>
   );
 };

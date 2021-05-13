@@ -44,6 +44,17 @@
     border-radius: 9px;
     color: var(--salyBlue);
 }
+.menu{
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    background-color: rgba(173,216,230,0.6);
+    width: 65px;
+    height: 45px;
+    text-align: center;
+    border-radius: 9px;
+    color: var(--salyBlue);
+}
 .cancel{
     background-color: var(--lightSalyRed);
     width: 61px;

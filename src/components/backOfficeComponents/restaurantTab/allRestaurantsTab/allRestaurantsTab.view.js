@@ -35,7 +35,8 @@ export const AllRestaurantsTab = () => {
   }, [search, limit, currentPage]);
 
   return (
-    <>
+    <div className={styles.container}>
+      <h1>Restaurants</h1>
       <header className={styles.header}>
         <div className={styles.searchBar}>
           <SearchBar handleSearch={(query) => setSearch(query)} />
@@ -88,6 +89,6 @@ export const AllRestaurantsTab = () => {
           setCurrentPage={(page) => setCurrentPage(page)}
         />
       </footer>
-    </>
+    </div>
   );
 };

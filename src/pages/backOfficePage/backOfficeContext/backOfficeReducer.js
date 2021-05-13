@@ -3,7 +3,11 @@ import {
   CHANGE_TAB,
   CREATE_RESTAURANT,
   DELETE_RESTAURANT,
+  DESELECT_RESTAURANT,
+  SELECT_RESTAURANT,
   STOP_CREATING,
+  VIEW_MENU,
+  VIEW_RESTAURANT,
 } from './types';
 
 export const backOfficeReducer = (state, action) => {
@@ -25,6 +29,18 @@ export const backOfficeReducer = (state, action) => {
     case CANCEL_DELETE:
       newState.deleteRestaurantModal = false;
       newState.deletableRestaurant = '';
+      return newState;
+    case VIEW_MENU:
+      newState.viewMenu = true;
+      return newState;
+    case VIEW_RESTAURANT:
+      newState.viewMenu = false;
+      return newState;
+    case SELECT_RESTAURANT:
+      newState.selectedRestaurant = action.payload;
+      return newState;
+    case DESELECT_RESTAURANT:
+      newState.selectedRestaurant = 'Restaurants';
       return newState;
     default:
       return newState;
