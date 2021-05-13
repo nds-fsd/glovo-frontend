@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-debugger */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
