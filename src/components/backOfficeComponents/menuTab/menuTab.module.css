@@ -8,6 +8,16 @@
     border: 2px solid var(--salyGrayBorder);
     border-radius: 10px;
 }
+.title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+    padding-left: 15px;
+}
+.selectedRestaurant{
+    margin: 0.2em 0px;
+}
 .header{
     display: flex;
     justify-content: space-between;
@@ -16,14 +26,8 @@
     height: 80px;
 }
 .searchBar{
-    position: relative;
     width: 40%;
     height: 50px;
-    border: 2px solid var(--salyGray);
-    border-radius: 10px;
-    margin-left: 10px;
-    display: flex;
-    justify-content: flex-end;
 }
 .searchIcon{
     position: absolute;

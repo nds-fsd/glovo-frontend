@@ -2,7 +2,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 70%;
+    width: 90%;
+    padding-left: 15px;
 }
 .selectedRestaurant{
     margin: 0.2em 0px;

@@ -8,6 +8,8 @@ import {
   STOP_CREATING,
   VIEW_MENU,
   VIEW_RESTAURANT,
+  CREATE_COURSE,
+  STOP_CREATE_COURSE,
 } from './types';
 
 export const backOfficeReducer = (state, action) => {
@@ -40,7 +42,13 @@ export const backOfficeReducer = (state, action) => {
       newState.selectedRestaurant = action.payload;
       return newState;
     case DESELECT_RESTAURANT:
-      newState.selectedRestaurant = 'Restaurants';
+      newState.selectedRestaurant = '';
+      return newState;
+    case CREATE_COURSE:
+      newState.createCourse = true;
+      return newState;
+    case STOP_CREATE_COURSE:
+      newState.createCourse = false;
       return newState;
     default:
       return newState;
