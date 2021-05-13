@@ -4,26 +4,17 @@
     flex-direction: column;
     justify-content: space-around;
     visibility: hidden;
-    right: 25px;
+    right: 25%;
+    bottom: -80px;
     width: 120px;
-    height: 70px;
+    height: 95px;
     background: var(--salyWhite);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 15px rgb(0 0 0 / 20%);
     opacity: 0;
-  transition: visibility 0s linear 300ms, opacity 300ms;
-  border-radius: 4px;
-  z-index: 1;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+    border-radius: 4px;
+    z-index: 1;
 }
-  .container::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent transparent var(--salyWhite);
-  }
   .open{
     visibility: visible;
     opacity: 1;

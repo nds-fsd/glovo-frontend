@@ -18,7 +18,7 @@ export const MenuTab = () => {
     dispatch,
     state: { selectedRestaurant, viewMenu, selectedCourse, createCourse },
   } = useBackOfficeContext();
-  const [limit, setLimit] = useState();
+  const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState();
   const { id } = useParams();
@@ -57,6 +57,8 @@ export const MenuTab = () => {
       dispatch({ type: VIEW_RESTAURANT });
     }
   };
+
+  console.debug(filteredPages);
   return (
     <>
       <div className={styles.title}>

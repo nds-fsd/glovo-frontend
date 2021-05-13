@@ -20,16 +20,17 @@ export const CourseRow = ({ course }) => {
           <div className={styles.column} style={{ width: '20%' }}>
             <p>Created At</p>
           </div>
-          <div className={styles.column} style={{ width: '15%' }}>
+          <div className={`${styles.column} ${styles.iconContainer}`} style={{ width: '15%' }}>
             <FontAwesomeIcon
               icon="ellipsis-v"
               className={styles.icon}
               onClick={() => setSubMenu(!subMenu)}
             />
+            <FontAwesomeIcon icon="bars" className={styles.icon} />
+          <SubMenu open={subMenu} onClose={() => setSubMenu(false)} course={course} />
           </div>
         </>
       )}
-      <SubMenu open={subMenu} onClose={() => setSubMenu(false)} course={course} />
     </div>
   );
 };

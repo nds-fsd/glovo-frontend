@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { useState } from 'react';
 import { shortFetch } from '../assets/utils/fetch.utils';
 import { COURSE } from '../router/router';
@@ -45,9 +46,10 @@ export const useCourses = () => {
           setHasCourses(true);
           return;
         }
+       
         setFilteredCourses(payload);
         setHasCourses(true);
-        setFilteredPages(Math.ceil(payload.count / lim));
+        setFilteredPages(Math.ceil(payload.count / (lim || 1)));
       },
     });
   };
