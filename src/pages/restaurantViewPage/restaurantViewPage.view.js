@@ -15,9 +15,9 @@ import { ALL_COURSES, RESTAURANT } from '../../router/router';
 import DeliveryInformation from '../../components/deliveryInformation';
 import Modal from '../../components/modal';
 import Button from '../../components/button';
+import { useCartContext } from '../../context/cartContext';
 
 export const RestaurantViewPage = () => {
-  const [completedCart, setCompletedCart] = useState([]);
   const { id } = useParams();
   const [selectedResto, setSelectedResto] = useState();
   const [dishByCourse, setDishByCourse] = useState();
@@ -25,6 +25,7 @@ export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [modalDishView, setModalDishView] = useState({});
   const [seeMoreCategories, setSeeMoreCategories] = useState(false);
+  const { addToCart } = useCartContext();
 
   useEffect(() => {
     shortFetch({
@@ -47,22 +48,6 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
-
-  const addToCart = (dish) => {
-    const check = completedCart.filter((dishCart) => {
-      return dishCart.id === dish.id;
-    });
-    if (check.length === 0) {
-      setCompletedCart([...completedCart, dish]);
-      return;
-    }
-    if (check.length > 0) {
-      const newCheck = completedCart.filter((cartDish) => {
-        return cartDish.id !== dish.id;
-      });
-      setCompletedCart([...newCheck, dish]);
-    }
-  };
 
   const viewDishInModal = (dish) => {
     if (dish) {
@@ -103,10 +88,10 @@ export const RestaurantViewPage = () => {
               </Modal>
             )}
             <div className={styles._courseContainer}>
-              {dishByCourse &&
-                dishByCourse.slice(0, 1).map((course, i) => {
-                  return (
-                    <div>
+              <div className={styles._viewCourses}>
+                {dishByCourse &&
+                  dishByCourse.slice(0, 3).map((course, i) => {
+                    return (
                       <div className={styles._coursesBar}>
                         <p
                           className={classNames({
@@ -118,29 +103,31 @@ export const RestaurantViewPage = () => {
                           {capitalize(course.name)}
                         </p>
                       </div>
-                    </div>
-                  );
-                })}
-              <FontAwesomeIcon
-                icon="ellipsis-h"
-                className={styles._iconEllipsis}
-                onClick={() => {
-                  setSeeMoreCategories(!seeMoreCategories);
-                }}
-              />
-
-              <div className={styles._coursesBarContainer}>
-                {seeMoreCategories &&
-                  dishByCourse &&
-                  dishByCourse.map((course, i) => {
-                    return (
-                      <div>
-                        <p key={course._id} onClick={() => handleClick(course._id)}>
-                          {capitalize(course.name)}
-                        </p>
-                      </div>
                     );
                   })}
+              </div>
+              <div>
+                <FontAwesomeIcon
+                  icon="ellipsis-h"
+                  className={styles._iconEllipsis}
+                  onClick={() => {
+                    setSeeMoreCategories(!seeMoreCategories);
+                  }}
+                />
+
+                <div className={styles._moreCourses}>
+                  {seeMoreCategories &&
+                    dishByCourse &&
+                    dishByCourse.map((course, i) => {
+                      return (
+                        <div>
+                          <p key={course._id} onClick={() => handleClick(course._id)}>
+                            {capitalize(course.name)}
+                          </p>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </div>
@@ -172,7 +159,7 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation completedCart={completedCart} />
+          <DeliveryInformation />
         </div>
       </div>
     </div>
