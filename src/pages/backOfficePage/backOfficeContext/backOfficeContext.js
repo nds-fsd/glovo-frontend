@@ -21,6 +21,10 @@ const initialState = {
     name: '',
     id: '',
   },
+  deletableCourse: {
+    name: '',
+    id: '',
+  },
 };
 
 const backOfficeContext = createContext();

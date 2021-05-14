@@ -1,7 +1,11 @@
 import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
-import { EDIT_COURSE, VIEW_DISHES } from '../../../../pages/backOfficePage/backOfficeContext/types';
+import {
+  DELETE_COURSE,
+  EDIT_COURSE,
+  VIEW_DISHES,
+} from '../../../../pages/backOfficePage/backOfficeContext/types';
 import styles from './subMenu.module.css';
 
 export const SubMenu = ({ open, onClose, course }) => {
@@ -38,7 +42,14 @@ export const SubMenu = ({ open, onClose, course }) => {
       >
         Edit
       </div>
-      <div className={`${styles.option} ${styles.delete}`}>Delete</div>
+      <div
+        className={`${styles.option} ${styles.delete}`}
+        onClick={() =>
+          dispatch({ type: DELETE_COURSE, payload: { name: course.name, id: course._id } })
+        }
+      >
+        Delete
+      </div>
     </div>
   );
 };

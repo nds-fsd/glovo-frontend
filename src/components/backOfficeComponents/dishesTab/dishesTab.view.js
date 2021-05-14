@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCourses } from '../../../hooks/useCourses';
@@ -11,9 +12,9 @@ import Button from '../../button';
 import SearchBar from '../../searchBar';
 import CourseRow from '../courseRow';
 import Paginator from '../paginator';
-import styles from './menuTab.module.css';
+import styles from './dishesTab.module.css';
 
-export const MenuTab = () => {
+export const DishesTab = () => {
   const {
     dispatch,
     state: { selectedRestaurant, viewMenu, selectedCourse, createCourse, deleteRestaurantModal },
@@ -66,7 +67,11 @@ export const MenuTab = () => {
           onClick={() => handleRedirectClick()}
           style={{ cursor: 'pointer' }}
         >
-          {selectedRestaurant}
+          {`${selectedRestaurant}  `}
+        </h1>
+        <h1 style={{ margin: '0.2em 10px' }}>
+          <FontAwesomeIcon icon="caret-right" />
+          {` ${selectedCourse.name}`}
         </h1>
       </div>
       <div className={styles.container}>
@@ -82,10 +87,15 @@ export const MenuTab = () => {
           <div className={styles.column} style={{ width: '30%' }}>
             Name
           </div>
+          <div className={styles.column} style={{ width: '15%' }}>
+            Price
+          </div>
+          <div className={styles.column} style={{ width: '200px' }}>
+            Description
+          </div>
           <div className={styles.column} style={{ width: '20%' }}>
             Creation Date
           </div>
-          <div className={styles.column} style={{ width: '15%' }}></div>
         </div>
         <div className={styles.restaurants}>
           {courses &&

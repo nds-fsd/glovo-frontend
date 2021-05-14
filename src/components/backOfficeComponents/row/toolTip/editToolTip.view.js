@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import {
   DELETE_RESTAURANT,
-  SELECT_RESTAURANT,
   VIEW_MENU,
 } from '../../../../pages/backOfficePage/backOfficeContext/types';
 import { BACKOFFICE } from '../../../../router/router';
@@ -27,13 +26,12 @@ export const EditToolTip = ({ open, onClose, restaurant }) => {
       document.removeEventListener('click', handleClickOutside, true);
     };
   }, [ref, open]);
-  return (
+  const restaurantToolTip = (
     <div className={classNames(styles.container, { [styles.open]: open })} ref={ref}>
       <div
         className={styles.option}
         onClick={() => {
-          dispatch({ type: SELECT_RESTAURANT, payload: restaurant.name });
-          dispatch({ type: VIEW_MENU });
+          dispatch({ type: VIEW_MENU, payload: restaurant.name });
           history.push(`${BACKOFFICE}/${restaurant._id}`);
         }}
       >
@@ -49,4 +47,6 @@ export const EditToolTip = ({ open, onClose, restaurant }) => {
       </div>
     </div>
   );
+
+  return restaurantToolTip;
 };

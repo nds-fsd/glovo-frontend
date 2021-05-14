@@ -8,10 +8,11 @@ import AllRestaurantsTab from './allRestaurantsTab';
 import { useRestaurants } from '../../../hooks/useRestaurants';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import MenuTab from '../menuTab';
+import DishesTab from '../dishesTab';
 
 export const RestaurantTab = () => {
   const {
-    state: { createRestaurant, viewMenu },
+    state: { createRestaurant, viewMenu, viewDishes },
   } = useBackOfficeContext();
   const { id } = useParams();
   const { hasRestaurants } = useRestaurants();
@@ -20,8 +21,11 @@ export const RestaurantTab = () => {
     <>
       {!id && hasRestaurants && !createRestaurant && <AllRestaurantsTab />}
       {(!hasRestaurants || createRestaurant) && <CreateRestaurantTab />}
-      {hasRestaurants && id && !createRestaurant && !viewMenu && <ViewRestaurantTab />}
+      {hasRestaurants && id && !createRestaurant && !viewMenu && !viewDishes && (
+        <ViewRestaurantTab />
+      )}
       {hasRestaurants && id && !createRestaurant && viewMenu && <MenuTab />}
+      {hasRestaurants && id && !createRestaurant && viewDishes && <DishesTab />}
     </>
   );
 };

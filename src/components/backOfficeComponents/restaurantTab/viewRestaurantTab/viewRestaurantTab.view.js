@@ -70,8 +70,7 @@ export const ViewRestaurantTab = () => {
             <Button
               buttonStyle="menu"
               onClick={() => {
-                // dispatch({ type: SELECT_RESTAURANT, payload: savedRestaurant.name });
-                dispatch({ type: VIEW_MENU });
+                dispatch({ type: VIEW_MENU, payload: savedRestaurant.name });
               }}
             >
               View Menu

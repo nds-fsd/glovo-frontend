@@ -5,16 +5,18 @@ import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOffic
 import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
 import { useCourses } from '../../../../hooks/useCourses';
+import { BACK_TO_COURSES } from '../../../../pages/backOfficePage/backOfficeContext/types';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const {
-    state: { deletableRestaurant, selectedCourse },
+    dispatch,
+    state: { deletableRestaurant, deletableCourse },
   } = useBackOfficeContext();
   const { deleteRestaurant } = useRestaurants();
-  const { deleteCourse } = useCourses();
+  const { deleteCourses } = useCourses();
 
-  const handleSucces = () => {
+  const handleSuccess = () => {
     setIsDeleted(true);
   };
   const handleError = () => {
@@ -22,15 +24,14 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
   };
 
   const handleClick = () => {
-    if (selectedCourse.id) {
-      deleteCourse({
-        courseId: selectedCourse.id,
-        onSuccess: () => {
-          setIsDeleted(true);
-        },
+    if (deletableCourse.id) {
+      deleteCourses({
+        courseId: deletableCourse.id,
+        onSuccess: handleSuccess,
       });
+      return;
     }
-    deleteRestaurant(deletableRestaurant, handleSucces, handleError);
+    deleteRestaurant(deletableRestaurant, handleSuccess, handleError);
   };
 
   return (
@@ -38,6 +39,7 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
       onClose={() => {
         onClose();
         setIsDeleted(false);
+        dispatch({ type: BACK_TO_COURSES });
       }}
       open={open}
     >
@@ -55,7 +57,8 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
             </div>
           </>
         )}
-        {isDeleted && <h3>Restaurant Deleted Successfully</h3>}
+        {isDeleted && !deletableCourse.id && <h3>Restaurant Deleted Successfully</h3>}
+        {isDeleted && deletableCourse.id && <h3>Course Deleted Successfully</h3>}
       </div>
     </BackOfficeModal>
   );

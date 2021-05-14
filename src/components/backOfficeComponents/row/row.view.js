@@ -6,10 +6,7 @@ import styles from './row.module.css';
 
 import { BACKOFFICE } from '../../../router/router';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
-import {
-  SELECT_RESTAURANT,
-  VIEW_RESTAURANT,
-} from '../../../pages/backOfficePage/backOfficeContext/types';
+import { VIEW_RESTAURANT } from '../../../pages/backOfficePage/backOfficeContext/types';
 
 export const Row = ({ restaurant }) => {
   const { dispatch } = useBackOfficeContext();
@@ -24,8 +21,7 @@ export const Row = ({ restaurant }) => {
             className={`${styles.column} ${styles.name}`}
             style={{ width: '32%', color: 'black' }}
             onClick={() => {
-              dispatch({ type: SELECT_RESTAURANT, payload: restaurant.name });
-              dispatch({ type: VIEW_RESTAURANT });
+              dispatch({ type: VIEW_RESTAURANT, payload: restaurant.name });
               history.push(`${BACKOFFICE}/${restaurant._id}`);
             }}
           >
