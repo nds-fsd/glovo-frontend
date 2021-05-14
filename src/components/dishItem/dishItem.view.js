@@ -2,22 +2,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCartContext } from '../../context/cartContext';
 import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
 import styles from './dishItem.module.css';
 import dishImg from '../../assets/images/restExample.jpg';
 
-export const DishItem = ({
-  onClick,
-  onDishClick,
-  selectedDish,
-  deleteDish,
-  isDishList,
-  addToCart,
-  openModal,
-  viewDishInModal,
-}) => {
+export const DishItem = ({ selectedDish, addToCart, openModal }) => {
   const [quantityDishes, setQuantityDishes] = useState(1);
+  const { viewDishInModal } = useCartContext();
 
   return (
     <div className={styles._itemContainer}>
@@ -26,7 +19,6 @@ export const DishItem = ({
         onClick={() => {
           openModal();
           viewDishInModal({
-            quantity: quantityDishes,
             dish: selectedDish.name,
             price: selectedDish.price,
             id: selectedDish._id,
@@ -40,7 +32,6 @@ export const DishItem = ({
         onClick={() => {
           openModal();
           viewDishInModal({
-            quantity: quantityDishes,
             dish: selectedDish.name,
             price: selectedDish.price,
             id: selectedDish._id,
@@ -55,7 +46,6 @@ export const DishItem = ({
           onClick={() => {
             openModal();
             viewDishInModal({
-              quantity: quantityDishes,
               dish: selectedDish.name,
               price: selectedDish.price,
               id: selectedDish._id,
@@ -78,25 +68,6 @@ export const DishItem = ({
           }}
         />
       </div>
-
-      {isDishList && (
-        <div>
-          <button onClick={() => deleteDish(selectedDish._id)}>X</button>
-          <button
-            onClick={() => {
-              onClick();
-              onDishClick({
-                name: selectedDish.name,
-                description: selectedDish.description,
-                price: selectedDish.price,
-                id: selectedDish._id,
-              });
-            }}
-          >
-            Update
-          </button>
-        </div>
-      )}
     </div>
   );
 };
