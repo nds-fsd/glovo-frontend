@@ -1,7 +1,7 @@
 /* eslint-disable no-debugger */
 import { useState } from 'react';
 import { shortFetch } from '../assets/utils/fetch.utils';
-import { COURSE } from '../router/router';
+import { DISH } from '../router/router';
 
 export const useDishes = () => {
   const [dishes, setDishes] = useState({ count: 0, list: [] });
@@ -10,12 +10,12 @@ export const useDishes = () => {
   const [filteredPages, setFilteredPages] = useState();
   const [filteredDishes, setFilteredDishes] = useState();
 
-  const getDishes = ({ id, page, limit = 5 }) => {
+  const getDishes = ({ courseId, page, limit = 5 }) => {
     shortFetch({
-      url: `${COURSE}/search?page=${page}&limit=${limit}`,
+      url: `${DISH}/search?page=${page}&limit=${limit}`,
       method: 'POST',
       body: {
-        Restaurant: id,
+        Course: courseId,
       },
       token: true,
       onSuccess: (payload) => {
@@ -29,13 +29,13 @@ export const useDishes = () => {
       },
     });
   };
-  const filterDishes = ({ id, pag, lim, search }) => {
-    const body = { Restaurant: id };
+  const filterDishes = ({ courseId, pag, lim, search }) => {
+    const body = { Course: courseId };
     if (search) {
       body.name = search;
     }
     shortFetch({
-      url: `${COURSE}/search?page=${pag}&limit=${lim}`,
+      url: `${DISH}/search?page=${pag}&limit=${lim}`,
       method: 'POST',
       body,
       token: true,
@@ -58,29 +58,36 @@ export const useDishes = () => {
     setFilteredPages(undefined);
   };
 
-  const deleteDishes = ({ courseId, onSuccess }) => {
+  const deleteDishes = ({ dishId, onSuccess }) => {
     shortFetch({
-      url: `${COURSE}/deleteAll/${courseId}`,
+      url: `${DISH}/${dishId}`,
       token: true,
       method: 'DELETE',
       onSuccess,
     });
   };
 
-  const createDishes = ({ restaurantId, courseName, onSuccess }) => {
+  const createDishes = ({ courseId, data, description, onSuccess }) => {
     const body = {
-      Restaurant: restaurantId,
-      name: courseName,
+      Course: courseId,
+      name: data.name,
+      price: data.price,
+      description,
     };
-    shortFetch({ url: `${COURSE}`, method: 'POST', token: true, body, onSuccess });
+    shortFetch({ url: `${DISH}`, method: 'POST', token: true, body, onSuccess });
   };
 
-  const editCourse = ({ courseName, courseId, onSuccess }) => {
+  const editDish = ({ dishId, data, description, onSuccess }) => {
+    const body = {
+      name: data.name,
+      price: data.price,
+      description,
+    };
     shortFetch({
-      url: `${COURSE}/${courseId}`,
-      method: 'PUT',
+      url: `${DISH}/${dishId}`,
+      method: 'PATCH',
       token: true,
-      body: { name: courseName },
+      body,
       onSuccess,
     });
   };
@@ -96,6 +103,6 @@ export const useDishes = () => {
     filteredPages,
     deleteDishes,
     createDishes,
-    editCourse,
+    editDish,
   };
 };

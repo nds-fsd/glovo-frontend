@@ -4,13 +4,14 @@ import SideBar from '../../components/backOfficeComponents/sideBar';
 import styles from './backOfficePage.module.css';
 import RestaurantTab from '../../components/backOfficeComponents/restaurantTab';
 import DeleteRestaurantModal from '../../components/backOfficeComponents/backOfficeModal/deleteRestaurantModal';
-import { CANCEL_DELETE, STOP_CREATE_COURSE } from './backOfficeContext/types';
+import { CANCEL_DELETE, STOP_CREATE_COURSE, STOP_CREATE_DISH } from './backOfficeContext/types';
 import CreateCourseModal from '../../components/backOfficeComponents/backOfficeModal/createCourseModal';
+import DishModal from '../../components/backOfficeComponents/backOfficeModal/dishModal';
 
 export const BackOfficePage = () => {
   const {
     dispatch,
-    state: { deleteRestaurantModal, selectedTab, createCourse },
+    state: { deleteRestaurantModal, selectedTab, createCourse, createDish },
   } = useBackOfficeContext();
 
   return (
@@ -31,6 +32,7 @@ export const BackOfficePage = () => {
         open={createCourse}
         onClose={() => dispatch({ type: STOP_CREATE_COURSE })}
       />
+      <DishModal dishModal open={createDish} onClose={() => dispatch({ type: STOP_CREATE_DISH })} />
     </div>
   );
 };

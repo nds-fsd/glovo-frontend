@@ -12,3 +12,7 @@ export const VIEW_DISHES = 'VIEW_DISHES';
 export const BACK_TO_COURSES = 'BACK_TO_COURSES';
 export const EDIT_COURSE = 'EDIT_COURSE';
 export const DELETE_COURSE = 'DELETE_COURSE';
+export const DELETE_DISH = 'DELETE_DISH';
+export const CREATE_DISH = 'CREATE_DISH';
+export const EDIT_DISH = 'EDIT_DISH';
+export const STOP_CREATE_DISH = 'STOP_CREATE_DISH';

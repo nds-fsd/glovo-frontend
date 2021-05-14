@@ -6,15 +6,17 @@ import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
 import { useCourses } from '../../../../hooks/useCourses';
 import { BACK_TO_COURSES } from '../../../../pages/backOfficePage/backOfficeContext/types';
+import { useDishes } from '../../../../hooks/useDishes';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const {
     dispatch,
-    state: { deletableRestaurant, deletableCourse },
+    state: { deletableRestaurant, deletableCourse, deletableDish },
   } = useBackOfficeContext();
   const { deleteRestaurant } = useRestaurants();
   const { deleteCourses } = useCourses();
+  const { deleteDishes } = useDishes();
 
   const handleSuccess = () => {
     setIsDeleted(true);
@@ -24,9 +26,13 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
   };
 
   const handleClick = () => {
-    if (deletableCourse.id) {
+    if (deletableDish) {
+      deleteDishes({ dishId: deletableDish, onSuccess: handleSuccess });
+      return;
+    }
+    if (deletableCourse) {
       deleteCourses({
-        courseId: deletableCourse.id,
+        courseId: deletableCourse,
         onSuccess: handleSuccess,
       });
       return;
@@ -57,8 +63,9 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
             </div>
           </>
         )}
-        {isDeleted && !deletableCourse.id && <h3>Restaurant Deleted Successfully</h3>}
-        {isDeleted && deletableCourse.id && <h3>Course Deleted Successfully</h3>}
+        {isDeleted && deletableRestaurant && <h3>Restaurant Deleted Successfully</h3>}
+        {isDeleted && deletableCourse && <h3>Course Deleted Successfully</h3>}
+        {isDeleted && deletableDish && <h3>Dish Deleted Successfully</h3>}
       </div>
     </BackOfficeModal>
   );

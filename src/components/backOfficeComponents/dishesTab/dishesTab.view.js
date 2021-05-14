@@ -1,49 +1,51 @@
+/* eslint-disable no-unused-vars */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useCourses } from '../../../hooks/useCourses';
+import { useDishes } from '../../../hooks/useDishes';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import {
   BACK_TO_COURSES,
-  CREATE_COURSE,
+  CREATE_DISH,
   VIEW_RESTAURANT,
 } from '../../../pages/backOfficePage/backOfficeContext/types';
 import Button from '../../button';
 import SearchBar from '../../searchBar';
 import CourseRow from '../courseRow';
+import DishRow from '../dishRow';
 import Paginator from '../paginator';
 import styles from './dishesTab.module.css';
 
 export const DishesTab = () => {
   const {
     dispatch,
-    state: { selectedRestaurant, viewMenu, selectedCourse, createCourse, deleteRestaurantModal },
+    state: { selectedRestaurant, viewMenu, selectedCourse, deleteRestaurantModal, createDish },
   } = useBackOfficeContext();
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState();
   const { id } = useParams();
   const {
-    getCourses,
-    courses,
+    getDishes,
+    dishes,
     totalPages,
-    filterCourses,
+    filterDishes,
     clearFilter,
     filteredPages,
-    filteredCourses,
-  } = useCourses();
+    filteredDishes,
+  } = useDishes();
 
   useEffect(() => {
     setCurrentPage(1);
   }, [limit]);
 
   useEffect(() => {
-    getCourses({ id, page: currentPage - 1, limit });
-  }, [currentPage, limit, id, createCourse, deleteRestaurantModal]);
+    getDishes({ courseId: selectedCourse.id, page: currentPage - 1, limit });
+  }, [currentPage, limit, id, deleteRestaurantModal, createDish]);
 
   useEffect(() => {
     if (search) {
-      filterCourses({ id, pag: currentPage - 1, lim: limit, search });
+      filterDishes({ courseId: selectedCourse.id, pag: currentPage - 1, lim: limit, search });
       return;
     }
     clearFilter();
@@ -58,7 +60,7 @@ export const DishesTab = () => {
       dispatch({ type: VIEW_RESTAURANT });
     }
   };
-
+console.debug(dishes);
   return (
     <>
       <div className={styles.title}>
@@ -79,12 +81,12 @@ export const DishesTab = () => {
           <div className={styles.searchBar}>
             <SearchBar handleSearch={(query) => setSearch(query)} />
           </div>
-          <Button buttonStyle="signup" onClick={() => dispatch({ type: CREATE_COURSE })}>
+          <Button buttonStyle="signup" onClick={() => dispatch({ type: CREATE_DISH })}>
             Create
           </Button>
         </header>
         <div className={styles.tableHeader}>
-          <div className={styles.column} style={{ width: '30%' }}>
+          <div className={styles.column} style={{ width: '32%' }}>
             Name
           </div>
           <div className={styles.column} style={{ width: '15%' }}>
@@ -98,12 +100,12 @@ export const DishesTab = () => {
           </div>
         </div>
         <div className={styles.restaurants}>
-          {courses &&
-            !filteredCourses &&
-            courses.list.map((course) => {
-              return <CourseRow course={course} />;
+          {dishes &&
+            !filteredDishes &&
+            dishes.list.map((dish) => {
+              return <DishRow dish={dish} />;
             })}
-          {filteredCourses && filteredCourses.list.map((course) => <CourseRow course={course} />)}
+          {filteredDishes && filteredDishes.list.map((dish) => <DishRow dish={dish} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

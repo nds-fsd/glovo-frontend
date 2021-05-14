@@ -1,15 +1,18 @@
+/* eslint-disable no-unused-vars */
 import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import {
+  DELETE_DISH,
   DELETE_RESTAURANT,
+  EDIT_DISH,
   VIEW_MENU,
-} from '../../../../pages/backOfficePage/backOfficeContext/types';
-import { BACKOFFICE } from '../../../../router/router';
+} from '../../../pages/backOfficePage/backOfficeContext/types';
+import { BACKOFFICE } from '../../../router/router';
 import styles from './editToolTip.module.css';
 
-export const EditToolTip = ({ open, onClose, restaurant }) => {
+export const EditToolTip = ({ open, onClose, restaurant, dish }) => {
   const ref = useRef(null);
   const { dispatch } = useBackOfficeContext();
   const history = useHistory();
@@ -47,6 +50,34 @@ export const EditToolTip = ({ open, onClose, restaurant }) => {
       </div>
     </div>
   );
+  const DishToolTip = (
+    <div className={classNames(styles.container, { [styles.open]: open })} ref={ref}>
+      <div
+        className={styles.option}
+        onClick={() =>
+          dispatch({
+            type: EDIT_DISH,
+            payload: {
+              name: dish.name,
+              id: dish._id,
+              price: dish.price,
+              description: dish.description,
+            },
+          })
+        }
+      >
+        Edit
+      </div>
+      <div
+        className={`${styles.option} ${styles.delete}`}
+        onClick={() => {
+          dispatch({ type: DELETE_DISH, payload: dish._id });
+        }}
+      >
+        Delete
+      </div>
+    </div>
+  );
 
-  return restaurantToolTip;
+  return restaurant ? restaurantToolTip : DishToolTip;
 };

@@ -13,6 +13,10 @@ import {
   BACK_TO_COURSES,
   EDIT_COURSE,
   DELETE_COURSE,
+  DELETE_DISH,
+  CREATE_DISH,
+  EDIT_DISH,
+  STOP_CREATE_DISH,
 } from './types';
 
 export const backOfficeReducer = (state, action) => {
@@ -73,6 +77,21 @@ export const backOfficeReducer = (state, action) => {
       newState.selectedCourse = action.payload;
       newState.viewDishes = true;
       newState.viewMenu = false;
+      return newState;
+    case DELETE_DISH:
+      newState.deleteRestaurantModal = true;
+      newState.deletableDish = action.payload;
+      return newState;
+    case CREATE_DISH:
+      newState.createDish = true;
+      return newState;
+    case EDIT_DISH:
+      newState.selectedDish = action.payload;
+      newState.createDish = true;
+      return newState;
+    case STOP_CREATE_DISH:
+      newState.createDish = false;
+      newState.selectedDish = { name: '', id: '' };
       return newState;
     default:
       return newState;

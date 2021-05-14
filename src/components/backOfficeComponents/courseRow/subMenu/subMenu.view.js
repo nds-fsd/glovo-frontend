@@ -44,9 +44,7 @@ export const SubMenu = ({ open, onClose, course }) => {
       </div>
       <div
         className={`${styles.option} ${styles.delete}`}
-        onClick={() =>
-          dispatch({ type: DELETE_COURSE, payload: { name: course.name, id: course._id } })
-        }
+        onClick={() => dispatch({ type: DELETE_COURSE, payload: course._id })}
       >
         Delete
       </div>

@@ -8,6 +8,7 @@ import { SELECT_RESTAURANT } from './types';
 const initialState = {
   createRestaurant: false,
   createCourse: false,
+  createDish: false,
   selectedTab: {
     name: 'Restaurants',
     restId: '',
@@ -21,10 +22,14 @@ const initialState = {
     name: '',
     id: '',
   },
-  deletableCourse: {
+  selectedDish: {
     name: '',
+    price: '',
+    description: '',
     id: '',
   },
+  deletableCourse: '',
+  deletableDish: '',
 };
 
 const backOfficeContext = createContext();
