@@ -91,9 +91,10 @@ export const MenuTab = () => {
           {courses &&
             !filteredCourses &&
             courses.list.map((course) => {
-              return <CourseRow course={course} />;
+              return <CourseRow key={course._id} course={course} />;
             })}
-          {filteredCourses && filteredCourses.list.map((course) => <CourseRow course={course} />)}
+          {filteredCourses &&
+            filteredCourses.list.map((course) => <CourseRow key={course._id} course={course} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

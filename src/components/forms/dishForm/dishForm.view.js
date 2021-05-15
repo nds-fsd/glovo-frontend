@@ -66,7 +66,7 @@ export const DishForm = () => {
         placeholder="Description"
         defaultValue={selectedDish && selectedDish.description}
         onChange={(e) => setDescription(e.target.value)}
-      />
+      ></textArea>
       <input type="submit" className={styles.submit} />
     </form>
   );

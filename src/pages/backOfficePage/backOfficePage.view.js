@@ -7,6 +7,7 @@ import DeleteRestaurantModal from '../../components/backOfficeComponents/backOff
 import { CANCEL_DELETE, STOP_CREATE_COURSE, STOP_CREATE_DISH } from './backOfficeContext/types';
 import CreateCourseModal from '../../components/backOfficeComponents/backOfficeModal/createCourseModal';
 import DishModal from '../../components/backOfficeComponents/backOfficeModal/dishModal';
+import { OrdersTab } from '../../components/backOfficeComponents/ordersTab/ordersTab.view';
 
 export const BackOfficePage = () => {
   const {
@@ -22,6 +23,7 @@ export const BackOfficePage = () => {
         </div>
         <div className={styles.content}>
           {selectedTab.name === 'Restaurants' && <RestaurantTab />}
+          {selectedTab.name === 'Orders' && <OrdersTab />}
         </div>
       </div>
       <DeleteRestaurantModal
