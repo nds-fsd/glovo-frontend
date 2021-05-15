@@ -60,7 +60,7 @@ export const DishesTab = () => {
       dispatch({ type: VIEW_RESTAURANT });
     }
   };
-console.debug(dishes);
+  console.debug(dishes);
   return (
     <>
       <div className={styles.title}>
@@ -116,6 +116,7 @@ console.debug(dishes);
               onChange={(e) => {
                 setLimit(e.target.value);
               }}
+              style={{ backgroundColor: 'var(--lightSalyGray)' }}
             >
               <option value="1">1</option>
               <option value="5" selected>

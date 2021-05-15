@@ -82,6 +82,7 @@ export const AllRestaurantsTab = () => {
               onChange={(e) => {
                 setLimit(e.target.value);
               }}
+              style={{ backgroundColor: 'var(--lightSalyGray)' }}
             >
               <option value="1">1</option>
               <option value="5" selected>

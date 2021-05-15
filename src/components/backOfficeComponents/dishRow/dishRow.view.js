@@ -15,7 +15,7 @@ export const DishRow = ({ dish }) => {
   const [popUp, setPopUp] = useState(false);
   const [openToolTip, setOpenToolTip] = useState(false);
   const history = useHistory();
-    
+
   return (
     <div className={styles.row}>
       {dish && (

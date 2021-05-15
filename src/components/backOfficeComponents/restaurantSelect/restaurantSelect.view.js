@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './restaurantSelect.module.css';
+import { useRestaurants } from '../../../hooks/useRestaurants';
 
-export const RestaurantSelect = () => {
-  useEffect(() => {}, []);
+export const RestaurantSelect = ({ onChange }) => {
+  const { userRestaurants } = useRestaurants(0, 100);
 
   return (
     <div className={`${styles.subContainer} ${styles.category}`}>
-      <select className={styles.select}>
+      <select className={styles.select} onChange={onChange}>
         <option value="" selected disabled hidden>
-          Select a Category
+          Select a Restaurant
         </option>
-        {/* {restaurantList.map((cat) => (
-          <option key={cat._id} value={cat._id} name={cat.name}>
-            {cat.name}
+        {userRestaurants?.list.map((restaurant) => (
+          <option key={restaurant._id} value={restaurant._id} name={restaurant.name}>
+            {restaurant.name}
           </option>
-        ))} */}
+        ))}
       </select>
     </div>
   );
