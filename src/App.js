@@ -25,16 +25,6 @@ function App() {
     <Router>
       <RoleContextProvider>
         <Switch>
-          <CartContextProvider>
-            <Route path={RESTAURANT_LIST_PAGE}>
-              <RestoListContextProvider>
-                <RestaurantListPage />
-              </RestoListContextProvider>
-            </Route>
-            <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
-              <RestaurantViewPage />
-            </PrivateRoute>
-          </CartContextProvider>
           <PrivateRoute path={`${BACKOFFICE}/:id?`}>
             <BackOfficeContextProvider>
               <RoleController roleConfirm="PROVIDER">
@@ -42,12 +32,18 @@ function App() {
               </RoleController>
             </BackOfficeContextProvider>
           </PrivateRoute>
-          {/* <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
-            <RestaurantCreationPage />
+          <Route path={RESTAURANT_LIST_PAGE}>
+            <CartContextProvider>
+              <RestoListContextProvider>
+                <RestaurantListPage />
+              </RestoListContextProvider>
+            </CartContextProvider>
           </Route>
-          <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
-            <MenuEditPage />
-          </Route> */}
+          <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
+            <CartContextProvider>
+              <RestaurantViewPage />
+            </CartContextProvider>
+          </PrivateRoute>
           <Route path="/" exact>
             <Redirect to={RESTAURANT_LIST_PAGE} />
           </Route>
