@@ -8,9 +8,12 @@ import Button from '../../../button';
 import { shortFetch } from '../../../../assets/utils/fetch.utils';
 import { RESTAURANT } from '../../../../router/router';
 import { RestaurantForm } from '../../../forms/restaurantForm/restaurantForm.view';
+import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import { VIEW_MENU } from '../../../../pages/backOfficePage/backOfficeContext/types';
 
 export const ViewRestaurantTab = () => {
   const [savedRestaurant, setSavedRestaurant] = useState([]);
+  const { dispatch } = useBackOfficeContext();
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   useEffect(() => {
@@ -44,10 +47,6 @@ export const ViewRestaurantTab = () => {
     }
   };
 
-  useEffect(() => {
-    console.debug(savedRestaurant);
-  }, [savedRestaurant]);
-
   const deleteCategory = (cate) => {
     if (savedRestaurant.name) {
       const updatedRestaurant = { ...savedRestaurant };
@@ -61,40 +60,58 @@ export const ViewRestaurantTab = () => {
 
   return (
     <>
-      <div className={styles.restaurantImage}>
-        <img src={ImageSkeleton} alt="camera" />
-        {!isEdit && (
-          <Button onClick={() => setIsEdit(true)} buttonStyle="edit">
-            Edit
-          </Button>
-        )}
-        {isEdit && (
-          <>
-            <Button onClick={() => setIsEdit(false)} buttonStyle="edit">
-              Cancel
-            </Button>
-          </>
-        )}
+      <div className={styles.title}>
+        <h1 className={styles.selectedRestaurant}>{savedRestaurant.name}</h1>
       </div>
-      <div className={styles.form}>
-        <div className={styles.categoryDisplay}>
-          <CategoryTags
-            categoryNames={savedRestaurant.restaurantCategory}
-            onClick={deleteCategory}
-            tagType={`${isEdit ? 'edit' : 'view'}`}
-          />
+      <div className={styles.container}>
+        <div className={styles.restaurantImage}>
+          <img src={ImageSkeleton} alt="camera" />
+          {!isEdit && (
+            <Button
+              buttonStyle="menu"
+              onClick={() => {
+                dispatch({ type: VIEW_MENU, payload: savedRestaurant.name });
+              }}
+            >
+              View Menu
+            </Button>
+          )}
+          {!isEdit && (
+            <Button onClick={() => setIsEdit(true)} buttonStyle="edit">
+              Edit
+            </Button>
+          )}
+          {isEdit && (
+            <>
+              <Button onClick={() => setIsEdit(false)} buttonStyle="edit">
+                Cancel
+              </Button>
+            </>
+          )}
         </div>
-        {isEdit && (
-          <RestaurantForm
-            handleCategories={(e) => {
-              handleCategory({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });
-            }}
-            categories={savedRestaurant.restaurantCategory}
-            restaurant={savedRestaurant}
-            onUpdate={() => setIsEdit(false)}
-          />
-        )}
-        <p>{savedRestaurant && savedRestaurant.name}</p>
+        <div className={styles.form}>
+          <div className={styles.categoryDisplay}>
+            <CategoryTags
+              categoryNames={savedRestaurant.restaurantCategory}
+              onClick={deleteCategory}
+              tagType={`${isEdit ? 'edit' : 'view'}`}
+            />
+          </div>
+          {isEdit && (
+            <RestaurantForm
+              handleCategories={(e) => {
+                handleCategory({
+                  name: e.target.selectedOptions[0].innerText,
+                  _id: e.target.value,
+                });
+              }}
+              categories={savedRestaurant.restaurantCategory}
+              restaurant={savedRestaurant}
+              onUpdate={() => setIsEdit(false)}
+            />
+          )}
+          <p>{savedRestaurant && savedRestaurant.name}</p>
+        </div>
       </div>
     </>
   );

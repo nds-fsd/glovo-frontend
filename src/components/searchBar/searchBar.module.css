@@ -1,0 +1,22 @@
+.searchBar{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border: 2px solid var(--salyGray);
+    border-radius: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.searchIcon{
+    position: absolute;
+    left: 9px;
+    top: 13px;
+    font-size: 25px;
+    color: var(--salyGray);
+}
+.searchInput{
+    outline: none;
+    width: 80%;
+    border: none;
+}

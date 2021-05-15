@@ -12,7 +12,7 @@ import { formatNumber } from '../../assets/utils/convertToCurrency';
 import styles from './restaurantViewPage.module.css';
 import DishItem from '../../components/dishItem';
 import { ALL_COURSES, RESTAURANT } from '../../router/router';
-import DeliveryInformation from '../../components/deliveryInformation/deliveryInformation.view';
+import DeliveryInformation from '../../components/deliveryInformation';
 import Modal from '../../components/modal';
 import Button from '../../components/button';
 import { useCartContext } from '../../context/cartContext';

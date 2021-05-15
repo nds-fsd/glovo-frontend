@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCartContext } from '../../context/cartContext';
 import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
 import styles from './dishItem.module.css';
 import dishImg from '../../assets/images/restExample.jpg';
-import { useCartContext } from '../../context/cartContext';
 
 export const DishItem = ({ selectedDish, openModal }) => {
   const { addToCart, viewDishInModal } = useCartContext();
