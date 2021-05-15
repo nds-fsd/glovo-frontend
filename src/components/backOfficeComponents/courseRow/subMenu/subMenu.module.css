@@ -1,0 +1,41 @@
+.container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    visibility: hidden;
+    right: 25%;
+    bottom: -80px;
+    width: 120px;
+    height: 95px;
+    background: var(--salyWhite);
+    box-shadow: 0px 5px 15px rgb(0 0 0 / 20%);
+    opacity: 0;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+    border-radius: 4px;
+    z-index: 1;
+}
+  .open{
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+  }
+.option{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+.option:hover{
+    background-color: var(--lightSalyGray);
+}
+.delete{
+    color: var(--lightSalyRed);
+    border-top: 1px solid var(--salyGrayBorder);
+}
+.delete:hover{
+    background-color: var(--lightSalyRed);
+    color: var(--salyGrayBorder);
+    border-radius: 0 0 4px 4px;
+}

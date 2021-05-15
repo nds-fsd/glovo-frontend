@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { useRef, useEffect } from 'react';
 import styles from './backOfficeModal.module.css';
 
-export const BackOfficeModal = ({ children, onClose, open }) => {
+export const BackOfficeModal = ({ children, onClose, open, dishModal }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -21,7 +21,14 @@ export const BackOfficeModal = ({ children, onClose, open }) => {
 
   return (
     <div className={classNames([styles._backdrop], { [styles.open]: open })}>
-      <div className={classNames([styles._modal], { [styles.open]: open })} ref={ref}>
+      <div
+        className={classNames(
+          [styles._modal],
+          { [styles.open]: open },
+          { [styles.dishModal]: dishModal }
+        )}
+        ref={ref}
+      >
         {children}
       </div>
     </div>

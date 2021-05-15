@@ -4,7 +4,7 @@ import { shortFetch } from '../assets/utils/fetch.utils';
 import { getUserSession } from '../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../router/router';
 
-export const useRestaurants = (page = 1, limit = 10) => {
+export const useRestaurants = (page = 0, limit = 10) => {
   const [hasRestaurants, setHasRestaurants] = useState(false);
   const [userRestaurants, setUserRestaurants] = useState();
   const [totalPages, setTotalPages] = useState();
@@ -44,7 +44,9 @@ export const useRestaurants = (page = 1, limit = 10) => {
       token: true,
       onSuccess: (payload) => {
         if (payload.count === 0) {
-          setHasRestaurants(false);
+          setFilteredPages(1);
+          setFilteredRestaurants(payload);
+          setHasRestaurants(true);
           return;
         }
         setFilteredRestaurants(payload);
@@ -58,7 +60,7 @@ export const useRestaurants = (page = 1, limit = 10) => {
     setFilteredPages(undefined);
   };
 
-  const createRestaurant = ({ categories, data, description, setCreateRestaurant }) => {
+  const createRestaurant = ({ categories, data, description, onSuccess }) => {
     if (data && categories.length > 0) {
       const categoryIds = categories.map((category) => {
         return category._id;
@@ -82,12 +84,12 @@ export const useRestaurants = (page = 1, limit = 10) => {
         token: true,
         onSuccess: () => {
           setHasRestaurants(true);
-          setCreateRestaurant(false);
+          onSuccess();
         },
       });
     }
   };
-  const updateRestaurant = ({ data, categories, id, description, setCreateRestaurant }) => {
+  const updateRestaurant = ({ data, categories, id, description, onSuccess }) => {
     if (data && categories.length > 0) {
       const categoryIds = categories.map((category) => {
         return category._id;
@@ -109,7 +111,7 @@ export const useRestaurants = (page = 1, limit = 10) => {
         },
         token: true,
         onSuccess: () => {
-          setCreateRestaurant(false);
+          onSuccess();
         },
       });
     }

@@ -32,15 +32,26 @@
     width: 80%;
     border-radius: 30px;
     background-color: var(--lightSalyBlue);
-    color: var(--salyWhite)
+    color: var(--salyWhite);
 }
 .edit{
     position: absolute;
     top: 13px;
     right: 16px;
-    background-color: rgba(173,216,230,0.6);
+    background-color: var(--salyPaleBlue);
     width: 52px;
     height: 31px;
+    border-radius: 9px;
+    color: var(--salyBlue);
+}
+.menu{
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    background-color: rgba(173,216,230,0.6);
+    width: 65px;
+    height: 45px;
+    text-align: center;
     border-radius: 9px;
     color: var(--salyBlue);
 }
@@ -56,4 +67,12 @@
     border-radius: 50px;
     color:var(--salyWhite);
     background-color: var(--lightSalyRed);
+}
+.primary{
+    width: 120px;
+    height: 35px;
+    border: 2px solid var(--lightSalyBlue);
+    border-radius: 50px;
+    background-color: var(--lightSalyBlue);
+    color: var(--salyWhite)
 }

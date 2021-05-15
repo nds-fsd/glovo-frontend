@@ -1,0 +1,13 @@
+.subContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.select{
+    height: 2.5em;
+    font-size: 14px;
+    border-radius: 12px;
+    background-color: transparent;
+    border: 1px solid var(--salyBlue);
+}

@@ -32,14 +32,14 @@ export const CreateRestaurantTab = () => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.restaurantImage}>
         <img src={ImageSkeleton} alt="camera" />
-      </div>
-      <div className={styles.form}>
         <div className={styles.categoryDisplay}>
           <CategoryTags categoryNames={categoryNames} onClick={deleteCategory} tagType="create" />
         </div>
+      </div>
+      <div className={styles.form}>
         <RestaurantForm
           handleCategories={(e) => {
             handleCategory({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });
@@ -47,6 +47,6 @@ export const CreateRestaurantTab = () => {
           categories={categoryNames}
         />
       </div>
-    </>
+    </div>
   );
 };

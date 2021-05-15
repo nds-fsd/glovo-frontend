@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useHistory } from 'react-router-dom';
-import EditToolTip from './toolTip';
+import EditToolTip from '../toolTip';
 import styles from './row.module.css';
 
 import { BACKOFFICE } from '../../../router/router';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import { VIEW_RESTAURANT } from '../../../pages/backOfficePage/backOfficeContext/types';
 
 export const Row = ({ restaurant }) => {
+  const { dispatch } = useBackOfficeContext();
   const [popUp, setPopUp] = useState(false);
   const [openToolTip, setOpenToolTip] = useState(false);
   const history = useHistory();
@@ -17,7 +20,10 @@ export const Row = ({ restaurant }) => {
           <div
             className={`${styles.column} ${styles.name}`}
             style={{ width: '32%', color: 'black' }}
-            onClick={() => history.push(`${BACKOFFICE}/${restaurant._id}`)}
+            onClick={() => {
+              dispatch({ type: VIEW_RESTAURANT, payload: restaurant.name });
+              history.push(`${BACKOFFICE}/${restaurant._id}`);
+            }}
           >
             {restaurant.name}
           </div>
@@ -40,18 +46,20 @@ export const Row = ({ restaurant }) => {
           <div className={styles.column} style={{ width: '20%' }}>
             {restaurant.createdAt.slice(0, 10)}
           </div>
-          <FontAwesomeIcon
-            icon="ellipsis-v"
-            className={styles.icon}
-            onClick={() => setOpenToolTip(!openToolTip)}
-          />
+          <div style={{ position: 'relative' }}>
+            <FontAwesomeIcon
+              icon="ellipsis-v"
+              className={styles.icon}
+              onClick={() => setOpenToolTip(!openToolTip)}
+            />
+            <EditToolTip
+              open={openToolTip}
+              onClose={() => setOpenToolTip(false)}
+              restaurant={restaurant}
+            />
+          </div>
         </>
       )}
-      <EditToolTip
-        open={openToolTip}
-        onClose={() => setOpenToolTip(false)}
-        restaurant={restaurant}
-      />
     </div>
   );
 };
