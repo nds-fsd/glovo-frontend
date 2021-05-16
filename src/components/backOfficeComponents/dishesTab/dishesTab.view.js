@@ -60,7 +60,6 @@ export const DishesTab = () => {
       dispatch({ type: VIEW_RESTAURANT });
     }
   };
-  console.debug(dishes);
   return (
     <>
       <div className={styles.title}>

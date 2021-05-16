@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-console */
+
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -61,12 +61,12 @@ export const DishForm = () => {
         />
         {errors.price && <p className={styles.errorMessage}>{errors.price.message}</p>}
       </div>
-      <textArea
+      <textarea
         className={styles.description}
         placeholder="Description"
         defaultValue={selectedDish && selectedDish.description}
         onChange={(e) => setDescription(e.target.value)}
-      ></textArea>
+      ></textarea>
       <input type="submit" className={styles.submit} />
     </form>
   );
