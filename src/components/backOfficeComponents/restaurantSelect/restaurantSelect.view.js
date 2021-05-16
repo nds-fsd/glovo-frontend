@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './restaurantSelect.module.css';
 import { useRestaurants } from '../../../hooks/useRestaurants';
 
 export const RestaurantSelect = ({ onChange }) => {
-  const { userRestaurants } = useRestaurants(0, 100);
+  const { userRestaurants, getRestaurants } = useRestaurants();
+
+  useEffect(() => {
+    getRestaurants({ page: 0, limit: 100 });
+  }, []);
 
   return (
     <div className={`${styles.subContainer} ${styles.category}`}>

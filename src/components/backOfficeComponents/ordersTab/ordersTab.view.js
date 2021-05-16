@@ -8,8 +8,12 @@ import Paginator from '../paginator';
 import RestaurantSelect from '../restaurantSelect';
 import styles from './ordersTab.module.css';
 import OrderRow from '../orderRow';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 
 export const OrdersTab = () => {
+  const {
+    state: { viewOrderModal },
+  } = useBackOfficeContext();
   const { getOrders, orders, totalPages, hasOrders } = useOrders();
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   const [limit, setLimit] = useState(5);
@@ -37,7 +41,15 @@ export const OrdersTab = () => {
       limit,
       status: selectedStatus,
     });
-  }, [selectedRestaurant, selectedSort, direction, currentPage, limit, selectedStatus]);
+  }, [
+    selectedRestaurant,
+    selectedSort,
+    direction,
+    currentPage,
+    limit,
+    selectedStatus,
+    viewOrderModal,
+  ]);
 
   return (
     <>
@@ -55,18 +67,18 @@ export const OrdersTab = () => {
             id="All"
           />
           <Checkbox
-            onChange={() => setSelectedStatus(false)}
-            name="status"
-            value="incomplete"
-            label="Incomplete"
-            id="Incomplete"
-          />
-          <Checkbox
             onChange={() => setSelectedStatus(true)}
             name="status"
             value="true"
             label="Complete"
             id="Complete"
+          />
+          <Checkbox
+            onChange={() => setSelectedStatus(false)}
+            name="status"
+            value="incomplete"
+            label="Incomplete"
+            id="Incomplete"
           />
         </div>
 
