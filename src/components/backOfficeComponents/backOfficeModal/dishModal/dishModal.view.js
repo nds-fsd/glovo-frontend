@@ -8,10 +8,10 @@ import ImageSkeleton from '../../../../assets/images/camera.svg';
 import styles from './dishModal.module.css';
 import { DishForm } from '../../../forms/dishForm/dishForm.view';
 
-export const DishModal = ({ onClose, open, dishModal }) => {
+export const DishModal = ({ onClose, open, bigModal }) => {
   return (
     <BackOfficeModal
-      dishModal={dishModal}
+      bigModal={bigModal}
       onClose={() => {
         onClose();
       }}

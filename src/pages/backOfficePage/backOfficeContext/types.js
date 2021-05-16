@@ -16,3 +16,5 @@ export const DELETE_DISH = 'DELETE_DISH';
 export const CREATE_DISH = 'CREATE_DISH';
 export const EDIT_DISH = 'EDIT_DISH';
 export const STOP_CREATE_DISH = 'STOP_CREATE_DISH';
+export const VIEW_ORDER = 'VIEW_ORDER';
+export const STOP_VIEW_ORDER = 'STOP_VIEW_ORDER';
