@@ -35,6 +35,8 @@
 ._viewCourses{
   width: 60%;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 ._coursesBar:hover {

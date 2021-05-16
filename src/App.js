@@ -44,12 +44,6 @@ function App() {
               <RestaurantViewPage />
             </CartContextProvider>
           </PrivateRoute>
-          {/* <Route path={`${RESTAURANT_CREATION_PAGE}/:section?/:id?`}>
-            <RestaurantCreationPage />
-          </Route>
-          <Route path={`${RESTAURANT_MENU_EDIT}/:id`}>
-            <MenuEditPage />
-          </Route> */}
           <Route path="/" exact>
             <Redirect to={RESTAURANT_LIST_PAGE} />
           </Route>
