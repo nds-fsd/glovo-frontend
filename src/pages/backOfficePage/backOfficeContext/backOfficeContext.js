@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { RESTAURANT } from '../../../router/router';
@@ -38,6 +38,8 @@ export const BackOfficeContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(backOfficeReducer, initialState);
   const { id } = useParams();
 
+  const [image, setImage] = useState('');
+
   useEffect(() => {
     if (!state.selectedRestaurant && id) {
       shortFetch({
@@ -54,6 +56,8 @@ export const BackOfficeContextProvider = ({ children }) => {
   const value = {
     state,
     dispatch,
+    image,
+    setImage,
   };
 
   return <backOfficeContext.Provider value={value}>{children}</backOfficeContext.Provider>;

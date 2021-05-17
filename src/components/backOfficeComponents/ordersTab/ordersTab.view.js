@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import RestaurantSelect from '../restaurantSelect';
 import styles from './ordersTab.module.css';

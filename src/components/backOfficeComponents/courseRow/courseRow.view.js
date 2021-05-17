@@ -9,7 +9,6 @@ export const CourseRow = ({ course }) => {
   const { dispatch } = useBackOfficeContext();
   const [subMenu, setSubMenu] = useState(false);
 
-
   return (
     <div className={styles.row}>
       {course && (

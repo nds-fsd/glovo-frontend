@@ -46,7 +46,7 @@ export const useCourses = () => {
           setHasCourses(true);
           return;
         }
-       
+
         setFilteredCourses(payload);
         setHasCourses(true);
         setFilteredPages(Math.ceil(payload.count / (lim || 1)));

@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styles from './createRestaurantTab.module.css';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
 import RestaurantForm from '../../../forms/restaurantForm';
 import CategoryTags from '../../categoryTags';
-import { backOfficeContext } from '../../../context/backOfficeContext';
+import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 
 export const CreateRestaurantTab = () => {
-  const { image } = useContext(backOfficeContext);
+  const { image } = useBackOfficeContext();
   const [categoryNames, setCategoryNames] = useState([]);
 
   const handleCategory = (catName) => {

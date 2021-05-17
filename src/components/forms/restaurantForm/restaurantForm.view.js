@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useRestaurants } from '../../../hooks/useRestaurants';
@@ -9,14 +9,13 @@ import CategorySelect from '../../categorySelect';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import styles from './restaurantForm.module.css';
 import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
-import { backOfficeContext } from '../../context/backOfficeContext';
 
 /**
  * @param handleCategories  to save, edit or delete the array of categories
  * @param  categories array of objects {name, _id } of the categories
  */
 export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpdate }) => {
-  const { image, setImage } = useContext(backOfficeContext);
+  const { image, setImage } = useBackOfficeContext();
   const { dispatch } = useBackOfficeContext();
   const { createRestaurant, updateRestaurant } = useRestaurants();
   const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
