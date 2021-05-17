@@ -2,10 +2,12 @@
 import React, { useState } from 'react';
 import styles from './createRestaurantTab.module.css';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
-import { RestaurantForm } from '../../../forms/restaurantForm/restaurantForm.view';
+import RestaurantForm from '../../../forms/restaurantForm';
 import CategoryTags from '../../categoryTags';
+import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 
 export const CreateRestaurantTab = () => {
+  const { image } = useBackOfficeContext();
   const [categoryNames, setCategoryNames] = useState([]);
 
   const handleCategory = (catName) => {
@@ -34,7 +36,9 @@ export const CreateRestaurantTab = () => {
   return (
     <div className={styles.container}>
       <div className={styles.restaurantImage}>
-        <img src={ImageSkeleton} alt="camera" />
+        <img src={image || ImageSkeleton} alt="camera" />
+      </div>
+      <div className={styles.form}>
         <div className={styles.categoryDisplay}>
           <CategoryTags categoryNames={categoryNames} onClick={deleteCategory} tagType="create" />
         </div>
