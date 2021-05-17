@@ -11,6 +11,7 @@ export const BackOfficeContextProvider = ({ children }) => {
   const [selectedTab, setSelectedTab] = useState('Restaurants');
   const [deleteRestaurantModal, setDeleteRestaurantModal] = useState(false);
   const [deletableRestaurant, setDeletableRestaurant] = useState();
+  const [image, setImage] = useState('');
 
   const changeTab = (newTab) => {
     setSelectedTab(newTab);
@@ -25,6 +26,8 @@ export const BackOfficeContextProvider = ({ children }) => {
     setDeleteRestaurantModal,
     deletableRestaurant,
     setDeletableRestaurant,
+    image,
+    setImage,
   };
 
   return <backOfficeContext.Provider value={value}>{children}</backOfficeContext.Provider>;
