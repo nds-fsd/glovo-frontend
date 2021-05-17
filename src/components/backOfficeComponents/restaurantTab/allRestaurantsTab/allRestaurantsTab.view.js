@@ -20,7 +20,12 @@ export const AllRestaurantsTab = () => {
     filterRestaurants,
     clearFilter,
     filteredPages,
-  } = useRestaurants(currentPage - 1, limit, search);
+    getRestaurants,
+  } = useRestaurants();
+
+  useEffect(() => {
+    getRestaurants({ page: currentPage - 1, limit });
+  }, [currentPage, limit]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -69,9 +74,7 @@ export const AllRestaurantsTab = () => {
               <Row key={restaurant._id} restaurant={restaurant} />
             ))}
           {filteredRestaurants &&
-            filteredRestaurants.list.map((restaurant) => (
-              <Row key={restaurant._id} restaurant={restaurant} />
-            ))}
+            filteredRestaurants.list.map((rest) => <Row key={rest._id} restaurant={rest} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>
@@ -82,6 +85,7 @@ export const AllRestaurantsTab = () => {
               onChange={(e) => {
                 setLimit(e.target.value);
               }}
+              style={{ backgroundColor: 'var(--lightSalyGray)' }}
             >
               <option value="1">1</option>
               <option value="5" selected>

@@ -17,6 +17,8 @@ import {
   CREATE_DISH,
   EDIT_DISH,
   STOP_CREATE_DISH,
+  VIEW_ORDER,
+  STOP_VIEW_ORDER,
 } from './types';
 
 export const backOfficeReducer = (state, action) => {
@@ -92,6 +94,14 @@ export const backOfficeReducer = (state, action) => {
     case STOP_CREATE_DISH:
       newState.createDish = false;
       newState.selectedDish = { name: '', id: '' };
+      return newState;
+    case VIEW_ORDER:
+      newState.selectedOrder = action.payload;
+      newState.viewOrderModal = true;
+      return newState;
+    case STOP_VIEW_ORDER:
+      newState.selectedOrder = '';
+      newState.viewOrderModal = false;
       return newState;
     default:
       return newState;

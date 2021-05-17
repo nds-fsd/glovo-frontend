@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-console */
+
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,7 +13,7 @@ export const DishForm = () => {
     dispatch,
     state: { selectedCourse, selectedDish },
   } = useBackOfficeContext();
-  const [description, setDescription] = useState(selectedDish && selectedDish.description);
+  const [description, setDescription] = useState(selectedDish?.description);
   const { createDishes, editDish } = useDishes();
   const {
     register,
@@ -38,7 +38,7 @@ export const DishForm = () => {
       <div className={classNames([styles.inputContainer], { [styles.onError]: errors.name })}>
         <input
           className={styles.input}
-          defaultValue={selectedDish && selectedDish.name}
+          defaultValue={selectedDish?.name}
           type="text"
           placeholder="Dish Name"
           {...register('name', { required: 'Dish name is required' })}
@@ -49,7 +49,7 @@ export const DishForm = () => {
         <input
           className={styles.input}
           type="text"
-          defaultValue={selectedDish && selectedDish.price}
+          defaultValue={selectedDish?.price}
           placeholder="Price"
           {...register('price', {
             required: 'Price is required',
@@ -61,12 +61,12 @@ export const DishForm = () => {
         />
         {errors.price && <p className={styles.errorMessage}>{errors.price.message}</p>}
       </div>
-      <textArea
+      <textarea
         className={styles.description}
         placeholder="Description"
         defaultValue={selectedDish && selectedDish.description}
         onChange={(e) => setDescription(e.target.value)}
-      ></textArea>
+      ></textarea>
       <input type="submit" className={styles.submit} />
     </form>
   );

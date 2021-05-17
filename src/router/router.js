@@ -10,3 +10,4 @@ export const RESTAURANT = '/restaurant';
 export const COURSE = '/course';
 export const ALL_COURSES = '/course/all';
 export const DISH = '/dish';
+export const ORDERS = '/orders';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import styles from './restaurantTab.module.css';
@@ -15,7 +15,11 @@ export const RestaurantTab = () => {
     state: { createRestaurant, viewMenu, viewDishes },
   } = useBackOfficeContext();
   const { id } = useParams();
-  const { hasRestaurants } = useRestaurants();
+  const { hasRestaurants, getRestaurants } = useRestaurants();
+
+  useEffect(() => {
+    getRestaurants({ page: 0, limit: 10 });
+  }, []);
 
   return (
     <>

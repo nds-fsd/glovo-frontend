@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-console */
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames';

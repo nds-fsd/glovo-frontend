@@ -8,6 +8,38 @@
 .selectedRestaurant{
     margin: 0.2em 0px;
 }
+.restaurantSelectContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px;
+}
+.checkbox{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+}
+.tableHeaders{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border-top: 1px solid var(--salyGrayBorder);
+    border-bottom: 1px solid var(--salyGrayBorder);
+}
+.column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 100%;
+    font-weight: 900;
+}
 .container{
     display: flex;
     flex-direction: column;
@@ -19,4 +51,23 @@
     border: 2px solid var(--salyGrayBorder);
     border-radius: 10px;
     padding-top: 15px;
+}
+.orders{
+    width: 100%;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    color: var(--salyBlue);
+    width: 90%;
+}
+.limit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.selected{
+    color: var(--salyBlue);
 }

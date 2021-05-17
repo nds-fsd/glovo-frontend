@@ -9,14 +9,14 @@ const initialState = {
   createRestaurant: false,
   createCourse: false,
   createDish: false,
+  viewMenu: false,
+  viewDishes: false,
+  deleteRestaurantModal: false,
+  viewOrderModal: false,
   selectedTab: {
     name: 'Restaurants',
     restId: '',
   },
-  viewMenu: false,
-  viewDishes: false,
-  deleteRestaurantModal: false,
-  deletableRestaurant: '',
   selectedRestaurant: '',
   selectedCourse: {
     name: '',
@@ -28,6 +28,8 @@ const initialState = {
     description: '',
     id: '',
   },
+  selectedOrder: '',
+  deletableRestaurant: '',
   deletableCourse: '',
   deletableDish: '',
 };

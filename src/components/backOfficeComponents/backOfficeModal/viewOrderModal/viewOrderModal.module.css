@@ -1,0 +1,55 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+}
+.subtitle{
+    margin: 0.7em;
+    align-self: flex-start;
+}
+.tableHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    height: 25px;
+    border-top: 1px solid var(--salyGrayBorder);
+    border-bottom: 1px solid var(--salyGrayBorder);
+}
+.qty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    font-weight: 900;
+}
+.totals{
+    width: 25%;
+    display: flex;
+    justify-content: space-around;
+    font-weight: 900;
+}
+.dishName{
+    width: 65%;
+   font-weight: 900;
+   padding-left: 6px;
+   box-sizing: border-box;
+}
+.orderDetails{
+    width: 95%;
+    height: 250px;
+    overflow: scroll;
+}
+.total{
+    align-self: flex-end;
+    margin: 10px;
+}

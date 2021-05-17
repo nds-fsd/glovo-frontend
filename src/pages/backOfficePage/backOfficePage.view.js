@@ -4,15 +4,21 @@ import SideBar from '../../components/backOfficeComponents/sideBar';
 import styles from './backOfficePage.module.css';
 import RestaurantTab from '../../components/backOfficeComponents/restaurantTab';
 import DeleteRestaurantModal from '../../components/backOfficeComponents/backOfficeModal/deleteRestaurantModal';
-import { CANCEL_DELETE, STOP_CREATE_COURSE, STOP_CREATE_DISH } from './backOfficeContext/types';
+import {
+  CANCEL_DELETE,
+  STOP_CREATE_COURSE,
+  STOP_CREATE_DISH,
+  STOP_VIEW_ORDER,
+} from './backOfficeContext/types';
 import CreateCourseModal from '../../components/backOfficeComponents/backOfficeModal/createCourseModal';
 import DishModal from '../../components/backOfficeComponents/backOfficeModal/dishModal';
 import { OrdersTab } from '../../components/backOfficeComponents/ordersTab/ordersTab.view';
+import { ViewOrderModal } from '../../components/backOfficeComponents/backOfficeModal/viewOrderModal/viewOrderModal.view';
 
 export const BackOfficePage = () => {
   const {
     dispatch,
-    state: { deleteRestaurantModal, selectedTab, createCourse, createDish },
+    state: { deleteRestaurantModal, selectedTab, createCourse, createDish, viewOrderModal },
   } = useBackOfficeContext();
 
   return (
@@ -34,7 +40,12 @@ export const BackOfficePage = () => {
         open={createCourse}
         onClose={() => dispatch({ type: STOP_CREATE_COURSE })}
       />
-      <DishModal dishModal open={createDish} onClose={() => dispatch({ type: STOP_CREATE_DISH })} />
+      <DishModal bigModal open={createDish} onClose={() => dispatch({ type: STOP_CREATE_DISH })} />
+      <ViewOrderModal
+        bigModal
+        open={viewOrderModal}
+        onClose={() => dispatch({ type: STOP_VIEW_ORDER })}
+      />
     </div>
   );
 };

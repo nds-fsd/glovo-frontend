@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-debugger */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { shortFetch } from '../assets/utils/fetch.utils';
 import { getUserSession } from '../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../router/router';
 
-export const useRestaurants = (page = 0, limit = 10) => {
+export const useRestaurants = () => {
   const [hasRestaurants, setHasRestaurants] = useState(false);
   const [userRestaurants, setUserRestaurants] = useState();
   const [totalPages, setTotalPages] = useState();
@@ -14,7 +14,7 @@ export const useRestaurants = (page = 0, limit = 10) => {
 
   const userId = getUserSession().id;
 
-  useEffect(() => {
+  const getRestaurants = ({ page = 0, limit = 10 }) => {
     const body = { user: userId };
     shortFetch({
       url: `${RESTAURANT}/search?page=${page}&limit=${limit}`,
@@ -31,7 +31,7 @@ export const useRestaurants = (page = 0, limit = 10) => {
         setTotalPages(Math.ceil(payload.count / limit));
       },
     });
-  }, [page, limit]);
+  };
 
   const filterRestaurants = (pag, lim, search) => {
     const body = { user: userId };
@@ -142,5 +142,6 @@ export const useRestaurants = (page = 0, limit = 10) => {
     filterRestaurants,
     clearFilter,
     filteredPages,
+    getRestaurants,
   };
 };
