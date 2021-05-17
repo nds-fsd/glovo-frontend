@@ -4,15 +4,16 @@
     flex-direction: column;
     justify-content: space-around;
     visibility: hidden;
-    right: 25px;
-    width: 120px;
+    right: 126%;
+    bottom: -90%;
     height: 70px;
+    width: 110px;
     background: var(--salyWhite);
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 15px rgb(0 0 0 / 20%);
     opacity: 0;
-  transition: visibility 0s linear 300ms, opacity 300ms;
-  border-radius: 4px;
-  z-index: 1;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+    border-radius: 4px;
+    z-index: 1;
 }
   .container::after {
     content: "";

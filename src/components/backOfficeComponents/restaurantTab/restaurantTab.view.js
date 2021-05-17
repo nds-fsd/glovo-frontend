@@ -1,26 +1,31 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import classNames from 'classnames';
+// eslint-disable-next-line no-unused-vars
 import styles from './restaurantTab.module.css';
 import CreateRestaurantTab from './createRestaurantTab';
 import ViewRestaurantTab from './viewRestaurantTab';
 import AllRestaurantsTab from './allRestaurantsTab';
 import { useRestaurants } from '../../../hooks/useRestaurants';
-import { backOfficeContext } from '../../context/backOfficeContext';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import MenuTab from '../menuTab';
+import DishesTab from '../dishesTab';
 
 export const RestaurantTab = () => {
-  const { createRestaurant } = useContext(backOfficeContext);
+  const {
+    state: { createRestaurant, viewMenu, viewDishes },
+  } = useBackOfficeContext();
   const { id } = useParams();
   const { hasRestaurants } = useRestaurants();
+
   return (
-    <div
-      className={classNames(styles.container, {
-        [styles.biggerTab]: !id && hasRestaurants && !createRestaurant,
-      })}
-    >
+    <>
       {!id && hasRestaurants && !createRestaurant && <AllRestaurantsTab />}
       {(!hasRestaurants || createRestaurant) && <CreateRestaurantTab />}
-      {hasRestaurants && id && !createRestaurant && <ViewRestaurantTab />}
-    </div>
+      {hasRestaurants && id && !createRestaurant && !viewMenu && !viewDishes && (
+        <ViewRestaurantTab />
+      )}
+      {hasRestaurants && id && !createRestaurant && viewMenu && <MenuTab />}
+      {hasRestaurants && id && !createRestaurant && viewDishes && <DishesTab />}
+    </>
   );
 };

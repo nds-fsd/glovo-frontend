@@ -6,15 +6,18 @@ import { useParams } from 'react-router-dom';
 import { useRestaurants } from '../../../hooks/useRestaurants';
 import Button from '../../button';
 import CategorySelect from '../../categorySelect';
-import { backOfficeContext } from '../../context/backOfficeContext';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import styles from './restaurantForm.module.css';
+import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { backOfficeContext } from '../../context/backOfficeContext';
 
 /**
  * @param handleCategories  to save, edit or delete the array of categories
  * @param  categories array of objects {name, _id } of the categories
  */
 export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpdate }) => {
-  const { setCreateRestaurant, image, setImage } = useContext(backOfficeContext);
+  const { image, setImage } = useContext(backOfficeContext);
+  const { dispatch } = useBackOfficeContext();
   const { createRestaurant, updateRestaurant } = useRestaurants();
   const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
   const [categoryError, setCategoryError] = useState(false);
@@ -46,12 +49,24 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
 
   const onSubmit = (data) => {
     if (!restaurant) {
-      createRestaurant({ categories, data, description, setCreateRestaurant, image });
+      createRestaurant({
+        categories,
+        data,
+        description,
+        image,
+        onSuccess: () => dispatch({ type: STOP_CREATING }),
+      });
       return;
     }
     if (restaurant) {
       if (data && categories.length > 0) {
-        updateRestaurant({ data, categories, id, description, setCreateRestaurant });
+        updateRestaurant({
+          data,
+          categories,
+          id,
+          description,
+          onSuccess: () => dispatch({ type: STOP_CREATING }),
+        });
         onUpdate();
       }
     }
@@ -66,7 +81,7 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
   }, [categories]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ height: '100%', width: '100%' }}>
       <div className={styles.inputs}>
         <div className={styles.category_and_name}>
           <div className={styles.inputContainerA}>
@@ -140,17 +155,19 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
           </div>
         </div>
       </div>
-      <div className={styles.text_and_submit}>
-        <div className={styles.textAreaContainer}>
-          <textarea
-            className={styles.textArea}
-            placeholder="  Restaurant Description"
-            defaultValue={restaurant && restaurant.restaurantDescription}
-            onBlur={(e) => setDescription(e.target.value)}
-          />
-        </div>
+
+      <div className={styles.textAreaContainer}>
+        <textarea
+          className={styles.textArea}
+          placeholder="  Restaurant Description"
+          defaultValue={restaurant && restaurant.restaurantDescription}
+          onBlur={(e) => setDescription(e.target.value)}
+        />
+      </div>
+
+      <div className={styles.buttonContainer}>
         {!restaurant && (
-          <Button buttonStyle="signup" onClick={() => setCreateRestaurant(false)}>
+          <Button buttonStyle="signup" onClick={() => dispatch({ type: STOP_CREATING })}>
             Cancel
           </Button>
         )}

@@ -29,8 +29,19 @@
 
 ._courseContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+._viewCourses{
+  width: 60%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+._coursesBar:hover {
+  font-weight: bolder;
+  color: var(--darkSalyBlue);
 }
 
 ._iconEllipsis {
@@ -40,14 +51,9 @@
 ._iconEllipsis:hover {
   color: var(--lightSalyBlue);
 }
-
-._coursesBar:hover {
-  font-weight: bolder;
-  color: var(--darkSalyBlue);
-}
-._coursesBarContainer {
+._moreCourses {
   position: absolute;
-  top: 210px;
+  top: 230px;
   right: -30px;
   background-color: var(--salyWhite);
   border-radius: 10px;

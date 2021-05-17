@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import styles from './createRestaurantTab.module.css';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
-import { RestaurantForm } from '../../../forms/restaurantForm/restaurantForm.view';
+import RestaurantForm from '../../../forms/restaurantForm';
 import CategoryTags from '../../categoryTags';
 import { backOfficeContext } from '../../../context/backOfficeContext';
 
@@ -34,7 +34,7 @@ export const CreateRestaurantTab = () => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.restaurantImage}>
         <img src={image || ImageSkeleton} alt="camera" />
       </div>
@@ -42,6 +42,8 @@ export const CreateRestaurantTab = () => {
         <div className={styles.categoryDisplay}>
           <CategoryTags categoryNames={categoryNames} onClick={deleteCategory} tagType="create" />
         </div>
+      </div>
+      <div className={styles.form}>
         <RestaurantForm
           handleCategories={(e) => {
             handleCategory({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });
@@ -49,6 +51,6 @@ export const CreateRestaurantTab = () => {
           categories={categoryNames}
         />
       </div>
-    </>
+    </div>
   );
 };
