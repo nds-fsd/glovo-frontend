@@ -12,7 +12,7 @@ import { formatNumber } from '../../assets/utils/convertToCurrency';
 import styles from './restaurantViewPage.module.css';
 import DishItem from '../../components/dishItem';
 import { ALL_COURSES, RESTAURANT } from '../../router/router';
-import DeliveryInformation from '../../components/deliveryInformation/deliveryInformation.view';
+import DeliveryInformation from '../../components/deliveryInformation';
 import Modal from '../../components/modal';
 import Button from '../../components/button';
 import { useCartContext } from '../../context/cartContext';
@@ -23,9 +23,8 @@ export const RestaurantViewPage = () => {
   const [dishByCourse, setDishByCourse] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [modalDishView, setModalDishView] = useState({});
   const [seeMoreCategories, setSeeMoreCategories] = useState(false);
-  const { addToCart } = useCartContext();
+  const { addToCart, modalDishView } = useCartContext();
 
   useEffect(() => {
     shortFetch({
@@ -48,16 +47,6 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
-
-  const viewDishInModal = (dish) => {
-    if (dish) {
-      setModalDishView({ ...dish, modalDishView });
-    }
-  };
-
-  const onClick = () => {
-    console.log('hola');
-  };
 
   return (
     <div>
@@ -82,7 +71,17 @@ export const RestaurantViewPage = () => {
                   {modalDishView && capitalize(modalDishView.dish)}
                 </h2>
                 <p>{modalDishView && formatNumber(modalDishView.price)}</p>
-                <Button onClick={() => onClick()} buttonStyle="payOrder">
+                <Button
+                  onClick={() => {
+                    addToCart({
+                      dish: modalDishView.dish,
+                      price: modalDishView.price,
+                      id: modalDishView.id,
+                    });
+                    setIsOpenModal(false);
+                  }}
+                  buttonStyle="payOrder"
+                >
                   Add to Order
                 </Button>
               </Modal>
@@ -90,7 +89,7 @@ export const RestaurantViewPage = () => {
             <div className={styles._courseContainer}>
               <div className={styles._viewCourses}>
                 {dishByCourse &&
-                  dishByCourse.slice(0, 3).map((course, i) => {
+                  dishByCourse.slice(0, 3).map((course) => {
                     return (
                       <div className={styles._coursesBar}>
                         <p
@@ -118,7 +117,7 @@ export const RestaurantViewPage = () => {
                 <div className={styles._moreCourses}>
                   {seeMoreCategories &&
                     dishByCourse &&
-                    dishByCourse.map((course, i) => {
+                    dishByCourse.slice(3).map((course, i) => {
                       return (
                         <div>
                           <p key={course._id} onClick={() => handleClick(course._id)}>
@@ -143,8 +142,6 @@ export const RestaurantViewPage = () => {
                           <div className={styles._dishSectionContainer}>
                             <DishItem
                               selectedDish={dish}
-                              addToCart={(plate) => addToCart(plate)}
-                              viewDishInModal={(modalDish) => viewDishInModal(modalDish)}
                               openModal={() => {
                                 setIsOpenModal(true);
                               }}

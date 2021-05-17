@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-debugger */
 import { useState } from 'react';
 import { shortFetch } from '../assets/utils/fetch.utils';
@@ -60,11 +61,13 @@ export const useRestaurants = () => {
     setFilteredPages(undefined);
   };
 
-  const createRestaurant = ({ categories, data, description, onSuccess }) => {
+  const createRestaurant = ({ categories, data, description, onSuccess, image }) => {
     if (data && categories.length > 0) {
       const categoryIds = categories.map((category) => {
         return category._id;
       });
+
+      console.log(image);
 
       shortFetch({
         url: RESTAURANT,
@@ -80,6 +83,7 @@ export const useRestaurants = () => {
           },
           restaurantCategory: categoryIds,
           user: userId,
+          img: image,
         },
         token: true,
         onSuccess: () => {

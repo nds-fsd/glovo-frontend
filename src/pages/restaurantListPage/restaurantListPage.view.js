@@ -4,6 +4,7 @@ import styles from './restaurantListPage.module.css';
 import CategoryBar from '../../components/categoryBar';
 import Button from '../../components/button';
 import RestaurantList from '../../components/restaurantList';
+import Footer from '../../components/footer';
 import { RestoListContext } from '../../components/context/restoListPageContext';
 import { RESTAURANT_CATEGORY, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
@@ -52,6 +53,7 @@ export const RestaurantListPage = () => {
             <RestaurantList />
           </div>
         )}
+        <Footer />
       </div>
       <LoginModal
         open={openLoginModal}

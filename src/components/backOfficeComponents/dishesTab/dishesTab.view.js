@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
@@ -60,6 +61,7 @@ export const DishesTab = () => {
       dispatch({ type: VIEW_RESTAURANT });
     }
   };
+  console.debug(dishes);
   return (
     <>
       <div className={styles.title}>

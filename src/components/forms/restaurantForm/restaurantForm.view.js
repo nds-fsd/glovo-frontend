@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,6 +15,7 @@ import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/t
  * @param  categories array of objects {name, _id } of the categories
  */
 export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpdate }) => {
+  const { image, setImage } = useBackOfficeContext();
   const { dispatch } = useBackOfficeContext();
   const { createRestaurant, updateRestaurant } = useRestaurants();
   const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
@@ -24,6 +26,25 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const postDetails = (data) => {
+    setImage(data);
+    const formData = new FormData();
+    formData.append('file', data);
+    formData.append('upload_preset', 'globoApp');
+    formData.append('cloud_name', 'partycloud');
+    fetch('	https://api.cloudinary.com/v1_1/partycloud/image/upload', {
+      method: 'post',
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((payload) => {
+        console.log('image uploaded', payload);
+        setImage(payload.url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const onSubmit = (data) => {
     if (!restaurant) {
@@ -31,6 +52,7 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
         categories,
         data,
         description,
+        image,
         onSuccess: () => dispatch({ type: STOP_CREATING }),
       });
       return;
@@ -76,6 +98,15 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
             onChange={(e) => {
               handleCategories(e);
             }}
+          />
+          {console.log(image)}
+        </div>
+        <div className={styles.imgUpload}>
+          <input
+            className={styles.input}
+            type="file"
+            {...register('image')}
+            onChange={(evt) => postDetails(evt.target.files[0])}
           />
         </div>
         <div className={styles.address}>
