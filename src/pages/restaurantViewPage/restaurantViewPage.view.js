@@ -34,6 +34,7 @@ export const RestaurantViewPage = () => {
       onSuccess: setSelectedResto,
     });
   }, []);
+ 
 
   const handleClick = (courseId) => {
     document.getElementById(courseId).scrollIntoView({ behavior: 'smooth' });
@@ -59,10 +60,12 @@ export const RestaurantViewPage = () => {
                 Category {'>'}{' '}
                 {selectedResto &&
                   selectedResto.restaurantCategory.map((cat) => {
-                    return <span>{cat.name}</span>;
+                    return <span>{cat.name} </span>;
                   })}
-                <h1>{selectedResto.name}</h1>
-                <p style={{ fontStyle: 'italic' }}>{selectedResto.restaurantDescription}</p>
+                <h1 style={{ marginBottom: '10px' }}>{selectedResto.name}</h1>
+                <p style={{ fontStyle: 'italic', margin: '0' }}>
+                  {selectedResto.restaurantDescription}
+                </p>
               </div>
             )}
             {isOpenModal && (
@@ -98,6 +101,7 @@ export const RestaurantViewPage = () => {
                           })}
                           key={course._id}
                           onClick={() => handleClick(course._id)}
+                          style={{ marginRight: '10px' }}
                         >
                           {capitalize(course.name)}
                         </p>
@@ -156,7 +160,7 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation />
+          <DeliveryInformation selectedResto={selectedResto} />
         </div>
       </div>
     </div>
