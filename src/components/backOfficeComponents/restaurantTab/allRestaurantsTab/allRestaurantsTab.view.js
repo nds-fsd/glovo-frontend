@@ -24,7 +24,6 @@ export const AllRestaurantsTab = () => {
   } = useRestaurants();
 
   useEffect(() => {
-    console.debug('pase aqui');
     getRestaurants({ page: currentPage - 1, limit });
   }, [currentPage, limit]);
 
