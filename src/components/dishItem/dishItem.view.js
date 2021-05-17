@@ -16,6 +16,7 @@ export const DishItem = ({ selectedDish, openModal }) => {
         onClick={() => {
           openModal();
           viewDishInModal({
+            restoId: selectedDish.Restaurant,
             dish: selectedDish.name,
             price: selectedDish.price,
             id: selectedDish._id,
@@ -29,6 +30,7 @@ export const DishItem = ({ selectedDish, openModal }) => {
         onClick={() => {
           openModal();
           viewDishInModal({
+            restoId: selectedDish.Restaurant,
             dish: selectedDish.name,
             price: selectedDish.price,
             id: selectedDish._id,
@@ -43,6 +45,7 @@ export const DishItem = ({ selectedDish, openModal }) => {
           onClick={() => {
             openModal();
             viewDishInModal({
+              restoId: selectedDish.Restaurant,
               dish: selectedDish.name,
               price: selectedDish.price,
               id: selectedDish._id,
@@ -56,6 +59,7 @@ export const DishItem = ({ selectedDish, openModal }) => {
           className={styles._iconAdd}
           onClick={() => {
             addToCart({
+              restoId: selectedDish.Restaurant,
               dish: selectedDish.name,
               price: selectedDish.price,
               id: selectedDish._id,

@@ -4,14 +4,34 @@
   justify-content: center;
   align-items: center;
   padding-bottom: 20px;
+
 }
 
 ._restoFeatures {
   width: 75%;
   height: 10vh;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+._allIconsFeatures {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+
+._iconsFeatures {
+  font-size: 25px;
+  color: var(--lightSalyBlue);
+}
+._allFeatures {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
 ._cart {
     width: 75%; 
     height: 20vh;
