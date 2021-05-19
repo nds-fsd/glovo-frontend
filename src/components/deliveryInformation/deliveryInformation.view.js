@@ -1,17 +1,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable radix */
 /* eslint-disable no-console */
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import styles from './deliveryInformation.module.css';
 import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
 import Button from '../button';
 import { useCartContext } from '../../context/cartContext';
-// import { Rating } from '../rating/rating.view';
 import { getUserSession } from '../../assets/utils/localStorage.utils';
 import { shortFetch } from '../../assets/utils/fetch.utils';
+import Modal from '../modal/modal.view';
+import imgProcessing from '../../assets/images/image_processing20191001-8524-s4802o.gif';
+import { RESTAURANT_LIST_PAGE } from '../../router/router';
 
 const DeliveryInformation = ({ selectedResto }) => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const { completedCart, addToCart, removeItemInCart, setCompletedCart } = useCartContext();
   let totalPrice = 0;
 
@@ -24,6 +29,7 @@ const DeliveryInformation = ({ selectedResto }) => {
       return { Dish: cart.id, qty: cart.quantity };
     });
     const idResto = completedCart[0].restoId;
+
     shortFetch({
       url: '/orders',
       method: 'POST',
@@ -34,9 +40,16 @@ const DeliveryInformation = ({ selectedResto }) => {
         orderList,
         total: totalPrice,
       },
-      onSuccess: () => setCompletedCart([]),
+      onSuccess: () => {
+        setIsOpenModal(true);
+        setCompletedCart([]);
+      },
     });
     return true;
+  };
+
+  const handleClick = () => {
+    console.log('hola');
   };
 
   return (
@@ -103,6 +116,16 @@ const DeliveryInformation = ({ selectedResto }) => {
           </Button>
         </div>
       )}
+      <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal} title="Thank You">
+        <h3>¡We are preparing your order!</h3>
+        <div className={styles._orderPreparing}>
+          <img src={imgProcessing} alt="order" className={styles._imgPreparing}></img>
+        </div>
+        {/* <Link to={`${RESTAURANT_LIST_PAGE}`}></Link> */}
+        <Button onClick={() => handleClick()} buttonStyle="payOrder">
+          Go to homepage
+        </Button>
+      </Modal>
     </div>
   );
 };

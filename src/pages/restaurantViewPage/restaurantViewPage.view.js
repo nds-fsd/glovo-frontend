@@ -4,6 +4,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { shortFetch } from '../../assets/utils/fetch.utils';
@@ -23,8 +24,10 @@ export const RestaurantViewPage = () => {
   const [dishByCourse, setDishByCourse] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [seeMoreCategories, setSeeMoreCategories] = useState(false);
   const { addToCart, modalDishView } = useCartContext();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
     shortFetch({
@@ -34,7 +37,6 @@ export const RestaurantViewPage = () => {
       onSuccess: setSelectedResto,
     });
   }, []);
- 
 
   const handleClick = (courseId) => {
     document.getElementById(courseId).scrollIntoView({ behavior: 'smooth' });
@@ -57,12 +59,14 @@ export const RestaurantViewPage = () => {
           <div className={styles._restoCardContainer}>
             {selectedResto && (
               <div className={styles._restoInfo}>
-                Category {'>'}{' '}
-                {selectedResto &&
-                  selectedResto.restaurantCategory.map((cat) => {
-                    return <span>{cat.name} </span>;
-                  })}
-                <h1 style={{ marginBottom: '10px' }}>{selectedResto.name}</h1>
+                <div className={styles._restoCategory}>
+                  Category {'>'}{' '}
+                  {selectedResto &&
+                    selectedResto.restaurantCategory.map((cat) => {
+                      return <span>{cat.name} </span>;
+                    })}
+                </div>
+                <h1 className={styles._restoTitle}>{selectedResto.name}</h1>
                 <p style={{ fontStyle: 'italic', margin: '0' }}>
                   {selectedResto.restaurantDescription}
                 </p>
@@ -70,10 +74,9 @@ export const RestaurantViewPage = () => {
             )}
             {isOpenModal && (
               <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal}>
-                <h2 style={{ fontWeight: 'bold' }}>
-                  {modalDishView && capitalize(modalDishView.dish)}
-                </h2>
-                <p>{modalDishView && formatNumber(modalDishView.price)}</p>
+                <h2 style={{ fontWeight: 'bold' }}>{capitalize(modalDishView?.dish)}</h2>
+                <p>{capitalize(modalDishView?.description)}</p>
+                <p>{formatNumber(modalDishView?.price)}</p>
                 <Button
                   onClick={() => {
                     addToCart({
@@ -101,7 +104,7 @@ export const RestaurantViewPage = () => {
                           })}
                           key={course._id}
                           onClick={() => handleClick(course._id)}
-                          style={{ marginRight: '10px' }}
+                          style={{ marginRight: '20px' }}
                         >
                           {capitalize(course.name)}
                         </p>
@@ -109,29 +112,34 @@ export const RestaurantViewPage = () => {
                     );
                   })}
               </div>
-              <div>
-                <FontAwesomeIcon
-                  icon="ellipsis-h"
-                  className={styles._iconEllipsis}
-                  onClick={() => {
-                    setSeeMoreCategories(!seeMoreCategories);
-                  }}
-                />
-
-                <div className={styles._moreCourses}>
-                  {seeMoreCategories &&
-                    dishByCourse &&
-                    dishByCourse.slice(3).map((course, i) => {
-                      return (
-                        <div>
-                          <p key={course._id} onClick={() => handleClick(course._id)}>
-                            {capitalize(course.name)}
-                          </p>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
+              <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+                <DropdownToggle
+                  caret
+                  tag="span"
+                  data-toggle="dropdown"
+                  aria-expanded={dropdownOpen}
+                  className={styles._dropToggle}
+                >
+                  <FontAwesomeIcon icon="ellipsis-h" className={styles._iconEllipsis} />
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <div className={styles._moreCourses}>
+                    {dropdownOpen &&
+                      dishByCourse &&
+                      dishByCourse.slice(3).map((course, i) => {
+                        return (
+                          <DropdownItem text className={styles._dropItem}>
+                            <div>
+                              <p key={course._id} onClick={() => handleClick(course._id)}>
+                                {capitalize(course.name)}
+                              </p>
+                            </div>
+                          </DropdownItem>
+                        );
+                      })}
+                  </div>
+                </DropdownMenu>
+              </Dropdown>
             </div>
           </div>
           <div className={styles._allDishes}>

@@ -18,6 +18,7 @@ export const DishItem = ({ selectedDish, openModal }) => {
           viewDishInModal({
             restoId: selectedDish.Restaurant,
             dish: selectedDish.name,
+            description: selectedDish.description,
             price: selectedDish.price,
             id: selectedDish._id,
           });
@@ -32,13 +33,14 @@ export const DishItem = ({ selectedDish, openModal }) => {
           viewDishInModal({
             restoId: selectedDish.Restaurant,
             dish: selectedDish.name,
+            description: selectedDish.description,
             price: selectedDish.price,
             id: selectedDish._id,
           });
         }}
       >
         <h3>{capitalize(selectedDish.name)}</h3>
-        <p>{selectedDish.description}</p>
+        <p>{capitalize(selectedDish.description)}</p>
       </div>
       <div className={styles._itemFooter}>
         <p
@@ -47,6 +49,7 @@ export const DishItem = ({ selectedDish, openModal }) => {
             viewDishInModal({
               restoId: selectedDish.Restaurant,
               dish: selectedDish.name,
+              description: selectedDish.description,
               price: selectedDish.price,
               id: selectedDish._id,
             });
