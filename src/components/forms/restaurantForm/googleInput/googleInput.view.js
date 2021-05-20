@@ -6,7 +6,12 @@ import classNames from 'classnames';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import styles from './googleInput.module.css';
 
-export const GoogleInput = ({ handleAddress, handleCoordinates }) => {
+export const GoogleInput = ({
+  handleAddress,
+  handleCoordinates,
+  handleFullAddress,
+  fullAddress,
+}) => {
   const [address, setAddress] = useState('');
 
   const handleSelect = async (value) => {
@@ -21,11 +26,10 @@ export const GoogleInput = ({ handleAddress, handleCoordinates }) => {
       (item) => item.types[0] === 'postal_code'
     )[0]?.long_name;
 
-    console.debug(results);
+    console.debug(value);
 
     const latLng = await getLatLng(results[0]);
 
-    console.debug(latLng);
     setAddress(value);
     handleAddress({ street, number, zipcode });
     handleCoordinates(latLng);

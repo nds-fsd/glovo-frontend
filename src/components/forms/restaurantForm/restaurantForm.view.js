@@ -65,7 +65,7 @@ export const RestaurantForm = ({
       return;
     }
     if (restaurant) {
-      if (data && categories.length > 0) {
+      if (data && categories && categories.length > 0) {
         updateRestaurant({
           data,
           categories,
@@ -79,7 +79,7 @@ export const RestaurantForm = ({
   };
 
   useEffect(() => {
-    if (categories.length === 0) {
+    if (categories && categories.length === 0) {
       setCategoryError(true);
       return;
     }
@@ -126,14 +126,16 @@ export const RestaurantForm = ({
       <div className={styles.sectionB}>
         <div className={styles.address}>
           <div
-            className={classNames([styles.inputContainerC], { [styles.onError]: errors.street })}
+            className={classNames([styles.inputContainerC], {
+              [styles.onError]: errors && errors.street,
+            })}
             style={{ width: '80%' }}
           >
             <input
               className={styles.input}
               type="text"
               placeholder="Street"
-              defaultValue={restaurant ? restaurant.address.street : address.street}
+              defaultValue={restaurant?.address?.street || address.street}
               {...register('street', { required: 'Street name is required' })}
             />
             {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
@@ -145,7 +147,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Number"
-              defaultValue={restaurant ? restaurant.address.number : address.number}
+              defaultValue={restaurant?.address?.number || address.number}
               {...register('number', {
                 required: 'Street number is required',
                 pattern: {
@@ -163,7 +165,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Zipcode"
-              defaultValue={restaurant ? restaurant.address.zipcode : address.zipcode}
+              defaultValue={restaurant?.address?.zipcode || address.zipcode}
               {...register('zipcode', {
                 required: 'zipcode number is required',
                 pattern: {
