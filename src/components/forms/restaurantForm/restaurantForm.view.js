@@ -11,17 +11,22 @@ import CategorySelect from '../../categorySelect';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import styles from './restaurantForm.module.css';
 import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
+import GoogleInput from './googleInput';
 
-/**
- * @param handleCategories  to save, edit or delete the array of categories
- * @param  categories array of objects {name, _id } of the categories
- */
-export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpdate }) => {
+export const RestaurantForm = ({
+  handleCategories,
+  categories,
+  restaurant,
+  onUpdate,
+  handleCoordinates,
+}) => {
   const { image, setImage } = useBackOfficeContext();
   const { dispatch } = useBackOfficeContext();
   const { createRestaurant, updateRestaurant } = useRestaurants();
   const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
   const [categoryError, setCategoryError] = useState(false);
+  const [address, setAddress] = useState({ street: '', number: '', zipcode: '' });
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const { id } = useParams();
   const {
     register,
@@ -113,9 +118,10 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
           {...register('image')}
           onChange={(evt) => postDetails(evt.target.files[0])}
         />
-        <div className={classNames([styles.inputContainer], { [styles.onError]: errors.email })}>
-          input GOOGLE
-        </div>
+        <GoogleInput
+          handleAddress={(value) => setAddress(value)}
+          handleCoordinates={handleCoordinates}
+        />
       </div>
       <div className={styles.sectionB}>
         <div className={styles.address}>
@@ -127,7 +133,7 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
               className={styles.input}
               type="text"
               placeholder="Street"
-              defaultValue={restaurant && restaurant.address.street}
+              defaultValue={restaurant ? restaurant.address.street : address.street}
               {...register('street', { required: 'Street name is required' })}
             />
             {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
@@ -139,7 +145,7 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
               className={styles.input}
               type="text"
               placeholder="Number"
-              defaultValue={restaurant && restaurant.address.number}
+              defaultValue={restaurant ? restaurant.address.number : address.number}
               {...register('number', {
                 required: 'Street number is required',
                 pattern: {
@@ -157,7 +163,7 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
               className={styles.input}
               type="text"
               placeholder="Zipcode"
-              defaultValue={restaurant && restaurant.address.zipcode}
+              defaultValue={restaurant ? restaurant.address.zipcode : address.zipcode}
               {...register('zipcode', {
                 required: 'zipcode number is required',
                 pattern: {
@@ -188,19 +194,6 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
           />
         </div>
       </div>
-      {/* <div className={styles.inputs}>
-        
-        <div className={styles.address}>
-         
-         
-        </div>
-      </div>
-
-      <div className={styles.textAreaContainer}>
-       
-      </div>
-
-       */}
     </form>
   );
 };

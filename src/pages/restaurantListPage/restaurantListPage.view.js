@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
@@ -15,7 +16,6 @@ import SignupModal from '../../components/modal/signupModal';
 
 export const RestaurantListPage = () => {
   const { categoryArr, setCategoryArr, isSearching } = useContext(RestoListContext);
-
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
 
@@ -24,6 +24,7 @@ export const RestaurantListPage = () => {
   }, []);
   const history = useHistory();
   const location = useLocation();
+
   return (
     <>
       <div className={styles.pageContainer}>
@@ -55,6 +56,7 @@ export const RestaurantListPage = () => {
         )}
         <Footer />
       </div>
+
       <LoginModal
         open={openLoginModal}
         openRegister={() => {

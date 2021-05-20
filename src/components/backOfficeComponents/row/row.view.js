@@ -37,7 +37,9 @@ export const Row = ({ restaurant }) => {
             {popUp && (
               <div className={styles.popUp}>
                 {restaurant.restaurantCategory.map((category) => (
-                  <p className={styles.category}>{category.name}</p>
+                  <p key={category._id} className={styles.category}>
+                    {category.name}
+                  </p>
                 ))}
               </div>
             )}

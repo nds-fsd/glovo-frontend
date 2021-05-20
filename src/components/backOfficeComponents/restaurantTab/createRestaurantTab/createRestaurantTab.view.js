@@ -1,17 +1,38 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './createRestaurantTab.module.css';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
 import RestaurantForm from '../../../forms/restaurantForm';
+import { ReactComponent as Gmaps } from '../../../../assets/icons/Google_Maps_Logo_2020.svg';
 import CategoryTags from '../../categoryTags';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 
 export const CreateRestaurantTab = () => {
   const { image } = useBackOfficeContext();
   const [categoryNames, setCategoryNames] = useState([]);
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+
+  const initMap = () => {
+    const center = { lat: coordinates.lat, lng: coordinates.lng };
+
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center,
+    });
+    const marker = new google.maps.Marker({
+      position: center,
+      map,
+    });
+  };
+  useEffect(() => {
+    if (coordinates.lat && coordinates.lng) {
+      initMap();
+    }
+  }, [coordinates]);
 
   const handleCategory = (catName) => {
     const check = categoryNames.filter((catego) => {
@@ -52,10 +73,13 @@ export const CreateRestaurantTab = () => {
         <div className={styles.categoryDisplay}>
           <CategoryTags categoryNames={categoryNames} onClick={deleteCategory} tagType="create" />
         </div>
-        <div className={styles.map}>map</div>
+        <div id="map" className={styles.map}>
+          <Gmaps className={styles.icon} />
+        </div>
       </div>
       <div className={styles.column2}>
         <RestaurantForm
+          handleCoordinates={(value) => setCoordinates(value)}
           handleCategories={(e) => {
             handleCategory({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });
           }}
