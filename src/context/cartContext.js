@@ -41,6 +41,7 @@ export const CartContextProvider = ({ children }) => {
   const value = {
     addToCart,
     completedCart,
+    setCompletedCart,
     viewDishInModal,
     modalDishView,
     removeItemInCart,

@@ -19,7 +19,7 @@ export const RestaurantItem = ({ restaurant }) => {
         <Link to={`/restaurantViewPage/${restaurant._id}`}>
           <div className={styles.flip_card_back}>
             <h1>{restaurant.name}</h1>
-            <Rating rating={2.5} />
+            <Rating rating={restaurant.rating} />
             <p>{restaurant.description}</p>
           </div>
         </Link>
