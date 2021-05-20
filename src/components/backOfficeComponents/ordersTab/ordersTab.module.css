@@ -54,6 +54,8 @@
 }
 .orders{
     width: 100%;
+    max-height: 450px;
+    overflow: scroll;
 }
 .footer{
     display: flex;

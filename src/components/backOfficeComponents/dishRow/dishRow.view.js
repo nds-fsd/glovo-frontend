@@ -34,13 +34,6 @@ export const DishRow = ({ dish }) => {
             style={{ width: '15%' }}
           >
             <p style={{ color: 'var(--salyBlue)' }}> {formatNumber(dish.price)} </p>
-            {/* {popUp && (
-              <div className={styles.popUp}>
-                {restaurant.restaurantCategory.map((category) => (
-                  <p className={styles.category}>{category.name}</p>
-                ))}
-              </div>
-            )} */}
           </div>
           <div className={styles.description}>{dish.description}</div>
           <div className={styles.column} style={{ width: '20%' }}>
