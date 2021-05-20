@@ -1,15 +1,20 @@
+/* eslint-disable no-console */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import SearchBox from '../searchBox';
 import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
 import Button from '../button';
 import styles from './navbar.module.css';
+import { BACKOFFICE } from '../../router/router';
+import { roleContext } from '../context/roleContext';
 
 export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
+  const { role } = useContext(roleContext);
 
   const handleScroll = debounce(() => {
     const currentScrollPos = window.pageYOffset;
@@ -24,7 +29,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, [prevScrollPos, visible, handleScroll]);
 
@@ -37,14 +41,19 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
       )}
     >
       <div>LOGO</div>
+      {}
       <SearchBox />
       <div className={classNames([styles.buttons])}>
         {getUserToken() ? (
           <>
-            <FontAwesomeIcon
-              icon="user-circle"
-              className={classNames([styles.icons], { [styles.movingIcons]: prevScrollPos > 350 })}
-            />
+            <Link to={role === 'PROVIDER' && BACKOFFICE}>
+              <FontAwesomeIcon
+                icon="user-circle"
+                className={classNames([styles.icons], {
+                  [styles.movingIcons]: prevScrollPos > 350,
+                })}
+              />
+            </Link>
             <FontAwesomeIcon
               icon="shopping-cart"
               className={classNames([styles.icons], { [styles.movingIcons]: prevScrollPos > 350 })}
