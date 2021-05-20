@@ -33,6 +33,10 @@
     border-radius: 30px;
     background-color: var(--lightSalyBlue);
     color: var(--salyWhite);
+    transition: all 0.5s;
+}
+._payOrder:hover {
+    background-color: var(--darkSalyBlue);
 }
 .edit{
     position: absolute;

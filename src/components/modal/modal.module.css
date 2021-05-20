@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   overflow: auto;
-  z-index: 999999;
+  z-index: 9999999999;
 }
 
 ._modal {
@@ -39,4 +39,5 @@
   height: 20px;
   color: var(--darkSalyBlue);
   align-self: flex-end;
+  cursor: pointer;
 }

@@ -22,10 +22,22 @@
 ._restoCardContainer {
   background-color: var(--salyWhite);
   border-radius: 15px;
-  padding: 20px;
+  height: 50vh;
+  padding: 0 20px;
   box-shadow: 3px 3px 16px -3px #00000050;
-  position: sticky;
-  top: -50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+._restoCategory {
+  font-size: small;
+}
+
+._restoTitle {
+  font-size: 50px;
+  font-weight: bolder;
+  margin-bottom: 10px;
 }
 
 ._courseContainer {
@@ -33,35 +45,42 @@
   justify-content: space-between;
   align-items: center;
 }
-._viewCourses{
+._viewCourses {
   width: 60%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
-
+._coursesBar {
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
 ._coursesBar:hover {
   font-weight: bolder;
   color: var(--darkSalyBlue);
 }
 
+._dropToggle {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 ._iconEllipsis {
   font-size: 25px;
   color: var(--salyGrayText);
-  cursor: pointer;
+  transition: all 0.5s;
 }
 ._iconEllipsis:hover {
   color: var(--lightSalyBlue);
 }
 ._moreCourses {
-  position: absolute;
-  top: 200px;
-  right: -10px;
   background-color: var(--salyWhite);
   border-radius: 10px;
   box-shadow: 3px 3px 16px -3px #00000050;
   padding: 0 20px;
-  font-size: 12px;
   cursor: pointer;
   overflow: scroll;
 }
@@ -70,10 +89,17 @@
   display: none;
 }
 
+._dropItem:hover {
+  color: var(--darkSalyBlue);
+}
+
 ._underline {
   text-decoration: underline;
   text-decoration-color: var(--lightSalyBlue);
-  text-decoration-style: wavy;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: 8px;
+  text-underline-offset: -8px;
 }
 
 ._courseAndDish {
@@ -102,4 +128,5 @@
   position: sticky;
   top: -10px;
   margin-top: -80px;
+  z-index: 1;
 }
