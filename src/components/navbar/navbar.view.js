@@ -46,14 +46,23 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
       <div className={classNames([styles.buttons])}>
         {getUserToken() ? (
           <>
-            <Link to={role === 'PROVIDER' && BACKOFFICE}>
+            {role === 'PROVIDER' ? (
+              <Link to={BACKOFFICE}>
+                <FontAwesomeIcon
+                  icon="briefcase"
+                  className={classNames([styles.icons], {
+                    [styles.movingIcons]: prevScrollPos > 350,
+                  })}
+                />
+              </Link>
+            ) : (
               <FontAwesomeIcon
                 icon="user-circle"
                 className={classNames([styles.icons], {
                   [styles.movingIcons]: prevScrollPos > 350,
                 })}
               />
-            </Link>
+            )}
             <FontAwesomeIcon
               icon="shopping-cart"
               className={classNames([styles.icons], { [styles.movingIcons]: prevScrollPos > 350 })}
