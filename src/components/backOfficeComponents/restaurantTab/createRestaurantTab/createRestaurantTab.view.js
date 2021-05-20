@@ -1,4 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './createRestaurantTab.module.css';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
 import RestaurantForm from '../../../forms/restaurantForm';
@@ -34,15 +38,23 @@ export const CreateRestaurantTab = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.restaurantImage}>
-        <img src={image || ImageSkeleton} alt="camera" />
-      </div>
-      <div className={styles.form}>
+      <div className={styles.column1}>
+        <label htmlFor="file-input" className={styles.restaurantImage}>
+          <div className={styles.imageCase}>
+            <img
+              src={image || ImageSkeleton}
+              alt="camera"
+              className={classNames({ [styles.img]: image })}
+            />
+            {!image && <FontAwesomeIcon icon="upload" style={{ color: 'var(--salyGray)' }} />}
+          </div>
+        </label>
         <div className={styles.categoryDisplay}>
           <CategoryTags categoryNames={categoryNames} onClick={deleteCategory} tagType="create" />
         </div>
+        <div className={styles.map}>map</div>
       </div>
-      <div className={styles.form}>
+      <div className={styles.column2}>
         <RestaurantForm
           handleCategories={(e) => {
             handleCategory({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });

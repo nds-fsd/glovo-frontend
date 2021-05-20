@@ -1,41 +1,38 @@
 .form{
     display: flex;
     flex-direction: column;
+    height: 100%;
     width: 100%;
-    height: 55%;
 }
-.inputs{
+.sectionA{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
+    height: 48%;
+    box-sizing: border-box;
+    padding-top: 40px;
+    margin-left: 27px;
 }
-.category_and_name,
-.address{
-    display: flex;
-    flex-direction: column;
-    margin-top: 22px;
-    height: 165px;
-    width: 35%;
-}
-.category_and_name{
-    justify-content: center;
-    align-items: center;
-}
-.inputContainer, .inputContainerA {
+.inputContainer, .inputContainerA, .inputContainerC {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
-    height: 22%;
+    width: 60%;
+    height: 3em;
     border: 1px solid var(--salyBlue);
     border-radius: 15px;
-    margin-bottom: 13px;
-    padding-right: 10px;
 }
-.inputContainerA{
-    height: 35%;
+.inputContainer{
+    width: 80%;
 }
+.inputContainerC{
+    width: 46%;
+    height: 2em;
+    margin: 5px;
+}
+
 .input{
     align-self: flex-start;
     font-size: 14px;
@@ -47,16 +44,34 @@
     box-sizing: border-box;
     outline: none;
 }
-.textAreaContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 163px;
-    box-sizing: border-box;
+.imageInput{
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
 }
+
+.sectionB{
+    display: flex;
+    flex-direction: column;
+    height: 52%;
+    width: 80%;
+    
+    align-self: flex-end;
+    justify-content: flex-end;
+}
+.address{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 130px;
+    
+}
+
 .textArea{
-    width: 60%;
+    width: 90%;
     height: 150px;
     resize: none;
     outline: none;
@@ -79,8 +94,13 @@
     margin: 0px;
 }
 .buttonContainer{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80px;
+}
+.onError{
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.4)
 }
