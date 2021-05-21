@@ -96,7 +96,6 @@ export const ViewRestaurantTab = () => {
       setSavedRestaurant(updatedRestaurant);
     }
   };
-  console.debug(savedRestaurant);
   return (
     <>
       <div className={styles.title}>
