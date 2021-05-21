@@ -12,11 +12,10 @@ export const GoogleInput = ({
   handleFullAddress,
   fullAddress,
 }) => {
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(fullAddress || '');
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
-    console.debug(results);
     const street = results[0].address_components.filter((item) => item.types[0] === 'route')[0]
       ?.long_name;
     const number = results[0].address_components.filter(
@@ -26,13 +25,17 @@ export const GoogleInput = ({
       (item) => item.types[0] === 'postal_code'
     )[0]?.long_name;
 
-    console.debug(value);
-
     const latLng = await getLatLng(results[0]);
 
     setAddress(value);
+    handleFullAddress(value);
     handleAddress({ street, number, zipcode });
-    handleCoordinates(latLng);
+    if (handleCoordinates) {
+      const parsedObj = { ...latLng };
+      parsedObj.lat = `${parsedObj.lat}`;
+      parsedObj.lng = `${parsedObj.lng}`;
+      handleCoordinates(parsedObj);
+    }
   };
   return (
     <PlacesAutocomplete

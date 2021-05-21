@@ -23,7 +23,7 @@ export const RestaurantInfo = ({ restaurant }) => {
         </div>
         <div className={styles.inputContainerA} style={{ width: '80%' }}>
           <p className={styles.label}>Full Address</p>
-          GOOGLE FULL ADDRESS
+          {restaurant?.fullAddress}
         </div>
       </div>
       <div className={styles.sectionB}>

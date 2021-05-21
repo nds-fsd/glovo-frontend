@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -21,6 +22,8 @@ export const ViewRestaurantTab = () => {
   const { dispatch } = useBackOfficeContext();
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+
   useEffect(() => {
     // * Fetch to get the restaurant from the user
     shortFetch({
@@ -30,6 +33,37 @@ export const ViewRestaurantTab = () => {
       token: true,
     });
   }, [id, isEdit]);
+
+  const initMap = () => {
+    let center;
+    if (coordinates) {
+      center = {
+        lat: parseFloat(coordinates?.lat),
+        lng: parseFloat(coordinates?.lng),
+      };
+    }
+    if (savedRestaurant) {
+      center = {
+        lat: parseFloat(savedRestaurant?.coordinates?.lat),
+        lng: parseFloat(savedRestaurant?.coordinates?.lng),
+      };
+    }
+
+    const map = new google.maps.Map(document.getElementById('map2'), {
+      zoom: 15,
+      center,
+    });
+    const marker = new google.maps.Marker({
+      position: center,
+      map,
+    });
+  };
+
+  useEffect(() => {
+    if (savedRestaurant?.coordinates?.lat && savedRestaurant?.coordinates?.lng) {
+      initMap();
+    }
+  }, [savedRestaurant]);
 
   const handleCategory = (catName) => {
     if (savedRestaurant.name) {
@@ -62,7 +96,7 @@ export const ViewRestaurantTab = () => {
       setSavedRestaurant(updatedRestaurant);
     }
   };
-
+  console.debug(savedRestaurant);
   return (
     <>
       <div className={styles.title}>
@@ -92,10 +126,10 @@ export const ViewRestaurantTab = () => {
           </>
         )}
         <div className={styles.column1}>
-          <label htmlFor="file-input" className={styles.restaurantImage}>
+          <label htmlFor="file-input2" className={styles.restaurantImage}>
             <div className={styles.imageCase}>
               <img
-                src={ImageSkeleton}
+                src={savedRestaurant?.image}
                 alt="camera"
                 className={classNames({ [styles.img]: true })}
               />
@@ -109,7 +143,7 @@ export const ViewRestaurantTab = () => {
               tagType={`${isEdit ? 'edit' : 'view'}`}
             />
           </div>
-          <div id="map" className={styles.map}>
+          <div id="map2" className={styles.map}>
             <Gmaps className={styles.icon} />
           </div>
         </div>
@@ -117,6 +151,7 @@ export const ViewRestaurantTab = () => {
           {!isEdit && <RestaurantInfo restaurant={savedRestaurant} />}
           {isEdit && (
             <RestaurantForm
+              handleCoordinates={(value) => setCoordinates(value)}
               handleCategories={(e) => {
                 handleCategory({
                   name: e.target.selectedOptions[0].innerText,

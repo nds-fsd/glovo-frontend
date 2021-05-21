@@ -133,7 +133,7 @@ export const OrdersTab = () => {
           </div>
         </div>
         <div className={styles.orders}>
-          {hasOrders && orders?.list.map((order) => <OrderRow order={order} />)}
+          {hasOrders && orders?.list.map((order) => <OrderRow key={order._id} order={order} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

@@ -26,6 +26,7 @@ export const RestaurantForm = ({
   const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
   const [categoryError, setCategoryError] = useState(false);
   const [address, setAddress] = useState({ street: '', number: '', zipcode: '' });
+  const [fullAddress, setFullAddress] = useState('');
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const { id } = useParams();
   const {
@@ -33,6 +34,7 @@ export const RestaurantForm = ({
     formState: { errors },
     handleSubmit,
   } = useForm();
+  // * fetch to cloudinary to save the picture
   const postDetails = (data) => {
     setImage(data);
     const formData = new FormData();
@@ -60,7 +62,12 @@ export const RestaurantForm = ({
         data,
         description,
         image,
-        onSuccess: () => dispatch({ type: STOP_CREATING }),
+        coordinates,
+        fullAddress,
+        onSuccess: () => {
+          dispatch({ type: STOP_CREATING });
+          setImage('');
+        },
       });
       return;
     }
@@ -71,13 +78,15 @@ export const RestaurantForm = ({
           categories,
           id,
           description,
+          image,
+          coordinates,
+          fullAddress,
           onSuccess: () => dispatch({ type: STOP_CREATING }),
         });
         onUpdate();
       }
     }
   };
-
   useEffect(() => {
     if (categories && categories.length === 0) {
       setCategoryError(true);
@@ -113,14 +122,19 @@ export const RestaurantForm = ({
         </div>
         <input
           className={styles.imageInput}
-          id="file-input"
+          id={restaurant ? 'file-input2' : 'file-input'}
           type="file"
           {...register('image')}
           onChange={(evt) => postDetails(evt.target.files[0])}
         />
         <GoogleInput
           handleAddress={(value) => setAddress(value)}
-          handleCoordinates={handleCoordinates}
+          handleCoordinates={(value) => {
+            setCoordinates(value);
+            handleCoordinates(value);
+          }}
+          handleFullAddress={(value) => setFullAddress(value)}
+          fullAddress={fullAddress || restaurant?.fullAddress}
         />
       </div>
       <div className={styles.sectionB}>
@@ -135,7 +149,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Street"
-              defaultValue={restaurant?.address?.street || address.street}
+              value={address.street ? address.street : restaurant?.address?.street}
               {...register('street', { required: 'Street name is required' })}
             />
             {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
@@ -147,7 +161,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Number"
-              defaultValue={restaurant?.address?.number || address.number}
+              value={address.number ? address.number : restaurant?.address?.number}
               {...register('number', {
                 required: 'Street number is required',
                 pattern: {
@@ -165,7 +179,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Zipcode"
-              defaultValue={restaurant?.address?.zipcode || address.zipcode}
+              value={address.zipcode ? address.zipcode : restaurant?.address?.zipcode}
               {...register('zipcode', {
                 required: 'zipcode number is required',
                 pattern: {
