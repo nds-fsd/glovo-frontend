@@ -61,7 +61,15 @@ export const useRestaurants = () => {
     setFilteredPages(undefined);
   };
 
-  const createRestaurant = ({ categories, data, description, onSuccess, image }) => {
+  const createRestaurant = ({
+    categories,
+    data,
+    description,
+    onSuccess,
+    image,
+    coordinates,
+    fullAddress,
+  }) => {
     if (data && categories.length > 0) {
       const categoryIds = categories.map((category) => {
         return category._id;
@@ -81,7 +89,9 @@ export const useRestaurants = () => {
           },
           restaurantCategory: categoryIds,
           user: userId,
-          img: image,
+          image,
+          coordinates,
+          fullAddress,
         },
         token: true,
         onSuccess: () => {
@@ -91,7 +101,16 @@ export const useRestaurants = () => {
       });
     }
   };
-  const updateRestaurant = ({ data, categories, id, description, onSuccess }) => {
+  const updateRestaurant = ({
+    data,
+    categories,
+    id,
+    description,
+    onSuccess,
+    image,
+    coordinates,
+    fullAddress,
+  }) => {
     if (data && categories.length > 0) {
       const categoryIds = categories.map((category) => {
         return category._id;
@@ -110,6 +129,9 @@ export const useRestaurants = () => {
           },
           restaurantCategory: categoryIds,
           user: userId,
+          image,
+          coordinates,
+          fullAddress,
         },
         token: true,
         onSuccess: () => {
