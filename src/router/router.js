@@ -11,3 +11,4 @@ export const COURSE = '/course';
 export const ALL_COURSES = '/course/all';
 export const DISH = '/dish';
 export const ORDERS = '/orders';
+export const GOOGLE_API_KEY = 'AIzaSyApiDOZcq06oLWPloF2lO3hfL729sRrRHw';

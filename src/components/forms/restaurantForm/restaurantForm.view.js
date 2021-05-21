@@ -1,31 +1,40 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import classNames from 'classnames';
 import { useRestaurants } from '../../../hooks/useRestaurants';
 import Button from '../../button';
 import CategorySelect from '../../categorySelect';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import styles from './restaurantForm.module.css';
 import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
+import GoogleInput from './googleInput';
 
-/**
- * @param handleCategories  to save, edit or delete the array of categories
- * @param  categories array of objects {name, _id } of the categories
- */
-export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpdate }) => {
+export const RestaurantForm = ({
+  handleCategories,
+  categories,
+  restaurant,
+  onUpdate,
+  handleCoordinates,
+}) => {
   const { image, setImage } = useBackOfficeContext();
   const { dispatch } = useBackOfficeContext();
   const { createRestaurant, updateRestaurant } = useRestaurants();
   const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
   const [categoryError, setCategoryError] = useState(false);
+  const [address, setAddress] = useState({ street: '', number: '', zipcode: '' });
+  const [fullAddress, setFullAddress] = useState('');
+  const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const { id } = useParams();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  // * fetch to cloudinary to save the picture
   const postDetails = (data) => {
     setImage(data);
     const formData = new FormData();
@@ -53,26 +62,33 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
         data,
         description,
         image,
-        onSuccess: () => dispatch({ type: STOP_CREATING }),
+        coordinates,
+        fullAddress,
+        onSuccess: () => {
+          dispatch({ type: STOP_CREATING });
+          setImage('');
+        },
       });
       return;
     }
     if (restaurant) {
-      if (data && categories.length > 0) {
+      if (data && categories && categories.length > 0) {
         updateRestaurant({
           data,
           categories,
           id,
           description,
+          image,
+          coordinates,
+          fullAddress,
           onSuccess: () => dispatch({ type: STOP_CREATING }),
         });
         onUpdate();
       }
     }
   };
-
   useEffect(() => {
-    if (categories.length === 0) {
+    if (categories && categories.length === 0) {
       setCategoryError(true);
       return;
     }
@@ -80,52 +96,72 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
   }, [categories]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ height: '100%', width: '100%' }}>
-      <div className={styles.inputs}>
-        <div className={styles.category_and_name}>
-          <div className={styles.inputContainerA}>
-            <input
-              className={styles.input}
-              type="text"
-              placeholder="Name"
-              defaultValue={restaurant && restaurant.name}
-              {...register('name', { required: 'Restaurant name is required' })}
-            />
-            {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
-          </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={styles.form}
+      style={{ height: '100%', width: '100%' }}
+    >
+      <div className={styles.sectionA}>
+        <div className={classNames([styles.inputContainerA], { [styles.onError]: errors.name })}>
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="Name"
+            defaultValue={restaurant && restaurant.name}
+            {...register('name', { required: 'Restaurant name is required' })}
+          />
+          {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
+        </div>
+        <div style={{ width: '60%' }}>
           {categoryError && <p className={styles.errorMessage}>Please choose at least one</p>}
           <CategorySelect
             onChange={(e) => {
               handleCategories(e);
             }}
           />
-          {console.log(image)}
         </div>
-        <div className={styles.imgUpload}>
-          <input
-            className={styles.input}
-            type="file"
-            {...register('image')}
-            onChange={(evt) => postDetails(evt.target.files[0])}
-          />
-        </div>
+        <input
+          className={styles.imageInput}
+          id={restaurant ? 'file-input2' : 'file-input'}
+          type="file"
+          {...register('image')}
+          onChange={(evt) => postDetails(evt.target.files[0])}
+        />
+        <GoogleInput
+          handleAddress={(value) => setAddress(value)}
+          handleCoordinates={(value) => {
+            setCoordinates(value);
+            handleCoordinates(value);
+          }}
+          handleFullAddress={(value) => setFullAddress(value)}
+          fullAddress={fullAddress || restaurant?.fullAddress}
+        />
+      </div>
+      <div className={styles.sectionB}>
         <div className={styles.address}>
-          <div className={styles.inputContainer}>
+          <div
+            className={classNames([styles.inputContainerC], {
+              [styles.onError]: errors && errors.street,
+            })}
+            style={{ width: '80%' }}
+          >
             <input
               className={styles.input}
               type="text"
               placeholder="Street"
-              defaultValue={restaurant && restaurant.address.street}
+              value={address.street ? address.street : restaurant?.address?.street}
               {...register('street', { required: 'Street name is required' })}
             />
             {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
           </div>
-          <div className={styles.inputContainer}>
+          <div
+            className={classNames([styles.inputContainerC], { [styles.onError]: errors.number })}
+          >
             <input
               className={styles.input}
               type="text"
               placeholder="Number"
-              defaultValue={restaurant && restaurant.address.number}
+              value={address.number ? address.number : restaurant?.address?.number}
               {...register('number', {
                 required: 'Street number is required',
                 pattern: {
@@ -136,12 +172,14 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
             />
             {errors.number && <p className={styles.errorMessage}>{errors.number.message}</p>}
           </div>
-          <div className={styles.inputContainer}>
+          <div
+            className={classNames([styles.inputContainerC], { [styles.onError]: errors.zipcode })}
+          >
             <input
               className={styles.input}
               type="text"
               placeholder="Zipcode"
-              defaultValue={restaurant && restaurant.address.zipcode}
+              value={address.zipcode ? address.zipcode : restaurant?.address?.zipcode}
               {...register('zipcode', {
                 required: 'zipcode number is required',
                 pattern: {
@@ -153,28 +191,24 @@ export const RestaurantForm = ({ handleCategories, categories, restaurant, onUpd
             {errors.zipcode && <p className={styles.errorMessage}>{errors.zipcode.message}</p>}
           </div>
         </div>
-      </div>
-
-      <div className={styles.textAreaContainer}>
         <textarea
           className={styles.textArea}
           placeholder="  Restaurant Description"
           defaultValue={restaurant && restaurant.restaurantDescription}
           onBlur={(e) => setDescription(e.target.value)}
         />
-      </div>
-
-      <div className={styles.buttonContainer}>
-        {!restaurant && (
-          <Button buttonStyle="signup" onClick={() => dispatch({ type: STOP_CREATING })}>
-            Cancel
-          </Button>
-        )}
-        <input
-          className={styles.submit}
-          type="submit"
-          value={`${!restaurant ? 'submit' : 'Update'}`}
-        />
+        <div className={styles.buttonContainer}>
+          {!restaurant && (
+            <Button buttonStyle="signup" onClick={() => dispatch({ type: STOP_CREATING })}>
+              Cancel
+            </Button>
+          )}
+          <input
+            className={styles.submit}
+            type="submit"
+            value={`${!restaurant ? 'submit' : 'Update'}`}
+          />
+        </div>
       </div>
     </form>
   );

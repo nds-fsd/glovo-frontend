@@ -1,9 +1,3 @@
-.form{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-}
 .sectionA{
     display: flex;
     flex-direction: column;
@@ -16,8 +10,8 @@
     margin-left: 27px;
 }
 .inputContainer, .inputContainerA, .inputContainerC {
+    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     width: 60%;
     height: 3em;
@@ -33,25 +27,6 @@
     margin: 5px;
 }
 
-.input{
-    align-self: flex-start;
-    font-size: 14px;
-    width: 90%;
-    height: 100%;
-    border: none;
-    border-radius: 15px;
-    padding: 10px;
-    box-sizing: border-box;
-    outline: none;
-}
-.imageInput{
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-        z-index: -1;
-}
 
 .sectionB{
     display: flex;
@@ -80,19 +55,7 @@
     font-family: var(--mainFont);
     background-color: transparent;
 }
-.submit{
-    height: 3.5em;
-    width: 25%;
-    background-color: var(--darkSalyBlue);
-    color: var(--salyWhite);
-    font-weight: 800;
-    border: none;
-    border-radius: 6px;
-}
-.errorMessage{
-    font-size: 0.7em;
-    margin: 0px;
-}
+
 .buttonContainer{
     width: 100%;
     display: flex;
@@ -100,7 +63,12 @@
     align-items: center;
     height: 80px;
 }
-.onError{
-    border: 1px solid red;
-    background-color: rgba(255, 0, 0, 0.4)
+.label{
+    position: absolute;
+    left: 0px;
+    top: -50%;
+    margin: 0;
+    font-size: 0.7em;
+    font-weight: 800;
+    color: var(--salyBlue);
 }
