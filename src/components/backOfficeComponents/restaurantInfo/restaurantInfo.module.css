@@ -1,0 +1,74 @@
+.sectionA{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    height: 48%;
+    box-sizing: border-box;
+    padding-top: 40px;
+    margin-left: 27px;
+}
+.inputContainer, .inputContainerA, .inputContainerC {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 60%;
+    height: 3em;
+    border: 1px solid var(--salyBlue);
+    border-radius: 15px;
+}
+.inputContainer{
+    width: 80%;
+}
+.inputContainerC{
+    width: 46%;
+    height: 2em;
+    margin: 5px;
+}
+
+
+.sectionB{
+    display: flex;
+    flex-direction: column;
+    height: 52%;
+    width: 80%;
+    
+    align-self: flex-end;
+    justify-content: flex-end;
+}
+.address{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 130px;
+    
+}
+
+.textArea{
+    width: 90%;
+    height: 150px;
+    resize: none;
+    outline: none;
+    border: 1px solid var(--salyBlue);
+    border-radius: 7px;
+    font-family: var(--mainFont);
+    background-color: transparent;
+}
+
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+.label{
+    position: absolute;
+    left: 0px;
+    top: -50%;
+    margin: 0;
+    font-size: 0.7em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}

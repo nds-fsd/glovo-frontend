@@ -17,7 +17,7 @@ export const CreateRestaurantTab = () => {
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
 
   const initMap = () => {
-    const center = { lat: coordinates.lat, lng: coordinates.lng };
+    const center = { lat: parseFloat(coordinates.lat), lng: parseFloat(coordinates.lng) };
 
     const map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -80,6 +80,7 @@ export const CreateRestaurantTab = () => {
       <div className={styles.column2}>
         <RestaurantForm
           handleCoordinates={(value) => setCoordinates(value)}
+          coordinates={coordinates}
           handleCategories={(e) => {
             handleCategory({ name: e.target.selectedOptions[0].innerText, _id: e.target.value });
           }}
