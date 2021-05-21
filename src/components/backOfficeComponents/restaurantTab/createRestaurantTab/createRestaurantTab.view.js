@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
@@ -69,6 +70,7 @@ export const CreateRestaurantTab = () => {
             />
             {!image && <FontAwesomeIcon icon="upload" style={{ color: 'var(--salyGray)' }} />}
           </div>
+          {console.log(image)}
         </label>
         <div className={styles.categoryDisplay}>
           <CategoryTags categoryNames={categoryNames} onClick={deleteCategory} tagType="create" />

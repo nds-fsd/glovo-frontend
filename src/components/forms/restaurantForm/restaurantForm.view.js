@@ -59,9 +59,9 @@ export const RestaurantForm = ({
         categories,
         data,
         description,
-        image,
         onSuccess: () => dispatch({ type: STOP_CREATING }),
       });
+      setImage('');
       return;
     }
     if (restaurant) {
@@ -74,6 +74,7 @@ export const RestaurantForm = ({
           onSuccess: () => dispatch({ type: STOP_CREATING }),
         });
         onUpdate();
+        setImage('');
       }
     }
   };

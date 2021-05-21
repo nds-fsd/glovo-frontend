@@ -1,6 +1,6 @@
-import styles from './profileModal.module.css';
+import styles from './profileDropdown.module.css';
 
-export const ProfileModal = ({ handleCloseModal, children }) => {
+export const ProfileDropdown = ({ handleCloseModal, children }) => {
   return (
     <div>
       <div className={styles._overlay} onClick={handleCloseModal}></div>

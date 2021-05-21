@@ -67,8 +67,6 @@ export const useRestaurants = () => {
         return category._id;
       });
 
-      console.log(image);
-
       shortFetch({
         url: RESTAURANT,
         method: 'POST',
