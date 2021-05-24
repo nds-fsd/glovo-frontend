@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
 import CategoryBar from '../../components/categoryBar';
@@ -7,6 +7,7 @@ import Button from '../../components/button';
 import RestaurantList from '../../components/restaurantList';
 import Footer from '../../components/footer';
 import { RestoListContext } from '../../components/context/restoListPageContext';
+import { roleContext } from '../../components/context/roleContext';
 import { RESTAURANT_CATEGORY, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import Header from '../../components/header';
@@ -19,6 +20,10 @@ export const RestaurantListPage = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
 
+  const { setProfileDropOpen, profileDropOpen } = useContext(roleContext);
+
+  const ref = useRef();
+
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
   }, []);
@@ -27,8 +32,13 @@ export const RestaurantListPage = () => {
 
   return (
     <>
-      <div className={styles.pageContainer}>
+      <div
+        className={styles.pageContainer}
+        ref={ref}
+        onClick={() => profileDropOpen && setProfileDropOpen(false)}
+      >
         <Header>
+          {console.log(ref)}
           <NavbarG
             openLoginModal={() => setOpenLoginModal(true)}
             openRegisterModal={() => setOpenSignupModal(true)}

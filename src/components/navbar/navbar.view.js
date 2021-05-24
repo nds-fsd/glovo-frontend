@@ -10,11 +10,12 @@ import Button from '../button';
 import styles from './navbar.module.css';
 import { BACKOFFICE } from '../../router/router';
 import { roleContext } from '../context/roleContext';
+import ProfileInfo from './profileInfo';
 
 export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const { role } = useContext(roleContext);
+  const { role, setProfileDropOpen, profileDropOpen } = useContext(roleContext);
 
   const handleScroll = debounce(() => {
     const currentScrollPos = window.pageYOffset;
@@ -56,12 +57,16 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                 />
               </Link>
             ) : (
-              <FontAwesomeIcon
-                icon="user-circle"
-                className={classNames([styles.icons], {
-                  [styles.movingIcons]: prevScrollPos > 350,
-                })}
-              />
+              <>
+                <FontAwesomeIcon
+                  icon="user-circle"
+                  className={classNames([styles.icons], {
+                    [styles.movingIcons]: prevScrollPos > 350,
+                  })}
+                  onClick={() => setProfileDropOpen(true)}
+                />
+                {profileDropOpen && <ProfileInfo />}
+              </>
             )}
             <FontAwesomeIcon
               icon="shopping-cart"

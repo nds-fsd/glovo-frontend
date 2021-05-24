@@ -8,7 +8,9 @@ export const roleContext = createContext();
 
 export const RoleContextProvider = ({ children }) => {
   const [role, setRole] = useState();
+  const [userDetails, setUserDetails] = useState('');
   const history = useHistory();
+  const [profileDropOpen, setProfileDropOpen] = useState(false);
 
   const confirmRole = (decision) => {
     if (role !== decision || (!role && getUserSession())) {
@@ -19,6 +21,7 @@ export const RoleContextProvider = ({ children }) => {
         onSuccess: (user) => {
           const rol = user.role;
           setRole(rol);
+          setUserDetails(user);
           if (rol !== `${decision}`) {
             history.push('/');
           }
@@ -26,7 +29,6 @@ export const RoleContextProvider = ({ children }) => {
         },
       });
     }
-    console.log(role);
   };
 
   const saveRole = (value) => {
@@ -39,6 +41,10 @@ export const RoleContextProvider = ({ children }) => {
     role,
     saveRole,
     confirmRole,
+    profileDropOpen,
+    setProfileDropOpen,
+    userDetails,
+    setUserDetails,
   };
 
   return <roleContext.Provider value={value}>{children}</roleContext.Provider>;
