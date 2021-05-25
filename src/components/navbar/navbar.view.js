@@ -67,7 +67,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                   className={classNames([styles.icons], {
                     [styles.movingIcons]: prevScrollPos > 350,
                   })}
-                  onClick={() => setProfileDropOpen(true)}
+                  onClick={() => setProfileDropOpen(!profileDropOpen)}
                 />
                 {profileDropOpen && <ProfileInfo />}
               </>
