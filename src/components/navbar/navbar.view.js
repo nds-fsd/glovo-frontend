@@ -15,7 +15,7 @@ import ProfileInfo from './profileInfo';
 export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const { role, setProfileDropOpen, profileDropOpen } = useContext(roleContext);
+  const { role, setProfileDropOpen, profileDropOpen, setEditingProfile } = useContext(roleContext);
 
   const handleScroll = debounce(() => {
     const currentScrollPos = window.pageYOffset;
@@ -27,6 +27,10 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
 
     setPrevScrollPos(currentScrollPos);
   }, 50);
+
+  useEffect(() => {
+    if (!profileDropOpen) setEditingProfile(false);
+  }, [profileDropOpen]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

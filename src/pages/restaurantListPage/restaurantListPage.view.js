@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
 import CategoryBar from '../../components/categoryBar';
@@ -22,8 +22,6 @@ export const RestaurantListPage = () => {
 
   const { setProfileDropOpen, profileDropOpen } = useContext(roleContext);
 
-  const ref = useRef();
-
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
   }, []);
@@ -32,20 +30,18 @@ export const RestaurantListPage = () => {
 
   return (
     <>
-      <div
-        className={styles.pageContainer}
-        ref={ref}
-        onClick={() => profileDropOpen && setProfileDropOpen(false)}
-      >
+      <div className={styles.pageContainer}>
         <Header>
-          {console.log(ref)}
           <NavbarG
             openLoginModal={() => setOpenLoginModal(true)}
             openRegisterModal={() => setOpenSignupModal(true)}
           />
         </Header>
         {!isSearching && (
-          <div className={styles.restaurantContainer}>
+          <div
+            className={styles.restaurantContainer}
+            onClick={() => profileDropOpen && setProfileDropOpen(false)}
+          >
             <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
             <div className={styles.title}>
               Choose a Category

@@ -11,6 +11,7 @@ export const RoleContextProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState('');
   const history = useHistory();
   const [profileDropOpen, setProfileDropOpen] = useState(false);
+  const [editingProfile, setEditingProfile] = useState(false);
 
   const confirmRole = (decision) => {
     if (role !== decision || (!role && getUserSession())) {
@@ -45,6 +46,8 @@ export const RoleContextProvider = ({ children }) => {
     setProfileDropOpen,
     userDetails,
     setUserDetails,
+    editingProfile,
+    setEditingProfile,
   };
 
   return <roleContext.Provider value={value}>{children}</roleContext.Provider>;
