@@ -67,7 +67,7 @@ export const Login = ({ openRegister, onClose }) => {
   };
 
   return (
-    <div className={styles.mainContainer}>
+    <div className={styles.mainContainer} data-cy="login-form">
       <img className={styles.loginImage} src={loginImage} alt="Two people in a meeting" />
       <h3 className={styles.welcome}>WELCOME BACK</h3>
       <h2 className={styles.accountLogin}>Account Log In</h2>
@@ -107,7 +107,7 @@ export const Login = ({ openRegister, onClose }) => {
             style={{ color: 'var(--salyGray)' }}
           />
         </div>
-        <input className={styles.submit} type="submit" value="Continue" />
+        <input data-cy="login-submit" className={styles.submit} type="submit" value="Continue" />
       </form>
       <p className={styles.footer}>
         Don&apos;t you have an account?{' '}

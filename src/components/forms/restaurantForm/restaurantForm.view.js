@@ -33,7 +33,19 @@ export const RestaurantForm = ({
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    if (restaurant && setValue) {
+      Object.keys(restaurant).forEach((key) => {
+        if (key !== 'image') {
+          setValue(key, `${restaurant[key]}`);
+        }
+      });
+    }
+  }, [setValue, restaurant]);
+
   // * fetch to cloudinary to save the picture
   const postDetails = (data) => {
     setImage(data);
@@ -55,6 +67,11 @@ export const RestaurantForm = ({
       });
   };
 
+  useEffect(() => {
+    if (restaurant) {
+      setImage(restaurant.image);
+    }
+  }, [restaurant]);
   const onSubmit = (data) => {
     if (!restaurant) {
       createRestaurant({

@@ -42,6 +42,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
         {getUserToken() ? (
           <>
             <FontAwesomeIcon
+              data-cy="user-circle"
               icon="user-circle"
               className={classNames([styles.icons], { [styles.movingIcons]: prevScrollPos > 350 })}
             />
@@ -52,7 +53,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
           </>
         ) : (
           <>
-            <Button buttonStyle="login" onClick={openLoginModal}>
+            <Button data-cy="login-button" buttonStyle="login" onClick={openLoginModal}>
               Sign in
             </Button>
             <Button buttonStyle="signup" onClick={openRegisterModal}>

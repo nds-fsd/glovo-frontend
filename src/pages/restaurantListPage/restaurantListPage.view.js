@@ -36,7 +36,9 @@ export const RestaurantListPage = () => {
         </Header>
         {!isSearching && (
           <div className={styles.restaurantContainer}>
-            <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
+            <h1 className={styles.title} data-cy="welcome-title">
+              WHAT&apos;s ON THE MENU?
+            </h1>
             <div className={styles.title}>
               Choose a Category
               {location.search && (

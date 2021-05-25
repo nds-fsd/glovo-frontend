@@ -13,7 +13,7 @@
     display: flex;
     width: 90%;
     min-width: 575px;
-    height: 90%;
+    height: 88%;
     background-color: var(--salyWhite);
      border: 2px solid var(--salyGrayBorder); 
     border-radius: 10px;
