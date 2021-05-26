@@ -1,3 +1,3 @@
-import { DishModal } from './dishModal.view';
+import { ViewOrderModal } from './viewOrderModal.view';
 
-export default DishModal;
+export default ViewOrderModal;
