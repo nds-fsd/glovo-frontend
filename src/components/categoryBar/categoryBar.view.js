@@ -1,13 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 import classnames from 'classnames';
-// import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-// import { RestoListContext } from '../context/restoListPageContext';
 import { RESTAURANT_LIST_PAGE } from '../../router/router';
 import styles from './categoryBar.module.css';
 
 export const CategoryBar = ({ children }) => {
-  // const { categorySelected } = useContext(RestoListContext);
   const history = useHistory();
   return (
     <div className={styles.container}>

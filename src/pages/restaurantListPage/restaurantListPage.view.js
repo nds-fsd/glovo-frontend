@@ -6,7 +6,6 @@ import CategoryBar from '../../components/categoryBar';
 import Button from '../../components/button';
 import RestaurantList from '../../components/restaurantList';
 import Footer from '../../components/footer';
-import { RestoListContext } from '../../components/context/restoListPageContext';
 import { roleContext } from '../../components/context/roleContext';
 import { RESTAURANT_CATEGORY, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
@@ -16,11 +15,16 @@ import LoginModal from '../../components/modal/loginModal';
 import SignupModal from '../../components/modal/signupModal';
 
 export const RestaurantListPage = () => {
-  const { categoryArr, setCategoryArr, isSearching } = useContext(RestoListContext);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
 
-  const { setProfileDropOpen, profileDropOpen } = useContext(roleContext);
+  const {
+    setProfileDropOpen,
+    profileDropOpen,
+    categoryArr,
+    setCategoryArr,
+    isSearching,
+  } = useContext(roleContext);
 
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
