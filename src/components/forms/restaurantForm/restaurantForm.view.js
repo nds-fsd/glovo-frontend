@@ -12,6 +12,7 @@ import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeCo
 import styles from './restaurantForm.module.css';
 import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
 import GoogleInput from './googleInput';
+import { uploadImage } from '../../../assets/utils/imgUpload';
 
 export const RestaurantForm = ({
   handleCategories,
@@ -37,37 +38,6 @@ export const RestaurantForm = ({
   } = useForm();
 
   useEffect(() => {
-    if (restaurant && setValue) {
-      Object.keys(restaurant).forEach((key) => {
-        if (key !== 'image') {
-          setValue(key, `${restaurant[key]}`);
-        }
-      });
-    }
-  }, [setValue, restaurant]);
-
-  // * fetch to cloudinary to save the picture
-  const postDetails = (data) => {
-    setImage(data);
-    const formData = new FormData();
-    formData.append('file', data);
-    formData.append('upload_preset', 'globoApp');
-    formData.append('cloud_name', 'partycloud');
-    fetch('	https://api.cloudinary.com/v1_1/partycloud/image/upload', {
-      method: 'post',
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((payload) => {
-        console.log('image uploaded', payload);
-        setImage(payload.url);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
     if (restaurant) {
       setImage(restaurant.image);
     }
@@ -86,6 +56,7 @@ export const RestaurantForm = ({
           setImage('');
         },
       });
+      setImage('');
       return;
     }
     if (restaurant) {
@@ -101,6 +72,7 @@ export const RestaurantForm = ({
           onSuccess: () => dispatch({ type: STOP_CREATING }),
         });
         onUpdate();
+        setImage('');
       }
     }
   };
@@ -140,7 +112,7 @@ export const RestaurantForm = ({
           id={restaurant ? 'file-input2' : 'file-input'}
           type="file"
           {...register('image')}
-          onChange={(evt) => postDetails(evt.target.files[0])}
+          onChange={(evt) => uploadImage(evt.target.files[0], setImage)}
         />
         <GoogleInput
           handleAddress={(value) => setAddress(value)}
