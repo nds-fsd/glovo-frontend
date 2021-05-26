@@ -1,6 +1,7 @@
 .form{
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     height: 100%;
     width: 100%;
 }
@@ -9,13 +10,14 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
-    width: 100%;
-    height: 48%;
+    width: 80%;
+    height: 100%;
     box-sizing: border-box;
     padding-top: 40px;
     margin-left: 27px;
 }
 .inputContainer, .inputContainerA, .inputContainerC {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +32,7 @@
 .inputContainerC{
     width: 46%;
     height: 2em;
-    margin: 5px;
+    margin: 5px 9px 5px 0;
 }
 
 .input{
@@ -58,8 +60,6 @@
     flex-direction: column;
     height: 52%;
     width: 80%;
-    
-    align-self: flex-end;
     justify-content: flex-end;
 }
 .address{
@@ -98,9 +98,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    height: 40px;
 }
 .onError{
     border: 1px solid red;
     background-color: rgba(255, 0, 0, 0.4)
+}
+.label{
+    position: absolute;
+    left: 0px;
+    top: -48%;
+    margin: 0;
+    font-size: 0.7em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}
+.descriptionLabel{
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 800;
+    color: var(--salyBlue);
 }

@@ -23,7 +23,11 @@ export const NightModeToggle = () => {
   return (
     <div className={styles.toggle}>
       <p className={styles.toggleTitle}>
-        Toggle Night Mode <FontAwesomeIcon icon="moon" style={{color: `${toggle ? "#e6c60d" : "var(--salyBlue)"}`}}/>
+        Toggle Night Mode{' '}
+        <FontAwesomeIcon
+          icon="moon"
+          style={{ color: `${toggle ? '#e6c60d' : 'var(--salyBlue)'}` }}
+        />
       </p>
       <label className={styles.switch}>
         <input className={styles.input} type="checkbox" onChange={() => setToggle(!toggle)} />

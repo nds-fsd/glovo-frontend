@@ -113,13 +113,10 @@ export const RestaurantForm = ({
   }, [categories]);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={styles.form}
-      style={{ height: '100%', width: '100%' }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.sectionA}>
         <div className={classNames([styles.inputContainerA], { [styles.onError]: errors.name })}>
+          <p className={styles.label}>Restaurant Name</p>
           <input
             className={styles.input}
             type="text"
@@ -129,8 +126,9 @@ export const RestaurantForm = ({
           />
           {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
         </div>
-        <div style={{ width: '60%' }}>
+        <div style={{ width: '60%', position: 'relative' }}>
           {categoryError && <p className={styles.errorMessage}>Please choose at least one</p>}
+          <p className={styles.label}>Category</p>
           <CategorySelect
             onChange={(e) => {
               handleCategories(e);
@@ -153,8 +151,6 @@ export const RestaurantForm = ({
           handleFullAddress={(value) => setFullAddress(value)}
           fullAddress={fullAddress || restaurant?.fullAddress}
         />
-      </div>
-      <div className={styles.sectionB}>
         <div className={styles.address}>
           <div
             className={classNames([styles.inputContainerC], {
@@ -162,6 +158,7 @@ export const RestaurantForm = ({
             })}
             style={{ width: '80%' }}
           >
+            <p className={styles.label}>Street Name</p>
             <input
               className={styles.input}
               type="text"
@@ -174,6 +171,7 @@ export const RestaurantForm = ({
           <div
             className={classNames([styles.inputContainerC], { [styles.onError]: errors.number })}
           >
+            <p className={styles.label}>Number</p>
             <input
               className={styles.input}
               type="text"
@@ -192,6 +190,7 @@ export const RestaurantForm = ({
           <div
             className={classNames([styles.inputContainerC], { [styles.onError]: errors.zipcode })}
           >
+            <p className={styles.label}>Zipcode</p>
             <input
               className={styles.input}
               type="text"
@@ -208,6 +207,7 @@ export const RestaurantForm = ({
             {errors.zipcode && <p className={styles.errorMessage}>{errors.zipcode.message}</p>}
           </div>
         </div>
+        <p className={styles.descriptionLabel}>Restaurant Description</p>
         <textarea
           className={styles.textArea}
           placeholder="  Restaurant Description"
