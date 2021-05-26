@@ -1,7 +1,7 @@
 .sectionA{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: flex-start;
     width: 100%;
     height: 48%;
@@ -9,33 +9,52 @@
     padding-top: 40px;
     margin-left: 27px;
 }
-.inputContainer, .inputContainerA, .inputContainerC {
+.card{
+    padding: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 250px;
+    width: 88%;
+    border: 1px solid var(--salyGrayBorder);
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+.inputContainerA{
     position: relative;
     display: flex;
     align-items: center;
     width: 60%;
-    height: 3em;
-    border: 1px solid var(--salyBlue);
-    border-radius: 15px;
+    height: 2em; 
+    border-bottom: 2px solid var(--salyBlue);
+    margin-bottom: 25px;
+    align-self: flex-start;
+}
+.inputContainerC {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 46%;
+    height: 2em;
+    border-bottom: 2px solid var(--salyBlue);
+    margin: 5px;
 }
 .inputContainer{
     width: 80%;
 }
-.inputContainerC{
-    width: 46%;
-    height: 2em;
-    margin: 5px;
-}
-
 
 .sectionB{
+    padding: 10px 0 0 10px;
     display: flex;
     flex-direction: column;
-    height: 52%;
-    width: 80%;
-    
+    height: 33%;
+    margin: 27px 19px;
+    width: 76%;
     align-self: flex-end;
-    justify-content: flex-end;
+    border: 1px solid var(--salyGrayBorder);
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
 .address{
     display: flex;
@@ -46,11 +65,9 @@
 }
 
 .textArea{
-    width: 90%;
-    height: 150px;
-    resize: none;
+    width: 96%;
+    height: 191px;
     outline: none;
-    border: 1px solid var(--salyBlue);
     border-radius: 7px;
     font-family: var(--mainFont);
     background-color: transparent;
@@ -66,9 +83,15 @@
 .label{
     position: absolute;
     left: 0px;
-    top: -50%;
+    top: -32%;
     margin: 0;
     font-size: 0.7em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}
+.descriptionLabel{
+    margin: 0;
+    font-size: 0.8em;
     font-weight: 800;
     color: var(--salyBlue);
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, createContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { shortFetch } from '../../assets/utils/fetch.utils';
@@ -7,7 +8,10 @@ export const roleContext = createContext();
 
 export const RoleContextProvider = ({ children }) => {
   const [role, setRole] = useState();
+  const [userDetails, setUserDetails] = useState('');
   const history = useHistory();
+  const [profileDropOpen, setProfileDropOpen] = useState(false);
+  const [editingProfile, setEditingProfile] = useState(false);
 
   const confirmRole = (decision) => {
     if (role !== decision || (!role && getUserSession())) {
@@ -18,6 +22,7 @@ export const RoleContextProvider = ({ children }) => {
         onSuccess: (user) => {
           const rol = user.role;
           setRole(rol);
+          setUserDetails(user);
           if (rol !== `${decision}`) {
             history.push('/');
           }
@@ -37,6 +42,12 @@ export const RoleContextProvider = ({ children }) => {
     role,
     saveRole,
     confirmRole,
+    profileDropOpen,
+    setProfileDropOpen,
+    userDetails,
+    setUserDetails,
+    editingProfile,
+    setEditingProfile,
   };
 
   return <roleContext.Provider value={value}>{children}</roleContext.Provider>;

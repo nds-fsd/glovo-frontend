@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
@@ -12,6 +11,7 @@ import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeCo
 import styles from './restaurantForm.module.css';
 import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
 import GoogleInput from './googleInput';
+import { uploadImage } from '../../../assets/utils/imgUpload';
 
 export const RestaurantForm = ({
   handleCategories,
@@ -33,28 +33,24 @@ export const RestaurantForm = ({
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm();
-  // * fetch to cloudinary to save the picture
-  const postDetails = (data) => {
-    setImage(data);
-    const formData = new FormData();
-    formData.append('file', data);
-    formData.append('upload_preset', 'globoApp');
-    formData.append('cloud_name', 'partycloud');
-    fetch('	https://api.cloudinary.com/v1_1/partycloud/image/upload', {
-      method: 'post',
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((payload) => {
-        console.log('image uploaded', payload);
-        setImage(payload.url);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
+  useEffect(() => {
+    if (restaurant && setValue) {
+      Object.keys(restaurant).forEach((key) => {
+        if (key !== 'image') {
+          setValue(key, `${restaurant[key]}`);
+        }
+      });
+    }
+  }, [setValue, restaurant]);
+
+  useEffect(() => {
+    if (restaurant) {
+      setImage(restaurant.image);
+    }
+  }, [restaurant]);
   const onSubmit = (data) => {
     if (!restaurant) {
       createRestaurant({
@@ -69,6 +65,7 @@ export const RestaurantForm = ({
           setImage('');
         },
       });
+      setImage('');
       return;
     }
     if (restaurant) {
@@ -84,6 +81,7 @@ export const RestaurantForm = ({
           onSuccess: () => dispatch({ type: STOP_CREATING }),
         });
         onUpdate();
+        setImage('');
       }
     }
   };
@@ -96,13 +94,10 @@ export const RestaurantForm = ({
   }, [categories]);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={styles.form}
-      style={{ height: '100%', width: '100%' }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.sectionA}>
         <div className={classNames([styles.inputContainerA], { [styles.onError]: errors.name })}>
+          <p className={styles.label}>Restaurant Name</p>
           <input
             className={styles.input}
             type="text"
@@ -112,8 +107,9 @@ export const RestaurantForm = ({
           />
           {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
         </div>
-        <div style={{ width: '60%' }}>
+        <div style={{ width: '60%', position: 'relative' }}>
           {categoryError && <p className={styles.errorMessage}>Please choose at least one</p>}
+          <p className={styles.label}>Category</p>
           <CategorySelect
             onChange={(e) => {
               handleCategories(e);
@@ -125,7 +121,7 @@ export const RestaurantForm = ({
           id={restaurant ? 'file-input2' : 'file-input'}
           type="file"
           {...register('image')}
-          onChange={(evt) => postDetails(evt.target.files[0])}
+          onChange={(evt) => uploadImage(evt.target.files[0], setImage)}
         />
         <GoogleInput
           handleAddress={(value) => setAddress(value)}
@@ -136,8 +132,6 @@ export const RestaurantForm = ({
           handleFullAddress={(value) => setFullAddress(value)}
           fullAddress={fullAddress || restaurant?.fullAddress}
         />
-      </div>
-      <div className={styles.sectionB}>
         <div className={styles.address}>
           <div
             className={classNames([styles.inputContainerC], {
@@ -145,6 +139,7 @@ export const RestaurantForm = ({
             })}
             style={{ width: '80%' }}
           >
+            <p className={styles.label}>Street Name</p>
             <input
               className={styles.input}
               type="text"
@@ -157,6 +152,7 @@ export const RestaurantForm = ({
           <div
             className={classNames([styles.inputContainerC], { [styles.onError]: errors.number })}
           >
+            <p className={styles.label}>Number</p>
             <input
               className={styles.input}
               type="text"
@@ -175,6 +171,7 @@ export const RestaurantForm = ({
           <div
             className={classNames([styles.inputContainerC], { [styles.onError]: errors.zipcode })}
           >
+            <p className={styles.label}>Zipcode</p>
             <input
               className={styles.input}
               type="text"
@@ -191,6 +188,7 @@ export const RestaurantForm = ({
             {errors.zipcode && <p className={styles.errorMessage}>{errors.zipcode.message}</p>}
           </div>
         </div>
+        <p className={styles.descriptionLabel}>Restaurant Description</p>
         <textarea
           className={styles.textArea}
           placeholder="  Restaurant Description"

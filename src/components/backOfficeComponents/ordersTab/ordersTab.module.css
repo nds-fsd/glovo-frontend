@@ -57,6 +57,14 @@
     max-height: 450px;
     overflow: scroll;
 }
+.orders::-webkit-scrollbar {
+    display: none;
+  }
+
+.orders {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
 .footer{
     display: flex;
     justify-content: space-between;

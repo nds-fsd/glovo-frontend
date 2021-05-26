@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../../assets/images/Logo.svg';
@@ -10,6 +11,7 @@ import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeCo
 import { removeSession } from '../../../assets/utils/localStorage.utils';
 import { CHANGE_TAB, VIEW_RESTAURANT } from '../../../pages/backOfficePage/backOfficeContext/types';
 import { BACKOFFICE } from '../../../router/router';
+import NightModeToggle from '../nightModeToggle';
 
 export const SideBar = () => {
   const { dispatch } = useBackOfficeContext();
@@ -59,6 +61,7 @@ export const SideBar = () => {
       >
         <Shutdown className={styles.icon} /> Log Out
       </div>
+      <NightModeToggle />
     </div>
   );
 };

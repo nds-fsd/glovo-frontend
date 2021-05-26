@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
@@ -96,7 +97,6 @@ export const ViewRestaurantTab = () => {
       setSavedRestaurant(updatedRestaurant);
     }
   };
-  console.debug(savedRestaurant);
   return (
     <>
       <div className={styles.title}>

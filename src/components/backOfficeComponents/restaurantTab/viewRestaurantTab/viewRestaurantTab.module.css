@@ -13,11 +13,10 @@
     display: flex;
     width: 90%;
     min-width: 575px;
-    height: 90%;
+    height: 88%;
     background-color: var(--salyWhite);
      border: 2px solid var(--salyGrayBorder); 
     border-radius: 10px;
-   
 }
 .column1{
     display: flex;
@@ -26,14 +25,12 @@
     justify-content: flex-start;
     width: 40%;
     height: 100%;
-   
 }
 .column2{
     display: flex;
     flex-direction: column;
     width: 60%;
     height: 100%;
-   
 }
 .restaurantImage{
     display: flex;
@@ -60,11 +57,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 100px;
+    margin-left: 79px;
     width: 115%;
     height: 45%;
-    border-radius: 10px;
+    border-radius: 18px;
     background-color: var(--lightSalyGray);
+    border: 1px solid var(--salyGrayBorder);
 }
 .icon{
     width: 50px;
