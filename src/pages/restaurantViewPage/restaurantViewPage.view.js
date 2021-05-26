@@ -17,6 +17,7 @@ import DeliveryInformation from '../../components/deliveryInformation';
 import Modal from '../../components/modal';
 import Button from '../../components/button';
 import { useCartContext } from '../../context/cartContext';
+import { Navbar } from '../../components/navbar/navbar.view';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -53,6 +54,7 @@ export const RestaurantViewPage = () => {
 
   return (
     <div>
+      <Navbar />
       <header className={styles._header}></header>
       <div className={styles._allContainter}>
         <div className={styles._restoCard}>
@@ -112,34 +114,36 @@ export const RestaurantViewPage = () => {
                     );
                   })}
               </div>
-              <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
-                <DropdownToggle
-                  caret
-                  tag="span"
-                  data-toggle="dropdown"
-                  aria-expanded={dropdownOpen}
-                  className={styles._dropToggle}
-                >
-                  <FontAwesomeIcon icon="ellipsis-h" className={styles._iconEllipsis} />
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <div className={styles._moreCourses}>
-                    {dropdownOpen &&
-                      dishByCourse &&
-                      dishByCourse.slice(3).map((course, i) => {
-                        return (
-                          <DropdownItem text className={styles._dropItem}>
-                            <div>
-                              <p key={course._id} onClick={() => handleClick(course._id)}>
-                                {capitalize(course.name)}
-                              </p>
-                            </div>
-                          </DropdownItem>
-                        );
-                      })}
-                  </div>
-                </DropdownMenu>
-              </Dropdown>
+              {dishByCourse?.length > 3 && (
+                <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+                  <DropdownToggle
+                    caret
+                    tag="span"
+                    data-toggle="dropdown"
+                    aria-expanded={dropdownOpen}
+                    className={styles._dropToggle}
+                  >
+                    <FontAwesomeIcon icon="ellipsis-h" className={styles._iconEllipsis} />
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <div className={styles._moreCourses}>
+                      {dropdownOpen &&
+                        dishByCourse &&
+                        dishByCourse.slice(3).map((course, i) => {
+                          return (
+                            <DropdownItem text className={styles._dropItem}>
+                              <div>
+                                <p key={course._id} onClick={() => handleClick(course._id)}>
+                                  {capitalize(course.name)}
+                                </p>
+                              </div>
+                            </DropdownItem>
+                          );
+                        })}
+                    </div>
+                  </DropdownMenu>
+                </Dropdown>
+              )}
             </div>
           </div>
           <div className={styles._allDishes}>
