@@ -12,6 +12,8 @@ export const RoleContextProvider = ({ children }) => {
   const history = useHistory();
   const [profileDropOpen, setProfileDropOpen] = useState(false);
   const [editingProfile, setEditingProfile] = useState(false);
+  const [categoryArr, setCategoryArr] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const confirmRole = (decision) => {
     if (role !== decision || (!role && getUserSession())) {
@@ -48,6 +50,10 @@ export const RoleContextProvider = ({ children }) => {
     setUserDetails,
     editingProfile,
     setEditingProfile,
+    categoryArr,
+    setCategoryArr,
+    isSearching,
+    setIsSearching,
   };
 
   return <roleContext.Provider value={value}>{children}</roleContext.Provider>;

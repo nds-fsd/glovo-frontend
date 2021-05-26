@@ -6,7 +6,6 @@ import * as Icons from '@fortawesome/free-solid-svg-icons';
 import RestaurantViewPage from './pages/restaurantViewPage';
 import RestaurantListPage from './pages/restaurantListPage';
 import { RESTAURANT_VIEW_PAGE, RESTAURANT_LIST_PAGE, BACKOFFICE } from './router/router';
-import { RestoListContextProvider } from './components/context/restoListPageContext';
 import { RoleContextProvider } from './components/context/roleContext';
 import { PrivateRoute } from './components/privateRoute/privateRoute.view';
 import BackOfficePage from './pages/backOfficePage';
@@ -35,9 +34,7 @@ function App() {
             </PrivateRoute>
             <Route path={RESTAURANT_LIST_PAGE}>
               <CartContextProvider>
-                <RestoListContextProvider>
-                  <RestaurantListPage />
-                </RestoListContextProvider>
+                <RestaurantListPage />
               </CartContextProvider>
             </Route>
             <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
