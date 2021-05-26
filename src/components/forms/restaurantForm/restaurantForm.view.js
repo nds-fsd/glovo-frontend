@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
@@ -36,6 +35,16 @@ export const RestaurantForm = ({
     handleSubmit,
     setValue,
   } = useForm();
+
+  useEffect(() => {
+    if (restaurant && setValue) {
+      Object.keys(restaurant).forEach((key) => {
+        if (key !== 'image') {
+          setValue(key, `${restaurant[key]}`);
+        }
+      });
+    }
+  }, [setValue, restaurant]);
 
   useEffect(() => {
     if (restaurant) {
