@@ -30,6 +30,13 @@
      opacity: 0;
     transition: visibility 0s linear 500ms, opacity 500ms;   
   }
+  .bigModal{
+      width: 60%;
+      max-width: 550px;
+      height: 70%;
+      padding: 0;
+      border-radius: 10px;
+  }
 
   .open{
     visibility: visible;

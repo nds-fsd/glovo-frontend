@@ -1,0 +1,97 @@
+.sectionA{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    height: 48%;
+    box-sizing: border-box;
+    padding-top: 40px;
+    margin-left: 27px;
+}
+.card{
+    padding: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 250px;
+    width: 88%;
+    border: 1px solid var(--salyGrayBorder);
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+.inputContainerA{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 60%;
+    height: 2em; 
+    border-bottom: 2px solid var(--salyBlue);
+    margin-bottom: 25px;
+    align-self: flex-start;
+}
+.inputContainerC {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 46%;
+    height: 2em;
+    border-bottom: 2px solid var(--salyBlue);
+    margin: 5px;
+}
+.inputContainer{
+    width: 80%;
+}
+
+.sectionB{
+    padding: 10px 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    height: 33%;
+    margin: 27px 19px;
+    width: 76%;
+    align-self: flex-end;
+    border: 1px solid var(--salyGrayBorder);
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+.address{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 130px;
+    
+}
+
+.textArea{
+    width: 96%;
+    height: 191px;
+    outline: none;
+    border-radius: 7px;
+    font-family: var(--mainFont);
+    background-color: transparent;
+}
+
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+}
+.label{
+    position: absolute;
+    left: 0px;
+    top: -32%;
+    margin: 0;
+    font-size: 0.7em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}
+.descriptionLabel{
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}

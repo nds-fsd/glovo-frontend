@@ -1,24 +1,14 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCartContext } from '../../context/cartContext';
 import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
 import styles from './dishItem.module.css';
 import dishImg from '../../assets/images/restExample.jpg';
 
-export const DishItem = ({
-  onClick,
-  onDishClick,
-  selectedDish,
-  deleteDish,
-  isDishList,
-  addToCart,
-  openModal,
-  viewDishInModal,
-}) => {
-  const [quantityDishes, setQuantityDishes] = useState(1);
-
+export const DishItem = ({ selectedDish, openModal }) => {
+  const { addToCart, viewDishInModal } = useCartContext();
   return (
     <div className={styles._itemContainer}>
       <div
@@ -26,8 +16,9 @@ export const DishItem = ({
         onClick={() => {
           openModal();
           viewDishInModal({
-            quantity: quantityDishes,
+            restoId: selectedDish.Restaurant,
             dish: selectedDish.name,
+            description: selectedDish.description,
             price: selectedDish.price,
             id: selectedDish._id,
           });
@@ -40,23 +31,25 @@ export const DishItem = ({
         onClick={() => {
           openModal();
           viewDishInModal({
-            quantity: quantityDishes,
+            restoId: selectedDish.Restaurant,
             dish: selectedDish.name,
+            description: selectedDish.description,
             price: selectedDish.price,
             id: selectedDish._id,
           });
         }}
       >
         <h3>{capitalize(selectedDish.name)}</h3>
-        <p>{selectedDish.description}</p>
+        <p>{capitalize(selectedDish.description)}</p>
       </div>
       <div className={styles._itemFooter}>
         <p
           onClick={() => {
             openModal();
             viewDishInModal({
-              quantity: quantityDishes,
+              restoId: selectedDish.Restaurant,
               dish: selectedDish.name,
+              description: selectedDish.description,
               price: selectedDish.price,
               id: selectedDish._id,
             });
@@ -68,9 +61,8 @@ export const DishItem = ({
           icon="cart-plus"
           className={styles._iconAdd}
           onClick={() => {
-            setQuantityDishes((prev) => prev + 1);
             addToCart({
-              quantity: quantityDishes,
+              restoId: selectedDish.Restaurant,
               dish: selectedDish.name,
               price: selectedDish.price,
               id: selectedDish._id,
@@ -78,25 +70,6 @@ export const DishItem = ({
           }}
         />
       </div>
-
-      {isDishList && (
-        <div>
-          <button onClick={() => deleteDish(selectedDish._id)}>X</button>
-          <button
-            onClick={() => {
-              onClick();
-              onDishClick({
-                name: selectedDish.name,
-                description: selectedDish.description,
-                price: selectedDish.price,
-                id: selectedDish._id,
-              });
-            }}
-          >
-            Update
-          </button>
-        </div>
-      )}
     </div>
   );
 };

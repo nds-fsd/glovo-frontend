@@ -1,38 +1,46 @@
+.title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+    padding-left: 15px;
+}
+.selectedRestaurant{
+    margin: 0.2em 0px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    min-width: 575px;
+    height: auto;
+    background-color: var(--salyWhite);
+    border: 2px solid var(--salyGrayBorder);
+    border-radius: 10px;
+    padding-top: 15px;
+}
 .header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 80px;
+    
 }
 .searchBar{
-    position: relative;
     width: 40%;
     height: 50px;
-    border: 2px solid var(--salyGray);
-    border-radius: 10px;
-    margin-left: 10px;
-    display: flex;
-    justify-content: flex-end;
 }
-.searchIcon{
-    position: absolute;
-    left: 9px;
-    top: 13px;
-    font-size: 25px;
-    color: var(--salyGray);
-}
-.searchInput{
-    outline: none;
-    width: 80%;
-    border: none;
-}
+
 .tableHeader{
     display: flex;
     align-items: center;
     justify-content: space-around;
     border-top: 1px solid var(--salyGrayBorder);
     border-bottom: 1px solid var(--salyGrayBorder);
+    width: 100%;
+    z-index: 9;
 }
 .column{
     display: flex;
@@ -44,6 +52,16 @@
 }
 .restaurants{
     width: 100%;
+    max-height: 450px;
+    overflow: scroll;
+}
+.restaurants::-webkit-scrollbar {
+    display: none;
+  }
+
+.restaurants {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
 }
 .footer{
     display: flex;
@@ -51,6 +69,7 @@
     align-items: center;
     padding: 0 10px;
     color: var(--salyBlue);
+    width: 90%;
 }
 .limit{
     display: flex;

@@ -47,6 +47,7 @@
     background-color: var(--lightSalyGray);
     border-radius: 10px;
     border: 1px solid var(--salyBlue);
+    z-index: 10;
 }
 .category{
     margin: 0;

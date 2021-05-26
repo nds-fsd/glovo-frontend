@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-console */
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
@@ -102,7 +101,7 @@ export const SignUpForm = ({ openLogin, onClose }) => {
             id="email"
             placeholder="your@email.com"
             {...register('email', {
-              required: 'Password is required',
+              required: 'Email is required',
               pattern: {
                 value: /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+)*)|(“.+“))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 message: 'Invalid email format',

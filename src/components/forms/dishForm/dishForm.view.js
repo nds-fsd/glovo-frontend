@@ -1,86 +1,73 @@
-/* eslint-disable no-console */
+/* eslint-disable react/jsx-props-no-spreading */
+
+import classNames from 'classnames';
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { shortFetch } from '../../../assets/utils/fetch.utils';
-import { InputText } from '../../inputText/inputText.view';
+import { useForm } from 'react-hook-form';
+import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import { useDishes } from '../../../hooks/useDishes';
 import styles from './dishForm.module.css';
-import { DISH } from '../../../router/router';
-import { isNumber, isRequired } from '../../../assets/utils/validations.utils';
+import { STOP_CREATE_DISH } from '../../../pages/backOfficePage/backOfficeContext/types';
 
-export const DishForm = ({ courseList }) => {
-  const [dishName, setDishName] = useState();
-  const [selectedCourse, setSelectedCourse] = useState();
-  const [price, setPrice] = useState();
-  const [anyError, setAnyError] = useState(false);
-  const { id } = useParams();
+export const DishForm = () => {
+  const {
+    dispatch,
+    state: { selectedCourse, selectedDish },
+  } = useBackOfficeContext();
+  const [description, setDescription] = useState(selectedDish?.description);
+  const { createDishes, editDish } = useDishes();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm();
 
-  const clearAll = () => {
-    setDishName('');
-    setSelectedCourse('');
-    setPrice('');
+  const onSuccess = () => {
+    dispatch({ type: STOP_CREATE_DISH });
+    reset();
   };
-  const validate = () => {
-    const hasError = Object.keys(anyError).find((key) => {
-      return anyError[key];
-    });
-    return hasError && hasError.length > 0;
-  };
-
-  const validateAndFetch = () => {
-    if (validate()) {
-      console.debug('failed to fetch');
-      return null;
+  const onSubmit = (data) => {
+    if (selectedDish.name) {
+      editDish({ dishId: selectedDish.id, data, description, onSuccess });
+      return;
     }
-    shortFetch({
-      url: DISH,
-      method: 'POST',
-      body: { name: dishName, price, Course: selectedCourse, Restaurant: { id } },
-    });
-    return clearAll();
+    createDishes({ courseId: selectedCourse.id, data, description, onSuccess });
   };
-
   return (
-    <div className={styles.container}>
-      <div className={`${styles.subContainer} ${styles.title}`}>
-        <InputText
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={classNames([styles.inputContainer], { [styles.onError]: errors.name })}>
+        <input
+          className={styles.input}
+          defaultValue={selectedDish?.name}
+          type="text"
           placeholder="Dish Name"
-          value={dishName}
-          handleChange={setDishName}
-          inputId="resDishName"
-          onError={(isError) => setAnyError({ ...anyError, name: isError })}
-          validations={[{ func: isRequired, message: 'this field is required' }]}
+          {...register('name', { required: 'Dish name is required' })}
         />
+        {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
       </div>
-      <div className={`${styles.subContainer} ${styles.category}`}>
-        <select onChange={(e) => setSelectedCourse(e.target.value)}>
-          <option value="" selected disabled hidden>
-            Select a Course
-          </option>
-          {courseList.map((course) => (
-            <option value={course._id}>{course.name}</option>
-          ))}
-        </select>
-      </div>
-      <div className={`${styles.subContainer} ${styles.description}`}>
-        <input type="text" placeholder="Dish description" />
-      </div>
-      <div className={`${styles.subContainer} ${styles.price}`}>
-        <InputText
+      <div className={classNames([styles.inputContainer], { [styles.onError]: errors.price })}>
+        <input
+          className={styles.input}
+          type="text"
+          defaultValue={selectedDish?.price}
           placeholder="Price"
-          value={price}
-          handleChange={setPrice}
-          inputId="resPrice"
-          onError={(isError) => setAnyError({ ...anyError, name: isError })}
-          validations={[
-            { func: isRequired, message: 'this field is required' },
-            { func: isNumber, message: "Please use numbers and '.'" },
-          ]}
+          {...register('price', {
+            required: 'Price is required',
+            pattern: {
+              value: /^-?\d+\.?\d*$/,
+              message: 'please enter a valid number',
+            },
+          })}
         />
+        {errors.price && <p className={styles.errorMessage}>{errors.price.message}</p>}
       </div>
-      <div className={`${styles.subContainer} ${styles.buttons}`}>
-        <button>cancel</button>
-        <button onClick={validateAndFetch}>create</button>
-      </div>
-    </div>
+      <textarea
+        className={styles.description}
+        placeholder="Description"
+        defaultValue={selectedDish && selectedDish.description}
+        onChange={(e) => setDescription(e.target.value)}
+      ></textarea>
+      <input type="submit" className={styles.submit} />
+    </form>
   );
 };

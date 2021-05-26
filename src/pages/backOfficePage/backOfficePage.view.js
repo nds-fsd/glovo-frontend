@@ -1,18 +1,26 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { backOfficeContext } from '../../components/context/backOfficeContext';
+import React from 'react';
+import { useBackOfficeContext } from './backOfficeContext/backOfficeContext';
 import SideBar from '../../components/backOfficeComponents/sideBar';
 import styles from './backOfficePage.module.css';
 import RestaurantTab from '../../components/backOfficeComponents/restaurantTab';
-import { BACKOFFICE } from '../../router/router';
-import MenuTab from '../../components/backOfficeComponents/menuTab';
 import DeleteRestaurantModal from '../../components/backOfficeComponents/backOfficeModal/deleteRestaurantModal';
+import {
+  CANCEL_DELETE,
+  STOP_CREATE_COURSE,
+  STOP_CREATE_DISH,
+  STOP_VIEW_ORDER,
+} from './backOfficeContext/types';
+import CreateCourseModal from '../../components/backOfficeComponents/backOfficeModal/createCourseModal';
+import DishModal from '../../components/backOfficeComponents/backOfficeModal/dishModal';
+import { OrdersTab } from '../../components/backOfficeComponents/ordersTab/ordersTab.view';
+import { ViewOrderModal } from '../../components/backOfficeComponents/backOfficeModal/viewOrderModal/viewOrderModal.view';
 
 export const BackOfficePage = () => {
-  const { selectedTab, deleteRestaurantModal, setDeleteRestaurantModal } = useContext(
-    backOfficeContext
-  );
-  const history = useHistory();
+  const {
+    dispatch,
+    state: { deleteRestaurantModal, selectedTab, createCourse, createDish, viewOrderModal },
+  } = useBackOfficeContext();
+
   return (
     <div className={styles.container}>
       <div className={styles.dashboard}>
@@ -20,18 +28,23 @@ export const BackOfficePage = () => {
           <SideBar />
         </div>
         <div className={styles.content}>
-          <div className={styles.title}>
-            <h1 className={styles.selectedTab} onClick={() => history.push(BACKOFFICE)}>
-              {selectedTab}
-            </h1>
-          </div>
-          {selectedTab === 'Restaurants' && <RestaurantTab />}
-          {selectedTab !== 'Restaurants' && selectedTab !== 'Users' && <MenuTab />}
+          {selectedTab.name === 'Restaurants' && <RestaurantTab />}
+          {selectedTab.name === 'Orders' && <OrdersTab />}
         </div>
       </div>
       <DeleteRestaurantModal
         open={deleteRestaurantModal}
-        onClose={() => setDeleteRestaurantModal(false)}
+        onClose={() => dispatch({ type: CANCEL_DELETE })}
+      />
+      <CreateCourseModal
+        open={createCourse}
+        onClose={() => dispatch({ type: STOP_CREATE_COURSE })}
+      />
+      <DishModal bigModal open={createDish} onClose={() => dispatch({ type: STOP_CREATE_DISH })} />
+      <ViewOrderModal
+        bigModal
+        open={viewOrderModal}
+        onClose={() => dispatch({ type: STOP_VIEW_ORDER })}
       />
     </div>
   );

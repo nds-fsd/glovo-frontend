@@ -1,0 +1,21 @@
+.itemContainer{
+    display: flex;
+    height: 50px;
+    border-radius: 10px;
+}
+.itemContainer:hover{
+    background-color: var(--lightSalyGray);
+}
+.quantity{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    font-weight: 900;
+}
+.dishName{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}

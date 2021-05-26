@@ -2,12 +2,12 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './searchBox.module.css';
-import { RestoListContext } from '../context/restoListPageContext';
+import { roleContext } from '../context/roleContext';
 import { RESTAURANT_LIST_PAGE } from '../../router/router';
 
 export const SearchBox = () => {
   const history = useHistory();
-  const { setIsSearching } = useContext(RestoListContext);
+  const { setIsSearching } = useContext(roleContext);
   const isTyping = (evt) => {
     setIsSearching(true);
     history.push(`${RESTAURANT_LIST_PAGE}/search?search=${evt.target.value}`);

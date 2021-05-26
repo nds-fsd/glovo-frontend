@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import styles from './logIn.module.css';
+import styles from './login.module.css';
 import { BACKEND } from '../../router/router';
 import { setSessionUser } from '../../assets/utils/localStorage.utils';
 import { roleContext } from '../context/roleContext';
@@ -51,6 +52,7 @@ export const Login = ({ openRegister, onClose }) => {
           return Promise.reject(newError);
         })
         .then((user) => {
+          console.log(user);
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
           onClose();
@@ -67,7 +69,7 @@ export const Login = ({ openRegister, onClose }) => {
   };
 
   return (
-    <div className={styles.mainContainer}>
+    <div className={styles.mainContainer} data-cy="login-form">
       <img className={styles.loginImage} src={loginImage} alt="Two people in a meeting" />
       <h3 className={styles.welcome}>WELCOME BACK</h3>
       <h2 className={styles.accountLogin}>Account Log In</h2>
@@ -107,7 +109,7 @@ export const Login = ({ openRegister, onClose }) => {
             style={{ color: 'var(--salyGray)' }}
           />
         </div>
-        <input className={styles.submit} type="submit" value="Continue" />
+        <input data-cy="login-submit" className={styles.submit} type="submit" value="Continue" />
       </form>
       <p className={styles.footer}>
         Don&apos;t you have an account?{' '}

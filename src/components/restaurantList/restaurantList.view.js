@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable no-console */
 /* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
@@ -44,7 +43,6 @@ export const RestaurantList = () => {
   }, [history.location.search]);
   return (
     <div className={styles.container}>
-      {console.log(query.get('search'))}
       {allRest &&
         allRest.map((resto) => {
           return <RestaurantItem key={resto._id} restaurant={resto} />;

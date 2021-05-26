@@ -1,10 +1,12 @@
+/* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
 import CategoryBar from '../../components/categoryBar';
 import Button from '../../components/button';
 import RestaurantList from '../../components/restaurantList';
-import { RestoListContext } from '../../components/context/restoListPageContext';
+import Footer from '../../components/footer';
+import { roleContext } from '../../components/context/roleContext';
 import { RESTAURANT_CATEGORY, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import Header from '../../components/header';
@@ -13,16 +15,23 @@ import LoginModal from '../../components/modal/loginModal';
 import SignupModal from '../../components/modal/signupModal';
 
 export const RestaurantListPage = () => {
-  const { categoryArr, setCategoryArr, isSearching } = useContext(RestoListContext);
-
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
+
+  const {
+    setProfileDropOpen,
+    profileDropOpen,
+    categoryArr,
+    setCategoryArr,
+    isSearching,
+  } = useContext(roleContext);
 
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
   }, []);
   const history = useHistory();
   const location = useLocation();
+
   return (
     <>
       <div className={styles.pageContainer}>
@@ -33,7 +42,10 @@ export const RestaurantListPage = () => {
           />
         </Header>
         {!isSearching && (
-          <div className={styles.restaurantContainer}>
+          <div
+            className={styles.restaurantContainer}
+            onClick={() => profileDropOpen && setProfileDropOpen(false)}
+          >
             <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
             <div className={styles.title}>
               Choose a Category
@@ -52,7 +64,9 @@ export const RestaurantListPage = () => {
             <RestaurantList />
           </div>
         )}
+        <Footer />
       </div>
+
       <LoginModal
         open={openLoginModal}
         openRegister={() => {

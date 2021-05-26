@@ -1,42 +1,40 @@
 .form{
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
     width: 100%;
-    height: 55%;
 }
-.inputs{
+.sectionA{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 100px;
+    align-items: flex-start;
+    width: 80%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 40px;
+    margin-left: 27px;
 }
-.category_and_name,
-.address{
-    display: flex;
-    flex-direction: column;
-    margin-top: 22px;
-    height: 165px;
-    width: 35%;
-}
-.category_and_name{
-    justify-content: center;
-    align-items: center;
-}
-.inputContainer, .inputContainerA {
+.inputContainer, .inputContainerA, .inputContainerC {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
-    height: 22%;
+    width: 60%;
+    height: 3em;
     border: 1px solid var(--salyBlue);
     border-radius: 15px;
-    margin-bottom: 13px;
-    padding-right: 10px;
 }
-.inputContainerA{
-    height: 35%;
+.inputContainer{
+    width: 80%;
 }
+.inputContainerC{
+    width: 46%;
+    height: 2em;
+    margin: 5px 9px 5px 0;
+}
+
 .input{
     align-self: flex-start;
     font-size: 14px;
@@ -48,17 +46,32 @@
     box-sizing: border-box;
     outline: none;
 }
-.textAreaContainer{
-    width: 56%;
-    height: 163px;
-    margin: 10px;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
+.imageInput{
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
 }
+
+.sectionB{
+    display: flex;
+    flex-direction: column;
+    height: 52%;
+    width: 80%;
+    justify-content: flex-end;
+}
+.address{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 130px;
+    
+}
+
 .textArea{
-    width: 384px;
+    width: 90%;
     height: 150px;
     resize: none;
     outline: none;
@@ -66,11 +79,6 @@
     border-radius: 7px;
     font-family: var(--mainFont);
     background-color: transparent;
-}
-.text_and_submit{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
 .submit{
     height: 3.5em;
@@ -80,9 +88,34 @@
     font-weight: 800;
     border: none;
     border-radius: 6px;
-    align-self: flex-end;
 }
 .errorMessage{
     font-size: 0.7em;
     margin: 0px;
+}
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+.onError{
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.4)
+}
+.label{
+    position: absolute;
+    left: 0px;
+    top: -48%;
+    margin: 0;
+    font-size: 0.7em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}
+.descriptionLabel{
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 800;
+    color: var(--salyBlue);
 }
