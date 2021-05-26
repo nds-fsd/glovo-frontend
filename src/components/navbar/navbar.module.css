@@ -8,6 +8,7 @@
     height: 100px;
     transition: top 0.6s;
     width: 100%;
+    z-index: 999999;
 }
 .buttons {
     display: flex;
@@ -22,13 +23,13 @@
 }
 .moving{
     background: linear-gradient(110.34deg, #0470DC -2.02%, #13F1FC 129.72%);
-    border-radius: 20px;
     height: 80px;
 }
 .icons{
     font-size: 2em;
     color: var(--salyBlue);
     margin: 0 10px;
+    cursor: pointer;
 }
 .movingIcons{
     color: var(--salyWhite);
