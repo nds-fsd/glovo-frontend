@@ -46,6 +46,7 @@ export const GoogleInput = ({
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div className={classNames([styles.inputContainer])}>
+            <p className={styles.label}>Full Address</p>
           <input
             className={styles.input}
             type="text"

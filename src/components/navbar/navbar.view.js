@@ -79,7 +79,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
           </>
         ) : (
           <>
-            <Button buttonStyle="login" onClick={openLoginModal}>
+            <Button data-cy="login-button" buttonStyle="login" onClick={openLoginModal}>
               Sign in
             </Button>
             <Button buttonStyle="signup" onClick={openRegisterModal}>
