@@ -55,6 +55,14 @@
     max-height: 450px;
     overflow: scroll;
 }
+.restaurants::-webkit-scrollbar {
+    display: none;
+  }
+
+.restaurants {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
 .footer{
     display: flex;
     justify-content: space-between;
