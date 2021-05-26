@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '..';
-import Login from '../../login';
+import Login from '../../logIn';
 
 export const LoginModal = ({ onClose, open, openRegister }) => {
   return (
