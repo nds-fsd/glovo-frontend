@@ -8,9 +8,10 @@ import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
 import Button from '../button';
 import styles from './navbar.module.css';
-import { BACKOFFICE } from '../../router/router';
+import { BACKOFFICE, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { roleContext } from '../context/roleContext';
 import ProfileInfo from './profileInfo';
+import logoBalloon from '../../assets/images/letteringWhite.png';
 
 export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -45,7 +46,11 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
         { [styles.moving]: prevScrollPos > 350 }
       )}
     >
-      <div>LOGO</div>
+      <div className={styles._logoContainer}>
+        <Link to={RESTAURANT_LIST_PAGE}>
+          <img src={logoBalloon} alt="logo" className={styles._hotAirBalloon} />
+        </Link>
+      </div>
       {}
       <SearchBox />
       <div className={classNames([styles.buttons])}>

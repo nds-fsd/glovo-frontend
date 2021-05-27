@@ -121,9 +121,11 @@ const DeliveryInformation = ({ selectedResto }) => {
         <div className={styles._orderPreparing}>
           <img src={imgProcessing} alt="order" className={styles._imgPreparing}></img>
         </div>
-        {/* <Link to={`${RESTAURANT_LIST_PAGE}`}></Link> */}
+
         <Button onClick={() => handleClick()} buttonStyle="payOrder">
-          Go to homepage
+          <Link to={`${RESTAURANT_LIST_PAGE}`} className={styles._linkPay}>
+            Go to homepage
+          </Link>
         </Button>
       </Modal>
     </div>

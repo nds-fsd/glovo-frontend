@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import styles from './login.module.css';
+import styles from './logIn.module.css';
 import { BACKEND } from '../../router/router';
 import { setSessionUser } from '../../assets/utils/localStorage.utils';
 import { roleContext } from '../context/roleContext';
