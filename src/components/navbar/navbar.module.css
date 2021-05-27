@@ -5,15 +5,15 @@
     justify-content: space-around;
     position: fixed;
     top: 0;
-    height: 100px;
+    height: 120px;
     transition: top 0.6s;
     width: 100%;
     z-index: 999999;
 }
 
 ._logoContainer {
-    width: 60px; 
-    height: 60px;
+    width: 140px; 
+    height: 140px;
 }
 
 ._hotAirBalloon {
@@ -32,7 +32,7 @@
 }
 .moving{
     background: linear-gradient(110.34deg, #0470DC -2.02%, #13F1FC 129.72%);
-    height: 80px;
+    height: 100px;
 }
 .icons{
     font-size: 2em;
