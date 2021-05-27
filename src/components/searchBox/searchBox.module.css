@@ -1,0 +1,19 @@
+._container {
+    display: flex;
+    align-items: center;
+}
+
+._searchBar {
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  width: 15.6rem;
+  padding: 10px;
+}
+
+._searchIcon {
+    font-size: 18px;
+    color: var(--darkGrey);
+    position: relative;
+    right: 1.875rem;
+}

@@ -11,6 +11,7 @@ import styles from './navbar.module.css';
 import { BACKOFFICE } from '../../router/router';
 import { roleContext } from '../context/roleContext';
 import ProfileInfo from './profileInfo';
+import logoBalloon from '../../assets/images/hot-air-balloon.png'
 
 export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -45,7 +46,9 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
         { [styles.moving]: prevScrollPos > 350 }
       )}
     >
-      <div>LOGO</div>
+      <div className={styles._logoContainer}>
+        <img src={logoBalloon} alt="logo" className={styles._hotAirBalloon} />
+      </div>
       {}
       <SearchBox />
       <div className={classNames([styles.buttons])}>
