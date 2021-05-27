@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { useForm } from 'react-hook-form';
@@ -52,7 +51,6 @@ export const Login = ({ openRegister, onClose }) => {
           return Promise.reject(newError);
         })
         .then((user) => {
-          console.log(user);
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
           onClose();
