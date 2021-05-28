@@ -9,6 +9,7 @@ import RestaurantSelect from '../restaurantSelect';
 import styles from './ordersTab.module.css';
 import OrderRow from '../orderRow';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import Loading from '../../loading';
 
 export const OrdersTab = () => {
   const {
@@ -133,7 +134,8 @@ export const OrdersTab = () => {
           </div>
         </div>
         <div className={styles.orders}>
-          {hasOrders && orders?.list.map((order) => <OrderRow key={order._id} order={order} />)}
+          <Loading />
+          {/* {hasOrders && orders?.list.map((order) => <OrderRow key={order._id} order={order} />)} */}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

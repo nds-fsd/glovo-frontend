@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../../assets/images/Logo.svg';
+import logo from '../../../assets/images/LogoBlack.png';
 import { ReactComponent as Cutlery } from '../../../assets/icons/cutlery.svg';
 import { ReactComponent as User } from '../../../assets/icons/User.svg';
 import { ReactComponent as Shutdown } from '../../../assets/icons/Shutdown.svg';
@@ -22,8 +22,8 @@ export const SideBar = () => {
   };
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>
-        <Logo className={styles.icon} onClick={() => history.push('/')} />
+      <div className={styles.logoContainer}>
+        <img className={styles.logo} src={logo} onClick={() => history.push('/')} alt="logo" />
       </div>
 
       <h4 className={styles.title}>MY RESTAURANT</h4>
