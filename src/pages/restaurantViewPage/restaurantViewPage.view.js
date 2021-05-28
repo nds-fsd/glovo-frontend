@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
@@ -172,7 +173,7 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation selectedResto={selectedResto} />
+          <DeliveryInformation selectedResto={selectedResto} showIcons />
         </div>
       </div>
     </div>

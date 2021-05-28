@@ -15,7 +15,7 @@ import Modal from '../modal/modal.view';
 import imgProcessing from '../../assets/images/image_processing20191001-8524-s4802o.gif';
 import { RESTAURANT_LIST_PAGE } from '../../router/router';
 
-const DeliveryInformation = ({ selectedResto }) => {
+const DeliveryInformation = ({ selectedResto, showIcons }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { completedCart, addToCart, removeItemInCart, setCompletedCart } = useCartContext();
   let totalPrice = 0;
@@ -56,11 +56,13 @@ const DeliveryInformation = ({ selectedResto }) => {
     <div className={styles._cardContainer}>
       <h1>Your Glovo</h1>
       <div className={styles._restoFeatures}>
-        <div className={styles._allIconsFeatures}>
-          <FontAwesomeIcon icon="clock" className={styles._iconsFeatures} />
-          <FontAwesomeIcon icon="coins" className={styles._iconsFeatures} />
-          <FontAwesomeIcon icon="bicycle" className={styles._iconsFeatures} />
-        </div>
+        {showIcons && (
+          <div className={styles._allIconsFeatures}>
+            <FontAwesomeIcon icon="clock" className={styles._iconsFeatures} />
+            <FontAwesomeIcon icon="coins" className={styles._iconsFeatures} />
+            <FontAwesomeIcon icon="bicycle" className={styles._iconsFeatures} />
+          </div>
+        )}
         {selectedResto && (
           <div className={styles._allFeatures}>
             <p style={{ margin: '0' }}>{selectedResto.deliveryTime}</p>

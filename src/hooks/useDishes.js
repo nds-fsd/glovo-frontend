@@ -67,11 +67,12 @@ export const useDishes = () => {
     });
   };
 
-  const createDishes = ({ courseId, data, description, onSuccess }) => {
+  const createDishes = ({ courseId, data, description, onSuccess, dishImg }) => {
     const body = {
       Course: courseId,
       name: data.name,
       price: data.price,
+      img: dishImg,
       description,
     };
     shortFetch({ url: `${DISH}`, method: 'POST', token: true, body, onSuccess });
