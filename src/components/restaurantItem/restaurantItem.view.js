@@ -10,7 +10,11 @@ export const RestaurantItem = ({ restaurant }) => {
       <div className={styles.flip_card_inner}>
         <div className={styles.flip_card_front}>
           <Link to={`/restaurantViewPage/${restaurant._id}`}>
-            <img src={restExample} alt="a Restaurant" className={styles.restaurantImage} />
+            <img
+              src={restaurant.image || restExample}
+              alt="a Restaurant"
+              className={styles.restaurantImage}
+            />
           </Link>
           <div className={styles.name}>
             <p>{restaurant.name}</p>

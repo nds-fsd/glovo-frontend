@@ -7,7 +7,7 @@ import Button from '../../components/button';
 import RestaurantList from '../../components/restaurantList';
 import Footer from '../../components/footer';
 import { roleContext } from '../../components/context/roleContext';
-import { RESTAURANT_CATEGORY, RESTAURANT_LIST_PAGE } from '../../router/router';
+import { RESTAURANT_CATEGORY } from '../../router/router';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import Header from '../../components/header';
 import NavbarG from '../../components/navbar';
@@ -17,6 +17,7 @@ import SignupModal from '../../components/modal/signupModal';
 export const RestaurantListPage = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
+  const [openCategoryBar, setOpenCategoryBar] = useState(false);
 
   const {
     setProfileDropOpen,
@@ -48,14 +49,23 @@ export const RestaurantListPage = () => {
           >
             <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
             <div className={styles.title}>
-              Choose a Category
+              <Button
+                buttonStyle="primary big"
+                onClick={() => {
+                  setOpenCategoryBar(true);
+                }}
+              >
+                Choose a Category
+              </Button>
               {location.search && (
-                <Button buttonStyle="signup" onClick={() => history.push(RESTAURANT_LIST_PAGE)}>
-                  View All
-                </Button>
+                <>
+                  <div className={styles.categoryName}>{history.location.search.slice(6)}</div>
+                </>
               )}
             </div>
-            <CategoryBar>{categoryArr}</CategoryBar>
+            <CategoryBar open={openCategoryBar} onClose={() => setOpenCategoryBar(false)}>
+              {categoryArr}
+            </CategoryBar>
             <RestaurantList />
           </div>
         )}

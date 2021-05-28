@@ -1,16 +1,29 @@
 .container{
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-self: center;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
 }
-.listContainer{
+.open{
+    width: 250px;
+}
+.category{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    height: 40px;
+    border: 1px solid green;
+    color: white;
 }
-
 .restaurantItem{
     display: flex;
     justify-content: center;

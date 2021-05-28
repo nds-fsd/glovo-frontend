@@ -42,11 +42,15 @@ export const RestaurantList = () => {
     }
   }, [history.location.search]);
   return (
-    <div className={styles.container}>
-      {allRest &&
-        allRest.map((resto) => {
-          return <RestaurantItem key={resto._id} restaurant={resto} />;
-        })}
-    </div>
+    <>
+      <div className={styles.fader}></div>
+      <div className={styles.container}>
+        {allRest &&
+          allRest.map((resto) => {
+            return <RestaurantItem key={resto._id} restaurant={resto} />;
+          })}
+      </div>
+      <div className={styles.reverseFader}></div>
+    </>
   );
 };
