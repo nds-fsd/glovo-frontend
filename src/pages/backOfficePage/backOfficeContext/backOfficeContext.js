@@ -6,6 +6,7 @@ import { backOfficeReducer } from './backOfficeReducer';
 import { SELECT_RESTAURANT } from './types';
 
 const initialState = {
+  isNightMode: false,
   createRestaurant: false,
   createCourse: false,
   createDish: false,

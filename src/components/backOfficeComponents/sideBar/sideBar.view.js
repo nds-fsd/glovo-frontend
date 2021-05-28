@@ -2,6 +2,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '../../../assets/images/LogoBlack.png';
+import nightLogo from '../../../assets/images/LogoWhite.png';
 import { ReactComponent as Cutlery } from '../../../assets/icons/cutlery.svg';
 import { ReactComponent as User } from '../../../assets/icons/User.svg';
 import { ReactComponent as Shutdown } from '../../../assets/icons/Shutdown.svg';
@@ -14,7 +15,10 @@ import { BACKOFFICE } from '../../../router/router';
 import NightModeToggle from '../nightModeToggle';
 
 export const SideBar = () => {
-  const { dispatch } = useBackOfficeContext();
+  const {
+    dispatch,
+    state: { isNightMode },
+  } = useBackOfficeContext();
   const history = useHistory();
   const handleLogOut = () => {
     removeSession();
@@ -23,7 +27,12 @@ export const SideBar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
-        <img className={styles.logo} src={logo} onClick={() => history.push('/')} alt="logo" />
+        <img
+          className={styles.logo}
+          src={`${isNightMode ? nightLogo : logo}`}
+          onClick={() => history.push('/')}
+          alt="logo"
+        />
       </div>
 
       <h4 className={styles.title}>MY RESTAURANT</h4>

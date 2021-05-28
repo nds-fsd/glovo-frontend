@@ -4,7 +4,8 @@
     align-items: center;
     height: 40px;
     width: 240px;
+    color: var(--salyBlack);
 }
 .icon:hover{
-    color: black;
+    color: var(--salyBlack);
 }

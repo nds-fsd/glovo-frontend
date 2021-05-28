@@ -18,3 +18,4 @@ export const EDIT_DISH = 'EDIT_DISH';
 export const STOP_CREATE_DISH = 'STOP_CREATE_DISH';
 export const VIEW_ORDER = 'VIEW_ORDER';
 export const STOP_VIEW_ORDER = 'STOP_VIEW_ORDER';
+export const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
