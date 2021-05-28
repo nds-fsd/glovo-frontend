@@ -51,7 +51,9 @@ export const RestaurantForm = ({
       setImage(restaurant.image);
     }
   }, [restaurant]);
+
   const onSubmit = (data) => {
+    console.debug(data);
     if (!restaurant) {
       createRestaurant({
         categories,

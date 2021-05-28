@@ -20,7 +20,7 @@ import { RestaurantInfo } from '../../restaurantInfo/restaurantInfo.view';
 
 export const ViewRestaurantTab = () => {
   const [savedRestaurant, setSavedRestaurant] = useState([]);
-  const { dispatch } = useBackOfficeContext();
+  const { dispatch, image } = useBackOfficeContext();
   const [isEdit, setIsEdit] = useState(false);
   const { id } = useParams();
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
@@ -129,7 +129,7 @@ export const ViewRestaurantTab = () => {
           <label htmlFor="file-input2" className={styles.restaurantImage}>
             <div className={styles.imageCase}>
               <img
-                src={savedRestaurant?.image}
+                src={image || savedRestaurant?.image}
                 alt="camera"
                 className={classNames({ [styles.img]: true })}
               />
