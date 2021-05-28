@@ -11,6 +11,7 @@
     border-radius: 15px;
     margin-bottom: 1em;
     padding-right: 10px;
+    color: var(--salyBlack);
 }
 .input{
     align-self: flex-start;

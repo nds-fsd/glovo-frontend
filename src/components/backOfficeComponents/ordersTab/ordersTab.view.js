@@ -15,7 +15,7 @@ export const OrdersTab = () => {
   const {
     state: { viewOrderModal },
   } = useBackOfficeContext();
-  const { getOrders, orders, totalPages, hasOrders } = useOrders();
+  const { getOrders, orders, totalPages, hasOrders, isLoading } = useOrders();
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -134,8 +134,8 @@ export const OrdersTab = () => {
           </div>
         </div>
         <div className={styles.orders}>
-          <Loading />
-          {/* {hasOrders && orders?.list.map((order) => <OrderRow key={order._id} order={order} />)} */}
+          {isLoading && <Loading />}
+          {hasOrders && orders?.list.map((order) => <OrderRow key={order._id} order={order} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

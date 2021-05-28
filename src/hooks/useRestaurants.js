@@ -11,10 +11,12 @@ export const useRestaurants = () => {
   const [totalPages, setTotalPages] = useState();
   const [filteredRestaurants, setFilteredRestaurants] = useState();
   const [filteredPages, setFilteredPages] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const userId = getUserSession().id;
 
   const getRestaurants = ({ page = 0, limit = 10 }) => {
+    setIsLoading(true);
     const body = { user: userId };
     shortFetch({
       url: `${RESTAURANT}/search?page=${page}&limit=${limit}`,
@@ -22,6 +24,7 @@ export const useRestaurants = () => {
       body,
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
         if (payload.count === 0) {
           setHasRestaurants(false);
           return;
@@ -34,6 +37,7 @@ export const useRestaurants = () => {
   };
 
   const filterRestaurants = (pag, lim, search) => {
+    setIsLoading(true);
     const body = { user: userId };
     if (search) {
       body.name = search;
@@ -44,6 +48,8 @@ export const useRestaurants = () => {
       body,
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
+
         if (payload.count === 0) {
           setFilteredPages(1);
           setFilteredRestaurants(payload);
@@ -163,5 +169,6 @@ export const useRestaurants = () => {
     clearFilter,
     filteredPages,
     getRestaurants,
+    isLoading,
   };
 };

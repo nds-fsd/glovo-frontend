@@ -7,14 +7,17 @@ export const useOrders = () => {
   const [orders, setOrders] = useState({ count: 0, list: [] });
   const [hasOrders, setHasOrders] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getOrders = ({ restaurant, sort, dir, page, limit, status }) => {
+    setIsLoading(true);
     shortFetch({
       url: `${ORDERS}/search?restaurant=${restaurant}&sort=${sort}&dir=${dir}&page=${page}&limit=${limit}&status=${status}`,
       method: 'GET',
 
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
         if (payload.count === 0) {
           setHasOrders(false);
           return;
@@ -27,20 +30,28 @@ export const useOrders = () => {
   };
 
   const getOneOrder = (orderId, onSuccess) => {
+    setIsLoading(true);
     shortFetch({
       url: `${ORDERS}/${orderId}`,
       method: 'GET',
       token: true,
-      onSuccess,
+      onSuccess: (payload) => {
+        setIsLoading(false);
+        onSuccess(payload);
+      },
     });
   };
 
   const toggleOrder = ({ orderId, onSuccess }) => {
+    setIsLoading(true);
     shortFetch({
       url: `${ORDERS}/${orderId}`,
       method: 'PATCH',
       token: true,
-      onSuccess,
+      onSuccess: (payload) => {
+        setIsLoading(false);
+        onSuccess(payload);
+      },
     });
   };
 
@@ -51,5 +62,6 @@ export const useOrders = () => {
     totalPages,
     hasOrders,
     getOneOrder,
+    isLoading,
   };
 };

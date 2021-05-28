@@ -11,6 +11,7 @@ import {
   VIEW_RESTAURANT,
 } from '../../../pages/backOfficePage/backOfficeContext/types';
 import Button from '../../button';
+import Loading from '../../loading';
 import SearchBar from '../../searchBar';
 import CourseRow from '../courseRow';
 import DishRow from '../dishRow';
@@ -34,6 +35,7 @@ export const DishesTab = () => {
     clearFilter,
     filteredPages,
     filteredDishes,
+    isLoading,
   } = useDishes();
 
   useEffect(() => {
@@ -100,6 +102,7 @@ export const DishesTab = () => {
           </div>
         </div>
         <div className={styles.restaurants}>
+          {isLoading && <Loading />}
           {dishes &&
             !filteredDishes &&
             dishes.list.map((dish) => {

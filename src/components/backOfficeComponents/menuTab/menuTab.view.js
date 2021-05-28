@@ -8,6 +8,7 @@ import {
   VIEW_RESTAURANT,
 } from '../../../pages/backOfficePage/backOfficeContext/types';
 import Button from '../../button';
+import Loading from '../../loading';
 import SearchBar from '../../searchBar';
 import CourseRow from '../courseRow';
 import Paginator from '../paginator';
@@ -30,6 +31,7 @@ export const MenuTab = () => {
     clearFilter,
     filteredPages,
     filteredCourses,
+    isLoading,
   } = useCourses();
 
   useEffect(() => {
@@ -88,6 +90,7 @@ export const MenuTab = () => {
           <div className={styles.column} style={{ width: '15%' }}></div>
         </div>
         <div className={styles.restaurants}>
+          {isLoading && <Loading />}
           {courses &&
             !filteredCourses &&
             courses.list.map((course) => {

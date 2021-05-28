@@ -9,8 +9,10 @@ export const useDishes = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [filteredPages, setFilteredPages] = useState();
   const [filteredDishes, setFilteredDishes] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const getDishes = ({ courseId, page, limit = 5 }) => {
+    setIsLoading(true);
     shortFetch({
       url: `${DISH}/search?page=${page}&limit=${limit}`,
       method: 'POST',
@@ -19,6 +21,7 @@ export const useDishes = () => {
       },
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
         if (payload.count === 0) {
           setHasDishes(false);
           return;
@@ -30,6 +33,7 @@ export const useDishes = () => {
     });
   };
   const filterDishes = ({ courseId, pag, lim, search }) => {
+    setIsLoading(true);
     const body = { Course: courseId };
     if (search) {
       body.name = search;
@@ -40,6 +44,7 @@ export const useDishes = () => {
       body,
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
         if (payload.count === 0) {
           setFilteredPages(1);
           setFilteredDishes(payload);
@@ -104,5 +109,6 @@ export const useDishes = () => {
     deleteDishes,
     createDishes,
     editDish,
+    isLoading,
   };
 };

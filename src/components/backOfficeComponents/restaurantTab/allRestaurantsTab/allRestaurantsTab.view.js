@@ -7,6 +7,7 @@ import Row from '../../row';
 import styles from './allRestaurantsTab.module.css';
 import { CREATE_RESTAURANT } from '../../../../pages/backOfficePage/backOfficeContext/types';
 import SearchBar from '../../../searchBar';
+import Loading from '../../../loading';
 
 export const AllRestaurantsTab = () => {
   const [limit, setLimit] = useState(5);
@@ -21,6 +22,7 @@ export const AllRestaurantsTab = () => {
     clearFilter,
     filteredPages,
     getRestaurants,
+    isLoading,
   } = useRestaurants();
 
   useEffect(() => {
@@ -68,6 +70,7 @@ export const AllRestaurantsTab = () => {
           </div>
         </div>
         <div className={styles.restaurants}>
+          {isLoading && <Loading />}
           {userRestaurants &&
             !filteredRestaurants &&
             userRestaurants.list.map((restaurant) => (
