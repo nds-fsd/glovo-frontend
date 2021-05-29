@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useCourses } from '../../../../hooks/useCourses';
+import { usePage } from '../../../../hooks/usePage';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import Button from '../../../button';
 import { BackOfficeModal } from '../backOfficeModal.view';
@@ -10,7 +10,7 @@ export const CreateCourseModal = ({ onClose, open }) => {
   const {
     state: { selectedCourse },
   } = useBackOfficeContext();
-  const { createCourse, editCourse } = useCourses();
+  const { createOrEditElement: createOrEditCourse } = usePage('course');
   const { id } = useParams();
   const [isCreated, setIsCreated] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -18,16 +18,22 @@ export const CreateCourseModal = ({ onClose, open }) => {
 
   const handleClick = () => {
     if (!selectedCourse.name) {
-      createCourse({
-        restaurantId: id,
-        courseName,
+      createOrEditCourse({
+        body: {
+          Restaurant: id,
+          name: courseName,
+        },
         onSuccess: () => {
           setIsCreated(true);
         },
       });
       return;
     }
-    editCourse({ courseName, courseId: selectedCourse.id, onSuccess: () => setIsUpdated(true) });
+    createOrEditCourse({
+      body: { name: courseName },
+      id: selectedCourse.id,
+      onSuccess: () => setIsUpdated(true),
+    });
   };
 
   return (

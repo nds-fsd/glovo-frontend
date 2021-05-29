@@ -10,3 +10,16 @@
     width: 100%;
     height: 130px;
 }
+.isDeleted{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.image{
+    width: 200px;
+    height: 200px;
+    margin-bottom: -54px;
+}

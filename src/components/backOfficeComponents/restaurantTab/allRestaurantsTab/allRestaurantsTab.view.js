@@ -12,7 +12,10 @@ import Loading from '../../../loading';
 export const AllRestaurantsTab = () => {
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-  const { dispatch } = useBackOfficeContext();
+  const {
+    dispatch,
+    state: { deleteRestaurantModal },
+  } = useBackOfficeContext();
   const [search, setSearch] = useState();
   const {
     userRestaurants,
@@ -27,7 +30,7 @@ export const AllRestaurantsTab = () => {
 
   useEffect(() => {
     getRestaurants({ page: currentPage - 1, limit });
-  }, [currentPage, limit]);
+  }, [currentPage, limit, deleteRestaurantModal]);
 
   useEffect(() => {
     setCurrentPage(1);

@@ -5,6 +5,9 @@ import { shortFetch } from '../assets/utils/fetch.utils';
 import { getUserSession } from '../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../router/router';
 
+// * crear un atomo de recoil
+// * recoils por semantica de restaurante "visibilidad, contenido, n"
+
 export const useRestaurants = () => {
   const [hasRestaurants, setHasRestaurants] = useState(false);
   const [userRestaurants, setUserRestaurants] = useState();

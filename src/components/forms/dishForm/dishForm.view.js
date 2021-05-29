@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
-import { useDishes } from '../../../hooks/useDishes';
 import styles from './dishForm.module.css';
 import { STOP_CREATE_DISH } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { usePage } from '../../../hooks/usePage';
 
 export const DishForm = () => {
   const {
@@ -14,24 +14,52 @@ export const DishForm = () => {
     state: { selectedCourse, selectedDish },
   } = useBackOfficeContext();
   const [description, setDescription] = useState(selectedDish?.description);
-  const { createDishes, editDish } = useDishes();
+  const { createOrEditElement: createOrEditDish } = usePage('dish');
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    if (selectedDish && setValue) {
+      Object.keys(selectedDish).forEach((key) => {
+        if (key !== 'image') {
+          setValue(key, `${selectedDish[key]}`);
+        }
+      });
+    }
+  }, [setValue, selectedDish]);
 
   const onSuccess = () => {
     dispatch({ type: STOP_CREATE_DISH });
     reset();
   };
+  // * is missing Dish Image
   const onSubmit = (data) => {
     if (selectedDish.name) {
-      editDish({ dishId: selectedDish.id, data, description, onSuccess });
+      createOrEditDish({
+        id: selectedDish.id,
+        body: {
+          name: data.name,
+          price: data.price,
+          description,
+        },
+        onSuccess,
+      });
       return;
     }
-    createDishes({ courseId: selectedCourse.id, data, description, onSuccess });
+    createOrEditDish({
+      body: {
+        Course: selectedCourse.id,
+        name: data.name,
+        price: data.price,
+        description,
+      },
+      onSuccess,
+    });
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
