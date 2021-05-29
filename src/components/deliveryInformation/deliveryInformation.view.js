@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable radix */
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import styles from './deliveryInformation.module.css';
@@ -9,7 +9,7 @@ import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
 import Button from '../button';
 import { useCartContext } from '../../context/cartContext';
-import { getUserSession } from '../../assets/utils/localStorage.utils';
+import { getUserSession, setStorageObject } from '../../assets/utils/localStorage.utils';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import Modal from '../modal/modal.view';
 import imgProcessing from '../../assets/images/image_processing20191001-8524-s4802o.gif';
@@ -19,6 +19,10 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { completedCart, addToCart, removeItemInCart, setCompletedCart } = useCartContext();
   let totalPrice = 0;
+
+  useEffect(() => {
+    setStorageObject('shoppingCart', completedCart);
+  }, [completedCart]);
 
   const payOrder = () => {
     const userId = getUserSession().id;
@@ -54,6 +58,7 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
 
   return (
     <div className={styles._cardContainer}>
+      {console.log(completedCart)}
       <h1>Your Glovo</h1>
       <div className={styles._restoFeatures}>
         {showIcons && (
