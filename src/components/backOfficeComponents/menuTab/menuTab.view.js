@@ -91,12 +91,14 @@ export const MenuTab = () => {
         </div>
         <div className={styles.restaurants}>
           {isLoading && <Loading />}
-          {courses &&
+          {!isLoading &&
+            courses &&
             !filteredCourses &&
             courses.list.map((course) => {
               return <CourseRow key={course._id} course={course} />;
             })}
-          {filteredCourses &&
+          {!isLoading &&
+            filteredCourses &&
             filteredCourses.list.map((course) => <CourseRow key={course._id} course={course} />)}
         </div>
         <footer className={styles.footer}>

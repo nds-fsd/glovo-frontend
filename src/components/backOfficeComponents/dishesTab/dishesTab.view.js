@@ -103,12 +103,15 @@ export const DishesTab = () => {
         </div>
         <div className={styles.restaurants}>
           {isLoading && <Loading />}
-          {dishes &&
+          {!isLoading &&
+            dishes &&
             !filteredDishes &&
             dishes.list.map((dish) => {
               return <DishRow dish={dish} />;
             })}
-          {filteredDishes && filteredDishes.list.map((dish) => <DishRow dish={dish} />)}
+          {!isLoading &&
+            filteredDishes &&
+            filteredDishes.list.map((dish) => <DishRow dish={dish} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

@@ -4,12 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './nightModeToggle.module.css';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { TOGGLE_NIGHT_MODE } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { setStorageObject } from '../../../assets/utils/localStorage.utils';
 
 export const NightModeToggle = () => {
   const {
     dispatch,
     state: { isNightMode },
   } = useBackOfficeContext();
+
+  useEffect(() => {
+    setStorageObject('nightMode', { isNightMode });
+  }, [isNightMode]);
 
   useEffect(() => {
     const root = document.querySelector(':root');
@@ -38,6 +43,7 @@ export const NightModeToggle = () => {
       </p>
       <label className={styles.switch}>
         <input
+          checked={isNightMode}
           className={styles.input}
           type="checkbox"
           onChange={() => dispatch({ type: TOGGLE_NIGHT_MODE })}

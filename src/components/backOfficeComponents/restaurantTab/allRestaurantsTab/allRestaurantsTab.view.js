@@ -74,12 +74,14 @@ export const AllRestaurantsTab = () => {
         </div>
         <div className={styles.restaurants}>
           {isLoading && <Loading />}
-          {userRestaurants &&
+          {!isLoading &&
+            userRestaurants &&
             !filteredRestaurants &&
             userRestaurants.list.map((restaurant) => (
               <Row key={restaurant._id} restaurant={restaurant} />
             ))}
-          {filteredRestaurants &&
+          {!isLoading &&
+            filteredRestaurants &&
             filteredRestaurants.list.map((rest) => <Row key={rest._id} restaurant={rest} />)}
         </div>
         <footer className={styles.footer}>

@@ -135,7 +135,9 @@ export const OrdersTab = () => {
         </div>
         <div className={styles.orders}>
           {isLoading && <Loading />}
-          {hasOrders && orders?.list.map((order) => <OrderRow key={order._id} order={order} />)}
+          {!isLoading &&
+            hasOrders &&
+            orders?.list.map((order) => <OrderRow key={order._id} order={order} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>

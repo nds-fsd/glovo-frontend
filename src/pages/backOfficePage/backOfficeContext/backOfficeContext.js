@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
+import { getStorageObject } from '../../../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../../../router/router';
 import { backOfficeReducer } from './backOfficeReducer';
 import { SELECT_RESTAURANT } from './types';
 
 const initialState = {
-  isNightMode: false,
+  isNightMode: getStorageObject('nightMode'),
   createRestaurant: false,
   createCourse: false,
   createDish: false,
