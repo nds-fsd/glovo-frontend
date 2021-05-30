@@ -1,16 +1,26 @@
 ._container {
+  position: absolute;
   height: 475px;
   background-color: var(--salyWhite);
   border: 5px solid #BDBDBD;
   border-radius: 15px;
   margin-right: -134px;
-  margin-top: -262px;
   z-index: 2;
   opacity: 1;
-  position: relative;
-  top: 407px;
-  right: 65%;
+  top: 100%;
+  right: 50%;
   width: 330px;
+}
+
+._container::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
 }
   
   ._overlay {

@@ -7,11 +7,14 @@ import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeCo
 import { useDishes } from '../../../hooks/useDishes';
 import styles from './dishForm.module.css';
 import { STOP_CREATE_DISH } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { uploadImage } from '../../../assets/utils/imgUpload';
 
-export const DishForm = () => {
+export const DishForm = ({ imgSetter }) => {
   const {
     dispatch,
     state: { selectedCourse, selectedDish },
+    setDishImg,
+    dishImg,
   } = useBackOfficeContext();
   const [description, setDescription] = useState(selectedDish?.description);
   const { createDishes, editDish } = useDishes();
@@ -28,13 +31,23 @@ export const DishForm = () => {
   };
   const onSubmit = (data) => {
     if (selectedDish.name) {
-      editDish({ dishId: selectedDish.id, data, description, onSuccess });
+      editDish({ dishId: selectedDish.id, data, description, onSuccess, dishImg });
+      imgSetter();
       return;
     }
-    createDishes({ courseId: selectedCourse.id, data, description, onSuccess });
+    createDishes({ courseId: selectedCourse.id, data, description, onSuccess, dishImg });
+    imgSetter();
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.imgInputContainer}>
+        <input
+          className={styles.imageInput}
+          type="file"
+          {...register('image')}
+          onChange={(evt) => uploadImage(evt.target.files[0], setDishImg)}
+        />
+      </div>
       <div className={classNames([styles.inputContainer], { [styles.onError]: errors.name })}>
         <input
           className={styles.input}
@@ -43,6 +56,7 @@ export const DishForm = () => {
           placeholder="Dish Name"
           {...register('name', { required: 'Dish name is required' })}
         />
+
         {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
       </div>
       <div className={classNames([styles.inputContainer], { [styles.onError]: errors.price })}>

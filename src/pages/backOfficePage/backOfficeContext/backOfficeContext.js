@@ -38,6 +38,7 @@ const backOfficeContext = createContext();
 
 export const BackOfficeContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(backOfficeReducer, initialState);
+  const [dishImg, setDishImg] = useState('');
   const { id } = useParams();
 
   const [image, setImage] = useState('');
@@ -60,6 +61,8 @@ export const BackOfficeContextProvider = ({ children }) => {
     dispatch,
     image,
     setImage,
+    dishImg,
+    setDishImg,
   };
 
   return <backOfficeContext.Provider value={value}>{children}</backOfficeContext.Provider>;
