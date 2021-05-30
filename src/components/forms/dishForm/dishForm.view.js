@@ -7,11 +7,14 @@ import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeCo
 import styles from './dishForm.module.css';
 import { STOP_CREATE_DISH } from '../../../pages/backOfficePage/backOfficeContext/types';
 import { usePage } from '../../../hooks/usePage';
+import { uploadImage } from '../../../assets/utils/imgUpload';
 
-export const DishForm = () => {
+export const DishForm = ({ imgSetter }) => {
   const {
     dispatch,
     state: { selectedCourse, selectedDish },
+    setDishImg,
+    dishImg,
   } = useBackOfficeContext();
   const [description, setDescription] = useState(selectedDish?.description);
   const { createOrEditElement: createOrEditDish } = usePage('dish');
@@ -36,6 +39,7 @@ export const DishForm = () => {
   const onSuccess = () => {
     dispatch({ type: STOP_CREATE_DISH });
     reset();
+    imgSetter();
   };
   // * is missing Dish Image
   const onSubmit = (data) => {
@@ -46,6 +50,7 @@ export const DishForm = () => {
           name: data.name,
           price: data.price,
           description,
+          img: dishImg,
         },
         onSuccess,
       });
@@ -57,12 +62,21 @@ export const DishForm = () => {
         name: data.name,
         price: data.price,
         description,
+        img: dishImg,
       },
       onSuccess,
     });
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.imgInputContainer}>
+        <input
+          className={styles.imageInput}
+          type="file"
+          {...register('image')}
+          onChange={(evt) => uploadImage(evt.target.files[0], setDishImg)}
+        />
+      </div>
       <div className={classNames([styles.inputContainer], { [styles.onError]: errors.name })}>
         <input
           className={styles.input}
@@ -71,6 +85,7 @@ export const DishForm = () => {
           placeholder="Dish Name"
           {...register('name', { required: 'Dish name is required' })}
         />
+
         {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
       </div>
       <div className={classNames([styles.inputContainer], { [styles.onError]: errors.price })}>

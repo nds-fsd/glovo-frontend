@@ -13,7 +13,7 @@ import Button from '../../button';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { USER } from '../../../router/router';
 
-export const ProfileInfo = () => {
+export const ProfileInfo = ({ open, onClose }) => {
   const history = useHistory();
   const userSession = getUserSession();
   const { userDetails, setUserDetails, editingProfile, setEditingProfile } = useContext(
@@ -59,7 +59,7 @@ export const ProfileInfo = () => {
   };
 
   return (
-    <DropDown>
+    <DropDown open={open} onClose={onClose}>
       <div className={styles.container}>
         <div className={styles.editButton}>
           <Button onClick={() => setEditingProfile(!editingProfile)} buttonStyle="primary">

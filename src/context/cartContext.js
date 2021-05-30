@@ -1,11 +1,15 @@
 /* eslint-disable no-console */
 import { createContext, useContext, useState } from 'react';
+import { getStorageObject } from '../assets/utils/localStorage.utils';
 
 const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
+  const localStorageShopCart = getStorageObject('shoppingCart');
+  console.log('localStorageCart', localStorageShopCart);
   const [completedCart, setCompletedCart] = useState([]);
   const [modalDishView, setModalDishView] = useState({});
+  console.log(completedCart);
 
   const addToCart = (dish) => {
     const isExist = completedCart.some((dishCart) => dishCart.id === dish.id);

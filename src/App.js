@@ -22,32 +22,30 @@ library.add(...iconList);
 function App() {
   return (
     <Router>
-      <RoleContextProvider>
-        <RoleController>
-          <Switch>
-            <PrivateRoute path={`${BACKOFFICE}/:id?`}>
-              <BackOfficeContextProvider>
-                <RoleController roleConfirm="PROVIDER">
-                  <BackOfficePage />
-                </RoleController>
-              </BackOfficeContextProvider>
-            </PrivateRoute>
-            <Route path={RESTAURANT_LIST_PAGE}>
-              <CartContextProvider>
+      <CartContextProvider>
+        <RoleContextProvider>
+          <RoleController>
+            <Switch>
+              <PrivateRoute path={`${BACKOFFICE}/:id?`}>
+                <BackOfficeContextProvider>
+                  <RoleController roleConfirm="PROVIDER">
+                    <BackOfficePage />
+                  </RoleController>
+                </BackOfficeContextProvider>
+              </PrivateRoute>
+              <Route path={RESTAURANT_LIST_PAGE}>
                 <RestaurantListPage />
-              </CartContextProvider>
-            </Route>
-            <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
-              <CartContextProvider>
+              </Route>
+              <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
                 <RestaurantViewPage />
-              </CartContextProvider>
-            </PrivateRoute>
-            <Route path="/" exact>
-              <Redirect to={RESTAURANT_LIST_PAGE} />
-            </Route>
-          </Switch>
-        </RoleController>
-      </RoleContextProvider>
+              </PrivateRoute>
+              <Route path="/" exact>
+                <Redirect to={RESTAURANT_LIST_PAGE} />
+              </Route>
+            </Switch>
+          </RoleController>
+        </RoleContextProvider>
+      </CartContextProvider>
     </Router>
   );
 }

@@ -19,13 +19,7 @@ export const RestaurantListPage = () => {
   const [openSignupModal, setOpenSignupModal] = useState(false);
   const [openCategoryBar, setOpenCategoryBar] = useState(false);
 
-  const {
-    setProfileDropOpen,
-    profileDropOpen,
-    categoryArr,
-    setCategoryArr,
-    isSearching,
-  } = useContext(roleContext);
+  const { categoryArr, setCategoryArr, isSearching } = useContext(roleContext);
 
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
@@ -43,10 +37,7 @@ export const RestaurantListPage = () => {
           />
         </Header>
         {!isSearching && (
-          <div
-            className={styles.restaurantContainer}
-            onClick={() => profileDropOpen && setProfileDropOpen(false)}
-          >
+          <div className={styles.restaurantContainer}>
             <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
             <div className={styles.title}>
               <Button

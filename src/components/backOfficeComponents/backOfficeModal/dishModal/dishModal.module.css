@@ -30,3 +30,6 @@
     background-color: var(--lightSalyGray);
     border-radius: 0 0 15px 15px;
 }
+.dishImg{
+    display: flex;
+}
