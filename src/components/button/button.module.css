@@ -92,10 +92,11 @@
     background-color: var(--salyBlue);
 }
 .viewAll{
+    align-self: flex-end;
     width: 90px;
     height: 20px;
     font-size: 13px;
-    border: 2px solid var(--salyBlue);
+    border: 2px solid var(--salyWhite);
     border-radius: 50px;
-    color: var(--salyBlue);
+    color: var(--salyWhite);
 }

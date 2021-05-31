@@ -30,18 +30,27 @@ export const CategoryBar = ({ children, open, onClose }) => {
       {children.map((item) => (
         <div
           key={item._id}
-          onClick={(e) =>
-            history.push(`${RESTAURANT_LIST_PAGE}/category?name=${e.target.textContent}`)
-          }
+          onClick={(e) => {
+            history.push(`${RESTAURANT_LIST_PAGE}/category?name=${e.target.textContent}`);
+            onClose();
+          }}
           id={item._id}
           className={styles.category}
         >
           <p>{item.name}</p>
         </div>
       ))}
-      <Button buttonStyle="viewAll" onClick={() => history.push(RESTAURANT_LIST_PAGE)}>
-        View All
-      </Button>
+      {history.location.search.includes('name') && (
+        <Button
+          buttonStyle="viewAll"
+          onClick={() => {
+            history.push(RESTAURANT_LIST_PAGE);
+            onClose();
+          }}
+        >
+          View All
+        </Button>
+      )}
     </div>
   );
 };

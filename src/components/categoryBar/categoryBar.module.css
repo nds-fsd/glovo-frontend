@@ -9,7 +9,7 @@
     z-index: 10;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: rgba(4, 112, 220,0.9);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -21,8 +21,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid green;
     color: white;
+}
+.category:hover{
+    background-color: var(--salyBlue);
+    font-weight: 800;
 }
 .restaurantItem{
     display: flex;

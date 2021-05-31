@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useEffect, useState, useContext } from 'react';
 import SearchBox from '../searchBox';
+import { ReactComponent as Briefcase } from '../../assets/icons/briefcase.svg';
 import ShoppingCartNav from './shoppingCartNav';
 import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
@@ -60,12 +61,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
           <>
             {role === 'PROVIDER' ? (
               <Link to={BACKOFFICE}>
-                <FontAwesomeIcon
-                  icon="briefcase"
-                  className={classNames([styles.icons], {
-                    [styles.movingIcons]: prevScrollPos > 350,
-                  })}
-                />
+                <Briefcase />
               </Link>
             ) : (
               <div style={{ position: 'relative' }}>
