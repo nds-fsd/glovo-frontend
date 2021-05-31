@@ -7,9 +7,15 @@
     min-width: 195px;
     height: 100%;
 }
-.logo{
+.logoContainer{
     align-self: center;
+    margin-bottom: -35px;
 }
+.logo{
+    width: 130px;
+    height: 134px;
+}
+
 .title{
     padding-left: 20px;
 }

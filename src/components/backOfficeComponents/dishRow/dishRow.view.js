@@ -22,7 +22,7 @@ export const DishRow = ({ dish }) => {
         <>
           <div
             className={`${styles.column} ${styles.name}`}
-            style={{ width: '32%', color: 'black' }}
+            style={{ width: '32%', color: 'var(--salyBlack)' }}
             onClick={() => {}}
           >
             {dish.name}

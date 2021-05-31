@@ -9,7 +9,7 @@ import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOffic
 import { BackOfficeModal } from '../backOfficeModal.view';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
 import styles from './dishModal.module.css';
-import { DishForm } from '../../../forms/dishForm/dishForm.view';
+import DishForm from '../../../forms/dishForm';
 
 export const DishModal = ({ onClose, open, bigModal }) => {
   const {

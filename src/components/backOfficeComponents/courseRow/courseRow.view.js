@@ -15,7 +15,7 @@ export const CourseRow = ({ course }) => {
         <>
           <div
             className={`${styles.column} ${styles.name}`}
-            style={{ width: '32%', color: 'black' }}
+            style={{ width: '32%', color: 'var(--salyBlack)' }}
             onClick={() => {
               dispatch({ type: VIEW_DISHES, payload: { name: course.name, id: course._id } });
             }}

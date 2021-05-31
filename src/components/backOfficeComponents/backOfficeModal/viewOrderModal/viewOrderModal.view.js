@@ -11,6 +11,7 @@ import { DishForm } from '../../../forms/dishForm/dishForm.view';
 import { formatNumber } from '../../../../assets/utils/convertToCurrency';
 import OrderItem from '../../orderItem';
 import Button from '../../../button';
+import Loading from '../../../loading';
 
 export const ViewOrderModal = ({ onClose, open, bigModal }) => {
   const [order, setOrder] = useState({});
@@ -18,7 +19,7 @@ export const ViewOrderModal = ({ onClose, open, bigModal }) => {
   const {
     state: { selectedOrder },
   } = useBackOfficeContext();
-  const { getOneOrder, toggleOrder } = useOrders();
+  const { getOneOrder, toggleOrder, isLoading } = useOrders();
 
   useEffect(() => {
     getOneOrder(selectedOrder, setOrder);
@@ -50,6 +51,7 @@ export const ViewOrderModal = ({ onClose, open, bigModal }) => {
           </div>
         </div>
         <div className={styles.orderDetails}>
+          {isLoading && <Loading />}
           {list?.map((item) => (
             <OrderItem key={item._id} item={item} />
           ))}

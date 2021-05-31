@@ -5,16 +5,21 @@ import { shortFetch } from '../assets/utils/fetch.utils';
 import { getUserSession } from '../assets/utils/localStorage.utils';
 import { RESTAURANT } from '../router/router';
 
+// * crear un atomo de recoil
+// * recoils por semantica de restaurante "visibilidad, contenido, n"
+
 export const useRestaurants = () => {
   const [hasRestaurants, setHasRestaurants] = useState(false);
   const [userRestaurants, setUserRestaurants] = useState();
   const [totalPages, setTotalPages] = useState();
   const [filteredRestaurants, setFilteredRestaurants] = useState();
   const [filteredPages, setFilteredPages] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const userId = getUserSession().id;
 
   const getRestaurants = ({ page = 0, limit = 10 }) => {
+    setIsLoading(true);
     const body = { user: userId };
     shortFetch({
       url: `${RESTAURANT}/search?page=${page}&limit=${limit}`,
@@ -22,6 +27,7 @@ export const useRestaurants = () => {
       body,
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
         if (payload.count === 0) {
           setHasRestaurants(false);
           return;
@@ -34,6 +40,7 @@ export const useRestaurants = () => {
   };
 
   const filterRestaurants = (pag, lim, search) => {
+    setIsLoading(true);
     const body = { user: userId };
     if (search) {
       body.name = search;
@@ -44,6 +51,8 @@ export const useRestaurants = () => {
       body,
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
+
         if (payload.count === 0) {
           setFilteredPages(1);
           setFilteredRestaurants(payload);
@@ -163,5 +172,6 @@ export const useRestaurants = () => {
     clearFilter,
     filteredPages,
     getRestaurants,
+    isLoading,
   };
 };

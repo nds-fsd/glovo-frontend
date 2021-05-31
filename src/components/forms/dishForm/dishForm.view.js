@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
-import { useDishes } from '../../../hooks/useDishes';
 import styles from './dishForm.module.css';
 import { STOP_CREATE_DISH } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { usePage } from '../../../hooks/usePage';
 import { uploadImage } from '../../../assets/utils/imgUpload';
 
 export const DishForm = ({ imgSetter }) => {
@@ -17,26 +17,55 @@ export const DishForm = ({ imgSetter }) => {
     dishImg,
   } = useBackOfficeContext();
   const [description, setDescription] = useState(selectedDish?.description);
-  const { createDishes, editDish } = useDishes();
+  const { createOrEditElement: createOrEditDish } = usePage('dish');
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    if (selectedDish && setValue) {
+      Object.keys(selectedDish).forEach((key) => {
+        if (key !== 'image') {
+          setValue(key, `${selectedDish[key]}`);
+        }
+      });
+    }
+  }, [setValue, selectedDish]);
 
   const onSuccess = () => {
     dispatch({ type: STOP_CREATE_DISH });
     reset();
+    imgSetter();
   };
+  // * is missing Dish Image
   const onSubmit = (data) => {
     if (selectedDish.name) {
-      editDish({ dishId: selectedDish.id, data, description, onSuccess, dishImg });
-      imgSetter();
+      createOrEditDish({
+        id: selectedDish.id,
+        body: {
+          name: data.name,
+          price: data.price,
+          description,
+          img: dishImg,
+        },
+        onSuccess,
+      });
       return;
     }
-    createDishes({ courseId: selectedCourse.id, data, description, onSuccess, dishImg });
-    imgSetter();
+    createOrEditDish({
+      body: {
+        Course: selectedCourse.id,
+        name: data.name,
+        price: data.price,
+        description,
+        img: dishImg,
+      },
+      onSuccess,
+    });
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

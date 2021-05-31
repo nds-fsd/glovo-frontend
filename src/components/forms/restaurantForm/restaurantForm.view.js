@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
-import { useRestaurants } from '../../../hooks/useRestaurants';
 import Button from '../../button';
 import CategorySelect from '../../categorySelect';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
@@ -12,6 +11,8 @@ import styles from './restaurantForm.module.css';
 import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
 import GoogleInput from './googleInput';
 import { uploadImage } from '../../../assets/utils/imgUpload';
+import { usePage } from '../../../hooks/usePage';
+import { getUserSession } from '../../../assets/utils/localStorage.utils';
 
 export const RestaurantForm = ({
   handleCategories,
@@ -22,7 +23,7 @@ export const RestaurantForm = ({
 }) => {
   const { image, setImage } = useBackOfficeContext();
   const { dispatch } = useBackOfficeContext();
-  const { createRestaurant, updateRestaurant } = useRestaurants();
+  const { createOrEditElement: createOrEditRestaurant } = usePage('restaurant');
   const [description, setDescription] = useState(restaurant && restaurant.restaurantDescription);
   const [categoryError, setCategoryError] = useState(false);
   const [address, setAddress] = useState({ street: '', number: '', zipcode: '' });
@@ -40,6 +41,11 @@ export const RestaurantForm = ({
     if (restaurant && setValue) {
       Object.keys(restaurant).forEach((key) => {
         if (key !== 'image') {
+          if (key === 'address') {
+            Object.keys(restaurant[key]).forEach((adKey) => {
+              setValue(adKey, `${restaurant[key][adKey]}`);
+            });
+          }
           setValue(key, `${restaurant[key]}`);
         }
       });
@@ -47,41 +53,64 @@ export const RestaurantForm = ({
   }, [setValue, restaurant]);
 
   useEffect(() => {
+    if (address && address.street && setValue) {
+      Object.keys(address).forEach((key) => {
+        setValue(key, `${address[key]}`);
+      });
+    }
+  }, [address]);
+
+  useEffect(() => {
     if (restaurant) {
       setImage(restaurant.image);
     }
   }, [restaurant]);
+
   const onSubmit = (data) => {
-    if (!restaurant) {
-      createRestaurant({
-        categories,
-        data,
-        description,
+    console.debug(data);
+    let body;
+    const userId = getUserSession().id;
+    if (data && categories.length > 0) {
+      const categoryIds = categories.map((category) => {
+        return category._id;
+      });
+
+      body = {
+        name: data.name,
+        restaurantDescription: description,
+        open: true,
+        address: {
+          number: data.number,
+          street: data.street,
+          zipcode: data.zipcode,
+        },
+        restaurantCategory: categoryIds,
+        user: userId,
         image,
         coordinates,
         fullAddress,
-        onSuccess: () => {
-          dispatch({ type: STOP_CREATING });
-          setImage('');
-        },
-      });
-      setImage('');
-      return;
-    }
-    if (restaurant) {
-      if (data && categories && categories.length > 0) {
-        updateRestaurant({
-          data,
-          categories,
-          id,
-          description,
-          image,
-          coordinates,
-          fullAddress,
-          onSuccess: () => dispatch({ type: STOP_CREATING }),
+      };
+      if (!restaurant) {
+        createOrEditRestaurant({
+          body,
+          onSuccess: () => {
+            dispatch({ type: STOP_CREATING });
+            setImage('');
+          },
         });
-        onUpdate();
         setImage('');
+        return;
+      }
+      if (restaurant) {
+        if (data && categories && categories.length > 0) {
+          createOrEditRestaurant({
+            id,
+            body,
+            onSuccess: () => dispatch({ type: STOP_CREATING }),
+          });
+          onUpdate();
+          setImage('');
+        }
       }
     }
   };
@@ -130,7 +159,7 @@ export const RestaurantForm = ({
             handleCoordinates(value);
           }}
           handleFullAddress={(value) => setFullAddress(value)}
-          fullAddress={fullAddress || restaurant?.fullAddress}
+          fullAddress={restaurant?.fullAddress || fullAddress}
         />
         <div className={styles.address}>
           <div
@@ -144,7 +173,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Street"
-              value={address.street ? address.street : restaurant?.address?.street}
+              defaultValue={address.street ? address.street : restaurant?.address?.street}
               {...register('street', { required: 'Street name is required' })}
             />
             {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
@@ -157,7 +186,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Number"
-              value={address.number ? address.number : restaurant?.address?.number}
+              defaultValue={address.number ? address.number : restaurant?.address?.number}
               {...register('number', {
                 required: 'Street number is required',
                 pattern: {
@@ -176,7 +205,7 @@ export const RestaurantForm = ({
               className={styles.input}
               type="text"
               placeholder="Zipcode"
-              value={address.zipcode ? address.zipcode : restaurant?.address?.zipcode}
+              defaultValue={address.zipcode ? address.zipcode : restaurant?.address?.zipcode}
               {...register('zipcode', {
                 required: 'zipcode number is required',
                 pattern: {

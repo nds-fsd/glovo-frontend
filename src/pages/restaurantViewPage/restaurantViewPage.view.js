@@ -52,7 +52,7 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
-
+  console.debug('modalDishView', modalDishView);
   return (
     <div>
       <Navbar />
@@ -86,6 +86,7 @@ export const RestaurantViewPage = () => {
                       dish: modalDishView.dish,
                       price: modalDishView.price,
                       id: modalDishView.id,
+                      restoId: modalDishView.restoId,
                     });
                     setIsOpenModal(false);
                   }}

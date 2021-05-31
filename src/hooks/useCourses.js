@@ -9,8 +9,10 @@ export const useCourses = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [filteredPages, setFilteredPages] = useState();
   const [filteredCourses, setFilteredCourses] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const getCourses = ({ id, page, limit = 5 }) => {
+    setIsLoading(true);
     shortFetch({
       url: `${COURSE}/search?page=${page}&limit=${limit}`,
       method: 'POST',
@@ -19,6 +21,7 @@ export const useCourses = () => {
       },
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
         if (payload.count === 0) {
           setHasCourses(false);
           return;
@@ -30,6 +33,7 @@ export const useCourses = () => {
     });
   };
   const filterCourses = ({ id, pag, lim, search }) => {
+    setIsLoading(true);
     const body = { Restaurant: id };
     if (search) {
       body.name = search;
@@ -40,6 +44,7 @@ export const useCourses = () => {
       body,
       token: true,
       onSuccess: (payload) => {
+        setIsLoading(false);
         if (payload.count === 0) {
           setFilteredPages(1);
           setFilteredCourses(payload);
@@ -97,5 +102,6 @@ export const useCourses = () => {
     deleteCourses,
     createCourse,
     editCourse,
+    isLoading,
   };
 };

@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
 import styles from './restaurantSelect.module.css';
-import { useRestaurants } from '../../../hooks/useRestaurants';
+import { getUserSession } from '../../../assets/utils/localStorage.utils';
+import { usePage } from '../../../hooks/usePage';
 
 export const RestaurantSelect = ({ onChange }) => {
-  const { userRestaurants, getRestaurants } = useRestaurants();
+  const { elements: restaurants, getElements } = usePage('restaurant');
 
   useEffect(() => {
-    getRestaurants({ page: 0, limit: 100 });
+    getElements({
+      page: 0,
+      limit: 100,
+      body: {
+        user: getUserSession().id,
+      },
+    });
   }, []);
 
   return (
@@ -15,7 +22,7 @@ export const RestaurantSelect = ({ onChange }) => {
         <option value="" selected disabled hidden>
           Select a Restaurant
         </option>
-        {userRestaurants?.list.map((restaurant) => (
+        {restaurants?.list.map((restaurant) => (
           <option key={restaurant._id} value={restaurant._id} name={restaurant.name}>
             {restaurant.name}
           </option>
