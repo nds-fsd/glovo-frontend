@@ -19,6 +19,7 @@ import {
   STOP_CREATE_DISH,
   VIEW_ORDER,
   STOP_VIEW_ORDER,
+  TOGGLE_NIGHT_MODE,
 } from './types';
 
 export const backOfficeReducer = (state, action) => {
@@ -102,6 +103,9 @@ export const backOfficeReducer = (state, action) => {
     case STOP_VIEW_ORDER:
       newState.selectedOrder = '';
       newState.viewOrderModal = false;
+      return newState;
+    case TOGGLE_NIGHT_MODE:
+      newState.isNightMode = !newState.isNightMode;
       return newState;
     default:
       return newState;

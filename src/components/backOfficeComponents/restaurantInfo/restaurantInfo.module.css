@@ -8,6 +8,7 @@
     box-sizing: border-box;
     padding-top: 40px;
     margin-left: 27px;
+    color: var(--salyBlack);
 }
 .card{
     padding: 10px 0 0 10px;
@@ -45,6 +46,7 @@
 }
 
 .sectionB{
+    color: var(--salyBlack);
     padding: 10px 0 0 10px;
     display: flex;
     flex-direction: column;

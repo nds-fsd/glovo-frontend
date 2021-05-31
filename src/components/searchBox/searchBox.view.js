@@ -16,6 +16,7 @@ export const SearchBox = () => {
   return (
     <div className={styles._container}>
       <input
+        style={{ outline: 'none' }}
         className={styles._searchBar}
         type="text"
         placeholder="Find you restaurant"

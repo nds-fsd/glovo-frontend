@@ -1,4 +1,5 @@
 .container{
+    padding: 31px 0px;
     width: 100%;
     height: 35em;
     display: flex;
@@ -10,3 +11,19 @@
 .container::-webkit-scrollbar {
     display: none;
   }
+  .fader{
+    position: absolute;
+    top: 145px;
+    width: 100%;
+    height: 50px;
+    background-image: linear-gradient(rgba(242, 242, 242,1), rgba(255,255,255,0));
+    z-index: 2;
+}
+.reverseFader{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+    background-image: linear-gradient( rgba(255,255,255,0), rgba(242, 242, 242,1));
+    z-index: 2;
+}
