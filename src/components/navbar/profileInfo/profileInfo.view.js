@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import styles from './profileInfo.module.css';
@@ -12,6 +12,7 @@ import { getUserSession, removeSession } from '../../../assets/utils/localStorag
 import Button from '../../button';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { USER } from '../../../router/router';
+import AddressModal from './addressModal';
 
 export const ProfileInfo = ({ open, onClose }) => {
   const history = useHistory();
@@ -19,6 +20,7 @@ export const ProfileInfo = ({ open, onClose }) => {
   const { userDetails, setUserDetails, editingProfile, setEditingProfile } = useContext(
     roleContext
   );
+  const [openAddressModal, setOpenAddressModal] = useState(false);
   useEffect(() => {
     if (!userDetails) {
       setUserDetails(getUserSession());
@@ -65,6 +67,7 @@ export const ProfileInfo = ({ open, onClose }) => {
           <Button onClick={() => setEditingProfile(!editingProfile)} buttonStyle="primary">
             Edit
           </Button>
+          {console.log(userDetails)}
         </div>
         <div className={styles.userInfo}>
           <div className={styles.welcomeMessage}>
@@ -112,6 +115,13 @@ export const ProfileInfo = ({ open, onClose }) => {
             )}
           </div>
         </div>
+        {!userDetails.fullAddress && !userDetails.coordinates ? (
+          <p style={{ cursor: 'pointer' }} onClick={() => setOpenAddressModal(!openAddressModal)}>
+            ¿Cuál es tu dirección?
+          </p>
+        ) : (
+          <p>{userDetails.fullAddress}</p>
+        )}
         {editingProfile ? (
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <input className={styles.submit} type="submit" value="Continue" />
@@ -122,6 +132,13 @@ export const ProfileInfo = ({ open, onClose }) => {
           </Button>
         )}
       </div>
+      {openAddressModal && (
+        <AddressModal
+          open={openAddressModal}
+          onClose={() => setOpenAddressModal(!openAddressModal)}
+          userDetailsFullAddress={userDetails.fullAddress}
+        />
+      )}
     </DropDown>
   );
 };
