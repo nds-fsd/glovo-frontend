@@ -226,7 +226,13 @@ export const RestaurantForm = ({
         />
         <div className={styles.buttonContainer}>
           {!restaurant && (
-            <Button buttonStyle="signup" onClick={() => dispatch({ type: STOP_CREATING })}>
+            <Button
+              buttonStyle="signup"
+              onClick={() => {
+                setImage('');
+                dispatch({ type: STOP_CREATING });
+              }}
+            >
               Cancel
             </Button>
           )}

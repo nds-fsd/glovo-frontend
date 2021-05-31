@@ -50,5 +50,5 @@
 }
 .selected{
     background-color: var(--salyBlue);
-    border: 1px solid var(--lightSalyBlue);
+    font-weight: 800;
 }

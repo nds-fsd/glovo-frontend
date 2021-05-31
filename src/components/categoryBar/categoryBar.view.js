@@ -35,7 +35,9 @@ export const CategoryBar = ({ children, open, onClose }) => {
             onClose();
           }}
           id={item._id}
-          className={styles.category}
+          className={classnames([styles.category], {
+            [styles.selected]: history.location.search.includes(item.name),
+          })}
         >
           <p>{item.name}</p>
         </div>
