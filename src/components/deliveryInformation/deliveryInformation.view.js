@@ -26,9 +26,7 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
   let totalPrice = 0;
 
   useEffect(() => {
-    setTimeout(() => {
-      setStorageObject('shoppingCart', completedCart);
-    }, 500);
+    setStorageObject('shoppingCart', completedCart);
   }, [completedCart]);
 
   const payOrder = () => {
@@ -83,7 +81,6 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
           </div>
         )}
       </div>
-      {console.log('localStorageCart', localStorageShopCart)}
       <div className={styles._cart}>
         {completedCart &&
           completedCart.map((cart) => {
@@ -142,6 +139,7 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
             Go to homepage
           </Link>
         </Button>
+        {console.log('localStorageCart', localStorageShopCart)}
       </Modal>
     </div>
   );

@@ -29,6 +29,7 @@ export const ProfileInfo = ({ open, onClose }) => {
 
   const logoutFunc = () => {
     removeSession();
+    onClose();
     history.push('/');
   };
 
@@ -127,7 +128,12 @@ export const ProfileInfo = ({ open, onClose }) => {
             <input className={styles.submit} type="submit" value="Continue" />
           </form>
         ) : (
-          <Button onClick={() => logoutFunc()} buttonStyle="primary">
+          <Button
+            onClick={() => {
+              logoutFunc();
+            }}
+            buttonStyle="primary"
+          >
             Logout
           </Button>
         )}
@@ -136,7 +142,7 @@ export const ProfileInfo = ({ open, onClose }) => {
         <AddressModal
           open={openAddressModal}
           onClose={() => setOpenAddressModal(!openAddressModal)}
-          userDetailsFullAddress={userDetails.fullAddress}
+          userDetails={userDetails}
         />
       )}
     </DropDown>

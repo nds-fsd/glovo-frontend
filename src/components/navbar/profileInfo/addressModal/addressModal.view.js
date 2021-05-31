@@ -14,7 +14,7 @@ import { getUserSession } from '../../../../assets/utils/localStorage.utils';
 import GoogleInput from '../../../forms/restaurantForm/googleInput';
 import { ReactComponent as Gmaps } from '../../../../assets/icons/Google_Maps_Logo_2020.svg';
 
-export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
+export const AddressModal = ({ onClose, open, userDetails }) => {
   const [fullAddress, setFullAddress] = useState('');
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const [address, setAddress] = useState({ street: '', number: '', zipcode: '' });
@@ -22,11 +22,20 @@ export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    if (address && address.street && setValue) {
+      Object.keys(address).forEach((key) => {
+        setValue(key, `${address[key]}`);
+      });
+    }
+  }, [address]);
 
   const onSubmit = (data) => {
     shortFetch({
-      url: `${USER}/${getUserSession().id}}`,
+      url: `${USER}/${userDetails._id}`,
       method: 'PATCH',
       body: {
         address: {
@@ -36,7 +45,7 @@ export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
         },
         coordinates: {
           lat: coordinates.lat,
-          leng: coordinates.leng,
+          lng: coordinates.lng,
         },
         fullAddress,
       },
@@ -75,7 +84,7 @@ export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
             setCoordinates(value);
           }}
           handleFullAddress={(value) => setFullAddress(value)}
-          fullAddress={fullAddress || userDetailsFullAddress}
+          fullAddress={fullAddress || userDetails.fullAddress}
         />
         <div className={styles.address}>
           <div
@@ -89,7 +98,7 @@ export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
               className={styles.input}
               type="text"
               placeholder="Street"
-              value={address.street ? address.street : userDetailsFullAddress?.address?.street}
+              value={address.street ? address.street : userDetails.fullAddress?.address?.street}
               {...register('street', { required: 'Street name is required' })}
             />
             {errors.street && <p className={styles.errorMessage}>{errors.street.message}</p>}
@@ -102,7 +111,7 @@ export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
               className={styles.input}
               type="text"
               placeholder="Number"
-              value={address.number ? address.number : userDetailsFullAddress?.address?.number}
+              value={address.number ? address.number : userDetails.fullAddress?.address?.number}
               {...register('number', {
                 required: 'Street number is required',
                 pattern: {
@@ -121,7 +130,7 @@ export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
               className={styles.input}
               type="text"
               placeholder="Zipcode"
-              value={address.zipcode ? address.zipcode : userDetailsFullAddress?.address?.zipcode}
+              value={address.zipcode ? address.zipcode : userDetails?.fullAddress?.address?.zipcode}
               {...register('zipcode', {
                 required: 'zipcode number is required',
                 pattern: {
