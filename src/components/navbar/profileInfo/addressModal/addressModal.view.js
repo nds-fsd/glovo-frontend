@@ -41,7 +41,7 @@ export const AddressModal = ({ onClose, open, userDetailsFullAddress }) => {
         fullAddress,
       },
       token: true,
-      
+
       onSuccess: (res) => {
         console.log(res);
       },
