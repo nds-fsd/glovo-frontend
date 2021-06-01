@@ -59,7 +59,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
       <div className={classNames([styles.buttons])}>
         {getUserToken() ? (
           <>
-            {role === 'PROVIDER' ? (
+            {role === 'PROVIDER' || role === 'SUPER_ADMIN' ? (
               <Link to={BACKOFFICE}>
                 <Briefcase />
               </Link>

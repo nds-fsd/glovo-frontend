@@ -19,3 +19,6 @@ export const STOP_CREATE_DISH = 'STOP_CREATE_DISH';
 export const VIEW_ORDER = 'VIEW_ORDER';
 export const STOP_VIEW_ORDER = 'STOP_VIEW_ORDER';
 export const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
+export const CHANGE_ROLE = 'CHANGE_ROLE';
+export const CANCEL_EDIT = 'CANCEL_EDIT';
+export const DELETE_USER = 'DELETE_USER';

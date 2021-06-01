@@ -6,6 +6,7 @@ import RestaurantTab from '../../components/backOfficeComponents/restaurantTab';
 import DeleteRestaurantModal from '../../components/backOfficeComponents/backOfficeModal/deleteRestaurantModal';
 import {
   CANCEL_DELETE,
+  CANCEL_EDIT,
   STOP_CREATE_COURSE,
   STOP_CREATE_DISH,
   STOP_VIEW_ORDER,
@@ -14,11 +15,15 @@ import CreateCourseModal from '../../components/backOfficeComponents/backOfficeM
 import DishModal from '../../components/backOfficeComponents/backOfficeModal/dishModal';
 import { OrdersTab } from '../../components/backOfficeComponents/ordersTab/ordersTab.view';
 import { ViewOrderModal } from '../../components/backOfficeComponents/backOfficeModal/viewOrderModal/viewOrderModal.view';
+import UsersTab from '../../components/backOfficeComponents/usersTab';
+import EditRoleModal from '../../components/backOfficeComponents/backOfficeModal/editRoleModal';
 
 export const BackOfficePage = () => {
   const {
     dispatch,
     state: { deleteRestaurantModal, selectedTab, createCourse, createDish, viewOrderModal },
+    userState: { editModal, deleteModal },
+    userDispatch,
   } = useBackOfficeContext();
 
   return (
@@ -30,11 +35,18 @@ export const BackOfficePage = () => {
         <div className={styles.content}>
           {selectedTab.name === 'Restaurants' && <RestaurantTab />}
           {selectedTab.name === 'Orders' && <OrdersTab />}
+          {selectedTab.name === 'Users' && <UsersTab />}
         </div>
       </div>
       <DeleteRestaurantModal
-        open={deleteRestaurantModal}
-        onClose={() => dispatch({ type: CANCEL_DELETE })}
+        open={deleteRestaurantModal || deleteModal}
+        onClose={() => {
+          if (deleteRestaurantModal) {
+            dispatch({ type: CANCEL_DELETE });
+            return;
+          }
+          userDispatch({ type: CANCEL_DELETE });
+        }}
       />
       <CreateCourseModal
         open={createCourse}
@@ -46,6 +58,7 @@ export const BackOfficePage = () => {
         open={viewOrderModal}
         onClose={() => dispatch({ type: STOP_VIEW_ORDER })}
       />
+      <EditRoleModal open={editModal} onClose={() => userDispatch({ type: CANCEL_EDIT })} />
     </div>
   );
 };

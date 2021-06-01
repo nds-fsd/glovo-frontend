@@ -26,7 +26,11 @@ export const RoleContextProvider = ({ children }) => {
           setRole(rol);
           setUserDetails(user);
           if (rol !== `${decision}`) {
-            history.push('/');
+            if (rol === 'SUPER_ADMIN') {
+              history.push('/backOffice');
+            } else {
+              history.push('/');
+            }
           }
           return true;
         },

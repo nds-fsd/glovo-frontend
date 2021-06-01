@@ -10,10 +10,10 @@ export const usePage = (entity = '') => {
   const [filteredPages, setFilteredPages] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
-  const getElements = ({ page = 0, limit = 10, body }) => {
+  const getElements = ({ page = 0, limit = 10, body, dir, sort }) => {
     setIsLoading(true);
     shortFetch({
-      url: `/${entity}/search?page=${page}&limit=${limit}`,
+      url: `/${entity}/search?page=${page}&sort=${sort}&dir=${dir}&limit=${limit}`,
       method: 'POST',
       body,
       token: true,
@@ -30,14 +30,11 @@ export const usePage = (entity = '') => {
     });
   };
 
-  const filterElements = (pag, lim, search, query) => {
+  const filterElements = ({ pag, lim, query, sort, dir }) => {
     setIsLoading(true);
     const body = query;
-    if (search) {
-      body.name = search;
-    }
     shortFetch({
-      url: `/${entity}/search?page=${pag}&limit=${lim}`,
+      url: `/${entity}/search?page=${pag}&sort=${sort}&dir=${dir}&limit=${lim}`,
       method: 'POST',
       body,
       token: true,

@@ -23,8 +23,6 @@ export const DishModal = ({ onClose, open, bigModal }) => {
     }
   }, [selectedDish]);
 
-  console.debug('selectedDish', selectedDish);
-
   return (
     <BackOfficeModal
       bigModal={bigModal}
@@ -35,7 +33,6 @@ export const DishModal = ({ onClose, open, bigModal }) => {
       open={open}
     >
       <div className={styles.container}>
-        {console.log(typeof ImageSkeleton)}
         <div style={{ display: 'flex', height: '85%', width: '100%' }}>
           <div className={styles.imageContainer}>
             <h3>Create Dish</h3>

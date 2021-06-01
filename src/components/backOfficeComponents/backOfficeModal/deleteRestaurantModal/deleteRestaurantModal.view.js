@@ -5,7 +5,7 @@ import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
 import { BACK_TO_COURSES } from '../../../../pages/backOfficePage/backOfficeContext/types';
 import { usePage } from '../../../../hooks/usePage';
-import { COURSE, DISH, RESTAURANT } from '../../../../router/router';
+import { COURSE, DISH, RESTAURANT, USER } from '../../../../router/router';
 import check from '../../../../assets/images/animation_500_kp9ok9m7.gif';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
@@ -13,6 +13,7 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
   const {
     dispatch,
     state: { deletableRestaurant, deletableCourse, deletableDish },
+    userState: { user },
   } = useBackOfficeContext();
   const { deleteElement } = usePage();
 
@@ -24,6 +25,10 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
   };
 
   const handleClick = () => {
+    if (user) {
+      deleteElement({ path: USER, id: user._id, onSuccess: handleSuccess });
+      return;
+    }
     if (deletableDish && !deletableRestaurant) {
       deleteElement({ path: DISH, id: deletableDish, onSuccess: handleSuccess });
       return;
