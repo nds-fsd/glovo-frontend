@@ -1,0 +1,138 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+    width: 100%;
+}
+.sectionA{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 80%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 40px;
+    margin-left: 27px;
+}
+.inputContainer, .inputContainerA, .inputContainerC {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    height: 3em;
+    border: 1px solid var(--salyBlue);
+    border-radius: 15px;
+}
+.inputContainer{
+    width: 95%;
+}
+.inputContainerC{
+    width: 46%;
+    height: 2em;
+    margin: 5px 9px 5px 0;
+}
+
+.input{
+    align-self: flex-start;
+    font-size: 14px;
+    width: 90%;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: none;
+}
+.imageInput{
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+}
+
+.sectionB{
+    display: flex;
+    flex-direction: column;
+    height: 52%;
+    width: 80%;
+    justify-content: flex-end;
+}
+.address{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 130px;
+    
+}
+
+.textArea{
+    width: 90%;
+    height: 150px;
+    resize: none;
+    outline: none;
+    border: 1px solid var(--salyBlue);
+    border-radius: 7px;
+    font-family: var(--mainFont);
+    background-color: transparent;
+}
+.submit{
+    height: 3.5em;
+    width: 25%;
+    background-color: var(--darkSalyBlue);
+    color: var(--salyWhite);
+    font-weight: 800;
+    border: none;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+.errorMessage{
+    font-size: 0.7em;
+    margin: 0px;
+    margin-top: -9px;
+}
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+.onError{
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.4)
+}
+.label{
+    position: absolute;
+    left: 0px;
+    top: -48%;
+    margin: 0;
+    font-size: 0.7em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}
+.descriptionLabel{
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 800;
+    color: var(--salyBlue);
+}
+
+.map{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 96%;
+    border-radius: 10px;
+    background-color: var(--lightSalyGray);
+}
+
+.icon{
+    width: 50px;
+    height: 50px;
+}

@@ -53,6 +53,10 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
 
       onSuccess: (res) => {
         console.log(res);
+        onClose();
+      },
+      onError: (err) => {
+        console.log(err, 'WHAT YOU DOIN BRO!!!');
       },
     });
   };
@@ -79,6 +83,7 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
     <Modal title="Tu dirección" onClose={onClose} open={open}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <GoogleInput
+          style={{ marginBottom: '10px' }}
           handleAddress={(value) => setAddress(value)}
           handleCoordinates={(value) => {
             setCoordinates(value);
@@ -93,7 +98,7 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
             })}
             style={{ width: '80%' }}
           >
-            <p className={classNames([styles.inputContainerC])}>Street Name</p>
+            <p className={classNames([styles.label])}>Street Name</p>
             <input
               className={styles.input}
               type="text"
@@ -142,11 +147,11 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
             {errors.zipcode && <p className={styles.errorMessage}>{errors.zipcode.message}</p>}
           </div>
         </div>
+        <div id="map" className={styles.map}>
+          <Gmaps className={styles.icon} />
+        </div>
         <input className={styles.submit} type="submit" value="submit" />
       </form>
-      <div id="map" className={styles.map}>
-        <Gmaps className={styles.icon} />
-      </div>
     </Modal>
   );
 };
