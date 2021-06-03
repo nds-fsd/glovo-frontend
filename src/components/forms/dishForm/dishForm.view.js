@@ -1,40 +1,85 @@
+/* eslint-disable no-debugger */
 /* eslint-disable react/jsx-props-no-spreading */
 
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
-import { useDishes } from '../../../hooks/useDishes';
 import styles from './dishForm.module.css';
 import { STOP_CREATE_DISH } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { usePage } from '../../../hooks/usePage';
+import { uploadImage } from '../../../assets/utils/imgUpload';
 
-export const DishForm = () => {
+export const DishForm = ({ imgSetter }) => {
   const {
     dispatch,
     state: { selectedCourse, selectedDish },
+    setDishImg,
+    dishImg,
   } = useBackOfficeContext();
   const [description, setDescription] = useState(selectedDish?.description);
-  const { createDishes, editDish } = useDishes();
+  const { createOrEditElement: createOrEditDish } = usePage('dish');
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    if (selectedDish && setValue) {
+      Object.keys(selectedDish).forEach((key) => {
+        if (key !== 'image') {
+          setValue(key, `${selectedDish[key]}`);
+        }
+      });
+    }
+  }, [setValue, selectedDish]);
 
   const onSuccess = () => {
     dispatch({ type: STOP_CREATE_DISH });
     reset();
+    imgSetter();
   };
+  // * is missing Dish Image
   const onSubmit = (data) => {
+    console.debug(dishImg);
     if (selectedDish.name) {
-      editDish({ dishId: selectedDish.id, data, description, onSuccess });
+      debugger;
+      createOrEditDish({
+        id: selectedDish.id,
+        body: {
+          name: data.name,
+          price: data.price,
+          description,
+          img: dishImg,
+        },
+        onSuccess,
+      });
       return;
     }
-    createDishes({ courseId: selectedCourse.id, data, description, onSuccess });
+    createOrEditDish({
+      body: {
+        Course: selectedCourse.id,
+        name: data.name,
+        price: data.price,
+        description,
+        img: dishImg,
+      },
+      onSuccess,
+    });
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.imgInputContainer}>
+        <input
+          className={styles.imageInput}
+          type="file"
+          {...register('image')}
+          onChange={(evt) => uploadImage(evt.target.files[0], setDishImg)}
+        />
+      </div>
       <div className={classNames([styles.inputContainer], { [styles.onError]: errors.name })}>
         <input
           className={styles.input}
@@ -43,6 +88,7 @@ export const DishForm = () => {
           placeholder="Dish Name"
           {...register('name', { required: 'Dish name is required' })}
         />
+
         {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
       </div>
       <div className={classNames([styles.inputContainer], { [styles.onError]: errors.price })}>

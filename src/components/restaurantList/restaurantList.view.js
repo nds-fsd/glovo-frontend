@@ -2,6 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 import { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import classNames from 'classnames';
 import styles from './restaurantList.module.css';
 import RestaurantItem from '../restaurantItem';
 import { shortFetch } from '../../assets/utils/fetch.utils';
@@ -41,12 +42,21 @@ export const RestaurantList = () => {
       shortFetch({ url: RESTAURANT, method: 'get', onSuccess: setAllRest });
     }
   }, [history.location.search]);
+
   return (
-    <div className={styles.container}>
-      {allRest &&
-        allRest.map((resto) => {
-          return <RestaurantItem key={resto._id} restaurant={resto} />;
+    <>
+      <div className={styles.fader}></div>
+      <div
+        className={classNames([styles.container], {
+          [styles.onSearch]: history.location.search.includes('name'),
         })}
-    </div>
+      >
+        {allRest &&
+          allRest.map((resto) => {
+            return <RestaurantItem key={resto._id} restaurant={resto} />;
+          })}
+      </div>
+      <div className={styles.reverseFader}></div>
+    </>
   );
 };

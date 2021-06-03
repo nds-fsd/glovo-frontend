@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
+    color: var(--salyBlack);
 }
 .imageContainer{
     display: flex;
@@ -12,13 +13,20 @@
     width: 40%;
 }
 .imageCase{
+    width: 83%;
+    height: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 170px;
-    width: 170px;
+    cursor: pointer;
     background-color: var(--lightSalyGray);
-    border-radius: 34px;
+    margin-top: 10px;
+    border-radius: 12px
+}
+.img{
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
 }
 .formContainer{
     width: 60%;

@@ -92,6 +92,7 @@
 .errorMessage{
     font-size: 0.7em;
     margin: 0px;
+    margin-top: -9px;
 }
 .buttonContainer{
     width: 100%;

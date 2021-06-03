@@ -1,24 +1,27 @@
 .flip_card {
     background-color: transparent;
-    width: 400px;
-    height: 300px;
+    width: 300px;
+    height: 230px;
     perspective: 1000px;
     margin: 10px;
+    border-radius: 12px;
   }
   .restaurantImage{
-    border-radius: 25px 25px 0 0;
+    border-radius: 12px 12px 0 0;
     height: 80%;
     width: 100%;
   }
   .name{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 50px;
-      width: 100%;
-      color: var(--salyBlue);
-      font-size: 26px;
-      font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    color: var(--salyBlue);
+    font-size: 26px;
+    padding-bottom: 17px;
+    box-sizing: border-box;
+    font-weight: 400;
   }
   
   .flip_card_inner {
@@ -29,12 +32,12 @@
     transition: transform 0.9s;
     transform-style: preserve-3d;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border-radius: 25px;
+    border-radius: 12px;
   }
   
   .flip_card:hover .flip_card_inner {
     transform: rotateY(180deg);
-    
+    overflow: visible;
   }
   
   .flip_card_front, .flip_card_back {
@@ -43,21 +46,20 @@
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 25px;
+    border-radius: 12px;
   }
   
   .flip_card_front {
     background-color: var(--salyWhite);
     color: black;
-    border-radius: 25px;
   }
   .flip_card_back {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background: linear-gradient(110.34deg, #0470DC -2.02%, #13F1FC 129.72%);
+    background: linear-gradient(110.34deg, #2372c2 -2.02%, #0e71c2 129.72%);
     color: white;
     transform: rotateY(180deg);
-    border-radius: 25px;
+    font-weight: 600;
   } 

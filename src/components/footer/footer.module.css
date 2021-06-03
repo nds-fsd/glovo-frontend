@@ -1,52 +1,71 @@
 .mainContainer{
-    height: 1000px;
+    height: 900px;
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-image: url('../../assets/images/Blue-footer.svg');
+    background-size: cover;
+    background-position: center;
 }
 
 .glovoApp{
-    background-image: url('../../assets/images/Blue-footer.svg');
-    background-repeat: no-repeat;
-    background-size: 2500px;
-    background-position: 44% 15%;
     width: 100%;
-    height: 1050px;
-    margin-top: 3%;
+    height: 450px;
     z-index: 1;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.bottomHalfContainer{
-    background-image: url('../../assets/images/Footer.png');
-    background-repeat: no-repeat;
-    background-size: 110%;
-    background-position: 32%;
-    width: 100%;
-    height: 110vh;
-    z-index: 2;
-    position: absolute;
-    top: 196%;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 }
 
-.downloadIcon{
-    display: flex;
-}
-
-.downloadButton{
+.appsInfo{
+    width: 660px;
+    height: 185px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-.socialMedia{
+.bottomHalfContainer{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: flex-end;
+    background-image: url('../../assets/images/Footer.png');
+    background-size: cover;
+    width: 100%;
+    height: 450px;
+    z-index: 2;
 }
 
+.downloadIcon{
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    width: 510px;
+}
+
+.downloadButton{
+    border: 2px solid var(--salyWhite);
+    border-radius: 12px;
+    width: 111px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--salyWhite);
+    transition: all 300ms;
+    cursor: pointer;
+}
+.downloadButton:hover{
+    transform: scale(0.95);
+}
+
+.socialMedia{
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-around;
+    width: 130px;
+}
+.bottomTextContainer{
+    display: flex;
+    flex-direction: column;
+    width: 470px;
+    height: 300px;
+}

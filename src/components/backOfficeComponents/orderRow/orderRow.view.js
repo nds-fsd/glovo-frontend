@@ -19,7 +19,7 @@ export const OrderRow = ({ order }) => {
         <>
           <div
             className={classNames([styles.column], { [styles.completed]: order.status })}
-            style={{ width: '50%', color: 'black' }}
+            style={{ width: '50%', color: 'var(--salyBlack)' }}
             onClick={() => {}}
           >
             {order.orderNumber}

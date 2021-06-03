@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { RESTAURANT } from '../../../router/router';
 import { backOfficeReducer } from './backOfficeReducer';
+import { userReducer } from './userReducer';
 import { SELECT_RESTAURANT } from './types';
+import { categoryReducer } from './categoryReducer';
 
 const initialState = {
+  isNightMode: '',
   createRestaurant: false,
   createCourse: false,
   createDish: false,
@@ -13,6 +16,13 @@ const initialState = {
   viewDishes: false,
   deleteRestaurantModal: false,
   viewOrderModal: false,
+  changeRoleModal: false,
+  selectedUser: {
+    id: '',
+    name: '',
+    email: '',
+    role: '',
+  },
   selectedTab: {
     name: 'Restaurants',
     restId: '',
@@ -34,10 +44,32 @@ const initialState = {
   deletableDish: '',
 };
 
+const userInitialState = {
+  editModal: false,
+  deleteModal: false,
+  user: {
+    firstName: '',
+    lastName: '',
+    id: '',
+    role: '',
+  },
+};
+const categoryInitialState = {
+  editModal: false,
+  deleteModal: false,
+  category: {
+    name: '',
+    id: '',
+  },
+};
+
 const backOfficeContext = createContext();
 
 export const BackOfficeContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(backOfficeReducer, initialState);
+  const [userState, userDispatch] = useReducer(userReducer, userInitialState);
+  const [categoryState, categoryDispatch] = useReducer(categoryReducer, categoryInitialState);
+  const [dishImg, setDishImg] = useState('');
   const { id } = useParams();
 
   const [image, setImage] = useState('');
@@ -58,8 +90,14 @@ export const BackOfficeContextProvider = ({ children }) => {
   const value = {
     state,
     dispatch,
+    userState,
+    userDispatch,
+    categoryState,
+    categoryDispatch,
     image,
     setImage,
+    dishImg,
+    setDishImg,
   };
 
   return <backOfficeContext.Provider value={value}>{children}</backOfficeContext.Provider>;

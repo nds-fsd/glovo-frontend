@@ -62,6 +62,7 @@ export const EditToolTip = ({ open, onClose, restaurant, dish }) => {
               id: dish._id,
               price: dish.price,
               description: dish.description,
+              img: dish.img,
             },
           })
         }

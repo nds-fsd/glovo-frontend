@@ -7,11 +7,15 @@ import Row from '../../row';
 import styles from './allRestaurantsTab.module.css';
 import { CREATE_RESTAURANT } from '../../../../pages/backOfficePage/backOfficeContext/types';
 import SearchBar from '../../../searchBar';
+import Loading from '../../../loading';
 
 export const AllRestaurantsTab = () => {
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-  const { dispatch } = useBackOfficeContext();
+  const {
+    dispatch,
+    state: { deleteRestaurantModal },
+  } = useBackOfficeContext();
   const [search, setSearch] = useState();
   const {
     userRestaurants,
@@ -21,11 +25,12 @@ export const AllRestaurantsTab = () => {
     clearFilter,
     filteredPages,
     getRestaurants,
+    isLoading,
   } = useRestaurants();
 
   useEffect(() => {
     getRestaurants({ page: currentPage - 1, limit });
-  }, [currentPage, limit]);
+  }, [currentPage, limit, deleteRestaurantModal]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -68,12 +73,15 @@ export const AllRestaurantsTab = () => {
           </div>
         </div>
         <div className={styles.restaurants}>
-          {userRestaurants &&
+          {isLoading && <Loading />}
+          {!isLoading &&
+            userRestaurants &&
             !filteredRestaurants &&
             userRestaurants.list.map((restaurant) => (
               <Row key={restaurant._id} restaurant={restaurant} />
             ))}
-          {filteredRestaurants &&
+          {!isLoading &&
+            filteredRestaurants &&
             filteredRestaurants.list.map((rest) => <Row key={rest._id} restaurant={rest} />)}
         </div>
         <footer className={styles.footer}>

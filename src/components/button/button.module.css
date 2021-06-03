@@ -80,3 +80,23 @@
     background-color: var(--lightSalyBlue);
     color: var(--salyWhite)
 }
+.primaryBig{
+    width: 160px;
+    height: 35px;
+    border: 2px solid var(--salyBlue);
+    border-radius: 50px;
+    color:var(--salyBlue);
+}
+.primaryBig:hover{
+    color: var(--salyWhite);
+    background-color: var(--salyBlue);
+}
+.viewAll{
+    align-self: flex-end;
+    width: 90px;
+    height: 20px;
+    font-size: 13px;
+    border: 2px solid var(--salyWhite);
+    border-radius: 50px;
+    color: var(--salyWhite);
+}

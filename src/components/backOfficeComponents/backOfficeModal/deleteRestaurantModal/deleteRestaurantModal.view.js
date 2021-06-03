@@ -1,22 +1,23 @@
+/* eslint-disable no-debugger */
 import React, { useState } from 'react';
-import { useRestaurants } from '../../../../hooks/useRestaurants';
 import Button from '../../../button';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
-import { useCourses } from '../../../../hooks/useCourses';
 import { BACK_TO_COURSES } from '../../../../pages/backOfficePage/backOfficeContext/types';
-import { useDishes } from '../../../../hooks/useDishes';
+import { usePage } from '../../../../hooks/usePage';
+import { COURSE, DISH, RESTAURANT, RESTAURANT_CATEGORY, USER } from '../../../../router/router';
+import check from '../../../../assets/images/animation_500_kp9ok9m7.gif';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const {
     dispatch,
     state: { deletableRestaurant, deletableCourse, deletableDish },
+    userState: { user },
+    categoryState: { category },
   } = useBackOfficeContext();
-  const { deleteRestaurant } = useRestaurants();
-  const { deleteCourses } = useCourses();
-  const { deleteDishes } = useDishes();
+  const { deleteElement } = usePage();
 
   const handleSuccess = () => {
     setIsDeleted(true);
@@ -26,18 +27,31 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
   };
 
   const handleClick = () => {
-    if (deletableDish) {
-      deleteDishes({ dishId: deletableDish, onSuccess: handleSuccess });
+    if (category._id) {
+      deleteElement({ path: RESTAURANT_CATEGORY, id: category._id, onSuccess: handleSuccess });
+    }
+    if (user.firstName) {
+      deleteElement({ path: USER, id: user._id, onSuccess: handleSuccess });
+      return;
+    }
+    if (deletableDish && !deletableRestaurant) {
+      deleteElement({ path: DISH, id: deletableDish, onSuccess: handleSuccess });
       return;
     }
     if (deletableCourse) {
-      deleteCourses({
-        courseId: deletableCourse,
+      deleteElement({
+        path: COURSE,
+        id: deletableCourse,
         onSuccess: handleSuccess,
       });
       return;
     }
-    deleteRestaurant(deletableRestaurant, handleSuccess, handleError);
+    deleteElement({
+      path: RESTAURANT,
+      id: deletableRestaurant,
+      onSuccess: handleSuccess,
+      onError: handleError,
+    });
   };
 
   return (
@@ -63,9 +77,12 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
             </div>
           </>
         )}
-        {isDeleted && deletableRestaurant && <h3>Restaurant Deleted Successfully</h3>}
-        {isDeleted && deletableCourse && <h3>Course Deleted Successfully</h3>}
-        {isDeleted && deletableDish && <h3>Dish Deleted Successfully</h3>}
+        {isDeleted && (
+          <div className={styles.isDeleted}>
+            <img className={styles.image} src={check} alt="check" />
+            <h3>Deleted Successfully</h3>
+          </div>
+        )}
       </div>
     </BackOfficeModal>
   );

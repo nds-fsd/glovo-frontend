@@ -5,22 +5,24 @@ import SubMenu from './subMenu';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { VIEW_DISHES } from '../../../pages/backOfficePage/backOfficeContext/types';
 
-export const CourseRow = ({ course }) => {
+export const CourseRow = ({ course, category }) => {
   const { dispatch } = useBackOfficeContext();
   const [subMenu, setSubMenu] = useState(false);
 
   return (
     <div className={styles.row}>
-      {course && (
+      {(course || category) && (
         <>
           <div
             className={`${styles.column} ${styles.name}`}
-            style={{ width: '32%', color: 'black' }}
+            style={{ width: '32%', color: 'var(--salyBlack)' }}
             onClick={() => {
-              dispatch({ type: VIEW_DISHES, payload: { name: course.name, id: course._id } });
+              if (!category) {
+                dispatch({ type: VIEW_DISHES, payload: { name: course.name, id: course._id } });
+              }
             }}
           >
-            {course.name}
+            {course?.name || category?.name}
           </div>
 
           <div className={styles.column} style={{ width: '20%' }}>
@@ -33,7 +35,12 @@ export const CourseRow = ({ course }) => {
               onClick={() => setSubMenu(!subMenu)}
             />
             <FontAwesomeIcon icon="bars" className={styles.icon} />
-            <SubMenu open={subMenu} onClose={() => setSubMenu(false)} course={course} />
+            <SubMenu
+              open={subMenu}
+              onClose={() => setSubMenu(false)}
+              course={course}
+              category={category}
+            />
           </div>
         </>
       )}

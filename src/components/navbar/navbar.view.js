@@ -4,18 +4,22 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { useEffect, useState, useContext } from 'react';
 import SearchBox from '../searchBox';
+import { ReactComponent as Briefcase } from '../../assets/icons/briefcase.svg';
+import ShoppingCartNav from './shoppingCartNav';
 import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
 import Button from '../button';
 import styles from './navbar.module.css';
-import { BACKOFFICE } from '../../router/router';
+import { BACKOFFICE, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { roleContext } from '../context/roleContext';
 import ProfileInfo from './profileInfo';
+import logoBalloon from '../../assets/images/letteringWhite.png';
 
 export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const { role, setProfileDropOpen, profileDropOpen, setEditingProfile } = useContext(roleContext);
+  const [openShopCart, setopenShopCart] = useState(false);
 
   const handleScroll = debounce(() => {
     const currentScrollPos = window.pageYOffset;
@@ -45,23 +49,22 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
         { [styles.moving]: prevScrollPos > 350 }
       )}
     >
-      <div>LOGO</div>
+      <div className={styles._logoContainer}>
+        <Link to={RESTAURANT_LIST_PAGE}>
+          <img src={logoBalloon} alt="logo" className={styles._hotAirBalloon} />
+        </Link>
+      </div>
       {}
       <SearchBox />
       <div className={classNames([styles.buttons])}>
         {getUserToken() ? (
           <>
-            {role === 'PROVIDER' ? (
+            {role === 'PROVIDER' || role === 'SUPER_ADMIN' ? (
               <Link to={BACKOFFICE}>
-                <FontAwesomeIcon
-                  icon="briefcase"
-                  className={classNames([styles.icons], {
-                    [styles.movingIcons]: prevScrollPos > 350,
-                  })}
-                />
+                <Briefcase />
               </Link>
             ) : (
-              <>
+              <div style={{ position: 'relative' }}>
                 <FontAwesomeIcon
                   icon="user-circle"
                   className={classNames([styles.icons], {
@@ -69,13 +72,23 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                   })}
                   onClick={() => setProfileDropOpen(!profileDropOpen)}
                 />
-                {profileDropOpen && <ProfileInfo />}
-              </>
+                {profileDropOpen && (
+                  <ProfileInfo open={profileDropOpen} onClose={() => setProfileDropOpen(false)} />
+                )}
+              </div>
             )}
-            <FontAwesomeIcon
-              icon="shopping-cart"
-              className={classNames([styles.icons], { [styles.movingIcons]: prevScrollPos > 350 })}
-            />
+            <div style={{ position: 'relative' }}>
+              <FontAwesomeIcon
+                icon="shopping-cart"
+                className={classNames([styles.icons], {
+                  [styles.movingIcons]: prevScrollPos > 350,
+                })}
+                onClick={() => setopenShopCart(!openShopCart)}
+              />
+              {openShopCart && (
+                <ShoppingCartNav open={openShopCart} onClose={() => setopenShopCart(false)} />
+              )}
+            </div>
           </>
         ) : (
           <>

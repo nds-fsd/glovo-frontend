@@ -19,7 +19,7 @@ export const Row = ({ restaurant }) => {
         <>
           <div
             className={`${styles.column} ${styles.name}`}
-            style={{ width: '32%', color: 'black' }}
+            style={{ width: '32%', color: 'var(--salyBlack)' }}
             onClick={() => {
               dispatch({ type: VIEW_RESTAURANT, payload: restaurant.name });
               history.push(`${BACKOFFICE}/${restaurant._id}`);

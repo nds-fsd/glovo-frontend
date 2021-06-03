@@ -1,30 +1,74 @@
 ._itemContainer {
-    min-width: 140px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 3px 3px 16px -3px #00000050;
-    padding: 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 3px 3px 16px -3px #00000050;
+    /* display: flex; */
+    /* flex-direction: column; */
     cursor: pointer;
+    overflow: hidden;
+    height: 370px;
+    transition: all 300ms;
+}
+._itemContainer:hover{
+    transform: scale(0.95);
 }
 ._imgContainer{
-    width: 90%;
-    align-self: center;
+    width: 100%;
 }
 ._imgDishItem {
+    /* width: 100%;
+    height: 120px; */
+    object-fit: cover;
     width: 100%;
-    border-radius: 5px;
+    height: 200px;
+}
+
+._itemBody{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+}
+.nameTitle{
+    margin: 5px 0;
+    color: var(--salyBlue);
+    font-size: 1.4em;
 }
 
 ._itemFooter {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.price{
+    font-weight: 600;
+    font-size: 22px;
+}
+.price, ._iconAdd{
+    margin: 0 15px;
+
 }
 
 ._iconAdd{
     color: var(--darkSalyBlue);
     font-size: 22px;
     cursor: pointer;
+}
+
+.description{
+    width: 100%;
+    max-width: 336px;
+    text-overflow: ellipsis;
+    height: 50px;
+    overflow: hidden;
+    color: var(--salyGrayText);
 }

@@ -51,6 +51,7 @@
     border: 2px solid var(--salyGrayBorder);
     border-radius: 10px;
     padding-top: 15px;
+    color: var(--salyBlack);
 }
 .orders{
     width: 100%;

@@ -26,6 +26,7 @@
     width: 77%;
     height: 100%;
     padding-top: 15px;
+    box-sizing: border-box;
 }
 .title{
     display: flex;

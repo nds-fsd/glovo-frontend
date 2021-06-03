@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
@@ -18,6 +19,7 @@ import Modal from '../../components/modal';
 import Button from '../../components/button';
 import { useCartContext } from '../../context/cartContext';
 import { Navbar } from '../../components/navbar/navbar.view';
+import background from '../../assets/images/header-test.png';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -51,11 +53,13 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
-
   return (
     <div>
       <Navbar />
-      <header className={styles._header}></header>
+      <header
+        className={styles._header}
+        style={{ backgroundImage: `url(${selectedResto?.image || background})` }}
+      ></header>
       <div className={styles._allContainter}>
         <div className={styles._restoCard}>
           <div className={styles._restoCardContainer}>
@@ -85,6 +89,7 @@ export const RestaurantViewPage = () => {
                       dish: modalDishView.dish,
                       price: modalDishView.price,
                       id: modalDishView.id,
+                      restoId: modalDishView.restoId,
                     });
                     setIsOpenModal(false);
                   }}
@@ -172,7 +177,7 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation selectedResto={selectedResto} />
+          <DeliveryInformation selectedResto={selectedResto} showIcons />
         </div>
       </div>
     </div>
