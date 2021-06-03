@@ -29,6 +29,7 @@ export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { addToCart, modalDishView } = useCartContext();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isRestoViewPage, setIsRestoViewPage] = useState(true);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -53,9 +54,10 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
+
   return (
     <div>
-      <Navbar />
+      <Navbar isRestoViewPage={isRestoViewPage} />
       <header
         className={styles._header}
         style={{ backgroundImage: `url(${selectedResto?.image || background})` }}

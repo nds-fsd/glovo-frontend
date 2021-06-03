@@ -15,7 +15,7 @@ import { roleContext } from '../context/roleContext';
 import ProfileInfo from './profileInfo';
 import logoBalloon from '../../assets/images/letteringWhite.png';
 
-export const Navbar = ({ openLoginModal, openRegisterModal }) => {
+export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const { role, setProfileDropOpen, profileDropOpen, setEditingProfile } = useContext(roleContext);
@@ -46,7 +46,8 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
       className={classNames(
         [styles.container],
         { [styles.onScroll]: !visible },
-        { [styles.moving]: prevScrollPos > 350 }
+        { [styles.moving]: prevScrollPos > 350 },
+        { [styles._viewPage]: isRestoViewPage }
       )}
     >
       <div className={styles._logoContainer}>
