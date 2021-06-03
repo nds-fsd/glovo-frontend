@@ -133,12 +133,12 @@ export const UsersTab = () => {
           {!isLoading &&
             users &&
             !filteredUsers &&
-            users.list.map((user) => {
+            users?.list?.map((user) => {
               return <UserRow key={user._id} user={user} />;
             })}
           {!isLoading &&
             filteredUsers &&
-            filteredUsers.list.map((user) => <UserRow key={user._id} user={user} />)}
+            filteredUsers?.list?.map((user) => <UserRow key={user._id} user={user} />)}
         </div>
         <footer className={styles.footer}>
           <div className={styles.limit}>
