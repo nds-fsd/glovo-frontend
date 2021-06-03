@@ -77,12 +77,12 @@ export const CategoriesTab = () => {
           {!isLoading &&
             categories &&
             !filteredCategories &&
-            categories?.list.map((category) => {
+            categories?.list?.map((category) => {
               return <CourseRow key={category._id} category={category} />;
             })}
           {!isLoading &&
             filteredCategories &&
-            filteredCategories?.list.map((category) => (
+            filteredCategories?.list?.map((category) => (
               <CourseRow key={category._id} category={category} />
             ))}
         </div>
