@@ -2,6 +2,7 @@
 /* eslint-disable radix */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
+import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useHistory } from 'react-router-dom';
 import styles from './deliveryInformation.module.css';
@@ -78,11 +79,11 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
           <div className={styles._allFeatures}>
             <p style={{ margin: '0' }}>{selectedResto.deliveryTime}</p>
             <p style={{ margin: '0' }}>{selectedResto.priceRating}</p>
-            <p style={{ margin: '0' }}>{selectedResto.deliveryCost}</p>
+            <p style={{ margin: '0' }}>{formatNumber(Number(selectedResto.deliveryCost))}</p>
           </div>
         )}
       </div>
-      <div className={styles._cart}>
+      <div className={classnames([styles._cart], { [styles._bgCart]: completedCart.length === 0 })}>
         {completedCart &&
           completedCart.map((cart) => {
             if (cart.price) {
@@ -90,18 +91,24 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
               totalPrice += subTotal;
             }
             return (
-              <div className={styles._newOrderInfo}>
+              <>
+                <div className={styles._newOrderInfo}>
+                  <div className={styles._qctName}>{cart.quantity && `${cart.quantity}x`}</div>
+                  <div className={styles._dishName}>{capitalize(cart.dish)}</div>
+                  <div className={styles._price}>
+                    {cart.quantity && formatNumber(Number(cart.price) * Number(cart.quantity))}
+                  </div>
+                </div>
                 <div className={styles.quantity}>
                   <FontAwesomeIcon
-                    style={{ color: 'var(--salyBlue)' }}
+                    className={styles._newOrderIcons}
                     icon="minus-circle"
                     onClick={() => {
                       removeItemInCart({ id: cart.id });
                     }}
                   />
-                  {cart.quantity && `${cart.quantity}x`}
                   <FontAwesomeIcon
-                    style={{ color: 'var(--salyBlue)' }}
+                    className={styles._newOrderIcons}
                     icon="plus-circle"
                     onClick={() => {
                       addToCart({
@@ -113,11 +120,7 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
                     }}
                   />
                 </div>
-                <div className={styles.dishName}>{capitalize(cart.dish)}</div>
-                <div className={styles.price}>
-                  {cart.quantity && formatNumber(Number(cart.price) * Number(cart.quantity))}
-                </div>
-              </div>
+              </>
             );
           })}
       </div>
