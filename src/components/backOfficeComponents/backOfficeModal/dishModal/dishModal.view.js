@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
 import { useCourses } from '../../../../hooks/useCourses';
@@ -17,36 +17,35 @@ export const DishModal = ({ onClose, open, bigModal }) => {
     setDishImg,
     state: { selectedDish },
   } = useBackOfficeContext();
-  const chooseImg = () => {
-    if (dishImg) {
-      return dishImg;
+  useEffect(() => {
+    if (selectedDish) {
+      setDishImg(selectedDish.img);
     }
-    if (selectedDish.img) {
-      return selectedDish.img;
-    }
-    return ImageSkeleton;
-  };
+  }, [selectedDish]);
 
   return (
     <BackOfficeModal
       bigModal={bigModal}
       onClose={() => {
         onClose();
+        setDishImg('');
       }}
       open={open}
     >
       <div className={styles.container}>
-        {console.log(typeof ImageSkeleton)}
         <div style={{ display: 'flex', height: '85%', width: '100%' }}>
           <div className={styles.imageContainer}>
             <h3>Create Dish</h3>
-            <div
-              className={styles.imageCase}
-              style={{ backgroundImage: `url(${chooseImg()}) ` }}
-            ></div>
+            <div className={styles.imageCase}>
+              <img
+                src={dishImg || ImageSkeleton}
+                alt="camera"
+                className={classNames({ [styles.img]: dishImg })}
+              />
+            </div>
           </div>
           <div className={styles.formContainer}>
-            <DishForm imgSetter={() => setDishImg()} />
+            <DishForm imgSetter={() => setDishImg('`')} />
           </div>
         </div>
         <div className={styles.footer}></div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import styles from './restaurantTab.module.css';
@@ -9,6 +9,7 @@ import { useRestaurants } from '../../../hooks/useRestaurants';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import MenuTab from '../menuTab';
 import DishesTab from '../dishesTab';
+import { roleContext } from '../../context/roleContext';
 
 export const RestaurantTab = () => {
   const {
@@ -16,6 +17,7 @@ export const RestaurantTab = () => {
   } = useBackOfficeContext();
   const { id } = useParams();
   const { hasRestaurants, getRestaurants } = useRestaurants();
+  const { role } = useContext(roleContext);
 
   useEffect(() => {
     getRestaurants({ page: 0, limit: 10 });
@@ -24,7 +26,7 @@ export const RestaurantTab = () => {
   return (
     <>
       {!id && hasRestaurants && !createRestaurant && <AllRestaurantsTab />}
-      {(!hasRestaurants || createRestaurant) && <CreateRestaurantTab />}
+      {(!hasRestaurants || createRestaurant) && role !== 'SUPER_ADMIN' && <CreateRestaurantTab />}
       {hasRestaurants && id && !createRestaurant && !viewMenu && !viewDishes && (
         <ViewRestaurantTab />
       )}

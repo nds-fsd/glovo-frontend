@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styles from './deliveryInformation.module.css';
 import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
@@ -23,6 +23,7 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
   const localStorageShopCart = getStorageObject('shoppingCart');
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { completedCart, addToCart, removeItemInCart, setCompletedCart } = useCartContext();
+  const history = useHistory();
   let totalPrice = 0;
 
   useEffect(() => {
@@ -58,12 +59,12 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
   };
 
   const handleClick = () => {
-    console.log('hola');
+    history.push('/');
   };
 
+  console.debug(completedCart);
   return (
     <div className={styles._cardContainer}>
-      {console.log(completedCart)}
       <h1>Your Glovo</h1>
       <div className={styles._restoFeatures}>
         {showIcons && (
@@ -89,30 +90,32 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
               totalPrice += subTotal;
             }
             return (
-              <div className={styles._newOrder}>
-                <div className={styles._newOrderInfo}>
-                  <p style={{ fontWeight: 'bold' }}>{cart.quantity && `${cart.quantity}x`}</p>
-                  <p>{capitalize(cart.dish)}</p>
-                  <p>{cart.quantity && formatNumber(Number(cart.price) * Number(cart.quantity))}</p>
-                </div>
-                <div className={styles._newOrderIcons}>
+              <div className={styles._newOrderInfo}>
+                <div className={styles.quantity}>
                   <FontAwesomeIcon
+                    style={{ color: 'var(--salyBlue)' }}
                     icon="minus-circle"
                     onClick={() => {
                       removeItemInCart({ id: cart.id });
                     }}
                   />
+                  {cart.quantity && `${cart.quantity}x`}
                   <FontAwesomeIcon
+                    style={{ color: 'var(--salyBlue)' }}
                     icon="plus-circle"
                     onClick={() => {
                       addToCart({
-                        restoId: cart.Restaurant,
+                        restoId: cart.restoId,
                         dish: cart.dish,
                         price: cart.price,
                         id: cart.id,
                       });
                     }}
                   />
+                </div>
+                <div className={styles.dishName}>{capitalize(cart.dish)}</div>
+                <div className={styles.price}>
+                  {cart.quantity && formatNumber(Number(cart.price) * Number(cart.quantity))}
                 </div>
               </div>
             );
@@ -135,9 +138,7 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
         </div>
 
         <Button onClick={() => handleClick()} buttonStyle="payOrder">
-          <Link to={`${RESTAURANT_LIST_PAGE}`} className={styles._linkPay}>
-            Go to homepage
-          </Link>
+          Go to homepage
         </Button>
         {console.log('localStorageCart', localStorageShopCart)}
       </Modal>

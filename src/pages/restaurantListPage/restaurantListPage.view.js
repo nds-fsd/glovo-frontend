@@ -27,6 +27,8 @@ export const RestaurantListPage = () => {
   const history = useHistory();
   const location = useLocation();
 
+  console.debug(history.location.search);
+
   return (
     <>
       <div className={styles.pageContainer}>

@@ -20,6 +20,7 @@ input:-webkit-autofill:active  {
 input{
     background-color: rgba(242, 242, 242,0.0);
     font-family: var(--mainFont);
+    color: var(--salyBlack);
 }
 select,
 select:-webkit-autofill,

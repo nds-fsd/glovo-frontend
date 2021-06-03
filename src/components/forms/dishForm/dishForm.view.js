@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable react/jsx-props-no-spreading */
 
 import classNames from 'classnames';
@@ -43,7 +44,9 @@ export const DishForm = ({ imgSetter }) => {
   };
   // * is missing Dish Image
   const onSubmit = (data) => {
+    console.debug(dishImg);
     if (selectedDish.name) {
+      debugger;
       createOrEditDish({
         id: selectedDish.id,
         body: {

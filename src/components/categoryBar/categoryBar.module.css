@@ -9,10 +9,17 @@
     z-index: 10;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: rgba(4, 112, 220,0.9);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+}
+.categoryContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 600px;
+    overflow-y: scroll;
 }
 .open{
     width: 250px;
@@ -21,8 +28,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid green;
     color: white;
+}
+.category:hover{
+    background-color: var(--salyBlue);
+    font-weight: 800;
 }
 .restaurantItem{
     display: flex;
@@ -47,5 +57,5 @@
 }
 .selected{
     background-color: var(--salyBlue);
-    border: 1px solid var(--lightSalyBlue);
+    font-weight: 800;
 }

@@ -8,6 +8,10 @@
     align-items: center;
     overflow-y: scroll;
 }
+.onSearch{
+    justify-content: flex-start;
+    align-items: flex-start;
+}
 .container::-webkit-scrollbar {
     display: none;
   }

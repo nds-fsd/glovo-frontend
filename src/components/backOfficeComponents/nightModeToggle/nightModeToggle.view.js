@@ -13,13 +13,17 @@ export const NightModeToggle = () => {
   } = useBackOfficeContext();
 
   useEffect(() => {
-    setStorageObject('nightMode', { isNightMode });
+    if (isNightMode === null || isNightMode === undefined) {
+      setStorageObject('nightMode', false);
+      return;
+    }
+    setStorageObject('nightMode', isNightMode);
   }, [isNightMode]);
 
   useEffect(() => {
     const root = document.querySelector(':root');
 
-    if (isNightMode) {
+    if (isNightMode === true) {
       root.style.setProperty('--salyWhite', '#2D2E30');
       root.style.setProperty('--salyGray', '#047CDC');
       root.style.setProperty('--lightSalyGray', '#494B45');
