@@ -53,7 +53,6 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
-  console.debug('modalDishView', modalDishView);
   return (
     <div>
       <Navbar />

@@ -33,14 +33,18 @@
   justify-content: space-around;
 }
 ._cart {
-    width: 75%;
+    width: 97%;
     max-height: 534px;
     overflow-y: auto;
     margin-top: 20px;
 }
 .quantity{
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: space-between;;
+    width: 85px;
+    height: 32px;
+    font-size: 20px;
 }
 
 
@@ -48,6 +52,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 5px;
+  height: 42px;
+}
+._newOrderInfo:hover{
+   background-color: #f4f4f4; 
 }
 ._newOrderIcons{ 
   display: flex;
@@ -84,6 +93,12 @@
   height: 100%;
 }
 
-._linkPay {
-  color: white;
+.dishName{
+    width: 44%;
+    max-height: 44px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.price{
+    width: 25%;
 }
