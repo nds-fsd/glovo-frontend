@@ -37,7 +37,7 @@ export const DishRow = ({ dish }) => {
           </div>
           <div className={styles.description}>{dish.description}</div>
           <div className={styles.column} style={{ width: '20%' }}>
-            Created At
+            {dish.createdAt}
           </div>
           <div style={{ position: 'relative' }}>
             <FontAwesomeIcon
