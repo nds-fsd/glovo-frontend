@@ -2,25 +2,25 @@
   position: absolute;
   height: 475px;
   background-color: var(--salyWhite);
-  border: 5px solid #BDBDBD;
   border-radius: 15px;
   margin-right: -134px;
   z-index: 2;
   opacity: 1;
-  top: 100%;
-  right: 50%;
+  top: 130%;
+  right: -134%;
   width: 330px;
+  padding: 17px;
 }
 
 ._container::after {
   content: " ";
   position: absolute;
   bottom: 100%;  /* At the top of the tooltip */
-  left: 50%;
+  left: 37%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent black transparent;
+  border-color: transparent transparent white transparent;
 }
   
   ._overlay {
