@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import React, { useState } from 'react';
 import Button from '../../../button';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
@@ -5,7 +6,7 @@ import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './deleteRestaurantModal.module.css';
 import { BACK_TO_COURSES } from '../../../../pages/backOfficePage/backOfficeContext/types';
 import { usePage } from '../../../../hooks/usePage';
-import { COURSE, DISH, RESTAURANT, USER } from '../../../../router/router';
+import { COURSE, DISH, RESTAURANT, RESTAURANT_CATEGORY, USER } from '../../../../router/router';
 import check from '../../../../assets/images/animation_500_kp9ok9m7.gif';
 
 export const DeleteRestaurantModal = ({ onClose, open }) => {
@@ -14,6 +15,7 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
     dispatch,
     state: { deletableRestaurant, deletableCourse, deletableDish },
     userState: { user },
+    categoryState: { category },
   } = useBackOfficeContext();
   const { deleteElement } = usePage();
 
@@ -25,7 +27,10 @@ export const DeleteRestaurantModal = ({ onClose, open }) => {
   };
 
   const handleClick = () => {
-    if (user) {
+    if (category._id) {
+      deleteElement({ path: RESTAURANT_CATEGORY, id: category._id, onSuccess: handleSuccess });
+    }
+    if (user.firstName) {
       deleteElement({ path: USER, id: user._id, onSuccess: handleSuccess });
       return;
     }

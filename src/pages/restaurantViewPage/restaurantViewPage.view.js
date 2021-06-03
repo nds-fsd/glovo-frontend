@@ -19,6 +19,7 @@ import Modal from '../../components/modal';
 import Button from '../../components/button';
 import { useCartContext } from '../../context/cartContext';
 import { Navbar } from '../../components/navbar/navbar.view';
+import background from '../../assets/images/header-test.png';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -56,7 +57,10 @@ export const RestaurantViewPage = () => {
   return (
     <div>
       <Navbar />
-      <header className={styles._header}></header>
+      <header
+        className={styles._header}
+        style={{ backgroundImage: `url(${selectedResto?.image || background})` }}
+      ></header>
       <div className={styles._allContainter}>
         <div className={styles._restoCard}>
           <div className={styles._restoCardContainer}>

@@ -5,6 +5,7 @@ import { RESTAURANT } from '../../../router/router';
 import { backOfficeReducer } from './backOfficeReducer';
 import { userReducer } from './userReducer';
 import { SELECT_RESTAURANT } from './types';
+import { categoryReducer } from './categoryReducer';
 
 const initialState = {
   isNightMode: '',
@@ -53,12 +54,21 @@ const userInitialState = {
     role: '',
   },
 };
+const categoryInitialState = {
+  editModal: false,
+  deleteModal: false,
+  category: {
+    name: '',
+    id: '',
+  },
+};
 
 const backOfficeContext = createContext();
 
 export const BackOfficeContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(backOfficeReducer, initialState);
   const [userState, userDispatch] = useReducer(userReducer, userInitialState);
+  const [categoryState, categoryDispatch] = useReducer(categoryReducer, categoryInitialState);
   const [dishImg, setDishImg] = useState('');
   const { id } = useParams();
 
@@ -82,6 +92,8 @@ export const BackOfficeContextProvider = ({ children }) => {
     dispatch,
     userState,
     userDispatch,
+    categoryState,
+    categoryDispatch,
     image,
     setImage,
     dishImg,

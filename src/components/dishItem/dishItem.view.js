@@ -10,21 +10,21 @@ import dishImg from '../../assets/images/restExample.jpg';
 export const DishItem = ({ selectedDish, openModal }) => {
   const { addToCart, viewDishInModal } = useCartContext();
   return (
-    <div className={styles._itemContainer}>
-      <div
-        className={styles._imgContainer}
-        onClick={() => {
-          openModal();
-          viewDishInModal({
-            restoId: selectedDish.Restaurant,
-            dish: selectedDish.name,
-            description: selectedDish.description,
-            price: selectedDish.price,
-            id: selectedDish._id,
-          });
-        }}
-      >
-        <img src={dishImg} alt="dish" className={styles._imgDishItem}></img>
+    <div
+      className={styles._itemContainer}
+      onClick={() => {
+        openModal();
+        viewDishInModal({
+          restoId: selectedDish.Restaurant,
+          dish: selectedDish.name,
+          description: selectedDish.description,
+          price: selectedDish.price,
+          id: selectedDish._id,
+        });
+      }}
+    >
+      <div className={styles._imgContainer}>
+        <img src={selectedDish.img || dishImg} alt="dish" className={styles._imgDishItem}></img>
       </div>
       <div
         className={styles._itemBody}
@@ -39,36 +39,23 @@ export const DishItem = ({ selectedDish, openModal }) => {
           });
         }}
       >
-        <h3>{capitalize(selectedDish.name)}</h3>
-        <p>{capitalize(selectedDish.description)}</p>
-      </div>
-      <div className={styles._itemFooter}>
-        <p
-          onClick={() => {
-            openModal();
-            viewDishInModal({
-              restoId: selectedDish.Restaurant,
-              dish: selectedDish.name,
-              description: selectedDish.description,
-              price: selectedDish.price,
-              id: selectedDish._id,
-            });
-          }}
-        >
-          {formatNumber(selectedDish.price)}
-        </p>
-        <FontAwesomeIcon
-          icon="cart-plus"
-          className={styles._iconAdd}
-          onClick={() => {
-            addToCart({
-              restoId: selectedDish.Restaurant,
-              dish: selectedDish.name,
-              price: selectedDish.price,
-              id: selectedDish._id,
-            });
-          }}
-        />
+        <h3 className={styles.nameTitle}>{capitalize(selectedDish.name)}</h3>
+        <div className={styles.description}>{capitalize(selectedDish.description)}</div>
+        <div className={styles._itemFooter}>
+          <p className={styles.price}>{formatNumber(selectedDish.price)}</p>
+          {/* <FontAwesomeIcon
+            icon="cart-plus"
+            className={styles._iconAdd}
+            onClick={() => {
+              addToCart({
+                restoId: selectedDish.Restaurant,
+                dish: selectedDish.name,
+                price: selectedDish.price,
+                id: selectedDish._id,
+              });
+            }}
+          /> */}
+        </div>
       </div>
     </div>
   );

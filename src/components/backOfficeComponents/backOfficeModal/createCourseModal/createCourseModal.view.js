@@ -9,15 +9,18 @@ import styles from './createCourseModal.module.css';
 export const CreateCourseModal = ({ onClose, open }) => {
   const {
     state: { selectedCourse },
+    categoryState: { editModal, category },
   } = useBackOfficeContext();
   const { createOrEditElement: createOrEditCourse } = usePage('course');
+  const { createOrEditElement: createOrEditCategory } = usePage('restaurantCategory');
   const { id } = useParams();
   const [isCreated, setIsCreated] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [courseName, setCourseName] = useState(selectedCourse ? selectedCourse.name : '');
+  const [categoryName, setCategoryName] = useState(category?.name || '');
 
   const handleClick = () => {
-    if (!selectedCourse.name) {
+    if (!selectedCourse.name && !editModal) {
       createOrEditCourse({
         body: {
           Restaurant: id,
@@ -29,11 +32,32 @@ export const CreateCourseModal = ({ onClose, open }) => {
       });
       return;
     }
-    createOrEditCourse({
-      body: { name: courseName },
-      id: selectedCourse.id,
-      onSuccess: () => setIsUpdated(true),
-    });
+    if (!editModal) {
+      createOrEditCourse({
+        body: { name: courseName },
+        id: selectedCourse.id,
+        onSuccess: () => setIsUpdated(true),
+      });
+      return;
+    }
+    if (category._id) {
+      createOrEditCategory({
+        body: { name: categoryName },
+        id: category._id,
+        onSuccess: () => setIsUpdated(true),
+      });
+      return;
+    }
+    if (!category._id && editModal) {
+      createOrEditCategory({
+        body: {
+          name: categoryName,
+        },
+        onSuccess: () => {
+          setIsCreated(true);
+        },
+      });
+    }
   };
 
   return (
@@ -48,14 +72,25 @@ export const CreateCourseModal = ({ onClose, open }) => {
       <div className={styles.container}>
         {!isCreated && !isUpdated && (
           <>
-            <h3>{selectedCourse.name ? 'Edit Course' : 'Create Course'}</h3>
+            {selectedCourse && !editModal && (
+              <h3>{selectedCourse.name ? 'Edit Course' : 'Create Course'}</h3>
+            )}
+            {category && editModal && (
+              <h3>{category.name ? 'Edit Category' : 'Create Category'}</h3>
+            )}
             <div className={styles.inputContainer}>
               <input
                 className={styles.input}
-                defaultValue={selectedCourse && selectedCourse.name}
+                defaultValue={selectedCourse?.name || category?.name}
                 type="text"
-                placeholder="Course Name"
-                onChange={(e) => setCourseName(e.target.value)}
+                placeholder={`${!editModal ? 'Course' : 'Category'} name`}
+                onChange={(e) => {
+                  if (!editModal) {
+                    setCourseName(e.target.value);
+                    return;
+                  }
+                  setCategoryName(e.target.value);
+                }}
               />
             </div>
             <div className={styles.buttonContainer}>
@@ -63,13 +98,13 @@ export const CreateCourseModal = ({ onClose, open }) => {
                 Cancel
               </Button>
               <Button buttonStyle="primary" onClick={() => handleClick()}>
-                {selectedCourse.name ? 'Edit' : 'Create'}
+                {selectedCourse.name || category._id ? 'Edit' : 'Create'}
               </Button>
             </div>
           </>
         )}
-        {isCreated && <h3>Course Created Successfully</h3>}
-        {isUpdated && <h3>Course Updated Successfully</h3>}
+        {isCreated && <h3>Created Successfully</h3>}
+        {isUpdated && <h3>Updated Successfully</h3>}
       </div>
     </BackOfficeModal>
   );

@@ -84,19 +84,15 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
               totalPrice += subTotal;
             }
             return (
-              <div className={styles._newOrder}>
-                <div className={styles._newOrderInfo}>
-                  <p style={{ fontWeight: 'bold' }}>{cart.quantity && `${cart.quantity}x`}</p>
-                  <p>{capitalize(cart.dish)}</p>
-                  <p>{cart.quantity && formatNumber(Number(cart.price) * Number(cart.quantity))}</p>
-                </div>
-                <div className={styles._newOrderIcons}>
+              <div className={styles._newOrderInfo}>
+                <div className={styles.quantity}>
                   <FontAwesomeIcon
                     icon="minus-circle"
                     onClick={() => {
                       removeItemInCart({ id: cart.id });
                     }}
                   />
+                  {cart.quantity && `${cart.quantity}x`}
                   <FontAwesomeIcon
                     icon="plus-circle"
                     onClick={() => {
@@ -109,6 +105,9 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
                     }}
                   />
                 </div>
+                <p style={{ fontWeight: 'bold' }}> </p>
+                <p>{capitalize(cart.dish)}</p>
+                <p>{cart.quantity && formatNumber(Number(cart.price) * Number(cart.quantity))}</p>
               </div>
             );
           })}

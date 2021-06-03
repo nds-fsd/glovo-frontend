@@ -33,16 +33,16 @@
   justify-content: space-around;
 }
 ._cart {
-    width: 75%; 
-    height: 20vh;
+    width: 75%;
+    max-height: 534px;
+    overflow-y: auto;
     margin-top: 20px;
-    overflow-y: scroll;
+}
+.quantity{
+    display: flex;
+    justify-content: space-between;
 }
 
-._newOrder{
-  display: flex;
-  flex-direction: column;
-}
 
 ._newOrderInfo{
   display: flex;

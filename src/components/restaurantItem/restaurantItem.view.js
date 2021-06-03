@@ -22,7 +22,7 @@ export const RestaurantItem = ({ restaurant }) => {
         </div>
         <Link to={`/restaurantViewPage/${restaurant._id}`}>
           <div className={styles.flip_card_back}>
-            <h1>{restaurant.name}</h1>
+            <h1 style={{ fontWeight: '400' }}>{restaurant.name}</h1>
             <Rating rating={restaurant.rating} />
             <p>{restaurant.description}</p>
           </div>
