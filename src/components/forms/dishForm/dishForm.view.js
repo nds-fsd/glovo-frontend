@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-debugger */
 /* eslint-disable react/jsx-props-no-spreading */
 
