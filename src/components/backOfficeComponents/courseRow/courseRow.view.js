@@ -26,7 +26,7 @@ export const CourseRow = ({ course, category }) => {
           </div>
 
           <div className={styles.column} style={{ width: '20%' }}>
-            <p>Created At</p>
+            {course?.createdAt.slice(0, 10) || category?.createdAt.slice(0, 10)}
           </div>
           <div className={`${styles.column} ${styles.iconContainer}`} style={{ width: '15%' }}>
             <FontAwesomeIcon

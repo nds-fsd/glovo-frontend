@@ -46,8 +46,6 @@ export const AllRestaurantsTab = () => {
     clearFilter();
   }, [search, limit, currentPage]);
 
-  console.debug(restaurantRef);
-
   return (
     <>
       <div className={styles.title}>

@@ -46,6 +46,9 @@ export const CreateCourseModal = ({ onClose, open }) => {
         id: category._id,
         onSuccess: () => setIsUpdated(true),
       });
+      setTimeout(() => {
+        onClose();
+      }, 1000);
       return;
     }
     if (!category._id && editModal) {
@@ -57,6 +60,9 @@ export const CreateCourseModal = ({ onClose, open }) => {
           setIsCreated(true);
         },
       });
+      setTimeout(() => {
+        onClose();
+      }, 500);
     }
   };
 
