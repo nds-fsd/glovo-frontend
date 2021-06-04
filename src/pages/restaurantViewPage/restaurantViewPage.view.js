@@ -20,6 +20,8 @@ import Button from '../../components/button';
 import { useCartContext } from '../../context/cartContext';
 import { Navbar } from '../../components/navbar/navbar.view';
 import background from '../../assets/images/header-test.png';
+import SignupModal from '../../components/modal/signupModal';
+import LoginModal from '../../components/modal/loginModal';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -29,6 +31,8 @@ export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { addToCart, modalDishView } = useCartContext();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openSignupModal, setOpenSignupModal] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
@@ -53,7 +57,10 @@ export const RestaurantViewPage = () => {
   }, []);
   return (
     <div>
-      <Navbar />
+      <Navbar
+        openLoginModal={() => setOpenLoginModal(true)}
+        openRegisterModal={() => setOpenSignupModal(true)}
+      />
       <header
         className={styles._header}
         style={{ backgroundImage: `url(${selectedResto?.image || background})` }}
@@ -175,9 +182,33 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation selectedResto={selectedResto} showIcons />
+          <DeliveryInformation
+            selectedResto={selectedResto}
+            showIcons
+            openRegisterModal={() => setOpenSignupModal(true)}
+          />
         </div>
       </div>
+      <LoginModal
+        open={openLoginModal}
+        openRegister={() => {
+          setOpenSignupModal(true);
+          setOpenLoginModal(false);
+        }}
+        onClose={() => {
+          setOpenLoginModal(false);
+        }}
+      />
+      <SignupModal
+        open={openSignupModal}
+        openLogin={() => {
+          setOpenSignupModal(false);
+          setOpenLoginModal(true);
+        }}
+        onClose={() => {
+          setOpenSignupModal(false);
+        }}
+      />
     </div>
   );
 };

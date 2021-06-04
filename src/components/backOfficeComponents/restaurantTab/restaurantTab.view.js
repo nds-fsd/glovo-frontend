@@ -13,7 +13,7 @@ import { roleContext } from '../../context/roleContext';
 
 export const RestaurantTab = () => {
   const {
-    state: { createRestaurant, viewMenu, viewDishes },
+    state: { createRestaurant, viewMenu, viewDishes, },
   } = useBackOfficeContext();
   const { id } = useParams();
   const { hasRestaurants, getRestaurants } = useRestaurants();
@@ -21,7 +21,7 @@ export const RestaurantTab = () => {
 
   useEffect(() => {
     getRestaurants({ page: 0, limit: 10 });
-  }, []);
+  }, [createRestaurant]);
 
   return (
     <>
