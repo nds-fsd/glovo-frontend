@@ -35,7 +35,6 @@ export const RestaurantViewPage = () => {
   useEffect(() => {
     shortFetch({
       url: `${RESTAURANT}/${id}`,
-      token: true,
       method: 'GET',
       onSuccess: setSelectedResto,
     });
@@ -48,7 +47,6 @@ export const RestaurantViewPage = () => {
   useEffect(() => {
     shortFetch({
       url: `${ALL_COURSES}/${id}`,
-      token: true,
       method: 'GET',
       onSuccess: setDishByCourse,
     });

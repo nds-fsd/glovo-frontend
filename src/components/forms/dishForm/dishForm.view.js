@@ -44,7 +44,6 @@ export const DishForm = ({ imgSetter }) => {
   };
   // * is missing Dish Image
   const onSubmit = (data) => {
-    console.debug(dishImg);
     if (selectedDish.name) {
       debugger;
       createOrEditDish({
