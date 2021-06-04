@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import { LoadingOutlined } from '@ant-design/icons';
 import styles from './logIn.module.css';
 import { BACKEND } from '../../router/router';
 import { setSessionUser } from '../../assets/utils/localStorage.utils';
@@ -12,6 +13,7 @@ import loginImage from '../../assets/images/loginImage.jpg';
 
 export const Login = ({ openRegister, onClose }) => {
   const [viewPassword, setViewPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     register,
     formState: { errors },
@@ -22,6 +24,7 @@ export const Login = ({ openRegister, onClose }) => {
   const { saveRole } = useContext(roleContext);
 
   const onSubmit = (data) => {
+    setIsSubmitting(true);
     if (data.email && data.password) {
       const body = {
         email: data.email,
@@ -53,6 +56,7 @@ export const Login = ({ openRegister, onClose }) => {
         .then((user) => {
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
+          setIsSubmitting(false);
           onClose();
         })
         .catch((err) => {
@@ -107,7 +111,14 @@ export const Login = ({ openRegister, onClose }) => {
             style={{ color: 'var(--salyGray)' }}
           />
         </div>
-        <input data-cy="login-submit" className={styles.submit} type="submit" value="Continue" />
+        {isSubmitting && (
+          <div className={styles.isSubmitting}>
+            <LoadingOutlined />
+          </div>
+        )}
+        {!isSubmitting && (
+          <input data-cy="login-submit" className={styles.submit} type="submit" value="Continue" />
+        )}
       </form>
       <p className={styles.footer}>
         Don&apos;t you have an account?{' '}

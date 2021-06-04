@@ -5,6 +5,7 @@ import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOffic
 import Button from '../../../button';
 import { BackOfficeModal } from '../backOfficeModal.view';
 import styles from './createCourseModal.module.css';
+import check from '../../../../assets/images/animation_500_kp9ok9m7.gif';
 
 export const CreateCourseModal = ({ onClose, open }) => {
   const {
@@ -30,6 +31,9 @@ export const CreateCourseModal = ({ onClose, open }) => {
           setIsCreated(true);
         },
       });
+      setTimeout(() => {
+        onClose();
+      }, 500);
       return;
     }
     if (!editModal) {
@@ -38,6 +42,9 @@ export const CreateCourseModal = ({ onClose, open }) => {
         id: selectedCourse.id,
         onSuccess: () => setIsUpdated(true),
       });
+      setTimeout(() => {
+        onClose();
+      }, 1500);
       return;
     }
     if (category._id) {
@@ -48,7 +55,7 @@ export const CreateCourseModal = ({ onClose, open }) => {
       });
       setTimeout(() => {
         onClose();
-      }, 1000);
+      }, 1500);
       return;
     }
     if (!category._id && editModal) {
@@ -62,7 +69,7 @@ export const CreateCourseModal = ({ onClose, open }) => {
       });
       setTimeout(() => {
         onClose();
-      }, 500);
+      }, 1500);
     }
   };
 
@@ -109,8 +116,13 @@ export const CreateCourseModal = ({ onClose, open }) => {
             </div>
           </>
         )}
-        {isCreated && <h3>Created Successfully</h3>}
-        {isUpdated && <h3>Updated Successfully</h3>}
+        {(isCreated || isUpdated) && (
+          <div className={styles.success}>
+            <img className={styles.image} src={check} alt="check" />
+            {isCreated && <h3>Created Successfully</h3>}
+            {isUpdated && <h3>Updated Successfully</h3>}
+          </div>
+        )}
       </div>
     </BackOfficeModal>
   );

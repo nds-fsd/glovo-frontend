@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useEffect, useState, useContext } from 'react';
+import { ShoppingOutlined, ProfileOutlined } from '@ant-design/icons';
 import SearchBox from '../searchBox';
 import ShoppingCartNav from './shoppingCartNav';
 import { debounce } from '../../assets/utils/debounce';
@@ -66,12 +68,17 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
           <>
             {role === 'PROVIDER' || role === 'SUPER_ADMIN' ? (
               <div>
-                <img
+                <ProfileOutlined
+                  className={classNames([styles.icons], {
+                    [styles.movingIcons]: prevScrollPos > 350,
+                  })}
+                  onClick={() => history.push(BACKOFFICE)}
+                />
+                {/* <img
                   style={{ width: '40px', cursor: 'pointer' }}
                   src={prevScrollPos > 450 ? briefcaseWhite : briefcaseBlue}
                   alt="briefcase"
-                  onClick={() => history.push(BACKOFFICE)}
-                />
+                /> */}
               </div>
             ) : (
               <div style={{ position: 'relative' }}>
@@ -89,12 +96,18 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
             )}
             {!id && (
               <div style={{ position: 'relative' }}>
-                <img
+                <ShoppingOutlined
+                  className={classNames([styles.icons], {
+                    [styles.movingIcons]: prevScrollPos > 350,
+                  })}
+                  onClick={() => setopenShopCart(!openShopCart)}
+                />
+                {/* <img
                   style={{ width: '40px', cursor: 'pointer' }}
                   src={prevScrollPos > 450 ? shoppingCartWhite : shoppingCartBlue}
                   alt="shopping Cart"
                   onClick={() => setopenShopCart(!openShopCart)}
-                />
+                /> */}
                 {/* <FontAwesomeIcon
                   icon="shopping-cart"
                   className={classNames([styles.icons], {
