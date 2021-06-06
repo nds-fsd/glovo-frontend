@@ -22,6 +22,7 @@ import { Navbar } from '../../components/navbar/navbar.view';
 import background from '../../assets/images/header-test.png';
 import SignupModal from '../../components/modal/signupModal';
 import LoginModal from '../../components/modal/loginModal';
+import restExample from '../../assets/images/restExample.jpg';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -55,6 +56,7 @@ export const RestaurantViewPage = () => {
       onSuccess: setDishByCourse,
     });
   }, []);
+
   return (
     <div>
       <Navbar
@@ -86,8 +88,25 @@ export const RestaurantViewPage = () => {
             {isOpenModal && (
               <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal}>
                 <h2 style={{ fontWeight: 'bold' }}>{capitalize(modalDishView?.dish)}</h2>
-                <p>{capitalize(modalDishView?.description)}</p>
-                <p>{formatNumber(modalDishView?.price)}</p>
+                <div className={styles.modalContainer}>
+                  <div className={styles.column1}>
+                    <div className={styles.imageContainer}>
+                      <img
+                        className={styles.image}
+                        src={modalDishView?.img || restExample}
+                        alt="food"
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.column2}>
+                    {' '}
+                    <div className={styles.description}>
+                      {capitalize(modalDishView?.description)}
+                    </div>
+                    <div className={styles.price}>{formatNumber(modalDishView?.price)}</div>
+                  </div>
+                </div>
+
                 <Button
                   onClick={() => {
                     addToCart({

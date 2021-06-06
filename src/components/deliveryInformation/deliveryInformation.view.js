@@ -63,7 +63,6 @@ const DeliveryInformation = ({ selectedResto, showIcons, openRegisterModal }) =>
     history.push('/');
   };
 
-  console.debug(completedCart);
   return (
     <div className={styles._cardContainer}>
       <h1>Your Glovo</h1>
