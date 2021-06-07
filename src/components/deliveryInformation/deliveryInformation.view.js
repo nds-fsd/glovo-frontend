@@ -20,7 +20,7 @@ import Modal from '../modal/modal.view';
 import imgProcessing from '../../assets/images/image_processing20191001-8524-s4802o.gif';
 import { RESTAURANT_LIST_PAGE } from '../../router/router';
 
-const DeliveryInformation = ({ selectedResto, showIcons }) => {
+const DeliveryInformation = ({ selectedResto, showIcons, openRegisterModal }) => {
   const localStorageShopCart = getStorageObject('shoppingCart');
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { completedCart, addToCart, removeItemInCart, setCompletedCart } = useCartContext();
@@ -32,7 +32,7 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
   }, [completedCart]);
 
   const payOrder = () => {
-    const userId = getUserSession().id;
+    const userId = getUserSession()?.id;
     if (!userId) {
       return null;
     }
@@ -63,7 +63,6 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
     history.push('/');
   };
 
-  console.debug(completedCart);
   return (
     <div className={styles._cardContainer}>
       <h1>Your Glovo</h1>
@@ -79,7 +78,9 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
           <div className={styles._allFeatures}>
             <p style={{ margin: '0' }}>{selectedResto.deliveryTime}</p>
             <p style={{ margin: '0' }}>{selectedResto.priceRating}</p>
-            <p style={{ margin: '0' }}>{formatNumber(Number(selectedResto.deliveryCost))}</p>
+            <p style={{ margin: '0' }}>
+              {formatNumber(Number(selectedResto?.deliveryCost || 1.0))}
+            </p>
           </div>
         )}
       </div>
@@ -129,9 +130,15 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
           <p className={styles._totalPrice}>
             TOTAL to pay <span>{formatNumber(totalPrice)}</span>
           </p>
-          <Button onClick={() => payOrder()} buttonStyle="payOrder">
-            PAY
-          </Button>
+          {getUserSession() ? (
+            <Button onClick={() => payOrder()} buttonStyle="payOrder">
+              PAY
+            </Button>
+          ) : (
+            <Button onClick={() => openRegisterModal()} buttonStyle="payOrder">
+              Please Sign In
+            </Button>
+          )}
         </div>
       )}
       <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal} title="Thank You">
@@ -139,11 +146,9 @@ const DeliveryInformation = ({ selectedResto, showIcons }) => {
         <div className={styles._orderPreparing}>
           <img src={imgProcessing} alt="order" className={styles._imgPreparing}></img>
         </div>
-
         <Button onClick={() => handleClick()} buttonStyle="payOrder">
           Go to homepage
         </Button>
-        {console.log('localStorageCart', localStorageShopCart)}
       </Modal>
     </div>
   );

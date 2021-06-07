@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 import { useRestaurants } from '../../../../hooks/useRestaurants';
 import Button from '../../../button';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
@@ -10,6 +11,7 @@ import SearchBar from '../../../searchBar';
 import Loading from '../../../loading';
 
 export const AllRestaurantsTab = () => {
+  const restaurantRef = useRef();
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const {
@@ -72,7 +74,12 @@ export const AllRestaurantsTab = () => {
             Creation Date
           </div>
         </div>
-        <div className={styles.restaurants}>
+        <div
+          className={classNames([styles.restaurants], {
+            [styles.scroll]: restaurantRef?.current?.scrollHeight >= 450,
+          })}
+          ref={restaurantRef}
+        >
           {isLoading && <Loading />}
           {!isLoading &&
             userRestaurants &&

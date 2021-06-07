@@ -57,9 +57,9 @@
 .users{
     width: 100%;
     max-height: 450px;
+}
+.scroll{
     overflow: scroll;
-    /* padding-top: 20px;
-    padding-bottom: 20px; */
 }
 .footer{
     display: flex;

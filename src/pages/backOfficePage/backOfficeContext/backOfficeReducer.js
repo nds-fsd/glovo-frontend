@@ -20,6 +20,7 @@ import {
   VIEW_ORDER,
   STOP_VIEW_ORDER,
   TOGGLE_NIGHT_MODE,
+  LOGOUT,
 } from './types';
 
 export const backOfficeReducer = (state, action) => {
@@ -106,6 +107,9 @@ export const backOfficeReducer = (state, action) => {
       return newState;
     case TOGGLE_NIGHT_MODE:
       newState.isNightMode = !newState.isNightMode;
+      return newState;
+    case LOGOUT:
+      newState.isNightMode = false;
       return newState;
     default:
       return newState;

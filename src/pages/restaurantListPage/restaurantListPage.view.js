@@ -52,7 +52,11 @@ export const RestaurantListPage = () => {
               </Button>
               {location.search && (
                 <>
-                  <div className={styles.categoryName}>{history.location.search.slice(6)}</div>
+                  <div className={styles.categoryName}>
+                    {history.location.search.includes('name')
+                      ? history.location.search.slice(6)
+                      : history.location.search.slice(8)}
+                  </div>
                 </>
               )}
             </div>
