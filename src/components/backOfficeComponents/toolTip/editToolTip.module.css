@@ -29,6 +29,7 @@
     visibility: visible;
     opacity: 1;
     transition: visibility 0s linear 0s, opacity 300ms;
+    z-index: 9;
   }
 .option{
     display: flex;

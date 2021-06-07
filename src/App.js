@@ -36,9 +36,9 @@ function App() {
               <Route path={RESTAURANT_LIST_PAGE}>
                 <RestaurantListPage />
               </Route>
-              <PrivateRoute path={`${RESTAURANT_VIEW_PAGE}/:id`}>
+              <Route path={`${RESTAURANT_VIEW_PAGE}/:id`}>
                 <RestaurantViewPage />
-              </PrivateRoute>
+              </Route>
               <Route path="/" exact>
                 <Redirect to={RESTAURANT_LIST_PAGE} />
               </Route>
