@@ -54,6 +54,8 @@
 .restaurants{
     width: 100%;
     max-height: 450px;
+}
+.scroll{
     overflow: scroll;
 }
 .restaurants::-webkit-scrollbar {

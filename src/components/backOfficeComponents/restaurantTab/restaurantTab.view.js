@@ -21,7 +21,7 @@ export const RestaurantTab = () => {
 
   useEffect(() => {
     getRestaurants({ page: 0, limit: 10 });
-  }, []);
+  }, [createRestaurant]);
 
   return (
     <>

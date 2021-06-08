@@ -21,6 +21,7 @@ export const DishItem = ({ selectedDish, openModal }) => {
             description: selectedDish.description,
             price: selectedDish.price,
             id: selectedDish._id,
+            img: selectedDish.img,
           });
         }}
       >

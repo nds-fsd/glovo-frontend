@@ -45,7 +45,6 @@ export const DishForm = ({ imgSetter }) => {
   };
   // * is missing Dish Image
   const onSubmit = (data) => {
-    console.debug(dishImg);
     if (selectedDish.name) {
       debugger;
       createOrEditDish({
@@ -75,6 +74,7 @@ export const DishForm = ({ imgSetter }) => {
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.imgInputContainer}>
         <input
+          id="dish-input"
           className={styles.imageInput}
           type="file"
           {...register('image')}
@@ -114,6 +114,16 @@ export const DishForm = ({ imgSetter }) => {
         defaultValue={selectedDish && selectedDish.description}
         onChange={(e) => setDescription(e.target.value)}
       ></textarea>
+      <div
+        className={styles.cancel}
+        onClick={() => {
+          dispatch({ type: STOP_CREATE_DISH });
+          reset();
+          imgSetter();
+        }}
+      >
+        Cancel
+      </div>
       <input type="submit" className={styles.submit} />
     </form>
   );
