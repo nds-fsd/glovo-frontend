@@ -7,6 +7,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Additional](#additional)
 
 ## General info
 This is the final project of the collaborators in a 'fullstack developer bootcamp'. Originally inspired in glovoapp.com and used to confirm the skills acquired in the bootcamp.
