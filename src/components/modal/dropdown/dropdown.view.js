@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { useRef, useEffect } from 'react';
+import classNames from 'classnames';
 import styles from './dropdown.module.css';
 // import { roleContext } from '../../context/roleContext';
 
@@ -20,7 +21,17 @@ export const Dropdown = ({ children, onClose, open }) => {
     };
   }, [dropDownRef, open]);
   return (
-    <div className={styles._container} ref={dropDownRef}>
+    <div
+      className={classNames(
+        [styles._container],
+        {
+          [styles.profileModal]: children.type.name === 'ProfileInfo',
+        },
+        { [styles.shoppingCart]: children.type.name === 'DeliveryInformation' }
+      )}
+      ref={dropDownRef}
+    >
+      {console.log(children.type.name)}
       {children}
     </div>
   );

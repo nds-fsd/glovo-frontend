@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { useEffect, useState, useContext } from 'react';
 import SearchBox from '../searchBox';
 import { ReactComponent as Briefcase } from '../../assets/icons/briefcase.svg';
-import ShoppingCartNav from './shoppingCartNav';
 import { debounce } from '../../assets/utils/debounce';
 import { getUserToken } from '../../assets/utils/localStorage.utils';
 import Button from '../button';
@@ -14,11 +13,13 @@ import { BACKOFFICE, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { roleContext } from '../context/roleContext';
 import ProfileInfo from './profileInfo';
 import logoBalloon from '../../assets/images/letteringWhite.png';
+import DropDown from '../modal/dropdown';
+import DeliveryInformation from '../deliveryInformation';
 
 export const Navbar = ({ openLoginModal, openRegisterModal }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const { role, setProfileDropOpen, profileDropOpen, setEditingProfile } = useContext(roleContext);
+  const { role, setProfileDropOpen, profileDropOpen } = useContext(roleContext);
   const [openShopCart, setopenShopCart] = useState(false);
 
   const handleScroll = debounce(() => {
@@ -31,10 +32,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
 
     setPrevScrollPos(currentScrollPos);
   }, 50);
-
-  useEffect(() => {
-    if (!profileDropOpen) setEditingProfile(false);
-  }, [profileDropOpen]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -73,7 +70,14 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                   onClick={() => setProfileDropOpen(!profileDropOpen)}
                 />
                 {profileDropOpen && (
-                  <ProfileInfo open={profileDropOpen} onClose={() => setProfileDropOpen(false)} />
+                  <DropDown open={profileDropOpen} onClose={() => setProfileDropOpen(false)}>
+                    <ProfileInfo />
+                  </DropDown>
+                )}
+                {openShopCart && (
+                  <DropDown open={openShopCart} onClose={() => setopenShopCart(false)}>
+                    <DeliveryInformation showIcons={false} />
+                  </DropDown>
                 )}
               </div>
             )}
@@ -85,9 +89,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                 })}
                 onClick={() => setopenShopCart(!openShopCart)}
               />
-              {openShopCart && (
-                <ShoppingCartNav open={openShopCart} onClose={() => setopenShopCart(false)} />
-              )}
             </div>
           </>
         ) : (

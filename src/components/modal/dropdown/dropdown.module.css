@@ -10,9 +10,10 @@
   right: -134%;
   width: 330px;
   padding: 17px;
+  overflow: scroll;
 }
 
-._container::after {
+.profileModal::after {
   content: " ";
   position: absolute;
   bottom: 100%;  /* At the top of the tooltip */
@@ -22,6 +23,18 @@
   border-style: solid;
   border-color: transparent transparent white transparent;
 }
+
+.shoppingCart::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 79%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
   
   ._overlay {
     width: 100%;
