@@ -60,10 +60,10 @@ export const RestaurantViewPage = () => {
 
   return (
     <div>
-      <Navbar isRestoViewPage={isRestoViewPage} />
       <Navbar
         openLoginModal={() => setOpenLoginModal(true)}
         openRegisterModal={() => setOpenSignupModal(true)}
+        isRestoViewPage={isRestoViewPage}
       />
       <header
         className={styles._header}
