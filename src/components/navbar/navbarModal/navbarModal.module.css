@@ -1,0 +1,50 @@
+._backdrop {
+    width: 100%;
+    height: 100vh;
+    background-color: #0000007c;
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    z-index: 9999999999;
+  }
+  
+  ._modal {
+    display: flex;
+    background: var(--salyWhite);
+    border-radius: 12px;
+    padding: 10px 20px;
+    z-index: 999999;
+
+}
+  
+  ._modalHeader {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 20px;
+  }
+  
+  ._iconClose {
+    width: 20px;
+    height: 20px;
+    color: var(--darkSalyBlue);
+    align-self: flex-end;
+    cursor: pointer;
+  }
+  
+  .address{
+    width: 80%;
+    height: 65%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .delete{
+      width: 70%;
+  }
+
