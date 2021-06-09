@@ -11,9 +11,9 @@
 
 .welcomeMessage{
     font-weight: bolder;
-    font-size: 20px;
-    text-indent: 20px;
-    margin-bottom: 43px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .nameHeader{
@@ -22,9 +22,7 @@
 
 .registeredText{
     font-weight: bold;
-    border-bottom: 2px solid var(--lightSalyBlue);
-    padding-bottom: 17px;
-    text-indent: 20px;
+    margin: 10px;
 }
 
 .editAddress{
@@ -32,3 +30,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.logoutDelete{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 88px;
+}
+

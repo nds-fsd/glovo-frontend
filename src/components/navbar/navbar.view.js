@@ -72,11 +72,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                   })}
                   onClick={() => history.push(BACKOFFICE)}
                 />
-                {/* <img
-                  style={{ width: '40px', cursor: 'pointer' }}
-                  src={prevScrollPos > 450 ? briefcaseWhite : briefcaseBlue}
-                  alt="briefcase"
-                /> */}
               </div>
             ) : (
               <div style={{ position: 'relative' }}>
@@ -89,7 +84,7 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                 />
                 {profileDropOpen && (
                   <DropDown open={profileDropOpen} onClose={() => setProfileDropOpen(false)}>
-                    <ProfileInfo />
+                    <ProfileInfo onClose={() => setProfileDropOpen(false)} />
                   </DropDown>
                 )}
                 {openShopCart && (
@@ -107,21 +102,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
                   })}
                   onClick={() => setopenShopCart(!openShopCart)}
                 />
-                {/* <img
-                  style={{ width: '40px', cursor: 'pointer' }}
-                  src={prevScrollPos > 450 ? shoppingCartWhite : shoppingCartBlue}
-                  alt="shopping Cart"
-                  onClick={() => setopenShopCart(!openShopCart)}
-                /> */}
-                {/* <FontAwesomeIcon
-                  icon="shopping-cart"
-                  className={classNames([styles.icons], {
-                    [styles.movingIcons]: prevScrollPos > 350,
-                  })}
-                /> */}
-                {openShopCart && (
-                  <ShoppingCartNav open={openShopCart} onClose={() => setopenShopCart(false)} />
-                )}
               </div>
             )}
           </>

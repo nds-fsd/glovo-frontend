@@ -14,12 +14,14 @@ import ProfileInfoLine from './profileInfoLine';
 import { shortFetch } from '../../../assets/utils/fetch.utils';
 import { USER } from '../../../router/router';
 import AddressModal from './addressModal';
+import Modal from '../../modal';
 
 export const ProfileInfo = ({ onClose }) => {
   const history = useHistory();
   const userSession = getUserSession();
   const { userDetails, setUserDetails } = useContext(roleContext);
   const [openAddressModal, setOpenAddressModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   useEffect(() => {
     if (!userDetails) {
       setUserDetails(getUserSession());
@@ -48,43 +50,21 @@ export const ProfileInfo = ({ onClose }) => {
     history.push('/');
   };
 
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  //   shortFetch({
-  //     url: `${USER}/${userDetails._id}`,
-  //     body: {
-  //       firstName: data.firstName,
-  //     },
-  //     method: 'PATCH',
-  //     token: true,
-  //     onSuccess: (user) => {
-  //       setEditingProfile(false);
-  //       alert(user.message);
-  //     },
-  //     onError: (err) => {
-  //       setError(err);
-  //     },
-  //   });
-  // };
-
   return (
     <div className={styles.container}>
       <div className={styles.welcomeMessage}>
         <p>{`¡Hola, ${userDetails.firstName}!`}</p>
       </div>
       <div className={styles.userInfo}>
-        <p className={styles.userInfoTitle}>Tu Cuenta</p>
         <div className={styles.NameEmail}>
-          <p className={styles.fieldHeader}>Nombre</p>
+          <ProfileInfoLine label="Nombre" schemaProperty="firstName" userDetailsKey="firstName" />
+          <ProfileInfoLine
+            label="Teléfono"
+            schemaProperty="phoneNumber"
+            userDetailsKey="phoneNumber"
+          />
           <div>
-            <ProfileInfoLine
-              label="firstName"
-              schemaProperty="firstName"
-              userDetailsKey="firstName"
-            />
-          </div>
-          <div>
-            <p className={styles.fieldHeader}>Email</p>
+            <span className={styles.fieldHeader}>Email</span>
             <p className={styles.registeredText}>{userDetails.email}</p>
           </div>
         </div>
@@ -96,17 +76,24 @@ export const ProfileInfo = ({ onClose }) => {
       ) : (
         <div>
           <div className={styles.editAddress}>
-            <p className={styles.fieldHeader}>Dirección</p>
+            <span className={styles.fieldHeader}>Dirección</span>
             <FontAwesomeIcon
-              icon="cog"
+              icon="brush"
               onClick={() => setOpenAddressModal(!openAddressModal)}
               style={{ cursor: 'pointer' }}
             />
           </div>
-          <p className={styles.registeredText}>{userDetails.fullAddress}</p>
+          <span className={styles.registeredText}>{userDetails.fullAddress}</span>
         </div>
       )}
-      <div>
+      <div className={styles.logoutDelete}>
+        <Button
+          buttonStyle="delete"
+          className={styles.deleteButton}
+          onClick={() => setIsDeleting(!isDeleting)}
+        >
+          Delete
+        </Button>
         <Button
           onClick={() => {
             logoutFunc();
@@ -114,9 +101,6 @@ export const ProfileInfo = ({ onClose }) => {
           buttonStyle="primary"
         >
           Logout
-        </Button>
-        <Button buttonStyle="primary" onClick={() => deleteUser(userDetails._id)}>
-          Delete
         </Button>
       </div>
 
@@ -127,11 +111,18 @@ export const ProfileInfo = ({ onClose }) => {
           userDetails={userDetails}
         />
       )}
+      {isDeleting && (
+        <Modal onClose={() => setIsDeleting(!isDeleting)} open={isDeleting} title="Are You sure?">
+          <div className={styles.buttonContainer}>
+            <Button buttonStyle="signup" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button buttonStyle="delete" onClick={() => deleteUser(userDetails._id)}>
+              Delete
+            </Button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
-
-// <div className={styles.editButton}>
-// <FontAwesomeIcon icon="cog" onClick={() => setEditingProfile(!editingProfile)} />
-// {console.log(userDetails)}
-// </div>

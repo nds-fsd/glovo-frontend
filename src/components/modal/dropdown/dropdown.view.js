@@ -1,12 +1,9 @@
-/* eslint-disable no-console */
 import { useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import styles from './dropdown.module.css';
-// import { roleContext } from '../../context/roleContext';
 
 export const Dropdown = ({ children, onClose, open }) => {
   const dropDownRef = useRef();
-  // const { setProfileDropOpen, profileDropOpen } = useContext(roleContext);
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropDownRef.current && !dropDownRef.current.contains(e.target) && open) {
@@ -31,10 +28,7 @@ export const Dropdown = ({ children, onClose, open }) => {
       )}
       ref={dropDownRef}
     >
-      {console.log(children.type.name)}
       {children}
     </div>
   );
 };
-
-// { [styles.open]: profileDropOpen }
