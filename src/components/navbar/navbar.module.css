@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: space-around;
     height: 100%;
-    width: 300px;
+    width: 200px;
 }
 .onScroll{
     top: -102px
@@ -42,4 +42,9 @@
 }
 .movingIcons{
     color: var(--salyWhite);
+}
+
+._viewPage {
+    background: linear-gradient(110.34deg, #0470DC -2.02%, #13F1FC 129.72%);
+    height: 80px;
 }

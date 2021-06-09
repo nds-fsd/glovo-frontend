@@ -22,7 +22,6 @@ export const NightModeToggle = () => {
 
   useEffect(() => {
     const root = document.querySelector(':root');
-
     if (isNightMode === true) {
       root.style.setProperty('--salyWhite', '#2D2E30');
       root.style.setProperty('--salyGray', '#047CDC');

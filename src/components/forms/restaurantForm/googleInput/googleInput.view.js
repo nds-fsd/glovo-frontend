@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import classNames from 'classnames';

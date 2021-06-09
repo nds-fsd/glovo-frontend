@@ -34,7 +34,6 @@ export const RestaurantForm = ({ handleCategories, categoriesIds }) => {
 
   const validateAndFetch = () => {
     if (handleDisable()) {
-      console.debug('failed to fetch');
       return null;
     }
     enableButtons();
@@ -58,7 +57,6 @@ export const RestaurantForm = ({ handleCategories, categoriesIds }) => {
   };
 
   const onSubmit = (data) => {
-    console.debug(data);
   };
 
   return (

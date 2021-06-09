@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,6 +25,11 @@ export const SideBar = () => {
   const handleLogOut = () => {
     removeSession();
     history.push('/');
+    const root = document.querySelector(':root');
+    root.style.setProperty('--salyWhite', '#FFFFFF');
+    root.style.setProperty('--saluGray', '#0f2d5273');
+    root.style.setProperty('--lightSalyGray', '#F7F7F7');
+    root.style.setProperty('--salyBlack', '#111111');
   };
   return (
     <div className={styles.container}>

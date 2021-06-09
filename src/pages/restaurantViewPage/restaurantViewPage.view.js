@@ -1,8 +1,4 @@
-/* eslint-disable react/jsx-boolean-value */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -20,6 +16,9 @@ import Button from '../../components/button';
 import { useCartContext } from '../../context/cartContext';
 import { Navbar } from '../../components/navbar/navbar.view';
 import background from '../../assets/images/header-test.png';
+import SignupModal from '../../components/modal/signupModal';
+import LoginModal from '../../components/modal/loginModal';
+import restExample from '../../assets/images/restExample.jpg';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -29,13 +28,15 @@ export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { addToCart, modalDishView } = useCartContext();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isRestoViewPage, setIsRestoViewPage] = useState(true);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openSignupModal, setOpenSignupModal] = useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
     shortFetch({
       url: `${RESTAURANT}/${id}`,
-      token: true,
       method: 'GET',
       onSuccess: setSelectedResto,
     });
@@ -48,14 +49,18 @@ export const RestaurantViewPage = () => {
   useEffect(() => {
     shortFetch({
       url: `${ALL_COURSES}/${id}`,
-      token: true,
       method: 'GET',
       onSuccess: setDishByCourse,
     });
   }, []);
+
   return (
     <div>
-      <Navbar />
+      <Navbar
+        openLoginModal={() => setOpenLoginModal(true)}
+        openRegisterModal={() => setOpenSignupModal(true)}
+        isRestoViewPage={isRestoViewPage}
+      />
       <header
         className={styles._header}
         style={{ backgroundImage: `url(${selectedResto?.image || background})` }}
@@ -81,8 +86,25 @@ export const RestaurantViewPage = () => {
             {isOpenModal && (
               <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal}>
                 <h2 style={{ fontWeight: 'bold' }}>{capitalize(modalDishView?.dish)}</h2>
-                <p>{capitalize(modalDishView?.description)}</p>
-                <p>{formatNumber(modalDishView?.price)}</p>
+                <div className={styles.modalContainer}>
+                  <div className={styles.column1}>
+                    <div className={styles.imageContainer}>
+                      <img
+                        className={styles.image}
+                        src={modalDishView?.img || restExample}
+                        alt="food"
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.column2}>
+                    {' '}
+                    <div className={styles.description}>
+                      {capitalize(modalDishView?.description)}
+                    </div>
+                    <div className={styles.price}>{formatNumber(modalDishView?.price)}</div>
+                  </div>
+                </div>
+
                 <Button
                   onClick={() => {
                     addToCart({
@@ -134,7 +156,7 @@ export const RestaurantViewPage = () => {
                     <div className={styles._moreCourses}>
                       {dropdownOpen &&
                         dishByCourse &&
-                        dishByCourse.slice(3).map((course, i) => {
+                        dishByCourse.slice(3).map((course) => {
                           return (
                             <DropdownItem text className={styles._dropItem}>
                               <div>
@@ -177,9 +199,33 @@ export const RestaurantViewPage = () => {
           </div>
         </div>
         <div className={styles._infoGlovo}>
-          <DeliveryInformation selectedResto={selectedResto} showIcons />
+          <DeliveryInformation
+            selectedResto={selectedResto}
+            showIcons
+            openRegisterModal={() => setOpenSignupModal(true)}
+          />
         </div>
       </div>
+      <LoginModal
+        open={openLoginModal}
+        openRegister={() => {
+          setOpenSignupModal(true);
+          setOpenLoginModal(false);
+        }}
+        onClose={() => {
+          setOpenLoginModal(false);
+        }}
+      />
+      <SignupModal
+        open={openSignupModal}
+        openLogin={() => {
+          setOpenSignupModal(false);
+          setOpenLoginModal(true);
+        }}
+        onClose={() => {
+          setOpenSignupModal(false);
+        }}
+      />
     </div>
   );
 };

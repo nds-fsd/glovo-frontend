@@ -1,9 +1,11 @@
 /* eslint-disable no-useless-escape */
+
 /* eslint-disable react/jsx-props-no-spreading */
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { LoadingOutlined } from '@ant-design/icons';
 import styles from './signUpForm.module.css';
 import { setSessionUser } from '../../../assets/utils/localStorage.utils';
 import { roleContext } from '../../context/roleContext';
@@ -12,6 +14,7 @@ import { BACKEND } from '../../../router/router';
 
 export const SignUpForm = ({ openLogin, onClose }) => {
   const [viewPassword, setViewPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -23,6 +26,7 @@ export const SignUpForm = ({ openLogin, onClose }) => {
   const { saveRole } = useContext(roleContext);
 
   const onSubmit = (data) => {
+    setIsSubmitting(true);
     if (data.email && data.password) {
       const body = {
         email: data.email,
@@ -55,6 +59,7 @@ export const SignUpForm = ({ openLogin, onClose }) => {
         .then((user) => {
           setSessionUser({ token: user.token, user: user.user });
           saveRole(user.role);
+          setIsSubmitting(false);
           onClose();
         })
         .catch((err) => {
@@ -143,7 +148,14 @@ export const SignUpForm = ({ openLogin, onClose }) => {
             style={{ color: 'var(--salyGray)' }}
           />
         </div>
-        <input className={styles.submit} type="submit" value="Continue" />
+        {isSubmitting && (
+          <div className={styles.isSubmitting}>
+            <LoadingOutlined />
+          </div>
+        )}
+        {!isSubmitting && (
+          <input data-cy="login-submit" className={styles.submit} type="submit" value="Continue" />
+        )}
       </form>
       <p className={styles.footer}>
         Already a Team Member?

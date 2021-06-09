@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import React, { useState } from 'react';
 import Button from '../../../button';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';

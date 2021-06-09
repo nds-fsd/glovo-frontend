@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
-import styles from './restaurantTab.module.css';
 import CreateRestaurantTab from './createRestaurantTab';
 import ViewRestaurantTab from './viewRestaurantTab';
 import AllRestaurantsTab from './allRestaurantsTab';
@@ -21,7 +19,7 @@ export const RestaurantTab = () => {
 
   useEffect(() => {
     getRestaurants({ page: 0, limit: 10 });
-  }, []);
+  }, [createRestaurant]);
 
   return (
     <>

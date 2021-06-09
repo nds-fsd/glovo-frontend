@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
@@ -8,7 +9,7 @@ import Button from '../../button';
 import CategorySelect from '../../categorySelect';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import styles from './restaurantForm.module.css';
-import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
+import { CHANGE_TAB, STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
 import GoogleInput from './googleInput';
 import { uploadImage } from '../../../assets/utils/imgUpload';
 import { usePage } from '../../../hooks/usePage';
@@ -67,7 +68,6 @@ export const RestaurantForm = ({
   }, [restaurant]);
 
   const onSubmit = (data) => {
-    console.debug(data);
     let body;
     const userId = getUserSession().id;
     if (data && categories.length > 0) {
@@ -95,6 +95,8 @@ export const RestaurantForm = ({
           body,
           onSuccess: () => {
             dispatch({ type: STOP_CREATING });
+            dispatch({ type: CHANGE_TAB, payload: { name: 'Orders' } });
+            dispatch({ type: CHANGE_TAB, payload: { name: 'Restaurants' } });
             setImage('');
           },
         });

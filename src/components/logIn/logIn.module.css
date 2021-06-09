@@ -54,6 +54,20 @@
     box-sizing: border-box;
     outline: none;
 }
+.isSubmitting{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 3.5em;
+    width: 60%;
+    background-color: var(--darkSalyBlue);
+    color: var(--salyWhite);
+    font-weight: 800;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
 .submit{
     align-self: center;
     height: 3.5em;

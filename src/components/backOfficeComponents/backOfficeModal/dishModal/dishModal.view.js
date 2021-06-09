@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import { useState, useContext, useEffect } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
+import { useEffect } from 'react';
 import classNames from 'classnames';
-import { useParams } from 'react-router-dom';
-import { useCourses } from '../../../../hooks/useCourses';
-import { roleContext } from '../../../context/roleContext';
+
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { BackOfficeModal } from '../backOfficeModal.view';
 import ImageSkeleton from '../../../../assets/images/camera.svg';
@@ -36,13 +34,15 @@ export const DishModal = ({ onClose, open, bigModal }) => {
         <div style={{ display: 'flex', height: '85%', width: '100%' }}>
           <div className={styles.imageContainer}>
             <h3>Create Dish</h3>
-            <div className={styles.imageCase}>
-              <img
-                src={dishImg || ImageSkeleton}
-                alt="camera"
-                className={classNames({ [styles.img]: dishImg })}
-              />
-            </div>
+            <label htmlFor="dish-input" className={styles.imageCase}>
+              <div className={styles.imageWrap}>
+                <img
+                  src={dishImg || ImageSkeleton}
+                  alt="camera"
+                  className={classNames({ [styles.img]: dishImg })}
+                />
+              </div>
+            </label>
           </div>
           <div className={styles.formContainer}>
             <DishForm imgSetter={() => setDishImg('`')} />

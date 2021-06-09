@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import classnames from 'classnames';
 import { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -25,7 +24,11 @@ export const CategoryBar = ({ children, open, onClose }) => {
   }, [catBarRef, open]);
 
   return (
-    <div ref={catBarRef} className={classnames([styles.container], { [styles.open]: open })}>
+    <div
+      data-cy="category-menu"
+      ref={catBarRef}
+      className={classnames([styles.container], { [styles.open]: open })}
+    >
       <h2>Select a Category</h2>
       <div className={styles.categoryContainer}>
         {children.map((item) => (

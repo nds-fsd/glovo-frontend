@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import Loading from '../../loading';
@@ -10,10 +7,10 @@ import { usePage } from '../../../hooks/usePage';
 import Paginator from '../paginator';
 import styles from './usersTab.module.css';
 import UserRow from '../userRow';
-import DeleteRestaurantModal from '../backOfficeModal/deleteRestaurantModal';
 import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 
 export const UsersTab = () => {
+  const userRef = useRef();
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState();
@@ -128,7 +125,12 @@ export const UsersTab = () => {
             )}
           </div>
         </div>
-        <div className={styles.users}>
+        <div
+          ref={userRef}
+          className={classNames([styles.users], {
+            [styles.scroll]: userRef?.current?.scrollHeight > 450,
+          })}
+        >
           {isLoading && <Loading />}
           {!isLoading &&
             users &&

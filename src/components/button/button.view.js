@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import React from 'react';
 import styles from './button.module.css';
 
-export const Button = ({ onClick, buttonStyle, children }) => {
+export const Button = ({ onClick, buttonStyle, children, cy }) => {
   const selectedStyle = classnames({
     [styles.signup]: buttonStyle === 'signup',
     [styles.login]: buttonStyle === 'login',
@@ -17,7 +17,7 @@ export const Button = ({ onClick, buttonStyle, children }) => {
     [styles.viewAll]: buttonStyle === 'viewAll',
   });
   return (
-    <div className={`${styles.container} ${selectedStyle}`} onClick={() => onClick()}>
+    <div data-cy={cy} className={`${styles.container} ${selectedStyle}`} onClick={() => onClick()}>
       <p style={{ background: 'none' }}>{children}</p>
     </div>
   );
