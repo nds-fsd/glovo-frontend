@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -13,7 +11,6 @@ import {
 import Button from '../../button';
 import Loading from '../../loading';
 import SearchBar from '../../searchBar';
-import CourseRow from '../courseRow';
 import DishRow from '../dishRow';
 import Paginator from '../paginator';
 import styles from './dishesTab.module.css';

@@ -33,8 +33,7 @@ export const ProfileInfo = ({ onClose }) => {
       url: `${USER}/${userId}`,
       method: 'DELETE',
       token: true,
-      onSuccess: (res) => {
-        console.log(res);
+      onSuccess: () => {
         removeSession();
         history.push('/');
       },

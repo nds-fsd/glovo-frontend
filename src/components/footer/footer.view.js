@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styles from './footer.module.css';
 import { Android } from '../../assets/icons/android';
 import { Apple } from '../../assets/icons/apple';

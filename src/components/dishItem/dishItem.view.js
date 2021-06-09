@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCartContext } from '../../context/cartContext';
 import { capitalize } from '../../assets/utils/capitalLetter';

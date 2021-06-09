@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
