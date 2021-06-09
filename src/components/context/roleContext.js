@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState, createContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { shortFetch } from '../../assets/utils/fetch.utils';

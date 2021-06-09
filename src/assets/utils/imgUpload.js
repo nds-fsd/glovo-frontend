@@ -10,7 +10,6 @@ export const uploadImage = (data, stateVariableSetter) => {
   })
     .then((res) => res.json())
     .then((payload) => {
-      console.log('image uploaded', payload);
       stateVariableSetter(payload.url);
     })
     .catch((err) => {

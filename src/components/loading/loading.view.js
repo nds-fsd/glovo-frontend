@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import logo from '../../assets/images/globoBalloon.png';
 import styles from './loading.module.css';

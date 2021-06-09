@@ -1,17 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
-import classNames from 'classnames';
-import { useRestaurants } from '../../../hooks/useRestaurants';
-import Button from '../../button';
-import CategorySelect from '../../categorySelect';
-import { useBackOfficeContext } from '../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
+import React from 'react';
 import styles from './restaurantInfo.module.css';
-import { STOP_CREATING } from '../../../pages/backOfficePage/backOfficeContext/types';
-import GoogleInput from '../../forms/restaurantForm/googleInput';
 
 export const RestaurantInfo = ({ restaurant }) => {
   return (

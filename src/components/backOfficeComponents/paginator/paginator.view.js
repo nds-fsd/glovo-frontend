@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './paginator.module.css';
 

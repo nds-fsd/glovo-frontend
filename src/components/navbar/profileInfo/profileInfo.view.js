@@ -33,8 +33,7 @@ export const ProfileInfo = ({ open, onClose }) => {
       url: `${USER}/${userId}`,
       method: 'DELETE',
       token: true,
-      onSuccess: (res) => {
-        console.log(res);
+      onSuccess: () => {
         removeSession();
         history.push('/');
       },
@@ -58,7 +57,6 @@ export const ProfileInfo = ({ open, onClose }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     shortFetch({
       url: `${USER}/${userDetails._id}`,
       body: {
@@ -81,7 +79,6 @@ export const ProfileInfo = ({ open, onClose }) => {
       <div className={styles.container}>
         <div className={styles.editButton}>
           <FontAwesomeIcon icon="cog" onClick={() => setEditingProfile(!editingProfile)} />
-          {console.log(userDetails)}
         </div>
         <div className={styles.userInfo}>
           <div className={styles.welcomeMessage}>

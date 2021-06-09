@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

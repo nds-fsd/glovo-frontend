@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
@@ -27,8 +26,6 @@ export const RestaurantListPage = () => {
   const history = useHistory();
   const location = useLocation();
 
-  console.debug(history.location.search);
-
   return (
     <>
       <div className={styles.pageContainer}>
@@ -40,9 +37,12 @@ export const RestaurantListPage = () => {
         </Header>
         {!isSearching && (
           <div className={styles.restaurantContainer}>
-            <h1 className={styles.title}>WHAT&apos;s ON THE MENU?</h1>
+            <h1 data-cy="welcome-title" className={styles.title}>
+              WHAT&apos;s ON THE MENU?
+            </h1>
             <div className={styles.title}>
               <Button
+                cy="category-button"
                 buttonStyle="primary big"
                 onClick={() => {
                   setOpenCategoryBar(true);

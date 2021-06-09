@@ -1,8 +1,3 @@
-/* eslint-disable react/jsx-boolean-value */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -158,7 +153,7 @@ export const RestaurantViewPage = () => {
                     <div className={styles._moreCourses}>
                       {dropdownOpen &&
                         dishByCourse &&
-                        dishByCourse.slice(3).map((course, i) => {
+                        dishByCourse.slice(3).map((course) => {
                           return (
                             <DropdownItem text className={styles._dropItem}>
                               <div>

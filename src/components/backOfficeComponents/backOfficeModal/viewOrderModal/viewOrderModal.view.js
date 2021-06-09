@@ -1,13 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useOrders } from '../../../../hooks/useOrders';
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { BackOfficeModal } from '../backOfficeModal.view';
-import ImageSkeleton from '../../../../assets/images/camera.svg';
 import styles from './viewOrderModal.module.css';
-import { DishForm } from '../../../forms/dishForm/dishForm.view';
 import { formatNumber } from '../../../../assets/utils/convertToCurrency';
 import OrderItem from '../../orderItem';
 import Button from '../../../button';
