@@ -65,7 +65,7 @@ const DeliveryInformation = ({ selectedResto, showIcons, openRegisterModal }) =>
 
   return (
     <div className={styles._cardContainer}>
-      <h1>Your Glovo</h1>
+      <h1>Your Globo</h1>
       <div className={styles._restoFeatures}>
         {showIcons && (
           <div className={styles._allIconsFeatures}>
