@@ -43,3 +43,8 @@
 .movingIcons{
     color: var(--salyWhite);
 }
+
+._viewPage {
+    background: linear-gradient(110.34deg, #0470DC -2.02%, #13F1FC 129.72%);
+    height: 80px;
+}

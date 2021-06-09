@@ -32,6 +32,7 @@ export const RestaurantViewPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { addToCart, modalDishView } = useCartContext();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isRestoViewPage, setIsRestoViewPage] = useState(true);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
 
@@ -62,6 +63,7 @@ export const RestaurantViewPage = () => {
       <Navbar
         openLoginModal={() => setOpenLoginModal(true)}
         openRegisterModal={() => setOpenSignupModal(true)}
+        isRestoViewPage={isRestoViewPage}
       />
       <header
         className={styles._header}

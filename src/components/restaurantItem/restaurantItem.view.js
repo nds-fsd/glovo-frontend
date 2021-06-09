@@ -5,6 +5,7 @@ import styles from './restaurantItem.module.css';
 import restExample from '../../assets/images/restExample.jpg';
 import Rating from '../rating';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
+import { capitalize } from '../../assets/utils/capitalLetter';
 
 export const RestaurantItem = ({ restaurant }) => {
   return (
@@ -19,7 +20,7 @@ export const RestaurantItem = ({ restaurant }) => {
             />
           </Link>
           <div className={styles.name}>
-            <p>{restaurant.name}</p>
+            <p>{capitalize(restaurant.name)}</p>
           </div>
         </div>
         <Link to={`/restaurantViewPage/${restaurant._id}`}>

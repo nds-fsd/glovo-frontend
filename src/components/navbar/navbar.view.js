@@ -22,7 +22,7 @@ import shoppingCartWhite from '../../assets/images/shoppingCart_white.png';
 import briefcaseWhite from '../../assets/images/briefcase_white.png';
 import briefcaseBlue from '../../assets/images/briefcase_blue.png';
 
-export const Navbar = ({ openLoginModal, openRegisterModal }) => {
+export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const { role, setProfileDropOpen, profileDropOpen } = useContext(roleContext);
@@ -51,7 +51,8 @@ export const Navbar = ({ openLoginModal, openRegisterModal }) => {
       className={classNames(
         [styles.container],
         { [styles.onScroll]: !visible },
-        { [styles.moving]: prevScrollPos > 350 }
+        { [styles.moving]: prevScrollPos > 350 },
+        { [styles._viewPage]: isRestoViewPage }
       )}
     >
       <div className={styles._logoContainer}>
