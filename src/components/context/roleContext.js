@@ -11,7 +11,8 @@ export const RoleContextProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState('');
   const history = useHistory();
   const [profileDropOpen, setProfileDropOpen] = useState(false);
-  const [editingProfile, setEditingProfile] = useState(false);
+  const [editingProfileName, setEditingProfileName] = useState(false);
+  const [editingProfilePhone, setEditingProfilePhone] = useState(false);
   const [categoryArr, setCategoryArr] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
@@ -52,12 +53,14 @@ export const RoleContextProvider = ({ children }) => {
     setProfileDropOpen,
     userDetails,
     setUserDetails,
-    editingProfile,
-    setEditingProfile,
+    editingProfileName,
+    setEditingProfileName,
     categoryArr,
     setCategoryArr,
     isSearching,
     setIsSearching,
+    setEditingProfilePhone,
+    editingProfilePhone,
   };
 
   return <roleContext.Provider value={value}>{children}</roleContext.Provider>;
