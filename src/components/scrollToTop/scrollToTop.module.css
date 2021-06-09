@@ -1,0 +1,16 @@
+._scrollTop {
+  font-size: 50px;
+  color: var(--darkSalyBlue);
+  position: fixed;
+  bottom: 20px;
+  right: 34%;
+  cursor: pointer;
+  animation: fadeIn 0.3s;
+  transition: opacity 0.4s;
+  opacity: 0.5;
+}
+
+._scrollTop:hover{
+  opacity: 1;
+}
+

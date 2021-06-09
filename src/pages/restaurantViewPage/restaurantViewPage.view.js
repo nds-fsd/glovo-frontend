@@ -23,6 +23,7 @@ import background from '../../assets/images/header-test.png';
 import SignupModal from '../../components/modal/signupModal';
 import LoginModal from '../../components/modal/loginModal';
 import restExample from '../../assets/images/restExample.jpg';
+import { ScrollToTop } from '../../components/scrollToTop/scrollToTop';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -65,6 +66,7 @@ export const RestaurantViewPage = () => {
         openRegisterModal={() => setOpenSignupModal(true)}
         isRestoViewPage={isRestoViewPage}
       />
+      <ScrollToTop />
       <header
         className={styles._header}
         style={{ backgroundImage: `url(${selectedResto?.image || background})` }}
@@ -89,7 +91,7 @@ export const RestaurantViewPage = () => {
             )}
             {isOpenModal && (
               <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal}>
-                <h2 style={{ fontWeight: 'bold' }}>{capitalize(modalDishView?.dish)}</h2>
+                <h1 style={{ fontWeight: 'bold' }}>{capitalize(modalDishView?.dish)}</h1>
                 <div className={styles.modalContainer}>
                   <div className={styles.column1}>
                     <div className={styles.imageContainer}>
