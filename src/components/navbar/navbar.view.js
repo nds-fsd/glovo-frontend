@@ -15,6 +15,8 @@ import { BACKOFFICE, RESTAURANT_LIST_PAGE } from '../../router/router';
 import { roleContext } from '../context/roleContext';
 import ProfileInfo from './profileInfo';
 import logoBalloon from '../../assets/images/letteringWhite.png';
+import DropDown from '../modal/dropdown';
+import DeliveryInformation from '../deliveryInformation';
 import shoppingCartBlue from '../../assets/images/shoppingCart_blue.png';
 import shoppingCartWhite from '../../assets/images/shoppingCart_white.png';
 import briefcaseWhite from '../../assets/images/briefcase_white.png';
@@ -23,7 +25,7 @@ import briefcaseBlue from '../../assets/images/briefcase_blue.png';
 export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const { role, setProfileDropOpen, profileDropOpen, setEditingProfile } = useContext(roleContext);
+  const { role, setProfileDropOpen, profileDropOpen } = useContext(roleContext);
   const [openShopCart, setopenShopCart] = useState(false);
   const { id } = useParams();
   const history = useHistory();
@@ -38,10 +40,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) =
 
     setPrevScrollPos(currentScrollPos);
   }, 50);
-
-  useEffect(() => {
-    if (!profileDropOpen) setEditingProfile(false);
-  }, [profileDropOpen]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -75,11 +73,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) =
                   })}
                   onClick={() => history.push(BACKOFFICE)}
                 />
-                {/* <img
-                  style={{ width: '40px', cursor: 'pointer' }}
-                  src={prevScrollPos > 450 ? briefcaseWhite : briefcaseBlue}
-                  alt="briefcase"
-                /> */}
               </div>
             ) : (
               <div style={{ position: 'relative' }}>
@@ -91,7 +84,14 @@ export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) =
                   onClick={() => setProfileDropOpen(!profileDropOpen)}
                 />
                 {profileDropOpen && (
-                  <ProfileInfo open={profileDropOpen} onClose={() => setProfileDropOpen(false)} />
+                  <DropDown open={profileDropOpen} onClose={() => setProfileDropOpen(false)}>
+                    <ProfileInfo onClose={() => setProfileDropOpen(false)} />
+                  </DropDown>
+                )}
+                {openShopCart && (
+                  <DropDown open={openShopCart} onClose={() => setopenShopCart(false)}>
+                    <DeliveryInformation showIcons={false} />
+                  </DropDown>
                 )}
               </div>
             )}
@@ -103,21 +103,6 @@ export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) =
                   })}
                   onClick={() => setopenShopCart(!openShopCart)}
                 />
-                {/* <img
-                  style={{ width: '40px', cursor: 'pointer' }}
-                  src={prevScrollPos > 450 ? shoppingCartWhite : shoppingCartBlue}
-                  alt="shopping Cart"
-                  onClick={() => setopenShopCart(!openShopCart)}
-                /> */}
-                {/* <FontAwesomeIcon
-                  icon="shopping-cart"
-                  className={classNames([styles.icons], {
-                    [styles.movingIcons]: prevScrollPos > 350,
-                  })}
-                /> */}
-                {openShopCart && (
-                  <ShoppingCartNav open={openShopCart} onClose={() => setopenShopCart(false)} />
-                )}
               </div>
             )}
           </>

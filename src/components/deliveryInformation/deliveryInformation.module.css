@@ -41,7 +41,10 @@
 }
 
 ._bgCart {
-  background-image: url("https://res.cloudinary.com/glovoapp/image/fetch///https://glovoapp.com/images/svg/astronaut-disabled.svg");
+  background-image: url(https://res.cloudinary.com/glovoapp/image/fetch///https://glovoapp.com/images/svg/astronaut-disabled.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 ._newOrderInfo {
