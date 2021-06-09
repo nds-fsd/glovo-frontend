@@ -6,8 +6,6 @@
     width: 100%;
     border-radius: 12px;
     box-shadow: 3px 3px 16px -3px #00000050;
-    /* display: flex; */
-    /* flex-direction: column; */
     cursor: pointer;
     overflow: hidden;
     height: 370px;
