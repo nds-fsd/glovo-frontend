@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
+
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { shortFetch } from '../../../assets/utils/fetch.utils';

@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-/* eslint-disable react/no-array-index-key */
+
 import { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import classNames from 'classnames';

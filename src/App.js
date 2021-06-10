@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import './App.css';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';

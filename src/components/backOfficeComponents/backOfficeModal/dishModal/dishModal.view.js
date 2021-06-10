@@ -1,11 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-import { useState, useContext, useEffect } from 'react';
+
+import { useEffect } from 'react';
 import classNames from 'classnames';
-import { useParams } from 'react-router-dom';
-import { useCourses } from '../../../../hooks/useCourses';
-import { roleContext } from '../../../context/roleContext';
+
 import { useBackOfficeContext } from '../../../../pages/backOfficePage/backOfficeContext/backOfficeContext';
 import { BackOfficeModal } from '../backOfficeModal.view';
 import ImageSkeleton from '../../../../assets/images/camera.svg';

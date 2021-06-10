@@ -1,8 +1,4 @@
-/* eslint-disable react/jsx-boolean-value */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -23,6 +19,7 @@ import background from '../../assets/images/header-test.png';
 import SignupModal from '../../components/modal/signupModal';
 import LoginModal from '../../components/modal/loginModal';
 import restExample from '../../assets/images/restExample.jpg';
+import { ScrollToTop } from '../../components/scrollToTop/scrollToTop';
 
 export const RestaurantViewPage = () => {
   const { id } = useParams();
@@ -65,6 +62,7 @@ export const RestaurantViewPage = () => {
         openRegisterModal={() => setOpenSignupModal(true)}
         isRestoViewPage={isRestoViewPage}
       />
+      <ScrollToTop />
       <header
         className={styles._header}
         style={{ backgroundImage: `url(${selectedResto?.image || background})` }}
@@ -89,7 +87,7 @@ export const RestaurantViewPage = () => {
             )}
             {isOpenModal && (
               <Modal onClose={() => setIsOpenModal(false)} open={isOpenModal}>
-                <h2 style={{ fontWeight: 'bold' }}>{capitalize(modalDishView?.dish)}</h2>
+                <h1 style={{ fontWeight: 'bold' }}>{capitalize(modalDishView?.dish)}</h1>
                 <div className={styles.modalContainer}>
                   <div className={styles.column1}>
                     <div className={styles.imageContainer}>
@@ -160,7 +158,7 @@ export const RestaurantViewPage = () => {
                     <div className={styles._moreCourses}>
                       {dropdownOpen &&
                         dishByCourse &&
-                        dishByCourse.slice(3).map((course, i) => {
+                        dishByCourse.slice(3).map((course) => {
                           return (
                             <DropdownItem text className={styles._dropItem}>
                               <div>

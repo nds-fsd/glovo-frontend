@@ -68,7 +68,6 @@ export const RestaurantForm = ({
   }, [restaurant]);
 
   const onSubmit = (data) => {
-    console.debug(data);
     let body;
     const userId = getUserSession().id;
     if (data && categories.length > 0) {

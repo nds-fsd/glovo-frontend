@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { useState } from 'react';
 import { shortFetch } from '../assets/utils/fetch.utils';
 import { ORDERS } from '../router/router';

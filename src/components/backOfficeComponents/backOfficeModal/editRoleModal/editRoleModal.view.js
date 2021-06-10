@@ -10,7 +10,6 @@ const roles = ['CLIENT', 'PROVIDER'];
 
 export const EditRoleModal = ({ onClose, open }) => {
   const [isUpdated, setIsUpdated] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [newRole, setNewRole] = useState(roles[0]);
   const {
     userState: { user },

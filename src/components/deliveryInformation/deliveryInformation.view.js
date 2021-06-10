@@ -1,27 +1,18 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable radix */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styles from './deliveryInformation.module.css';
 import { capitalize } from '../../assets/utils/capitalLetter';
 import { formatNumber } from '../../assets/utils/convertToCurrency';
 import Button from '../button';
 import { useCartContext } from '../../context/cartContext';
-import {
-  getUserSession,
-  setStorageObject,
-  getStorageObject,
-} from '../../assets/utils/localStorage.utils';
+import { getUserSession, setStorageObject } from '../../assets/utils/localStorage.utils';
 import { shortFetch } from '../../assets/utils/fetch.utils';
 import Modal from '../modal/modal.view';
 import imgProcessing from '../../assets/images/image_processing20191001-8524-s4802o.gif';
-import { RESTAURANT_LIST_PAGE } from '../../router/router';
 
 const DeliveryInformation = ({ selectedResto, showIcons, openRegisterModal }) => {
-  const localStorageShopCart = getStorageObject('shoppingCart');
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { completedCart, addToCart, removeItemInCart, setCompletedCart } = useCartContext();
   const history = useHistory();
@@ -65,7 +56,7 @@ const DeliveryInformation = ({ selectedResto, showIcons, openRegisterModal }) =>
 
   return (
     <div className={styles._cardContainer}>
-      <h1>Your Glovo</h1>
+      <h1>Your Globo</h1>
       <div className={styles._restoFeatures}>
         {showIcons && (
           <div className={styles._allIconsFeatures}>

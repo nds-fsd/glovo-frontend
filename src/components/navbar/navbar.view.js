@@ -1,3 +1,5 @@
+/* eslint-disable no-debugger */
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -65,25 +67,22 @@ export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) =
       <div className={classNames([styles.buttons])}>
         {getUserToken() ? (
           <>
+          <div style={{ position: 'relative' }}>
             {role === 'PROVIDER' || role === 'SUPER_ADMIN' ? (
-              <div>
                 <ProfileOutlined
-                  className={classNames([styles.icons], {
-                    [styles.movingIcons]: prevScrollPos > 350,
-                  })}
-                  onClick={() => history.push(BACKOFFICE)}
-                />
-              </div>
-            ) : (
-              <div style={{ position: 'relative' }}>
-                <FontAwesomeIcon
-                  icon="user-circle"
-                  className={classNames([styles.icons], {
-                    [styles.movingIcons]: prevScrollPos > 350,
-                  })}
-                  onClick={() => setProfileDropOpen(!profileDropOpen)}
-                />
-                {profileDropOpen && (
+                className={classNames([styles.icons], {
+                  [styles.movingIcons]: prevScrollPos > 350,
+                })}
+                onClick={() => history.push(BACKOFFICE)}
+              />
+            ): (<FontAwesomeIcon
+                icon="user-circle"
+                className={classNames([styles.icons], {
+                  [styles.movingIcons]: prevScrollPos > 350,
+                })}
+                onClick={() => setProfileDropOpen(!profileDropOpen)}
+              />)}
+              {profileDropOpen && (
                   <DropDown open={profileDropOpen} onClose={() => setProfileDropOpen(false)}>
                     <ProfileInfo onClose={() => setProfileDropOpen(false)} />
                   </DropDown>
@@ -93,15 +92,18 @@ export const Navbar = ({ openLoginModal, openRegisterModal, isRestoViewPage }) =
                     <DeliveryInformation showIcons={false} />
                   </DropDown>
                 )}
-              </div>
-            )}
+          </div>
             {!id && (
-              <div style={{ position: 'relative' }}>
+              <div
+                style={{ position: 'relative' }}
+                onClick={() => {
+                  setopenShopCart(!openShopCart);
+                }}
+              >
                 <ShoppingOutlined
                   className={classNames([styles.icons], {
                     [styles.movingIcons]: prevScrollPos > 350,
                   })}
-                  onClick={() => setopenShopCart(!openShopCart)}
                 />
               </div>
             )}
