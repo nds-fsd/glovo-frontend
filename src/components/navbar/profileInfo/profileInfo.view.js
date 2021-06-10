@@ -3,7 +3,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
-// import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './profileInfo.module.css';
@@ -13,7 +12,7 @@ import Button from '../../button';
 import ProfileInfoLine from './profileInfoLine';
 import { deleteUser } from '../../../assets/utils/deleteUser';
 import AddressModal from './addressModal';
-import Modal from '../../modal';
+import NavbarModal from '../navbarModal';
 
 export const ProfileInfo = ({ onClose }) => {
   const history = useHistory();
@@ -102,7 +101,14 @@ export const ProfileInfo = ({ onClose }) => {
         />
       )}
       {isDeleting && (
-        <Modal onClose={() => setIsDeleting(!isDeleting)} open={isDeleting} title="Are You sure?">
+        <NavbarModal
+          onClose={() => setIsDeleting(!isDeleting)}
+          open={isDeleting}
+          modalStyle="delete"
+        >
+          <div>
+            <span className={styles.textTitle}>Are you Sure</span>
+          </div>
           <div className={styles.buttonContainer}>
             <Button buttonStyle="signup" onClick={onClose}>
               Cancel
@@ -111,7 +117,7 @@ export const ProfileInfo = ({ onClose }) => {
               Delete
             </Button>
           </div>
-        </Modal>
+        </NavbarModal>
       )}
     </div>
   );
