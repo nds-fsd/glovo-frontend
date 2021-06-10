@@ -19,14 +19,21 @@ import Modal from '../../modal';
 export const ProfileInfo = ({ onClose }) => {
   const history = useHistory();
   const userSession = getUserSession();
-  const { userDetails, setUserDetails } = useContext(roleContext);
+  const { userDetails, setUserDetails, updateUserDetails } = useContext(roleContext);
   const [openAddressModal, setOpenAddressModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const closingAndUpdatingAddressData = () => {
+    setOpenAddressModal(!openAddressModal);
+  };
   useEffect(() => {
     if (!userDetails) {
       setUserDetails(getUserSession());
     }
   }, [userDetails, userSession]);
+
+  useEffect(() => {
+    updateUserDetails();
+  }, [openAddressModal]);
 
   const deleteUser = (userId) => {
     shortFetch({
@@ -79,7 +86,7 @@ export const ProfileInfo = ({ onClose }) => {
             <span className={styles.fieldHeader}>Dirección</span>
             <FontAwesomeIcon
               icon="brush"
-              onClick={() => setOpenAddressModal(!openAddressModal)}
+              onClick={() => closingAndUpdatingAddressData()}
               style={{ cursor: 'pointer' }}
             />
           </div>

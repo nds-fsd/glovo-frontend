@@ -39,6 +39,18 @@ export const RoleContextProvider = ({ children }) => {
     }
   };
 
+  const updateUserDetails = () => {
+    shortFetch({
+      url: `/user/${getUserSession().id}`,
+      method: 'GET',
+      token: true,
+      onSuccess: (user) => {
+        setUserDetails(user);
+        return true;
+      },
+    });
+  };
+
   const saveRole = (value) => {
     if (value) {
       setRole(value);
@@ -61,6 +73,7 @@ export const RoleContextProvider = ({ children }) => {
     setIsSearching,
     setEditingProfilePhone,
     editingProfilePhone,
+    updateUserDetails,
   };
 
   return <roleContext.Provider value={value}>{children}</roleContext.Provider>;
