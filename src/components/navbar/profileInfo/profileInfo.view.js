@@ -11,8 +11,7 @@ import { roleContext } from '../../context/roleContext';
 import { getUserSession, removeSession } from '../../../assets/utils/localStorage.utils';
 import Button from '../../button';
 import ProfileInfoLine from './profileInfoLine';
-import { shortFetch } from '../../../assets/utils/fetch.utils';
-import { USER } from '../../../router/router';
+import { deleteUser } from '../../../assets/utils/deleteUser';
 import AddressModal from './addressModal';
 import Modal from '../../modal';
 
@@ -34,22 +33,6 @@ export const ProfileInfo = ({ onClose }) => {
   useEffect(() => {
     updateUserDetails();
   }, [openAddressModal]);
-
-  const deleteUser = (userId) => {
-    shortFetch({
-      url: `${USER}/${userId}`,
-      method: 'DELETE',
-      token: true,
-      onSuccess: (res) => {
-        console.log(res);
-        removeSession();
-        history.push('/');
-      },
-      onError: (err) => {
-        console.log(err);
-      },
-    });
-  };
 
   const logoutFunc = () => {
     removeSession();

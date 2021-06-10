@@ -1,17 +1,19 @@
 /* eslint-disable no-console */
 import { useHistory } from 'react-router-dom';
-import { deleteStorageObject } from './localStorage.utils';
+import { removeSession } from './localStorage.utils';
 import { shortFetch } from './fetch.utils';
-import { BACKEND, USER } from '../../router/router';
+import { USER } from '../../router/router';
 
 export const deleteUser = (userId) => {
   const history = useHistory();
+
   shortFetch({
-    url: `${BACKEND}${USER}${userId}`,
+    url: `${USER}/${userId}`,
     method: 'DELETE',
     token: true,
-    onSuccess: () => {
-      deleteStorageObject();
+    onSuccess: (res) => {
+      console.log(res);
+      removeSession();
       history.push('/');
     },
     onError: (err) => {
