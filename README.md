@@ -55,3 +55,14 @@ $ yarn start
 ## Additional
 
 Check out this repo for some e2e testing on the app :smile:
+
+
+## Contributors
+- [FelixThePartyCat](https://github.com/Felixthepartycat)
+- [MileCofnas](https://github.com/milecofnas)
+- [PatoDeVille](https://github.com/PatoDeVille)
+
+## The teachers
+- [CarlosArenasF](https://github.com/carlosarenasf)
+- [JMCano94](https://github.com/jmcano94)
+- [PattiRock](https://github.com/pattirock)
