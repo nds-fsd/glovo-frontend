@@ -138,7 +138,7 @@ export const RestaurantForm = ({
           />
           {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
         </div>
-        <div style={{ width: '60%', position: 'relative' }}>
+        <div style={{ width: '95%', position: 'relative' }}>
           {categoryError && <p className={styles.errorMessage}>Please choose at least one</p>}
           <p className={styles.label}>Category</p>
           <CategorySelect
@@ -168,7 +168,7 @@ export const RestaurantForm = ({
             className={classNames([styles.inputContainerC], {
               [styles.onError]: errors && errors.street,
             })}
-            style={{ width: '80%' }}
+            style={{ width: '95%' }}
           >
             <p className={styles.label}>Street Name</p>
             <input
