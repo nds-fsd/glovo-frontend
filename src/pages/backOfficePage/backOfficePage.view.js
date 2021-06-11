@@ -30,7 +30,7 @@ export const BackOfficePage = () => {
   } = useBackOfficeContext();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-cy="backOffice">
       <div className={styles.dashboard}>
         <div className={styles.tab}>
           <SideBar />

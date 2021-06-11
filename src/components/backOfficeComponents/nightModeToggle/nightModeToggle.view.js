@@ -36,7 +36,7 @@ export const NightModeToggle = () => {
   }, [isNightMode]);
 
   return (
-    <div className={styles.toggle}>
+    <div className={styles.toggle} data-cy="night-mode">
       <p className={styles.toggleTitle}>
         Toggle Night Mode{' '}
         <FontAwesomeIcon

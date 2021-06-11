@@ -48,8 +48,8 @@ export const RestaurantList = () => {
       <div className={styles.fader}></div>
       <div
         className={classNames([styles.container], {
-          [styles.onSearch]: history.location.search.includes('name'),
-          [styles.onSearch]: history.location.search.includes('search'),
+          [styles.onSearch]:
+            history.location.search.includes('name') || history.location.search.includes('search'),
         })}
       >
         {allRest &&
