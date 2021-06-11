@@ -31,7 +31,12 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
         setValue(key, `${userDetails.address[key]}`);
       });
     }
-  }, [address]);
+    if (address && address.street && setValue) {
+      Object.keys(address).forEach((key) => {
+        setValue(key, `${address[key]}`);
+      });
+    }
+  }, [address, userDetails.address]);
 
   const onSubmit = (data) => {
     shortFetch({
@@ -75,7 +80,7 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
   };
 
   useEffect(() => {
-    if (userDetails.coordinates.lat && userDetails.coordinates.lng) {
+    if (userDetails.coordinates) {
       initMap(userDetails.coordinates.lat, userDetails.coordinates.lng);
     }
     if (coordinates.lat && coordinates.lng) {
@@ -99,8 +104,7 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
                   setCoordinates(value);
                 }}
                 handleFullAddress={(value) => setFullAddress(value)}
-                fullAddress={fullAddress || userDetails.fullAddress}
-                className
+                fullAddress={userDetails?.fullAddress || fullAddress}
               />
               {console.log(typeof GoogleInput)}
               <div
@@ -170,7 +174,13 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
             </div>
           </div>
           <div className={styles.submitButton}>
-            <input className={styles.submit} type="submit" value="submit" />
+            {coordinates.lat ? (
+              <input className={styles.submit} type="submit" value="Submit" />
+            ) : (
+              <p onClick={() => onClose()} className={styles.submitCancel}>
+                Cancel
+              </p>
+            )}
           </div>
         </div>
       </form>

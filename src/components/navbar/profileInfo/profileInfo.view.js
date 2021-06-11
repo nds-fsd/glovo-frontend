@@ -8,11 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './profileInfo.module.css';
 import { roleContext } from '../../context/roleContext';
 import { getUserSession, removeSession } from '../../../assets/utils/localStorage.utils';
+import { shortFetch } from '../../../assets/utils/fetch.utils';
 import Button from '../../button';
 import ProfileInfoLine from './profileInfoLine';
-import { deleteUser } from '../../../assets/utils/deleteUser';
 import AddressModal from './addressModal';
 import NavbarModal from '../navbarModal';
+import { USER } from '../../../router/router';
 
 export const ProfileInfo = ({ onClose }) => {
   const history = useHistory();
@@ -37,6 +38,22 @@ export const ProfileInfo = ({ onClose }) => {
     removeSession();
     onClose();
     history.push('/');
+  };
+
+  const deleteUser = (userId) => {
+    shortFetch({
+      url: `${USER}/${userId}`,
+      method: 'DELETE',
+      token: true,
+      onSuccess: (res) => {
+        console.log(res);
+        removeSession();
+        history.push('/');
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    });
   };
 
   return (
