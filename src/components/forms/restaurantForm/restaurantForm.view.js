@@ -54,7 +54,6 @@ export const RestaurantForm = ({
   }, [setValue, restaurant]);
 
   useEffect(() => {
-    console.log(address);
     if (address && address.street && setValue) {
       Object.keys(address).forEach((key) => {
         setValue(key, `${address[key]}`);
