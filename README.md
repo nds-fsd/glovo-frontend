@@ -54,7 +54,7 @@ $ yarn start
 
 ## Additional
 
-Check out this repo for some e2e testing on the app :smile:
+Check out this [repo](https://github.com/PatoDeVille/glovo-test-bdd) for some e2e testing on the app :smile:
 
 ### Next Steps
 The following steps & features to add:
