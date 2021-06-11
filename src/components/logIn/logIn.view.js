@@ -60,6 +60,7 @@ export const Login = ({ openRegister, onClose }) => {
           onClose();
         })
         .catch((err) => {
+          setIsSubmitting(false);
           Object.keys(err.message).forEach((key) => {
             setError(key, {
               type: 'manual',

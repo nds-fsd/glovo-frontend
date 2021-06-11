@@ -63,6 +63,7 @@ export const SignUpForm = ({ openLogin, onClose }) => {
           onClose();
         })
         .catch((err) => {
+          setIsSubmitting(false);
           Object.keys(err.message).forEach((key) => {
             setError(key, {
               type: 'manual',
