@@ -33,7 +33,7 @@ export const SideBar = () => {
   };
   return (
     <div className={styles.container}>
-      <div className={styles.logoContainer}>
+      <div className={styles.logoContainer} data-cy="globo-logo">
         <img
           className={styles.logo}
           src={`${isNightMode ? nightLogo : logo}`}
