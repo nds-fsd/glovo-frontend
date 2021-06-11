@@ -10,8 +10,11 @@
   right: -134%;
   width: 330px;
   padding: 17px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
+._container::-webkit-scrollbar {
+    display: none;
+  }
 
 .profileModal::after {
   content: " ";
