@@ -38,6 +38,7 @@ export const ProfileInfoLine = ({ label, schemaProperty, userDetailsKey }) => {
 
   return (
     <div className={styles.container}>
+      {console.log(userDetails)}
       {isEditing ? (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <span className={styles.inputTitle}>{label}</span>
@@ -69,7 +70,7 @@ export const ProfileInfoLine = ({ label, schemaProperty, userDetailsKey }) => {
           <div className={styles.textEditingFalse}>
             <span className={styles.userInfo}>{userDetails[userDetailsKey]}</span>
             <FontAwesomeIcon
-              icon="brush"
+              icon={userDetails[userDetailsKey] ? 'brush' : 'plus'}
               onClick={() => setIsEditing(!isEditing)}
               style={{ cursor: 'pointer' }}
             />

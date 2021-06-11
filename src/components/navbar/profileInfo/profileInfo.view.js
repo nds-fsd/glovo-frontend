@@ -3,37 +3,50 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
-// import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './profileInfo.module.css';
 import { roleContext } from '../../context/roleContext';
 import { getUserSession, removeSession } from '../../../assets/utils/localStorage.utils';
+import { shortFetch } from '../../../assets/utils/fetch.utils';
 import Button from '../../button';
 import ProfileInfoLine from './profileInfoLine';
-import { shortFetch } from '../../../assets/utils/fetch.utils';
-import { USER } from '../../../router/router';
 import AddressModal from './addressModal';
-import Modal from '../../modal';
+import NavbarModal from '../navbarModal';
+import { USER } from '../../../router/router';
 
 export const ProfileInfo = ({ onClose }) => {
   const history = useHistory();
   const userSession = getUserSession();
-  const { userDetails, setUserDetails } = useContext(roleContext);
+  const { userDetails, setUserDetails, updateUserDetails } = useContext(roleContext);
   const [openAddressModal, setOpenAddressModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const closingAndUpdatingAddressData = () => {
+    setOpenAddressModal(!openAddressModal);
+  };
   useEffect(() => {
     if (!userDetails) {
       setUserDetails(getUserSession());
     }
   }, [userDetails, userSession]);
 
+  useEffect(() => {
+    updateUserDetails();
+  }, [openAddressModal]);
+
+  const logoutFunc = () => {
+    removeSession();
+    onClose();
+    history.push('/');
+  };
+
   const deleteUser = (userId) => {
     shortFetch({
       url: `${USER}/${userId}`,
       method: 'DELETE',
       token: true,
-      onSuccess: () => {
+      onSuccess: (res) => {
+        console.log(res);
         removeSession();
         history.push('/');
       },
@@ -41,12 +54,6 @@ export const ProfileInfo = ({ onClose }) => {
         console.log(err);
       },
     });
-  };
-
-  const logoutFunc = () => {
-    removeSession();
-    onClose();
-    history.push('/');
   };
 
   return (
@@ -78,7 +85,7 @@ export const ProfileInfo = ({ onClose }) => {
             <span className={styles.fieldHeader}>Dirección</span>
             <FontAwesomeIcon
               icon="brush"
-              onClick={() => setOpenAddressModal(!openAddressModal)}
+              onClick={() => closingAndUpdatingAddressData()}
               style={{ cursor: 'pointer' }}
             />
           </div>
@@ -111,7 +118,14 @@ export const ProfileInfo = ({ onClose }) => {
         />
       )}
       {isDeleting && (
-        <Modal onClose={() => setIsDeleting(!isDeleting)} open={isDeleting} title="Are You sure?">
+        <NavbarModal
+          onClose={() => setIsDeleting(!isDeleting)}
+          open={isDeleting}
+          modalStyle="delete"
+        >
+          <div>
+            <span className={styles.textTitle}>Are you Sure</span>
+          </div>
           <div className={styles.buttonContainer}>
             <Button buttonStyle="signup" onClick={onClose}>
               Cancel
@@ -120,7 +134,7 @@ export const ProfileInfo = ({ onClose }) => {
               Delete
             </Button>
           </div>
-        </Modal>
+        </NavbarModal>
       )}
     </div>
   );
