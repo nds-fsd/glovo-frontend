@@ -48,8 +48,11 @@
 .orderDetails{
     width: 95%;
     height: 250px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
+.orderDetails::-webkit-scrollbar {
+    display: none;
+  }
 .total{
     align-self: flex-end;
     margin: 10px;
