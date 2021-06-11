@@ -49,6 +49,7 @@ export const RestaurantList = () => {
       <div
         className={classNames([styles.container], {
           [styles.onSearch]: history.location.search.includes('name'),
+          [styles.onSearch]: history.location.search.includes('search'),
         })}
       >
         {allRest &&

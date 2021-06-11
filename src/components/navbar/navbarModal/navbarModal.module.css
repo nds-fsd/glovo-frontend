@@ -45,6 +45,12 @@
   }
 
   .delete{
-      width: 70%;
+    flex-direction: column;
+    width: 20%;
+    height: 15%;
+    justify-content: flex-start;
+    align-items: center;
   }
+
+  
 
