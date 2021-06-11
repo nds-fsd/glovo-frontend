@@ -26,12 +26,17 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
   } = useForm();
 
   useEffect(() => {
+    if (userDetails.address && userDetails.address.street && setValue) {
+      Object.keys(userDetails.address).forEach((key) => {
+        setValue(key, `${userDetails.address[key]}`);
+      });
+    }
     if (address && address.street && setValue) {
       Object.keys(address).forEach((key) => {
         setValue(key, `${address[key]}`);
       });
     }
-  }, [address]);
+  }, [address, userDetails.address]);
 
   const onSubmit = (data) => {
     shortFetch({
@@ -61,8 +66,8 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
     });
   };
 
-  const initMap = () => {
-    const center = { lat: parseFloat(coordinates.lat), lng: parseFloat(coordinates.lng) };
+  const initMap = (lat, lng) => {
+    const center = { lat: parseFloat(lat), lng: parseFloat(lng) };
 
     const map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -75,12 +80,16 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
   };
 
   useEffect(() => {
-    if (coordinates.lat && coordinates.lng) {
-      initMap();
+    if (userDetails.coordinates) {
+      initMap(userDetails.coordinates.lat, userDetails.coordinates.lng);
     }
-  }, [coordinates]);
+    if (coordinates.lat && coordinates.lng) {
+      initMap(coordinates.lat, coordinates.lng);
+    }
+  }, [userDetails.coordinates, coordinates]);
   return (
     <NavbarModal onClose={onClose} open={open} modalStyle="address">
+      {console.log(userDetails)}
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.container}>
           <div className={styles.title}>
@@ -95,9 +104,9 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
                   setCoordinates(value);
                 }}
                 handleFullAddress={(value) => setFullAddress(value)}
-                fullAddress={fullAddress || userDetails.fullAddress}
-                className
+                fullAddress={userDetails?.fullAddress || fullAddress}
               />
+              {console.log(typeof GoogleInput)}
               <div
                 className={classNames([styles.inputContainerC], {
                   [styles.onError]: errors && errors.street,
@@ -165,7 +174,13 @@ export const AddressModal = ({ onClose, open, userDetails }) => {
             </div>
           </div>
           <div className={styles.submitButton}>
-            <input className={styles.submit} type="submit" value="submit" />
+            {coordinates.lat ? (
+              <input className={styles.submit} type="submit" value="Submit" />
+            ) : (
+              <p onClick={() => onClose()} className={styles.submitCancel}>
+                Cancel
+              </p>
+            )}
           </div>
         </div>
       </form>
