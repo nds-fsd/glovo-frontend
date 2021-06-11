@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './restaurantListPage.module.css';
@@ -18,7 +19,7 @@ export const RestaurantListPage = () => {
   const [openSignupModal, setOpenSignupModal] = useState(false);
   const [openCategoryBar, setOpenCategoryBar] = useState(false);
 
-  const { categoryArr, setCategoryArr, isSearching } = useContext(roleContext);
+  const { categoryArr, setCategoryArr } = useContext(roleContext);
 
   useEffect(() => {
     shortFetch({ url: RESTAURANT_CATEGORY, method: 'get', onSuccess: setCategoryArr });
@@ -35,42 +36,36 @@ export const RestaurantListPage = () => {
             openRegisterModal={() => setOpenSignupModal(true)}
           />
         </Header>
-        {!isSearching && (
-          <div className={styles.restaurantContainer}>
-            <h1 data-cy="welcome-title" className={styles.title}>
-              WHAT&apos;s ON THE MENU?
-            </h1>
-            <div className={styles.title}>
-              <Button
-                cy="category-button"
-                buttonStyle="primary big"
-                onClick={() => {
-                  setOpenCategoryBar(true);
-                }}
-              >
-                Choose a Category
-              </Button>
-              {location.search && (
-                <>
-                  <div className={styles.categoryName}>
-                    {history.location.search.includes('name')
-                      ? history.location.search.slice(6)
-                      : history.location.search.slice(8)}
-                  </div>
-                </>
-              )}
-            </div>
-            <CategoryBar open={openCategoryBar} onClose={() => setOpenCategoryBar(false)}>
-              {categoryArr}
-            </CategoryBar>
-            <RestaurantList />
+        <div className={styles.restaurantContainer}>
+          <h1 data-cy="welcome-title" className={styles.title}>
+            WHAT&apos;s ON THE MENU?
+          </h1>
+          <div className={styles.title}>
+            <Button
+              cy="category-button"
+              buttonStyle="primary big"
+              onClick={() => {
+                setOpenCategoryBar(true);
+              }}
+            >
+              Choose a Category
+            </Button>
+            {console.log(location.search)}
+            {location.search.includes('name') && (
+              <>
+                <div className={styles.categoryName}>
+                  {history.location.search.includes('name')
+                    ? history.location.search.slice(6)
+                    : history.location.search.slice(8)}
+                </div>
+              </>
+            )}
           </div>
-        )}
-        {isSearching && (
-          <div className={styles.restaurantContainer}>
-            <RestaurantList />
-          </div>
-        )}
+          <CategoryBar open={openCategoryBar} onClose={() => setOpenCategoryBar(false)}>
+            {categoryArr}
+          </CategoryBar>
+          <RestaurantList />
+        </div>
         <Footer />
       </div>
 
